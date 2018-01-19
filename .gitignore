@@ -1,0 +1,5 @@
+.DS_Store
+Pods/
+Podfile.lock
+th-ios.xcworkspace/
+build/
