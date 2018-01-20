@@ -22,6 +22,9 @@
 		5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7121200E1ABE005CE83F /* QingViewController.swift */; };
 		5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */; };
 		5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7125200E2676005CE83F /* HeadlineViewController.swift */; };
+		5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */; };
+		5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4320122071009BE6D4 /* FontUtils.swift */; };
+		5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */; };
 		5C927067200E3A7B00838C1D /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C927066200E3A7B00838C1D /* ColorUtils.swift */; };
 		5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C927068200F78C400838C1D /* HomeCategoryViewController.swift */; };
 		5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92706A20107A4F00838C1D /* LeaderboardsViewController.swift */; };
@@ -31,6 +34,9 @@
 		5C92707320107E3D00838C1D /* MagicControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */; };
 		5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707420108D9100838C1D /* SameCityViewController.swift */; };
 		5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707620108DB600838C1D /* SameCityMainViewController.swift */; };
+		5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */; };
+		5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633B2012E43500F185BA /* SearchViewController.swift */; };
+		5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */; };
 		93AC45EFE4B08DFC7D00045B /* Pods_th_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +61,9 @@
 		5C2B7121200E1ABE005CE83F /* QingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewController.swift; sourceTree = "<group>"; };
 		5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		5C2B7125200E2676005CE83F /* HeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewController.swift; sourceTree = "<group>"; };
+		5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fzxbsjt.ttf; sourceTree = "<group>"; };
+		5C5F0B4320122071009BE6D4 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
+		5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProtocol.swift; sourceTree = "<group>"; };
 		5C927066200E3A7B00838C1D /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		5C927068200F78C400838C1D /* HomeCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryViewController.swift; sourceTree = "<group>"; };
 		5C92706A20107A4F00838C1D /* LeaderboardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardsViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +73,9 @@
 		5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicControllerProtocol.swift; sourceTree = "<group>"; };
 		5C92707420108D9100838C1D /* SameCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityViewController.swift; sourceTree = "<group>"; };
 		5C92707620108DB600838C1D /* SameCityMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityMainViewController.swift; sourceTree = "<group>"; };
+		5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarSearchItemProtocol.swift; sourceTree = "<group>"; };
+		5C94633B2012E43500F185BA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewLayout.swift; sourceTree = "<group>"; };
 		C804D380364DD9976648036F /* Pods-th-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios/Pods-th-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +120,7 @@
 		5C0675BE200C88930019A24D /* th-ios */ = {
 			isa = PBXGroup;
 			children = (
+				5C5F0B4020122028009BE6D4 /* Resource */,
 				5C0675D1200C890D0019A24D /* Api */,
 				5C0675D3200C890D0019A24D /* Base */,
 				5C0675D4200C890D0019A24D /* Controller */,
@@ -134,6 +147,7 @@
 				5C0675DD200C915D0019A24D /* SizeUtils.swift */,
 				5C0675DE200C915D0019A24D /* ThUtils.swift */,
 				5C927066200E3A7B00838C1D /* ColorUtils.swift */,
+				5C5F0B4320122071009BE6D4 /* FontUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -145,6 +159,7 @@
 				5C0675E7200C94090019A24D /* BaseView.swift */,
 				5C0675E9200C994B0019A24D /* BaseViewController.swift */,
 				5C0675F7200DEC670019A24D /* BaseTableViewController.swift */,
+				5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -159,6 +174,7 @@
 				5C0675EB200C9CB10019A24D /* Home */,
 				5C0675D7200C89A30019A24D /* RootViewController.swift */,
 				5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */,
+				5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -168,6 +184,7 @@
 			children = (
 				5C0675EC200CA2470019A24D /* HomeViewController.swift */,
 				5C2B7125200E2676005CE83F /* HeadlineViewController.swift */,
+				5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */,
 				5C927068200F78C400838C1D /* HomeCategoryViewController.swift */,
 				5C92706A20107A4F00838C1D /* LeaderboardsViewController.swift */,
 				5C92706C20107B2D00838C1D /* AuthorListViewController.swift */,
@@ -206,8 +223,17 @@
 		5C2B7120200E1A5E005CE83F /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5C94633B2012E43500F185BA /* SearchViewController.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		5C5F0B4020122028009BE6D4 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		B67D22AC4FBF41B2EF70F7BE /* Pods */ = {
@@ -284,6 +310,7 @@
 			files = (
 				5C0675CA200C88930019A24D /* LaunchScreen.storyboard in Resources */,
 				5C0675C7200C88930019A24D /* Assets.xcassets in Resources */,
+				5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +359,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios/Pods-th-ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CBStoreHouseRefreshControl/CBStoreHouseRefreshControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/JYCarousel/JYCarousel.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
@@ -356,6 +384,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBStoreHouseRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JYCarousel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
@@ -395,6 +424,9 @@
 				5C0675C0200C88930019A24D /* AppDelegate.swift in Sources */,
 				5C0675E0200C915D0019A24D /* ThUtils.swift in Sources */,
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
+				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
+				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
+				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
@@ -409,6 +441,8 @@
 				5C92706F20107BCC00838C1D /* SpecialTopicViewController.swift in Sources */,
 				5C0675F4200CB28E0019A24D /* MineViewController.swift in Sources */,
 				5C92707320107E3D00838C1D /* MagicControllerProtocol.swift in Sources */,
+				5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */,
+				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

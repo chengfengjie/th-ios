@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtocol {
+class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtocol, HeadlineViewControllerLayout {
 
     let dataSource: [String] = ["排行", "作者", "专题", "树洞", "文章详情", "banner"]
     
@@ -18,10 +18,12 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         
         self.setupContentTableNodeLayout()
         
-        self.view.backgroundColor = UIColor.red
-        
         self.setNavigationBarHidden(isHidden: true)
     }
+    
+    lazy var tableNodeHeader: HeadlineViewTableNodeHeader = {
+        return self.makeTableNodeHeader()
+    }()
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return self.dataSource.count
@@ -48,4 +50,14 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
             return textNode
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.tableNodeHeaderBounds.height
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.tableNodeHeader.container
+    }
+
 }
+

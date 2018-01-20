@@ -91,7 +91,7 @@ extension MagicControllerContainerProtocol where Self: BaseViewController {
             menuItem = UIButton.init(type: .custom)
             menuItem?.setTitleColor(UIColor.color9, for: UIControlState.normal)
             menuItem?.setTitleColor(UIColor.pink, for: UIControlState.selected)
-            menuItem?.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+            menuItem?.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             menuItem?.backgroundColor = UIColor.white
         }
         return menuItem!

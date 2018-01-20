@@ -20,6 +20,5 @@ class QingViewController: BaseViewController, BaseTabBarItemConfig {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.customeNavBar = self.addCustomNavigationBar()
     }
 }

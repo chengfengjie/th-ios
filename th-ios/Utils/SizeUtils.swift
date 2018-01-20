@@ -26,11 +26,11 @@ extension SizeUtil {
     }
     
     var height_statusBar: Float {
-        return UIDevice.current.is_iPhoneX ? 44.0 : 20.0
+        return UIDevice.current.is_iPhoneX ? 44.0 : 10.0
     }
     
     var height_navBar: Float {
-        return UIDevice.current.is_iPhoneX ? 88.0 : 64.0
+        return UIDevice.current.is_iPhoneX ? 88.0 : 54.0
     }
     
     var window_width: CGFloat {

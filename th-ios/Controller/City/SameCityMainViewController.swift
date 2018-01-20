@@ -8,7 +8,10 @@
 
 import UIKit
 
-class SameCityMainViewController: BaseViewController, BaseTabBarItemConfig, MagicControllerContainerProtocol {
+class SameCityMainViewController: BaseViewController,
+    BaseTabBarItemConfig,
+    MagicControllerContainerProtocol,
+    NavBarSearchItemProtocol {
     
     lazy var vtMagicController: VTMagicController = {
         return self.createMagicController()
@@ -26,6 +29,44 @@ class SameCityMainViewController: BaseViewController, BaseTabBarItemConfig, Magi
         super.viewDidLoad()
 
         self.layoutMagicController()
+        
+        self.setNavigationBarPositionItem()
+        
+        self.makeNavigationBarSearchItem()
+    }
+    
+    private func setNavigationBarPositionItem() {
+        
+        let contentBar: UIView = self.customeNavBar.navBarContent
+        let icon = UIImageView.init().then { (item) in
+            item.image = UIImage.init(named: "city_position")
+            contentBar.addSubview(item)
+            item.snp.makeConstraints({ (make) in
+                make.left.equalTo(15)
+                make.centerY.equalTo(contentBar.snp.centerY)
+                make.width.height.equalTo(14)
+            })
+        }
+        
+        let label: UILabel = UILabel().then { (l) in
+            l.text = "广州"
+            l.font = UIFont.songTi(size: 16)
+            contentBar.addSubview(l)
+            l.snp.makeConstraints({ (make) in
+                make.left.equalTo(icon.snp.right).offset(6)
+                make.centerY.equalTo(icon.snp.centerY)
+            })
+        }
+        
+        UIImageView().do { (item) in
+            item.image = UIImage.init(named: "city_codwn_indicator")
+            contentBar.addSubview(item)
+            item.snp.makeConstraints({ (make) in
+                make.left.equalTo(label.snp.right).offset(3)
+                make.width.height.equalTo(10)
+                make.centerY.equalTo(label.snp.centerY)
+            })
+        }
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
@@ -44,5 +85,4 @@ class SameCityMainViewController: BaseViewController, BaseTabBarItemConfig, Magi
         }
         return controller!
     }
-    
 }

@@ -23,9 +23,9 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig {
 
         self.view.backgroundColor = UIColor.white
         
-        self.addNavigationBarLeftIconTextItem(iconName: "minge_message", title: "消息")
+        self.makeNavBarLeftIconTextItem(iconName: "minge_message", title: "消息")
         
-        self.addNavigationBarRightIconTextItem(iconName: "mine_setting", title: "设置")
+        self.makeNavBarRightIconTextItem(iconName: "mine_setting", title: "设置")
     
     }
 }
