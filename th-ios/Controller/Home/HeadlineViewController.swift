@@ -9,8 +9,6 @@
 import UIKit
 
 class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtocol, HeadlineViewControllerLayout {
-
-    let dataSource: [String] = ["排行", "作者", "专题", "树洞", "文章详情", "banner"]
     
     override func viewDidLoad() {
 
@@ -26,28 +24,22 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     }()
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource.count
+        return 10
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        if self.dataSource[indexPath.row] == "排行" {
-            self.pushViewController(viewController: LeaderboardsViewController())
-        } else if self.dataSource[indexPath.row] == "作者" {
-            self.pushViewController(viewController: AuthorListViewController())
-        } else if self.dataSource[indexPath.row] == "专题" {
-            self.pushViewController(viewController: SpecialTopicViewController())
-        } else if self.dataSource[indexPath.row] == "树洞" {
-            self.pushViewController(viewController: TreeHoleViewController())
-        } else if self.dataSource[indexPath.row] == "文章详情" {
-            self.pushViewController(viewController: ArticleDetailViewController())
-        }
+
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            let textNode = ASTextCellNode.init()
-            textNode.text = self.dataSource[indexPath.row]
-            return textNode
+            if indexPath.row == 0 {
+                let textNode = ArticleListCellNode.init()
+                return textNode
+            } else {
+                let node = ArticleListImageCellNode.init()
+                return node
+            }
         }
     }
     
@@ -57,6 +49,11 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.tableNodeHeader.container
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
+        return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 120),
+                                max: CGSize.init(width: self.window_width, height: 500))
     }
 
 }

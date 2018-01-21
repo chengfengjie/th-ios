@@ -20,6 +20,7 @@ def share_pods
   pod 'SwiftyJSON', '~> 3.1.4'
   pod 'ReactiveCocoa', '~> 7.0'
   pod 'JYCarousel', '~> 0.0.3'
+  pod 'SwiftyAttributes', '~> 4.1.0'
 end
 
 target 'th-ios' do

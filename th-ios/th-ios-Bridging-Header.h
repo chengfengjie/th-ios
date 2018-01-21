@@ -9,3 +9,4 @@
 @import UIColor_Additions;
 @import ReactiveCocoa;
 @import JYCarousel;
+@import SwiftyAttributes;
