@@ -38,6 +38,8 @@
 		5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633B2012E43500F185BA /* SearchViewController.swift */; };
 		5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */; };
 		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
+		5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
+		5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
 		93AC45EFE4B08DFC7D00045B /* Pods_th_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +80,8 @@
 		5C94633B2012E43500F185BA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewLayout.swift; sourceTree = "<group>"; };
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
+		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
+		5CDF461B20157B40002F7D8B /* STZHONGS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STZHONGS.ttf; sourceTree = "<group>"; };
 		C804D380364DD9976648036F /* Pods-th-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios/Pods-th-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -211,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				5C2B7121200E1ABE005CE83F /* QingViewController.swift */,
+				5CDF46192015774C002F7D8B /* QingViewLayout.swift */,
 			);
 			path = Qing;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */,
+				5CDF461B20157B40002F7D8B /* STZHONGS.ttf */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -311,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */,
 				5C0675CA200C88930019A24D /* LaunchScreen.storyboard in Resources */,
 				5C0675C7200C88930019A24D /* Assets.xcassets in Resources */,
 				5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */,
@@ -440,6 +447,7 @@
 				5C0675F8200DEC670019A24D /* BaseTableViewController.swift in Sources */,
 				5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
+				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
 				5C0675D8200C89A30019A24D /* RootViewController.swift in Sources */,

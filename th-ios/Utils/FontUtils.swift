@@ -19,4 +19,12 @@ extension UIFont {
             return UIFont.systemFont(ofSize: size)
         }
     }
+    
+    class func songTiBold(size: CGFloat) -> UIFont {
+        if let font: UIFont = UIFont.init(name: "STZhongsong", size: size) {
+            return font
+        } else {
+            return UIFont.boldSystemFont(ofSize:size)
+        }
+    }
 }

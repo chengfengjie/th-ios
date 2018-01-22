@@ -10,3 +10,4 @@
 @import ReactiveCocoa;
 @import JYCarousel;
 @import SwiftyAttributes;
+@import YYWebImage;

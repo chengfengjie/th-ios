@@ -48,6 +48,7 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>STZHONGS.ttf</string>
 		<string>fzxbsjt.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

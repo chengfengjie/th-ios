@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupRootController()
         
+        if !UIDevice.current.is_iPhoneX {
+            window?.windowLevel = 1000
+        }
+        
         return true
     }
     
@@ -36,8 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = AppDelegate.rootNavgationController
         window?.makeKeyAndVisible()
-        
-        window?.windowLevel = 1000
 
     }
     
