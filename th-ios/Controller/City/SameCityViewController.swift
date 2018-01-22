@@ -8,8 +8,12 @@
 
 import UIKit
 
-class SameCityViewController: BaseTableViewController, MagicContentLayoutProtocol {
-
+class SameCityViewController: BaseTableViewController, MagicContentLayoutProtocol, CarouselTableHeaderProtocol {
+    
+    lazy var tableNodeHeader: CarouseTableNodeHeader = {
+        return self.makeCarouseHeaderBox()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,5 +24,19 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
 
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         self.pushViewController(viewController: ArticleDetailViewController())
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return {
+            return ArticleListCellNode()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.carouseBounds.height
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.tableNodeHeader.container
     }
 }

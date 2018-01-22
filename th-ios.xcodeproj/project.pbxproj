@@ -37,6 +37,7 @@
 		5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */; };
 		5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633B2012E43500F185BA /* SearchViewController.swift */; };
 		5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */; };
+		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
 		93AC45EFE4B08DFC7D00045B /* Pods_th_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarSearchItemProtocol.swift; sourceTree = "<group>"; };
 		5C94633B2012E43500F185BA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewLayout.swift; sourceTree = "<group>"; };
+		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		C804D380364DD9976648036F /* Pods-th-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios/Pods-th-ios.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -175,6 +177,7 @@
 				5C0675D7200C89A30019A24D /* RootViewController.swift */,
 				5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */,
 				5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */,
+				5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */,
 				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
+				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

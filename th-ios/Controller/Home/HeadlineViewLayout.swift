@@ -8,53 +8,36 @@
 
 import JYCarousel
 
-struct HeadlineViewTableNodeHeader {
-    var container: UIView
-    var carousel: JYCarousel
-    init(container: UIView, carousel: JYCarousel) {
-        self.container = container
-        self.carousel = carousel
+class HeadlineTableNodeHeader: CarouseTableNodeHeader {
+    var leaderboardsButton: UIButton? = nil
+    var authorButton: UIButton? = nil
+    var specialTopicButton: UIButton? = nil
+    var treeHoleButton: UIButton? = nil
+    init(carouseTableNodeHeader: CarouseTableNodeHeader) {
+        super.init(container: carouseTableNodeHeader.container, carouse: carouseTableNodeHeader.carouse)
     }
 }
 
-protocol HeadlineViewControllerLayout {
-    var tableNodeHeader: HeadlineViewTableNodeHeader { get }
-}
+protocol HeadlineViewControllerLayout: CarouselTableHeaderProtocol {}
+
 extension HeadlineViewControllerLayout where Self: HeadlineViewController {
-    private var testImageArray: [URL] {
-        if let url = URL.init(string: "http://a.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059f550a1832334349b023bbae3.jpg") {
-            return [url]
-        }
-        return []
-    }
+
     var menuItemSize: CGSize {
         return CGSize.init(width: 40, height: 40)
     }
     var menuBarHeight: CGFloat {
         return 70
     }
-    var carouseBounds: CGRect {
-        let proportion: CGFloat = 1.0 / 2.0
-        let height: CGFloat = self.window_width * proportion
-        return CGRect.init(x: 0, y: 0, width: self.window_width, height: height)
-    }
     var tableNodeHeaderBounds: CGRect {
         let height: CGFloat = self.carouseBounds.height + self.menuBarHeight
         return CGRect.init(x: 0, y: 0, width: self.window_width, height: height)
     }
-    func makeTableNodeHeader() -> HeadlineViewTableNodeHeader {
-        let container: UIView = UIView()
-        container.frame = self.tableNodeHeaderBounds
+    func makeHeadlineTableNodeHeader() -> HeadlineTableNodeHeader {
         
-        let carouselView: JYCarousel = JYCarousel.init(frame: self.carouseBounds, configBlock: { (make) -> JYConfiguration? in
-            return make
-        }) { (clickIndex) in
-            
-        }
+        let carouseHeader: CarouseTableNodeHeader = self.makeCarouseHeaderBox()
+        carouseHeader.container.frame = self.tableNodeHeaderBounds
         
-        container.addSubview(carouselView)
-
-        carouselView.start(with: NSMutableArray.init(array: self.testImageArray))
+        let container: UIView = carouseHeader.container
         
         let menuBar: UIView = UIView().then { (bar) in
             container.addSubview(bar)
@@ -108,8 +91,12 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
             })
         }
         
-        return HeadlineViewTableNodeHeader.init(container: container,
-                                                carousel: carouselView)
+        return HeadlineTableNodeHeader.init(carouseTableNodeHeader: carouseHeader).then({
+            $0.leaderboardsButton = leaderboardsButton
+            $0.authorButton = authorButton
+            $0.specialTopicButton = specialButton
+            $0.treeHoleButton = treeHoleButton
+        })
     }
     
     private func createMenuButton(title: String, color: UIColor) -> UIButton {
@@ -151,6 +138,8 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
     
     override init() {
         super.init()
+        
+        self.selectionStyle = .none
         
         let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
         style.lineSpacing = 5.0
@@ -321,7 +310,11 @@ extension ArticleListImageCellNodeLayout where Self: ASCellNode {
         return CGSize.init(width: 70, height: 50)
     }
     var titleNodeMaxWidth: CGFloat {
-        return UIScreen.main.bounds.width - self.cellNodeElementPatch - self.articleImageSize.width - self.cellNodeContentInset.left - self.cellNodeContentInset.right
+        let viewWidth: CGFloat = UIScreen.main.bounds.width
+        let nodePatch: CGFloat = self.cellNodeElementPatch
+        let leftInset: CGFloat = self.cellNodeContentInset.left
+        let rightInset: CGFloat = self.cellNodeContentInset.right
+        return viewWidth - nodePatch - self.articleImageSize.width - leftInset - rightInset
     }
     func makeImageNode() -> ASImageNode {
         return ASImageNode.init().then({ (node) in

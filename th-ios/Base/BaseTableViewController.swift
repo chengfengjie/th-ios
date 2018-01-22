@@ -27,7 +27,6 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
             $0.delegate = self
             $0.dataSource = self
             $0.backgroundColor = UIColor.white
-            $0.view.rowHeight = 0
             $0.view.sectionHeaderHeight = 0
             $0.view.sectionFooterHeight = 0
             print($0.view)
@@ -60,7 +59,8 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
     }
     
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
-        return ASSizeRangeMake(CGSize.init(width: self.view.frame.width, height: 60))
+        return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 60),
+                                max: CGSize.init(width: self.window_width, height: 500))
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -81,7 +81,7 @@ class SameCityMainViewController: BaseViewController,
         let identifer: String = "identifer";
         var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
         if controller == nil {
-            controller = SameCityViewController(style: UITableViewStyle.plain)
+            controller = SameCityViewController(style: UITableViewStyle.grouped)
         }
         return controller!
     }

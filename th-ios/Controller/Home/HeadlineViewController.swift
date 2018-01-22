@@ -19,8 +19,8 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.setNavigationBarHidden(isHidden: true)
     }
     
-    lazy var tableNodeHeader: HeadlineViewTableNodeHeader = {
-        return self.makeTableNodeHeader()
+    lazy var tableNodeHeader: CarouseTableNodeHeader = {
+        return self.makeHeadlineTableNodeHeader()
     }()
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -28,7 +28,7 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-
+        self.pushViewController(viewController: ArticleDetailViewController())
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
