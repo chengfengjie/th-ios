@@ -17,7 +17,7 @@ class RootViewController: BaseTabBarController {
                 HomeViewController(),
                 SameCityMainViewController(),
                 QingViewController(style: .grouped),
-                MineViewController(style: .plain)
+                MineViewController(style: .grouped)
             ], animated: false)
         
     }

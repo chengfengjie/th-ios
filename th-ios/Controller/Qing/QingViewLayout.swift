@@ -9,6 +9,7 @@
 import Foundation
 
 private let kContentInset: UIEdgeInsets = UIEdgeInsets.init(top: 15, left: 15, bottom: 15, right: 15)
+private let kSegmentLineSize: CGSize = CGSize.init(width: UIScreen.main.bounds.width, height: 15)
 
 class QingViewTableNodeBannerHeader: NSObject {
     var containerBox: UIView
@@ -205,12 +206,176 @@ extension QingViewLayout where Self: QingViewController {
 
 class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
     
-    lazy var segline: ASDisplayNode = {
-        return self.makeSegline()
+    lazy var segmentLineNode: ASDisplayNode = {
+        return self.makeSegmemtLineNode()
     }()
     
-    lazy var content: ASDisplayNode = {
-        return self.makeContent()
+    lazy var sectionTitleTextNode: ASTextNode = {
+        return self.makeSectionTitleTextNode()
+    }()
+    
+    lazy var hotMomLifeNode: ASDisplayNode = {
+        return self.makeHotMomLifeNode()
+    }()
+    
+    lazy var bredExchangeNode: ASDisplayNode = {
+        return self.makeBredExchangeNode()
+    }()
+    
+    lazy var grassTimeNode: ASDisplayNode = {
+        return self.makeGrassTimeNode()
+    }()
+
+    override init() {
+        super.init()
+        
+        self.selectionStyle = .none
+        
+        self.segmentLineNode.backgroundColor = UIColor.hexColor(hex: "f9f9f9")
+        
+        self.sectionTitleTextNode.attributedText = "兴趣圈".withTextColor(Color.pink)
+        
+        self.hotMomLifeNode.backgroundColor = UIColor.orange
+        
+        self.bredExchangeNode.backgroundColor = UIColor.yellow
+        
+        self.grassTimeNode.backgroundColor = UIColor.green
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        let leftSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                              spacing: self.contentInset.left,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.stretch,
+                                              children: [self.hotMomLifeNode, self.bredExchangeNode])
+        
+        let bottomSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                spacing: self.contentInset.left,
+                                                justifyContent: ASStackLayoutJustifyContent.start,
+                                                alignItems: ASStackLayoutAlignItems.stretch,
+                                                children: [leftSpec, self.grassTimeNode])
+        
+        let inset: UIEdgeInsets = UIEdgeInsets.init(
+            top: 0, left: self.contentInset.left,
+            bottom: self.contentInset.bottom, right: self.contentInset.right)
+        
+        let bottomInset = ASInsetLayoutSpec.init(insets: inset, child: bottomSpec)
+        
+        let sectionTitleInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset,
+                                                           child: self.sectionTitleTextNode)
+        
+        return ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                      spacing: 0,
+                                      justifyContent: ASStackLayoutJustifyContent.start,
+                                      alignItems: ASStackLayoutAlignItems.stretch,
+                                      children: [self.segmentLineNode, sectionTitleInsetSpec, bottomInset])
+    }
+}
+
+protocol InterestGropusCellNodeLayout {
+    var segmentLineNode: ASDisplayNode { get }
+    var sectionTitleTextNode: ASTextNode { get }
+    var hotMomLifeNode: ASDisplayNode { get }
+    var bredExchangeNode: ASDisplayNode { get }
+    var grassTimeNode: ASDisplayNode { get }
+}
+
+extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
+    
+    var contentInset: UIEdgeInsets {
+        return kContentInset
+    }
+    
+    var width: CGFloat {
+        return UIScreen.main.bounds.width
+    }
+    
+    var segmentlineSize: CGSize {
+        return kSegmentLineSize
+    }
+    
+    var leftItemSize: CGSize {
+        let w: CGFloat = (self.width - contentInset.left * 3) / 2.0
+        let h: CGFloat = w / 2.0
+        return CGSize.init(width: w, height: h)
+    }
+    
+    var rightItemSize: CGSize {
+        return CGSize.init(width: self.leftItemSize.width,
+                           height: self.leftItemSize.height * 2 + contentInset.left)
+    }
+    
+    func makeSegmemtLineNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then({ (node) in
+            node.style.preferredSize = self.segmentlineSize
+            self.addSubnode(node)
+        })
+    }
+    
+    func makeSectionTitleTextNode() -> ASTextNode {
+        return ASTextNode.init().then({
+            self.addSubnode($0)
+        })
+    }
+    
+    func makeHotMomLifeNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then({
+            self.addSubnode($0)
+            $0.backgroundColor = UIColor.orange
+            $0.style.preferredSize = self.leftItemSize
+        })
+    }
+    
+    func makeBredExchangeNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then {
+            self.addSubnode($0)
+            $0.backgroundColor = UIColor.yellow
+            $0.style.preferredSize = self.leftItemSize
+        }
+    }
+    
+    func makeGrassTimeNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then {
+            self.addSubnode($0)
+            $0.backgroundColor = UIColor.green
+            $0.style.preferredSize = self.rightItemSize
+        }
+    }
+}
+
+class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
+    
+    lazy var segmentlineNode: ASDisplayNode = {
+        return self.makeSegmentlineNode()
+    }()
+    
+    lazy var sectionTitleTextNode: ASTextNode = {
+        return self.makeSectionTitleTextNode()
+    }()
+    
+    lazy var titleTextNode: ASTextNode = {
+        return self.makeTitleTextNode()
+    }()
+    
+    lazy var contentTextNode: ASTextNode = {
+        return self.makeContentTextNode()
+    }()
+    
+    lazy var sourceAvatarNode: ASImageNode = {
+        return self.makeSourceAvatarNode()
+    }()
+    
+    lazy var sourceTextNode: ASTextNode = {
+        return self.makeSourceTextNode()
+    }()
+    
+    lazy var viewCountIconNode: ASImageNode = {
+        return self.makeViewCountIconNode()
+    }()
+    
+    lazy var viewCountTextNode: ASTextNode = {
+        return self.makeViewCountTextNode()
     }()
     
     override init() {
@@ -218,95 +383,273 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         
         self.selectionStyle = .none
         
-        self.segline.backgroundColor = UIColor.hexColor(hex: "f9f9f9")
-        self.segline.style.preferredSize = CGSize.init(width: UIScreen.main.bounds.width, height: self.seglineHeight)
-        self.content.backgroundColor = UIColor.white
-        self.content.style.layoutPosition = CGPoint.init(x: 0, y: self.seglineHeight)
-        self.content.style.preferredSize = self.contentSize
+        self.segmentlineNode.backgroundColor = UIColor.lineColor
+        
+        self.sectionTitleTextNode.attributedText = "今日热议".withTextColor(UIColor.pink)
+        
+        self.titleTextNode.attributedText = "只有足够努力,你才能吧毫无道理变成理所当然"
+            .withFont(Font.boldSystemFont(ofSize: 16))
+            .withTextColor(Color.color3)
+        
+        self.contentTextNode.attributedText = "只有足够努力,你才能吧毫无道理变成理所当然只有足够努力,你才能吧毫无道理变成理所当然只有足够努力,你才能吧毫无道理变成理所当然"
+            .withFont(Font.systemFont(ofSize: 11))
+            .withTextColor(Color.color9)
+        
+        self.sourceAvatarNode.image = UIImage.init(named: "qing_grass_time")
+        
+        self.sourceTextNode.attributedText = "初恋在线".attributedString
+        
+        self.viewCountIconNode.image = UIImage.init(named: "qing_eye")
+        
+        self.viewCountTextNode.attributedText = "123".attributedString
         
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let lineSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                                 spacing: 0,
+                                                 justifyContent: ASStackLayoutJustifyContent.start,
+                                                 alignItems: ASStackLayoutAlignItems.stretch,
+                                                 children: [self.segmentlineNode])
+        
+        let contentSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                                 spacing: 15,
+                                                 justifyContent: ASStackLayoutJustifyContent.start,
+                                                 alignItems: ASStackLayoutAlignItems.stretch,
+                                                 children: [self.sectionTitleTextNode, self.titleTextNode, self.contentTextNode])
+        
+        let contentInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: contentSpec)
+        
+        let sourceBox: ASStackLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                                  spacing: 10,
+                                                                  justifyContent: ASStackLayoutJustifyContent.start,
+                                                                  alignItems: ASStackLayoutAlignItems.center,
+                                                                  children: [self.sourceAvatarNode, self.sourceTextNode])
+        
+        let viewCountBox: ASStackLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                                     spacing: 10,
+                                                                     justifyContent: ASStackLayoutJustifyContent.start,
+                                                                     alignItems: ASStackLayoutAlignItems.center,
+                                                                     children: [self.viewCountIconNode, self.viewCountTextNode])
+        
+        let bottomBarSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                   spacing: 10,
+                                                   justifyContent: ASStackLayoutJustifyContent.spaceBetween,
+                                                   alignItems: ASStackLayoutAlignItems.center,
+                                                   children: [sourceBox, viewCountBox])
+        
+        let bottomBarInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(
+            top: 0, left: self.contentInset.left,bottom: self.contentInset.bottom, right: self.contentInset.right),
+                                                        child: bottomBarSpec)
+        
+        let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                              spacing: 0,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.stretch,
+                                              children: [lineSpec, contentInsetSpec, bottomBarInsetSpec])
+        
+        return mainSpec
+    }
+    
+}
+
+protocol QingHotTodayCellNodeLayout {
+    var segmentlineNode: ASDisplayNode { get }
+    var sectionTitleTextNode: ASTextNode { get }
+    var titleTextNode: ASTextNode { get }
+    var contentTextNode: ASTextNode { get }
+    var sourceAvatarNode: ASImageNode { get }
+    var sourceTextNode: ASTextNode { get }
+    var viewCountIconNode: ASImageNode { get }
+    var viewCountTextNode: ASTextNode { get }
+}
+extension QingHotTodayCellNodeLayout where Self: QingHotTodayCellNode {
+    
+    var segmentLineSize: CGSize {
+        return kSegmentLineSize
+    }
+    
+    var contentInset: UIEdgeInsets {
+        return kContentInset
+    }
+    
+    func makeSegmentlineNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then {
+            $0.style.preferredSize = self.segmentLineSize
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeSectionTitleTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeTitleTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeContentTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeSourceAvatarNode() -> ASImageNode {
+        return ASImageNode.init().then {
+            $0.style.preferredSize = CGSize.init(width: 18, height: 18)
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeSourceTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeViewCountIconNode() -> ASImageNode {
+        return ASImageNode.init().then {
+            $0.style.preferredSize = CGSize.init(width: 14, height: 14)
+            self.addSubnode($0)
+        }
+    }
+    
+    func makeViewCountTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
+        }
+    }
+    
+}
+
+
+
+class QingCityCommunityCellNode: ASCellNode, QingCityCommunityCellNodeLayout {
+    
+    lazy var segmentLineNode: ASDisplayNode = {
+        return self.makeSegmentLineNode()
+    }()
+    
+    lazy var sectionTitleTextNode: ASTextNode = {
+        return self.makeSectionTitleTextNode()
+    }()
+    
+    private var cityInfoItems: [ASDisplayNode] = []
+    
+    override init() {
+        super.init()
+        
+        let cityInfos: [String] = ["北京", "广州", "深圳", "佛山", "焦作", "大理"]
+        
+        self.selectionStyle = .none
+        
+        self.segmentLineNode.backgroundColor = UIColor.lineColor
+        
+        self.sectionTitleTextNode.attributedText = "同城圈".withTextColor(Color.pink)
+        
+        self.cityInfoItems = self.makeCityItems(cityInfoItems: cityInfos)
+        
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    
+        var cityItemSpecs: [ASStackLayoutSpec] = []
+        let groupResult: [[ASDisplayNode]] = self.groupArray(groupSize: 2, array: self.cityInfoItems)
+        for item in groupResult {
+            cityItemSpecs.append(ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                        spacing: self.contentInset.left,
+                                                        justifyContent: ASStackLayoutJustifyContent.start,
+                                                        alignItems: ASStackLayoutAlignItems.stretch,
+                                                        children: item))
+        }
+        
+        let cityItemVartical = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                                      spacing: self.contentInset.left,
+                                                      justifyContent: ASStackLayoutJustifyContent.start,
+                                                      alignItems: ASStackLayoutAlignItems.stretch,
+                                                      children: cityItemSpecs)
+        
+        let contentSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                                 spacing: 15,
+                                                 justifyContent: ASStackLayoutJustifyContent.start,
+                                                 alignItems: ASStackLayoutAlignItems.stretch,
+                                                 children: [self.sectionTitleTextNode, cityItemVartical])
+        
+        let contentInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: contentSpec)
+        
         return ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                       spacing: 0,
                                       justifyContent: ASStackLayoutJustifyContent.start,
                                       alignItems: ASStackLayoutAlignItems.stretch,
-                                      children: [self.segline, self.content])
+                                      children: [self.segmentLineNode, contentInsetSpec])
+    }
+    
+    func groupArray<T>(groupSize: UInt, array: [T]) -> [[T]] {
+        var result: [[T]] = []
+        var temp: [T] = []
+        
+        for item in array {
+            if temp.count == groupSize {
+                result.append(temp)
+                temp = []
+            }
+            temp.append(item)
+        }
+        if !temp.isEmpty {
+            result.append(temp)
+        }
+        return result
     }
 }
 
-protocol InterestGropusCellNodeLayout {
-    var segline: ASDisplayNode { get }
-    var content: ASDisplayNode { get }
+protocol QingCityCommunityCellNodeLayout {
+    var segmentLineNode: ASDisplayNode { get }
+    var sectionTitleTextNode: ASTextNode { get }
 }
-
-extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
+extension QingCityCommunityCellNodeLayout where Self: QingCityCommunityCellNode {
     
-    var cellNodeSize: CGSize {
-        let height: CGFloat = seglineHeight + sectionTitleHeight + subRightContainerSize.height + contentInset.bottom
-        return CGSize.init(width: UIScreen.main.bounds.width,
-                           height: height)
+    var segmentLineSize: CGSize {
+        return kSegmentLineSize
     }
     
-    var contentSize: CGSize {
-        return CGSize.init(width: UIScreen.main.bounds.width, height: self.cellNodeSize.height - seglineHeight)
-    }
-    
-    private var contentInset: UIEdgeInsets {
+    var contentInset: UIEdgeInsets {
         return kContentInset
     }
     
-    var seglineHeight: CGFloat {
-        return 15.0
+    var cityItemSize: CGSize {
+        let width: CGFloat = UIScreen.main.bounds.width
+        let itemW: CGFloat = (width - self.contentInset.left * 3) / 2.0
+        let height: CGFloat = itemW * 0.5
+        return CGSize.init(width: itemW, height: height)
     }
     
-    private var sectionTitleHeight: CGFloat {
-        return 40
-    }
-    
-    private var subLeftContainerSize: CGSize {
-        let width: CGFloat = (UIScreen.main.bounds.width - self.contentInset.left * 3) / 2.0
-        let height: CGFloat = width * 0.6
-        return CGSize.init(width: width, height: height)
-    }
-    
-    private var subRightContainerSize: CGSize {
-        return CGSize.init(width: self.subLeftContainerSize.width,
-                           height: self.subLeftContainerSize.height * 2 + self.contentInset.left)
-    }
-    
-    func makeSegline() -> ASDisplayNode {
-        return ASDisplayNode.init().then {
+    func makeSegmentLineNode() -> ASDisplayNode {
+        return ASDisplayNode.init().then({
+            $0.style.preferredSize = self.segmentLineSize
             self.addSubnode($0)
-            $0.backgroundColor = UIColor.lightGray
-        }
-    }
-    
-    func makeContent() -> ASDisplayNode {
-        return ASDisplayNode.init().then({ (node) in
-            self.addSubnode(node)
-            node.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.seglineHeight),
-                                     size: self.contentSize)
         })
     }
     
-    func makeContentSubviews() {
-        self.makeHotMomLifeBox()
-    }
-    
-    private func makeSectionTitle() {
-        ASTextNode.init().do {
-            self.content.addSubnode($0)
-            $0.frame = CGRect.init(origin: CGPoint.zero,
-                                   size: CGSize.init(width: UIScreen.main.bounds.width, height: sectionTitleHeight))
-            $0.attributedText = "生活圈"
+    func makeSectionTitleTextNode() -> ASTextNode {
+        return ASTextNode.init().then {
+            self.addSubnode($0)
         }
     }
     
-    private func makeHotMomLifeBox() {
-        
+    func makeCityItems(cityInfoItems: [String]) -> [ASDisplayNode] {
+        var items: [ASDisplayNode] = []
+        cityInfoItems.forEach { (cityInfo) in
+            items.append(ASDisplayNode.init().then {
+                $0.backgroundColor = UIColor.orange
+                $0.style.preferredSize = self.cityItemSize
+                self.addSubnode($0)
+            })
+        }
+        return items
     }
-    
 }
-
 

@@ -46,14 +46,29 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         if section == 1 {
-            return 1
+            return 3
         }
         return 0
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        return {
-            return InterestGropusCellNode.init()
+        switch indexPath.row {
+        case 0:
+            return {
+                return InterestGropusCellNode.init()
+            }
+        case 1:
+            return {
+                return QingHotTodayCellNode.init()
+            }
+        case 2:
+            return {
+                return QingCityCommunityCellNode()
+            }
+        default:
+            return {
+                return ASTextCellNode()
+            }
         }
     }
     
