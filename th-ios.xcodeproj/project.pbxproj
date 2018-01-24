@@ -25,6 +25,7 @@
 		5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59616F2016E28800ECD88B /* MineViewLayout.swift */; };
 		5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */; };
 		5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */; };
+		5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */; };
 		5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */; };
 		5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4320122071009BE6D4 /* FontUtils.swift */; };
 		5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */; };
@@ -70,6 +71,7 @@
 		5C59616F2016E28800ECD88B /* MineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewLayout.swift; sourceTree = "<group>"; };
 		5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewTopicCellNodeLayout.swift; sourceTree = "<group>"; };
 		5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewCollectCellNodeLayout.swift; sourceTree = "<group>"; };
+		5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewCommentCellNodeLayout.swift; sourceTree = "<group>"; };
 		5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fzxbsjt.ttf; sourceTree = "<group>"; };
 		5C5F0B4320122071009BE6D4 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProtocol.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				5C59616F2016E28800ECD88B /* MineViewLayout.swift */,
 				5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */,
 				5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */,
+				5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				5C0675C0200C88930019A24D /* AppDelegate.swift in Sources */,
 				5C0675E0200C915D0019A24D /* ThUtils.swift in Sources */,
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
+				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
 				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,

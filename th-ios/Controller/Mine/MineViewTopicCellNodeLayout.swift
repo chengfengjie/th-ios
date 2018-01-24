@@ -56,6 +56,14 @@ class MineViewTopicCellNode: ASCellNode, MineViewTopicCellNodeLayout {
         }
         return self.noneImageCellNodeLayoutSpec
     }
+    
+    func makeCellNodeBottomBarSpec() -> ASLayoutSpec {
+        return ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                      spacing: 5,
+                                      justifyContent: ASStackLayoutJustifyContent.end,
+                                      alignItems: ASStackLayoutAlignItems.center,
+                                      children: [self.shareIconNode, self.shareTextNode])
+    }
 }
 
 protocol MineViewTopicCellNodeLayout {
@@ -65,8 +73,10 @@ protocol MineViewTopicCellNodeLayout {
     var shareIconNode: ASImageNode { get }
     var shareTextNode: ASTextNode { get }
     var imageNodeArray: [ASImageNode] { get }
+    func makeCellNodeBottomBarSpec() -> ASLayoutSpec
 }
-extension MineViewTopicCellNodeLayout where Self: MineViewTopicCellNode {
+
+extension MineViewTopicCellNodeLayout where Self: ASCellNode {
     func makeCategoryTextNode() -> ASTextNode {
         return ASTextNode.init().then {
             self.addSubnode($0)
@@ -131,12 +141,6 @@ extension MineViewTopicCellNodeLayout {
     }
     
     var noneImageCellNodeLayoutSpec: ASLayoutSpec {
-        let shareSpec: ASStackLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                                                  spacing: 5,
-                                                                  justifyContent: ASStackLayoutJustifyContent.end,
-                                                                  alignItems: ASStackLayoutAlignItems.center,
-                                                                  children: [self.shareIconNode, self.shareTextNode])
-        
         let contentSpec: ASStackLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                                                     spacing: 15,
                                                                     justifyContent: ASStackLayoutJustifyContent.start,
@@ -144,7 +148,7 @@ extension MineViewTopicCellNodeLayout {
                                                                     children: [self.categoryTextNode,
                                                                                self.titleTextNode,
                                                                                self.contentTextNode,
-                                                                               shareSpec])
+                                                                               self.makeCellNodeBottomBarSpec()])
         let contentInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec.init(insets: self.contentInset,
                                                                          child: contentSpec)
         return contentInsetSpec
@@ -172,17 +176,11 @@ extension MineViewTopicCellNodeLayout {
                                                       alignItems: ASStackLayoutAlignItems.stretch,
                                                       children: [titleContentSpec, image])
         
-        let shareSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                               spacing: 5,
-                                               justifyContent: ASStackLayoutJustifyContent.end,
-                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                               children: [self.shareIconNode, self.shareTextNode])
-        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.categoryTextNode, imageContentSpec, shareSpec])
+                                              children: [self.categoryTextNode, imageContentSpec, self.makeCellNodeBottomBarSpec()])
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
         return mainInsetSpec
     }
@@ -215,12 +213,6 @@ extension MineViewTopicCellNodeLayout {
                                                alignItems: ASStackLayoutAlignItems.stretch,
                                                children: [image1, rightImageSpec])
         
-        let shareSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                               spacing: 5,
-                                               justifyContent: ASStackLayoutJustifyContent.end,
-                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                               children: [self.shareIconNode, self.shareTextNode])
-        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
@@ -229,7 +221,7 @@ extension MineViewTopicCellNodeLayout {
                                                          self.titleTextNode,
                                                          self.contentTextNode,
                                                          imageSpec,
-                                                         shareSpec])
+                                                         self.makeCellNodeBottomBarSpec()])
         
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
         

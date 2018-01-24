@@ -8,8 +8,12 @@
 
 import UIKit
 
-class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineViewTableNodeHeaderLayout {
-
+class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderLayout {
+    
+    lazy var topicArticleSwitchHeader: UIView = {
+        return self.makeTopicArticleSwitchHeader()
+    }()
+    
     lazy var tableNodeHeader: MineViewTableNodeHeader = {
         return self.makeTableNodeHeader()
     }()
@@ -54,12 +58,31 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         self.tableNode.reloadData()
     }
     
+    @objc func handleTopicArticleSwitchItemClick(itemIndex: NSNumber) {
+        print(itemIndex)
+    }
+    
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return 1
         case .collect:
             return 2
+        case .comment:
+            return 2
+        default:
+            return 1
+        }
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        switch self.tableNodeHeader.selectItemType {
+        case .topic:
+            return 10
+        case .collect:
+            return section == 0 ? 0 : 10
+        case .comment:
+            return section == 0 ? 0 : 10
         default:
             return 1
         }
@@ -73,7 +96,11 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
             }
         case .collect:
             return {
-                return ASTextCellNode()
+                return MineCollectTopicCellNode()
+            }
+        case .comment:
+            return {
+                return MineCommentTopicNodeCell()
             }
         default:
             return {
@@ -83,10 +110,24 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.tableNodeHeaderBounds.height
+        switch self.tableNodeHeader.selectItemType {
+        case .topic:
+            return self.tableNodeHeaderBounds.height
+        case .comment, .collect:
+            return section == 0 ? self.tableNodeHeaderBounds.height : self.topicArticleSwitchHeaderSize.height
+        default:
+            return self.tableNodeHeaderBounds.height
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.tableNodeHeader.containerBox
+        switch self.tableNodeHeader.selectItemType {
+        case .topic:
+            return self.tableNodeHeader.containerBox
+        case .comment, .collect:
+            return section == 0 ? self.tableNodeHeader.containerBox : self.topicArticleSwitchHeader
+        default:
+            return self.tableNodeHeader.containerBox
+        }
     }
 }
