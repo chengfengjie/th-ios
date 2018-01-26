@@ -1,0 +1,65 @@
+{
+    "mark": {
+        "B": "正常粗体",
+        "N": "正常",
+        "BST": "宋体加粗",
+        "ST": "宋体正常",
+        "NF": "正常细体"
+    },
+    "home_top_bar_text_style": {
+        "color": "333333",
+        "name": "N",
+        "size": 15
+    },
+    "home_table_node_cell_element_spacing": 15.0,
+    "home_table_node_cell_style": {
+        "headerItemSize": {
+            "width": 50,
+            "height": 50
+        },
+        "bannerHWRatio": 0.5,
+        "contentInset": {
+            "left": 20,
+            "right": 20,
+            "top": 20,
+            "bottom": 20
+        },
+        "elementSpacing": 10.0,
+        "cateTextStyle": {
+            "name": "NF",
+            "size": 12,
+            "color": "666666",
+            "lineSpacing": 1,
+            "alignment": "left"
+        },
+        "titleTextStyle": {
+            "name": "N",
+            "size": 18,
+            "color": "333333",
+            "lineSpacing": 3,
+            "alignment": "justified"
+        },
+        "contentTextStyle": {
+            "name": "NF",
+            "size": 12,
+            "color": "333333",
+            "lineSpacing": 3,
+            "alignment": "justified"
+        },
+        "imageSize": {
+            "width": 70,
+            "height": 50
+        },
+        "authorIconSize": {
+            "width": 16,
+            "height": 16
+        },
+        "authorUnlikeTextStyle": {
+            "name": "NF",
+            "size": 12,
+            "color": "666666",
+            "lineSpacing": 0,
+            "alignment": "left"
+        }
+    }
+}

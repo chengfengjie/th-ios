@@ -25,7 +25,7 @@ protocol CarouselTableHeaderProtocol {
 extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
     
     var carouseBounds: CGRect {
-        let proportion: CGFloat = 1.0 / 2.0
+        let proportion: CGFloat = self.css.home_index.bannerHWRatio.cgFloat
         let height: CGFloat = self.window_width * proportion
         return CGRect.init(x: 0, y: 0, width: self.window_width, height: height)
     }

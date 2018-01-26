@@ -4,10 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>th-demo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>26</integer>
+		</dict>
 		<key>th-ios.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>27</integer>
+		</dict>
+		<key>th-swift-demo.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>28</integer>
 		</dict>
 	</dict>
 </dict>

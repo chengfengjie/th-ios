@@ -11,29 +11,30 @@ class MineViewTopicCellNode: ASCellNode, MineViewTopicCellNodeLayout {
     var imageNodeArray: [ASImageNode] = []
 
     lazy var categoryTextNode: ASTextNode = {
-        return self.makeCategoryTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var titleTextNode: ASTextNode = {
-        return self.makeTitleTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var contentTextNode: ASTextNode = {
-        return self.makeContentTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var shareIconNode: ASImageNode = {
-        return self.makeShareIconNode()
+        return self.makeAndAddImageNode()
     }()
     
     lazy var shareTextNode: ASTextNode = {
-        return self.makeShareTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     override init() {
         super.init()
         
         self.selectionStyle = .none
+        self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
         
         self.categoryTextNode.attributedText = "种草时间".attributedString
         self.titleTextNode.attributedText = "我的把实打实会话体验".attributedString
@@ -66,7 +67,7 @@ class MineViewTopicCellNode: ASCellNode, MineViewTopicCellNodeLayout {
     }
 }
 
-protocol MineViewTopicCellNodeLayout {
+protocol MineViewTopicCellNodeLayout: CellNodeElementLayout {
     var categoryTextNode: ASTextNode { get }
     var titleTextNode: ASTextNode { get }
     var contentTextNode: ASTextNode { get }
@@ -77,32 +78,6 @@ protocol MineViewTopicCellNodeLayout {
 }
 
 extension MineViewTopicCellNodeLayout where Self: ASCellNode {
-    func makeCategoryTextNode() -> ASTextNode {
-        return ASTextNode.init().then {
-            self.addSubnode($0)
-        }
-    }
-    func makeTitleTextNode() -> ASTextNode {
-        return ASTextNode.init().then {
-            self.addSubnode($0)
-        }
-    }
-    func makeContentTextNode() -> ASTextNode {
-        return ASTextNode().then {
-            self.addSubnode($0)
-        }
-    }
-    func makeShareIconNode() -> ASImageNode {
-        return ASImageNode().then {
-            $0.style.preferredSize = CGSize.init(width: 14, height: 14)
-            self.addSubnode($0)
-        }
-    }
-    func makeShareTextNode() -> ASTextNode {
-        return ASTextNode().then {
-            self.addSubnode($0)
-        }
-    }
     func makeImageNodes(imageUrlArray: [URL?]) -> [ASImageNode] {
         var result: [ASImageNode] = []
         for url in imageUrlArray {

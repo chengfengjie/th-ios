@@ -12,6 +12,7 @@ struct CustomNavBar {
     var navBarBox: UIView
     var navBarContent: UIView
     var closeItem: UIButton? = nil
+    var titleLabel: UILabel? = nil
     init(navBarBox: UIView, barContent: UIView) {
         self.navBarContent = barContent
         self.navBarBox = navBarBox
@@ -61,7 +62,7 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
         return UIButton.init(type: UIButtonType.custom).then({ (item) in
             self.customeNavBar.navBarContent.addSubview(item)
             item.setImage(UIImage.init(named: iconName), for: UIControlState.normal)
-            item.imageEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
+            item.imageEdgeInsets = UIEdgeInsets.init(top: 15, left: 20, bottom: 15, right: 10)
             item.snp.makeConstraints({ (make) in
                 make.left.top.bottom.equalTo(0)
                 make.width.equalTo(self.customeNavBar.navBarContent.snp.height)
@@ -96,7 +97,7 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
     ///   - title: 标题
     /// - Returns: 返回图片view，label，button
     @discardableResult
-    func makeNavBarLeftIconTextItem(iconName: String, title: String) -> (UIImageView, UILabel, UIButton)? {
+    func makeNavBarLeftIconTextItem(iconName: String, title: String) -> (UIImageView, UILabel, UIButton) {
         let contentBar = self.customeNavBar.navBarContent
         let icon = UIImageView.init().then { (image) in
             image.image = UIImage.init(named: iconName)
@@ -139,7 +140,7 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
     ///   - title: title
     /// - Returns: 返回imageView, label, button
     @discardableResult
-    func makeNavBarRightIconTextItem(iconName: String, title: String) -> (UIImageView, UILabel, UIButton)? {
+    func makeNavBarRightIconTextItem(iconName: String, title: String) -> (UIImageView, UILabel, UIButton) {
         let contentBar: UIView = self.customeNavBar.navBarContent
         let label = UILabel.init().then { (l) in
             l.text = title
@@ -173,6 +174,23 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
         }
         
         return (icon, label, btn)
+    }
+    
+    
+    /// 构建导航栏标题
+    ///
+    /// - Parameter attributeText: 标题名称
+    /// - Returns: label
+    func makeNavBarAttributeTitle(attributeText: NSAttributedString) -> UILabel {
+        let contentBar: UIView = self.customeNavBar.navBarContent
+        return UILabel().then {
+            contentBar.addSubview($0)
+            $0.attributedText = attributeText
+            $0.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(contentBar.snp.centerX)
+                make.centerY.equalTo(contentBar.snp.centerY)
+            })
+        }
     }
 }
 

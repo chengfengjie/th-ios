@@ -10,37 +10,59 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    enum PushAnimateType {
+        case cardSlide
+        case zoomPush
+    }
 
     var window: UIWindow?
 
+    let animateType: PushAnimateType = .zoomPush
+    
     static var rootNavgationController: UINavigationController? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+        // 加载app样式
+        AppStyle.loadLocalAppStyle()
+        // 设置转场动画
+        setupTransitionAnimate()
+        // 设置根控制器
         setupRootController()
-        
-        if !UIDevice.current.is_iPhoneX {
-            window?.windowLevel = 1000
-        }
-        
         return true
     }
     
+    /// 设置push 和 present 转场动画
+    private func setupTransitionAnimate() {
+        switch self.animateType {
+        case .cardSlide:
+            let animationController = RZCardSlideAnimationController().then {
+                $0.horizontalOrientation = false
+            }
+            RZTransitionsManager.shared().defaultPushPopAnimationController = animationController
+            RZTransitionsManager.shared().defaultPresentDismissAnimationController = animationController
+        case .zoomPush:
+            RZTransitionsManager.shared().defaultPushPopAnimationController = RZZoomPushAnimationController()
+            RZTransitionsManager.shared().defaultPresentDismissAnimationController = RZZoomPushAnimationController()
+        }
+    }
     
     /// 设置rootContrller， 一个UINavigationController，顶层是一个tabbarcontroller
     /// 所有的界面push 和 pop 都通过调用此 rootNavationController的方法处理
     private func setupRootController() {
-        
+    
         AppDelegate.rootNavgationController = UINavigationController
             .init(rootViewController: RootViewController())
             .then({
                 $0.isNavigationBarHidden = true
+                $0.delegate = RZTransitionsManager.shared()
             })
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = AppDelegate.rootNavgationController
         window?.makeKeyAndVisible()
-
+        window?.windowLevel = UIDevice.current.is_iPhoneX ? 0.0 : 1000.0
+        window?.backgroundColor = UIColor.white
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

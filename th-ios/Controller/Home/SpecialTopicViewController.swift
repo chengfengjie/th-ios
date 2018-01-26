@@ -13,7 +13,9 @@ class SpecialTopicViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.setNavigationBarTitle(title: "专题")
     }
 
     override func didReceiveMemoryWarning() {

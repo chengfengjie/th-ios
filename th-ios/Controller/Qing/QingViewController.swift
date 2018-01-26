@@ -21,8 +21,8 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
     lazy var itemConfigModel: BaseTabBarItemConfigModel = {
         return BaseTabBarItemConfigModel().then {
             $0.title = "Qing聊"
-            $0.iconName = "te_chat"
-            $0.selectedIconName = "te_chat"
+            $0.iconName = "tabbar_qing_normal"
+            $0.selectedIconName = "tabbar_qing_select"
         }
     }()
     

@@ -38,6 +38,6 @@ extension SizeUtil {
     }
     
     var window_height: CGFloat {
-        return UIScreen.main.bounds.width
+        return UIScreen.main.bounds.height
     }
 }

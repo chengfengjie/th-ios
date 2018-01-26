@@ -64,7 +64,7 @@ extension MineCommentCellNodeLayout {
     }
 }
 
-fileprivate class SourceInfoBox: ASDisplayNode {
+class SourceInfoBox: ASDisplayNode {
     
     lazy var imageNode: ASNetworkImageNode = {
         return ASNetworkImageNode.init().then {

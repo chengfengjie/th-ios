@@ -17,12 +17,11 @@ class HomeViewController: BaseViewController,
     lazy var itemConfigModel: BaseTabBarItemConfigModel = {
         return BaseTabBarItemConfigModel().then {
             $0.title = "首页"
-            $0.iconName = "te_home"
-            $0.selectedIconName = "te_home"
+            $0.iconName = "tabbar_home_normal"
+            $0.selectedIconName = "tabbar_home_select"
         }
     }()
 
-    
     lazy var vtMagicController: VTMagicController = {
         return self.createMagicController()
     }()

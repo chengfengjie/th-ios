@@ -18,11 +18,19 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         return self.makeTableNodeHeader()
     }()
     
+    lazy var topMessageItem: UIButton = {
+        return self.makeNavBarLeftIconTextItem(iconName: "minge_message", title: "消息").2
+    }()
+    
+    lazy var topSettingItem: UIButton = {
+        return self.makeNavBarRightIconTextItem(iconName: "mine_setting", title: "设置").2
+    }()
+    
     lazy var itemConfigModel: BaseTabBarItemConfigModel = {
         return BaseTabBarItemConfigModel().then {
             $0.title = "我的"
-            $0.iconName = "te_user"
-            $0.selectedIconName = "te_user"
+            $0.iconName = "tabbar_mine_normal"
+            $0.selectedIconName = "tabbar_mine_select"
         }
     }()
 
@@ -31,15 +39,21 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
 
         self.view.backgroundColor = UIColor.white
         
-        self.makeNavBarLeftIconTextItem(iconName: "minge_message", title: "消息")
-
-        self.makeNavBarRightIconTextItem(iconName: "mine_setting", title: "设置")
-        
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 0, countText: "13")
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 1, countText: "1")
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 2, countText: "231")
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 3, countText: "16")
-                
+        
+        self.topMessageItem.addTarget(self, action: #selector(self.pushToMessageController), for: .touchUpInside)
+        self.topSettingItem.addTarget(self, action: #selector(self.pushToSettingController), for: .touchUpInside)
+    }
+    
+    @objc func pushToSettingController() {
+        self.pushViewController(viewController: SettingViewController(style: .grouped))
+    }
+    
+    @objc func pushToMessageController() {
+        self.pushViewController(viewController: MessageViewController())
     }
     
     @objc func handleClickHeaderMenuBarItem(sender: UIButton) {
@@ -66,12 +80,8 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return 1
-        case .collect:
+        case .collect, .comment, .viewhistory:
             return 2
-        case .comment:
-            return 2
-        default:
-            return 1
         }
     }
     
@@ -83,8 +93,8 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
             return section == 0 ? 0 : 10
         case .comment:
             return section == 0 ? 0 : 10
-        default:
-            return 1
+        case .viewhistory:
+            return section == 0 ? 0 : 10
         }
     }
     
@@ -102,9 +112,9 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
             return {
                 return MineCommentTopicNodeCell()
             }
-        default:
+        case .viewhistory:
             return {
-                return MineViewTopicCellNode()
+                return MineViewHistoryCellNode()
             }
         }
     }
@@ -113,10 +123,8 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return self.tableNodeHeaderBounds.height
-        case .comment, .collect:
+        case .comment, .collect, .viewhistory:
             return section == 0 ? self.tableNodeHeaderBounds.height : self.topicArticleSwitchHeaderSize.height
-        default:
-            return self.tableNodeHeaderBounds.height
         }
     }
     
@@ -124,10 +132,9 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return self.tableNodeHeader.containerBox
-        case .comment, .collect:
+        case .comment, .collect, .viewhistory:
             return section == 0 ? self.tableNodeHeader.containerBox : self.topicArticleSwitchHeader
-        default:
-            return self.tableNodeHeader.containerBox
+
         }
     }
 }

@@ -9,35 +9,36 @@
 class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
     
     lazy var categoryTextNode: ASTextNode = {
-        return self.makeCategoryTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var titleTextNode: ASTextNode = {
-        return self.makeTitleTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var contentTextNode: ASTextNode = {
-        return self.makeContentTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     lazy var shareIconNode: ASImageNode = {
-        return self.makeShareIconNode()
+        return self.makeAndAddImageNode()
     }()
     
     lazy var shareTextNode: ASTextNode = {
-        return self.makeShareTextNode()
+        return self.makeAndAddTextNode()
     }()
     
     var imageNodeArray: [ASImageNode] = []
     
     lazy var deleteButtonNode: ASButtonNode = {
-        return self.makeDeleteButtonNode()
+        return self.makeAndAddButtonNode()
     }()
     
     override init() {
         super.init()
         
         self.selectionStyle = .none
+        self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
         
         self.categoryTextNode.attributedText = "种草时间".attributedString
         self.titleTextNode.attributedText = "我的把实打实会话体验".attributedString

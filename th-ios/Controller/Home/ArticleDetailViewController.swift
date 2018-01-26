@@ -12,11 +12,16 @@ class ArticleDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.setNavigationBarTitle(title: "文章详情")
+        
+        self.view.backgroundColor = UIColor.white
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }

@@ -38,13 +38,22 @@ class BaseViewController: UIViewController, CustomNavigationBarProtocol {
             self.customeNavBar.closeItem?.removeFromSuperview()
             self.customeNavBar.closeItem = nil
         } else {
-            self.makeNavBarLeftIconItem(iconName: "th_close").do({ (item) in
+            self.makeNavBarLeftIconItem(iconName: "qing_close").do({ (item) in
                 self.customeNavBar.closeItem = item
                 item.reactive.controlEvents(.touchUpInside)
                     .observe({ [weak self] (signal) in
                         self?.popViewController(animated: true)
                     })
             })
+        }
+    }
+    
+    func setNavigationBarTitle(title: String) {
+        let titleAttributeText = title.withFont(Font.songTiBold(size: 17)).withTextColor(Color.color3)
+        if self.customeNavBar.titleLabel == nil {
+            self.customeNavBar.titleLabel = self.makeNavBarAttributeTitle(attributeText: titleAttributeText)
+        } else {
+            self.customeNavBar.titleLabel?.attributedText = titleAttributeText
         }
     }
 

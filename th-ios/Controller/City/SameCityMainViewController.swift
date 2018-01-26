@@ -20,8 +20,8 @@ class SameCityMainViewController: BaseViewController,
     lazy var itemConfigModel: BaseTabBarItemConfigModel = {
         return BaseTabBarItemConfigModel().then {
             $0.title = "同城"
-            $0.iconName = "te_building"
-            $0.selectedIconName = "te_building"
+            $0.iconName = "tabbar_city_normal"
+            $0.selectedIconName = "tabbar_city_select"
         }
     }()
     

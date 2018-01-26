@@ -10,6 +10,10 @@ import UIKit
 
 class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     
+    lazy var tableNodeHeader: CarouseTableNodeHeader = {
+        return self.makeHeadlineTableNodeHeader()
+    }()
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -17,12 +21,22 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.setupContentTableNodeLayout()
         
         self.setNavigationBarHidden(isHidden: true)
+    
     }
     
-    lazy var tableNodeHeader: CarouseTableNodeHeader = {
-        return self.makeHeadlineTableNodeHeader()
-    }()
-    
+    func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
+        switch type {
+        case .leaderboards:
+            self.pushViewController(viewController: LeaderboardsViewController(style: .plain))
+        case .author:
+            self.pushViewController(viewController: AuthorListViewController())
+        case .special:
+            self.pushViewController(viewController: SpecialTopicViewController())
+        case .treehole:
+            self.pushViewController(viewController: TreeHoleViewController())
+        }
+    }
+        
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         return 10
     }

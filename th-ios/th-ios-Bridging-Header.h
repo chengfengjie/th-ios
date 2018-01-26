@@ -11,3 +11,5 @@
 @import JYCarousel;
 @import SwiftyAttributes;
 @import YYWebImage;
+@import SwiftyJSON;
+@import RZTransitions;

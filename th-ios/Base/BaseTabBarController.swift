@@ -16,6 +16,8 @@ class BaseTabBarController: UITabBarController, SizeUtil {
         super.viewDidLoad()
         
         self.tabBar.isHidden = true
+        
+        self.delegate = RZTransitionsManager.shared()
     
         setupSubviews()
     }
@@ -35,6 +37,12 @@ class BaseTabBarController: UITabBarController, SizeUtil {
     
     @objc private func handleClickBarItem(sender: UIButton) {
         let index = sender.tag - BaseTabBar.ITEM_TAG_OFFSET
+        baseTabBar?.imageLabelTuple.forEach({ (item) in
+            item.0.isHighlighted = false
+            item.1.isHighlighted = false
+        })
+        baseTabBar?.imageLabelTuple[index].0.isHighlighted = true
+        baseTabBar?.imageLabelTuple[index].1.isHighlighted = true
         self.selectedViewController = self.viewControllers?[index]
     }
     
@@ -90,11 +98,14 @@ class BaseTabBar: BaseView, SizeUtil {
         self.action = action
     }
     
+    var imageLabelTuple: [(UIImageView, UILabel)] = []
+    
     override func setupSubViews() {
         self.backgroundColor = UIColor.white
     }
     
     func updateSubViews(items: [BaseTabBarItemConfigModel]) {
+        self.imageLabelTuple.removeAll()
         self.subviews.forEach { $0.removeFromSuperview() }
         
         var btn: UIButton? = nil
@@ -130,28 +141,32 @@ class BaseTabBar: BaseView, SizeUtil {
                 btn = $0
             })
             
-            UIImageView.init().do({
+            let icon = UIImageView.init().then({
                 btn?.addSubview($0)
                 $0.image = UIImage.init(named: item.iconName)
                 $0.highlightedImage = UIImage.init(named: item.selectedIconName)
+                $0.isHighlighted = index == 0
                 $0.snp.makeConstraints({ (make) in
-                    make.width.height.equalTo(24)
-                    make.top.equalTo(5)
+                    make.width.height.equalTo(18)
+                    make.top.equalTo(7)
                     make.centerX.equalTo(btn!.snp.centerX)
                 })
             })
             
-            UILabel.init().do({
+            let text = UILabel.init().then({
                 btn?.addSubview($0)
                 $0.text = item.title
                 $0.textColor = UIColor.gray
+                $0.highlightedTextColor = UIColor.pink
                 $0.textAlignment = .center
-                $0.font = UIFont.systemFont(ofSize: 11)
+                $0.isHighlighted = index == 0
+                $0.font = UIFont.systemFont(ofSize: 10)
                 $0.snp.makeConstraints({ (make) in
                     make.left.right.equalTo(0)
-                    make.top.equalTo(32)
+                    make.top.equalTo(30)
                 })
             })
+            self.imageLabelTuple.append((icon, text))
         }
     
     }

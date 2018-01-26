@@ -21,10 +21,14 @@ def share_pods
   pod 'ReactiveCocoa', '~> 7.0'
   pod 'JYCarousel', '~> 0.0.3'
   pod 'SwiftyAttributes', '~> 4.1.0'
+  pod 'RZTransitions', '~> 1.2.1'
 end
 
 target 'th-ios' do
   share_pods
+end
+target 'th-demo' do
+    share_pods
 end
 
 post_install do |installer|

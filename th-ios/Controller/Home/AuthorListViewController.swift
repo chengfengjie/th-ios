@@ -8,13 +8,41 @@
 
 import UIKit
 
-class AuthorListViewController: BaseViewController {
+class AuthorListViewController: BaseViewController, AuthorListViewLayout {
+    
+    lazy var menuTableNode: ASTableNode = {
+        return self.makeMenuTableNode()
+    }()
+    
+    var contentTableNode: ASTableNode = ASTableNode()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.setNavigationBarTitle(title: "作者")
+        
+        self.menuTableNode.delegate = self
+        self.menuTableNode.dataSource = self
 
     }
+    
+}
 
+extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
+    
+    func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return {
+            return ASTextCellNode().then {
+                $0.text = "育儿"
+            }
+        }
+    }
+    
 }

@@ -235,11 +235,11 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         
         self.sectionTitleTextNode.attributedText = "兴趣圈".withTextColor(Color.pink)
         
-        self.hotMomLifeNode.backgroundColor = UIColor.orange
+        self.hotMomLifeNode.backgroundColor = UIColor.hexColor(hex: "fef5ef")
         
-        self.bredExchangeNode.backgroundColor = UIColor.yellow
+        self.bredExchangeNode.backgroundColor =  UIColor.hexColor(hex: "f4f2fc")
         
-        self.grassTimeNode.backgroundColor = UIColor.green
+        self.grassTimeNode.backgroundColor = UIColor.hexColor(hex: "ecf4fa")
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -320,29 +320,179 @@ extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
     }
     
     func makeHotMomLifeNode() -> ASDisplayNode {
-        return ASDisplayNode.init().then({
+        return HotMonLifeNode.init().then({
             self.addSubnode($0)
-            $0.backgroundColor = UIColor.orange
             $0.style.preferredSize = self.leftItemSize
         })
     }
     
     func makeBredExchangeNode() -> ASDisplayNode {
-        return ASDisplayNode.init().then {
+        return BredExchangeNode.init().then {
             self.addSubnode($0)
-            $0.backgroundColor = UIColor.yellow
             $0.style.preferredSize = self.leftItemSize
         }
     }
     
     func makeGrassTimeNode() -> ASDisplayNode {
-        return ASDisplayNode.init().then {
+        return GrassTimeNode.init().then {
             self.addSubnode($0)
             $0.backgroundColor = UIColor.green
             $0.style.preferredSize = self.rightItemSize
         }
     }
 }
+
+/// 辣妈生活板块Node
+class HotMonLifeNode: ASDisplayNode, InterestGroupItemLayout {
+    lazy var titleTextNode: ASTextNode = {
+        return self.makeTitleTextNode()
+    }()
+    lazy var descriptionTextNode: ASTextNode = {
+        return self.makeDescriptionTextNode()
+    }()
+    lazy var imageNode: ASImageNode = {
+        return self.makeImageNode()
+    }()
+    override init() {
+        super.init()
+        
+        self.titleTextNode.attributedText = "# 辣妈生活".attributedString
+        self.descriptionTextNode.attributedText = "妈妈生活吐槽基地".attributedString
+        self.imageNode.image = UIImage.init(named: "qing_freaky_life")
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        return self.smallItemLayoutSpec
+    }
+}
+
+class BredExchangeNode: ASDisplayNode, InterestGroupItemLayout {
+    lazy var titleTextNode: ASTextNode = {
+        return self.makeTitleTextNode()
+    }()
+    lazy var descriptionTextNode: ASTextNode = {
+        return self.makeDescriptionTextNode()
+    }()
+    lazy var imageNode: ASImageNode = {
+        return self.makeImageNode()
+    }()
+    
+    override init() {
+        super.init()
+        
+        self.titleTextNode.attributedText = "# 孕育交流".attributedString
+        self.descriptionTextNode.attributedText = "妈妈生活吐槽的空间".attributedString
+        self.imageNode.image = UIImage.init(named: "qing_breeding")
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        return self.smallItemLayoutSpec
+    }
+}
+
+class GrassTimeNode: ASDisplayNode, InterestGroupItemLayout {
+    lazy var titleTextNode: ASTextNode = {
+        return self.makeTitleTextNode()
+    }()
+    lazy var descriptionTextNode: ASTextNode = {
+        return self.makeDescriptionTextNode()
+    }()
+    lazy var imageNode: ASImageNode = {
+        return self.makeImageNode()
+    }()
+    override init() {
+        super.init()
+        self.titleTextNode.attributedText = "# 种草时间".attributedString
+        self.descriptionTextNode.attributedText = "自古以来人们常说眼睛是心灵之窗,拥有一双漂亮的会说话".attributedString
+        self.imageNode.image = UIImage.init(named: "qing_grass_time")
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        return self.bigItemLayoutSpec
+    }
+}
+
+protocol InterestGroupItemLayout {
+    var titleTextNode: ASTextNode { get }
+    var descriptionTextNode: ASTextNode { get }
+    var imageNode: ASImageNode { get }
+}
+extension InterestGroupItemLayout where Self: ASDisplayNode {
+    
+    var contentInset: UIEdgeInsets {
+        return UIEdgeInsetsMake(15, 15, 15, 15)
+    }
+    
+    var elementSpacing: CGFloat {
+        return 15
+    }
+    
+    var imageSize: CGSize {
+        return CGSize.init(width: 50, height: 50)
+    }
+    
+    var itemLeftTextNodeWidth: CGFloat {
+        let width = self.style.preferredSize.width
+            - self.contentInset.left
+            - self.contentInset.right
+            - self.elementSpacing
+            - self.imageSize.width
+        return width
+    }
+    
+    func makeTitleTextNode() -> ASTextNode {
+        return ASTextNode().then {
+            self.addSubnode($0)
+        }
+    }
+    func makeDescriptionTextNode() -> ASTextNode {
+        return ASTextNode().then {
+            self.addSubnode($0)
+        }
+    }
+    func makeImageNode() -> ASImageNode {
+        return ASImageNode().then {
+            self.addSubnode($0)
+            $0.style.preferredSize = self.imageSize
+        }
+    }
+    
+    var smallItemLayoutSpec: ASLayoutSpec {
+        
+        self.titleTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: self.itemLeftTextNodeWidth)
+        self.descriptionTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: self.itemLeftTextNodeWidth)
+
+        let leftSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                              spacing: 10,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.stretch,
+                                              children: [self.titleTextNode, self.descriptionTextNode])
+        let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                              spacing: 15,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.center,
+                                              children: [leftSpec, self.imageNode])
+        
+        let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
+        return mainInsetSpec
+    }
+    
+    var bigItemLayoutSpec: ASLayoutSpec {
+        let imageSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                               spacing: 0,
+                                               justifyContent: ASStackLayoutJustifyContent.end,
+                                               alignItems: ASStackLayoutAlignItems.stretch,
+                                               children: [self.imageNode])
+        let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                              spacing: self.elementSpacing,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.stretch,
+                                              children: [self.titleTextNode, self.descriptionTextNode, imageSpec])
+        let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
+        return mainInsetSpec
+    }
+}
+
 
 class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
     
@@ -643,13 +793,45 @@ extension QingCityCommunityCellNodeLayout where Self: QingCityCommunityCellNode 
     func makeCityItems(cityInfoItems: [String]) -> [ASDisplayNode] {
         var items: [ASDisplayNode] = []
         cityInfoItems.forEach { (cityInfo) in
-            items.append(ASDisplayNode.init().then {
-                $0.backgroundColor = UIColor.orange
+            items.append(CityCommunityCellNodeItem.init().then {
+                $0.backgroundColor = UIColor.hexColor(hex: "edf9f5")
                 $0.style.preferredSize = self.cityItemSize
                 self.addSubnode($0)
             })
         }
         return items
+    }
+}
+
+fileprivate class CityCommunityCellNodeItem: ASDisplayNode {
+    
+    lazy var cityNameTextNode: ASTextNode = {
+        return ASTextNode().then {
+            self.addSubnode($0)
+        }
+    }()
+    lazy var cityInfoTextNode: ASTextNode = {
+        return ASTextNode().then {
+            self.addSubnode($0)
+        }
+    }()
+    
+    override init() {
+        super.init()
+        self.cityNameTextNode.attributedText = "上海".attributedString
+        self.cityInfoTextNode.attributedText = "30982成员 | 133帖子".attributedString
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                              spacing: 10,
+                                              justifyContent: ASStackLayoutJustifyContent.start,
+                                              alignItems: ASStackLayoutAlignItems.center,
+                                              children: [self.cityNameTextNode, self.cityInfoTextNode])
+        let position = ASCenterLayoutSpec.init(centeringOptions: ASCenterLayoutSpecCenteringOptions.XY,
+                                               sizingOptions: ASCenterLayoutSpecSizingOptions.minimumXY,
+                                               child: mainSpec)
+        return position
     }
 }
 

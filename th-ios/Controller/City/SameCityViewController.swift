@@ -26,6 +26,10 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.pushViewController(viewController: ArticleDetailViewController())
     }
     
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             return ArticleListCellNode()

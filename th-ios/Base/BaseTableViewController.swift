@@ -52,7 +52,7 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 0
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
