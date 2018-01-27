@@ -26,7 +26,7 @@ extension LeaderboardsViewLayout where Self: LeaderboardsViewController {
 }
 
 
-class LeaderboardsViewCellNode: ASCellNode, LeaderboardsViewCellNodeLayout {
+class LeaderboardsViewCellNode: ASCellNode, NoneContentArticleCellNode {
     lazy var categoryTextNode: ASTextNode = {
         return self.makeAndAddTextNode()
     }()
@@ -53,53 +53,26 @@ class LeaderboardsViewCellNode: ASCellNode, LeaderboardsViewCellNodeLayout {
         
         self.sourceIconImageNode.style.preferredSize = CGSize.init(width: 14, height: 14)
         
-        self.categoryTextNode.attributedText = "小学教育".attributedString
-        self.titleTextNode.attributedText = "赵薇和他背后的隐秘富豪".attributedString
+        self.categoryTextNode.setText(text: "小学教育", style: self.layoutCss.cateNameTextStyle)
+        self.titleTextNode.setText(text: "赵薇和他背后的隐秘富豪", style: self.layoutCss.titleTextStyle)
         self.imageNode.url = URL.init(string: "http://a.hiphotos.baidu.com/image/h%3D300/sign=c17af2b3bb51f819ee25054aeab54a76/d6ca7bcb0a46f21f46612acbfd246b600d33aed5.jpg")
+        self.imageNode.style.preferredSize = self.layoutCss.imageSize
+        
         self.sourceIconImageNode.url = URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")
-        self.sourceTextNode.attributedText = "21世纪".attributedString
-        self.unlikeButtonNode.setAttributedTitle("不喜欢".attributedString, for: UIControlState.normal)
+        self.sourceTextNode.style.preferredSize = self.layoutCss.sourceIconSize
+        
+        self.sourceTextNode.setText(text: "21世纪", style: self.layoutCss.sourceNameTextStyle)
+        
+        self.unlikeButtonNode.setTitleText(text: "不喜欢", style: self.layoutCss.sourceNameTextStyle)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         return self.buildNoneImageLayoutSpec(constrainedSize: constrainedSize)
     }
-}
-
-protocol LeaderboardsViewCellNodeLayout: CellNodeElementLayout {
-    var categoryTextNode: ASTextNode { get }
-    var titleTextNode: ASTextNode { get }
-    var imageNode: ASNetworkImageNode { get }
-    var sourceIconImageNode: ASNetworkImageNode { get }
-    var sourceTextNode: ASTextNode { get }
-    var unlikeButtonNode: ASButtonNode { get }
-}
-extension LeaderboardsViewCellNodeLayout {
     
-    var contentInset: UIEdgeInsets {
-        return kContentInset
+    var layoutCss: NoneContentArticleCellNodeStyle {
+        return self.css.home_nocontent_article_cell_node
     }
-    
-    func buildNoneImageLayoutSpec(constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let sourceSpec = ASStackLayoutSpec.init(direction: .horizontal,
-                                                spacing: 5,
-                                                justifyContent: .start,
-                                                alignItems: .center,
-                                                children: [self.sourceIconImageNode, self.sourceTextNode])
-        let bottomBarSpec = ASStackLayoutSpec.init(direction: .horizontal,
-                                                   spacing: 0,
-                                                   justifyContent: .spaceBetween,
-                                                   alignItems: .center,
-                                                   children: [sourceSpec, self.unlikeButtonNode])
-        let mainSpec = ASStackLayoutSpec.init(direction: .vertical,
-                                              spacing: 15,
-                                              justifyContent: .start,
-                                              alignItems: .stretch,
-                                              children: [self.categoryTextNode, self.titleTextNode, bottomBarSpec])
-        let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
-        return mainInsetSpec
-    }
-    
 }
 
 class HeaderChangeControl: BaseView {

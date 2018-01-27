@@ -181,6 +181,7 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
     ///
     /// - Parameter attributeText: 标题名称
     /// - Returns: label
+    @discardableResult
     func makeNavBarAttributeTitle(attributeText: NSAttributedString) -> UILabel {
         let contentBar: UIView = self.customeNavBar.navBarContent
         return UILabel().then {
@@ -192,6 +193,20 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
             })
         }
     }
+    
+    @discardableResult
+    func makeNavBarBottomline() -> UIView {
+        let contentBar: UIView = self.customeNavBar.navBarContent
+        return UIView().then {
+            $0.backgroundColor = UIColor.lineColor
+            contentBar.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.left.right.bottom.equalTo(0)
+                make.height.equalTo(1)
+            })
+        }
+    }
+    
 }
 
 

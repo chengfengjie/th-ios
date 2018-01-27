@@ -8,9 +8,9 @@
 
 import Foundation
 
-fileprivate protocol StyleParserProtocol {}
+protocol StyleParserProtocol {}
 
-fileprivate extension StyleParserProtocol {
+extension StyleParserProtocol {
     func createFont(fontJson: JSON) -> UIFont {
         let name: String = fontJson["name"].stringValue
         let size: CGFloat = fontJson["size"].floatValue.cgFloat
@@ -104,7 +104,7 @@ extension AppStyle {
     }
 }
 
-class TextStyle {
+class TextStyle: NSObject {
     var font: UIFont = UIFont.systemFont(ofSize: 14)
     var color: UIColor = UIColor.color3
     var lineSpacing: CGFloat = 1
@@ -115,34 +115,9 @@ class AppStyle: NSObject, StyleParserProtocol {
     /// 首页顶部滚动菜单滚动条文字颜色和字体
     var home_top_bar_text_style: TextStyle = TextStyle()
     var home_index: HomeTableNodeCellStyle = HomeTableNodeCellStyle()
+    var home_nocontent_article_cell_node: NoneContentArticleCellNodeStyle = NoneContentArticleCellNodeStyle()
 }
 
-class HomeTableNodeCellStyle: StyleParserProtocol  {
-    
-    var headerItemSize: CGSize = CGSize.init(width: 50, height: 50)
-    var bannerHWRatio: Float = 0.5
-    var contentInset: UIEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
-    var elementSpacing: Float = 10
-    var cateTextStyle: TextStyle = TextStyle()
-    var titleTextStyle: TextStyle = TextStyle()
-    var contentTextStyle: TextStyle = TextStyle()
-    var imageSize: CGSize = CGSize.init(width: 70, height: 50)
-    var authorIconSize: CGSize = CGSize.init(width: 16, height: 16)
-    var authorUnlikeTextStyle: TextStyle = TextStyle()
-    
-    func update(json: JSON) {
-        self.headerItemSize = createCGSize(json: json["headerItemSize"])
-        self.bannerHWRatio = json["bannerHWRatio"].floatValue
-        self.elementSpacing = json["elementSpacing"].floatValue
-        self.contentInset = self.createInset(insetJson: json["contentInset"])
-        self.updateTextStyle(style: self.cateTextStyle, json: json["cateTextStyle"])
-        self.updateTextStyle(style: self.titleTextStyle, json: json["titleTextStyle"])
-        self.updateTextStyle(style: self.contentTextStyle, json: json["contentTextStyle"])
-        self.imageSize = self.createCGSize(json: json["imageSize"])
-        self.authorIconSize = self.createCGSize(json: json["authorIconSize"])
-        self.updateTextStyle(style: self.authorUnlikeTextStyle, json: json["authorUnlikeTextStyle"])
-    }
-}
 
 extension NSObject {
     var css: AppStyle {
