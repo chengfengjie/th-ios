@@ -31,7 +31,7 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         case .author:
             self.pushViewController(viewController: AuthorListViewController())
         case .special:
-            self.pushViewController(viewController: SpecialTopicViewController())
+            self.pushViewController(viewController: SpecialTopicListController(style: .plain))
         case .treehole:
             self.pushViewController(viewController: TreeHoleViewController())
         }

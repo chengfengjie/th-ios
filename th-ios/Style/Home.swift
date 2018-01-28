@@ -65,3 +65,67 @@ class NoneContentArticleCellNodeStyle: StyleParserProtocol {
     }
 }
 
+class SpecialListCellNodeStyle: StyleParserProtocol {
+    var contentInset: UIEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20)
+    var imageSize: CGSize
+    var titleStyle: TextStyle
+    var descriptionStyle: TextStyle
+    
+    init() {
+        let width: CGFloat = UIScreen.main.bounds.width - self.contentInset.left - self.contentInset.right
+        self.imageSize = CGSize.init(width: width, height: width * 0.6)
+        self.titleStyle = TextStyle().then {
+            $0.alignment = NSTextAlignment.left
+            $0.color = UIColor.color3
+            $0.font = UIFont.systemFont(ofSize: 18)
+        }
+        self.descriptionStyle = TextStyle().then {
+            $0.color = UIColor.color9
+            $0.font = UIFont.systemFont(ofSize: 11)
+            $0.lineSpacing = 3
+        }
+    }
+}
+
+class SpecialTopicStyle: StyleParserProtocol {
+    var bannerTitleStyle: TextStyle = TextStyle()
+    var bannerDescriptionStyle: TextStyle = TextStyle()
+    
+    init() {
+        self.bannerTitleStyle.do {
+            $0.font = UIFont.systemFont(ofSize: 20)
+            $0.color = UIColor.white
+        }
+        
+        self.bannerDescriptionStyle.do {
+            $0.color = UIColor.init(white: 1, alpha: 0.8)
+            $0.font = UIFont.systemFont(ofSize: 11)
+            $0.lineSpacing = 3
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

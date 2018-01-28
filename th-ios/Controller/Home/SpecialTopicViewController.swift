@@ -8,30 +8,38 @@
 
 import UIKit
 
-class SpecialTopicViewController: BaseViewController {
-
+class SpecialTopicViewController: BaseTableViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.setNavigationBarCloseItem(isHidden: false)
         
         self.setNavigationBarTitle(title: "专题")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return 2
     }
-    */
-
+    
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        } else {
+            return 10
+        }
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        if indexPath.section == 0 {
+            return {
+                return SpecialTopicBannerCellNode()
+            }
+        } else {
+            return {
+                return SpecialTopicArticleListCellNode()
+            }
+        }
+    }
 }

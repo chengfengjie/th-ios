@@ -116,6 +116,8 @@ class AppStyle: NSObject, StyleParserProtocol {
     var home_top_bar_text_style: TextStyle = TextStyle()
     var home_index: HomeTableNodeCellStyle = HomeTableNodeCellStyle()
     var home_nocontent_article_cell_node: NoneContentArticleCellNodeStyle = NoneContentArticleCellNodeStyle()
+    var home_special_cell_node: SpecialListCellNodeStyle = SpecialListCellNodeStyle()
+    var home_special_topic_info: SpecialTopicStyle = SpecialTopicStyle()
 }
 
 

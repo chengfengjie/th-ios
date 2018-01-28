@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TreeHoleViewController: BaseViewController {
+class TreeHoleViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
