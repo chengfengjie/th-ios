@@ -264,7 +264,7 @@ class ArticleListImageCellNode: ArticleListCellNode, ArticleListImageCellNodeLay
     }
 }
 
-protocol ArticleListCellNodeLayout: CellNodeElementLayout {
+protocol ArticleListCellNodeLayout: NodeElementMaker {
     var classificationTextNode: ASTextNode { get }
     var titleTextNode: ASTextNode { get }
     var contentTextNode: ASTextNode { get }

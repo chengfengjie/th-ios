@@ -8,19 +8,48 @@
 
 import UIKit
 
-class SearchViewController: BaseViewController, SearchViewControllerLayout {
+class SearchViewController: BaseTableViewController, SearchViewControllerLayout, TopicArticleSwitchHeaderLayout {
+    
+    lazy var topicArticleSwitchHeader: UIView = {
+        return self.makeTopicArticleSwitchHeader()
+    }()
 
+    lazy var searchControl: SearchControl = {
+        return self.makeSearchControl()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.makeSearchBarLayout()
+        self.makeNavBarRightCancelButton()
+        
+        self.searchControl.backgroundColor = UIColor.hexColor(hex: "fafafa")
+    }
+    
+    @objc func handleClickCancelItem() {
+        self.popViewController(animated: true)
     }
 
-}
-
-protocol SearchViewControllerLayout {}
-extension SearchViewControllerLayout where Self: SearchViewController {
-    func makeSearchBarLayout() {
+    @objc func handleTopicArticleSwitchItemClick(itemIndex: NSNumber) {
         
     }
+    
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return {
+            return SearchResultCellNode()
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return self.topicArticleSwitchHeaderSize.height
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return self.topicArticleSwitchHeader
+    }
 }
+

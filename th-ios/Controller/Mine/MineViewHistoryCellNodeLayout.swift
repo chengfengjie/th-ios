@@ -57,7 +57,7 @@ class MineViewHistoryCellNode: ASCellNode, MineViewHistoryCellNodeLayout {
     }
 }
 
-protocol MineViewHistoryCellNodeLayout: CellNodeElementLayout {
+protocol MineViewHistoryCellNodeLayout: NodeElementMaker {
     var sourceInfoBox: SourceInfoBox { get }
     var shareIconImageNode: ASImageNode { get }
     var shareTextNode: ASTextNode { get }

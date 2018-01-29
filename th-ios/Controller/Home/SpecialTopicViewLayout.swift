@@ -6,7 +6,7 @@
 //  Copyright © 2018年 wincode.com. All rights reserved.
 //
 
-class SpecialTopicBannerCellNode: ASCellNode, CellNodeElementLayout {
+class SpecialTopicBannerCellNode: ASCellNode, NodeElementMaker {
     lazy var backgroundImageNode: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
     }()

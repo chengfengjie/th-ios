@@ -64,7 +64,7 @@ extension AuthorListViewLayout where Self: AuthorListViewController {
     }
 }
 
-class AuthorListCellNode: ASCellNode, CellNodeElementLayout {
+class AuthorListCellNode: ASCellNode, NodeElementMaker {
     lazy var avatarImageNode: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
     }()

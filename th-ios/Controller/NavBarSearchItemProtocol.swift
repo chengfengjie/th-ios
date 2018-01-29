@@ -16,7 +16,7 @@ extension NavBarSearchItemProtocol where Self: BaseViewController {
                 item.imageEdgeInsets = UIEdgeInsets.init(top: 15, left: 5, bottom: 15, right: 25)
         }).reactive.controlEvents(.touchUpInside)
             .observe { [weak self] (signal) in
-                self?.pushViewController(viewController: SearchViewController())
+                self?.pushViewController(viewController: SearchViewController(style: .grouped))
         }
     }
 }

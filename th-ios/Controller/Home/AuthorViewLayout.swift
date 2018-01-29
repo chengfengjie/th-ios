@@ -17,7 +17,7 @@ extension AuthorViewLayout {
     }
 }
 
-class AuthorTopBasicInfo: ASCellNode, CellNodeElementLayout {
+class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
     
     lazy var avatarImageNode: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
@@ -89,7 +89,7 @@ class AuthorTopBasicInfo: ASCellNode, CellNodeElementLayout {
     
 }
 
-class AttentionAuthorCellNode: ASCellNode, CellNodeElementLayout {
+class AttentionAuthorCellNode: ASCellNode, NodeElementMaker {
     var avatarUrls: [URL] = []
     lazy var textNode: ASTextNode = {
         return self.makeAndAddTextNode()

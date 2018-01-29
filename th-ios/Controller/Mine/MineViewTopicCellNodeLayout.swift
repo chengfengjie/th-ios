@@ -67,7 +67,7 @@ class MineViewTopicCellNode: ASCellNode, MineViewTopicCellNodeLayout {
     }
 }
 
-protocol MineViewTopicCellNodeLayout: CellNodeElementLayout {
+protocol MineViewTopicCellNodeLayout: NodeElementMaker {
     var categoryTextNode: ASTextNode { get }
     var titleTextNode: ASTextNode { get }
     var contentTextNode: ASTextNode { get }

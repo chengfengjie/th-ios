@@ -8,13 +8,29 @@
 
 import UIKit
 
-class TreeHoleViewController: BaseTableViewController {
-
+class TreeHoleViewController: BaseTableViewController, TreeHoleViewLayout {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.setNavigationBarCloseItem(isHidden: false)
         
         self.setNavigationBarTitle(title: "树洞")
+        
+        self.setNavigationBarCloseItem(isHidden: false)
+    }
+    
+    override func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return 2
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 1 : 10
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return indexPath.section == 0 ? {
+                return TreeHoleInfoCellNode()
+            } : {
+                return TreeHoleCommentCellNode()
+        }
     }
 }

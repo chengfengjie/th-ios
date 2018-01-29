@@ -56,6 +56,10 @@
 		5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */; };
 		5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633B2012E43500F185BA /* SearchViewController.swift */; };
 		5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */; };
+		5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C352201EBB680043D01F /* TreeHoleListViewController.swift */; };
+		5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */; };
+		5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C356201ECC900043D01F /* SearchViewLayout.swift */; };
+		5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -142,6 +146,10 @@
 		5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarSearchItemProtocol.swift; sourceTree = "<group>"; };
 		5C94633B2012E43500F185BA /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewLayout.swift; sourceTree = "<group>"; };
+		5C94C352201EBB680043D01F /* TreeHoleListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleListViewController.swift; sourceTree = "<group>"; };
+		5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleListViewLayout.swift; sourceTree = "<group>"; };
+		5C94C356201ECC900043D01F /* SearchViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewLayout.swift; sourceTree = "<group>"; };
+		5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicArticleSwitchHeader.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -306,6 +314,8 @@
 				5C944598201D91AB00CCF082 /* SpecialTopicListLayout.swift */,
 				5C92706E20107BCC00838C1D /* SpecialTopicViewController.swift */,
 				5C944594201D7C6900CCF082 /* SpecialTopicViewLayout.swift */,
+				5C94C352201EBB680043D01F /* TreeHoleListViewController.swift */,
+				5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */,
 				5C92707020107C4A00838C1D /* TreeHoleViewController.swift */,
 				5C94459A201DC92B00CCF082 /* TreeHoleViewLayout.swift */,
 				5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */,
@@ -352,6 +362,8 @@
 			isa = PBXGroup;
 			children = (
 				5C94633B2012E43500F185BA /* SearchViewController.swift */,
+				5C94C356201ECC900043D01F /* SearchViewLayout.swift */,
+				5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -754,6 +766,7 @@
 				5C59617A2018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift in Sources */,
 				5C0675D6200C89760019A24D /* BaseTabBarController.swift in Sources */,
 				5C944599201D91AB00CCF082 /* SpecialTopicListLayout.swift in Sources */,
+				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
 				5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */,
@@ -763,8 +776,10 @@
 				5C0675E0200C915D0019A24D /* ThUtils.swift in Sources */,
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
+				5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */,
 				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
 				5CACA054201CB35F003E3901 /* Home.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
@@ -786,6 +801,7 @@
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
 				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,
+				5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */,
 				5C397AA3201AC2CD00C0B898 /* MessageViewController.swift in Sources */,
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
 				5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */,

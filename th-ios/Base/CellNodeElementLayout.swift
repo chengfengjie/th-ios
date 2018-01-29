@@ -8,8 +8,13 @@
 
 import Foundation
 
-protocol CellNodeElementLayout {}
-extension CellNodeElementLayout where Self: ASCellNode {
+protocol NodeElementMaker {}
+extension NodeElementMaker where Self: ASDisplayNode {
+    
+    func makeDefaultContentInset() -> UIEdgeInsets {
+        return UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20)
+    }
+    
     func makeAndAddTextNode() -> ASTextNode {
         return ASTextNode().then {
             self.addSubnode($0)

@@ -10,7 +10,7 @@ import Foundation
 
 protocol UserListViewLayout {}
 
-protocol UserListCellNodeLayout: CellNodeElementLayout {
+protocol UserListCellNodeLayout: NodeElementMaker {
     var avatarImageNode: ASNetworkImageNode { get }
     var userNameTextNode: ASTextNode { get }
     var buttonNode: ASButtonNode { get }

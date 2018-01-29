@@ -23,3 +23,12 @@ extension Float {
     }
 }
 
+typealias ParaStyle = NSMutableParagraphStyle
+extension ParaStyle {
+    class func create(lineSpacing: CGFloat, alignment: NSTextAlignment = .left) -> ParaStyle {
+        return ParaStyle().then {
+            $0.lineSpacing = lineSpacing
+            $0.alignment = alignment
+        }
+    }
+}

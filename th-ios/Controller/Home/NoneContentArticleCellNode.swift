@@ -60,7 +60,7 @@ class NoneContentArticleCellNodeImpl: ASCellNode, NoneContentArticleCellNode {
     
 }
 
-protocol NoneContentArticleCellNode: CellNodeElementLayout {
+protocol NoneContentArticleCellNode: NodeElementMaker {
     var categoryTextNode: ASTextNode { get }
     var titleTextNode: ASTextNode { get }
     var imageNode: ASNetworkImageNode { get }

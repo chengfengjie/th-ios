@@ -34,7 +34,7 @@ class SpecialListCellNode: ASCellNode, SpecialListCellNodeLayout {
     }
 }
 
-protocol SpecialListCellNodeLayout: CellNodeElementLayout {
+protocol SpecialListCellNodeLayout: NodeElementMaker {
     var imageNode: ASNetworkImageNode { get }
     var titleTextNode: ASTextNode { get }
     var descriptionTextNode: ASTextNode { get }

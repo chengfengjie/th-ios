@@ -42,6 +42,8 @@ class HeaderChangeControl: BaseView {
     
     private var items: [UIButton] = []
     
+    var bottomlineWidth: CGFloat = 80
+    
     var titles: [String] = [] {
         didSet {
             self.updateSubviews()
@@ -86,8 +88,8 @@ class HeaderChangeControl: BaseView {
         
         self.addSubview(bottomline)
         bottomline.snp.remakeConstraints { (make) in
-            make.width.equalTo(80)
-            make.height.equalTo(2)
+            make.width.equalTo(bottomlineWidth)
+            make.height.equalTo(3)
             make.centerX.equalTo(self.items[0].snp.centerX)
             make.bottom.equalTo(0)
         }
@@ -100,8 +102,8 @@ class HeaderChangeControl: BaseView {
         }
         sender.isSelected = true
         self.bottomline.snp.remakeConstraints { (make) in
-            make.width.equalTo(80)
-            make.height.equalTo(2)
+            make.width.equalTo(bottomlineWidth)
+            make.height.equalTo(3)
             make.centerX.equalTo(sender.snp.centerX)
             make.bottom.equalTo(0)
         }
