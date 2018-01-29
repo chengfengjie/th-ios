@@ -26,7 +26,8 @@ extension SearchViewControllerLayout where Self: SearchViewController {
                 make.right.equalTo(-15)
                 make.width.equalTo(barContent.snp.height)
             })
-            $0.addTarget(self, action: #selector(self.handleClickCancelItem), for: UIControlEvents.touchUpInside)
+            $0.addTarget(self, action: #selector(self.handleClickCancelItem),
+                         for: UIControlEvents.touchUpInside)
         }
     }
     
@@ -109,6 +110,8 @@ class SearchResultCellNode: ASCellNode, SearchResultCellNodeLayout {
     
     override init() {
         super.init()
+        
+        self.selectionStyle = .none
         
         self.cateNameTextNode.attributedText = "辣妈生活"
             .withTextColor(Color.pink)

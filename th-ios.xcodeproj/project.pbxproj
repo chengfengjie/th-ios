@@ -60,6 +60,9 @@
 		5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */; };
 		5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C356201ECC900043D01F /* SearchViewLayout.swift */; };
 		5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */; };
+		5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */; };
+		5C94C35D201F0E2F0043D01F /* QingModuleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */; };
+		5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -150,6 +153,9 @@
 		5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeHoleListViewLayout.swift; sourceTree = "<group>"; };
 		5C94C356201ECC900043D01F /* SearchViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewLayout.swift; sourceTree = "<group>"; };
 		5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicArticleSwitchHeader.swift; sourceTree = "<group>"; };
+		5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingModuleViewController.swift; sourceTree = "<group>"; };
+		5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingModuleViewLayout.swift; sourceTree = "<group>"; };
+		5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollMenu.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -276,6 +282,7 @@
 				5C0675F7200DEC670019A24D /* BaseTableViewController.swift */,
 				5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */,
 				5C397AAF201B203E00C0B898 /* CellNodeElementLayout.swift */,
+				5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -339,6 +346,8 @@
 			children = (
 				5C2B7121200E1ABE005CE83F /* QingViewController.swift */,
 				5CDF46192015774C002F7D8B /* QingViewLayout.swift */,
+				5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */,
+				5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */,
 			);
 			path = Qing;
 			sourceTree = "<group>";
@@ -779,6 +788,7 @@
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
+				5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */,
 				5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */,
 				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
 				5CACA054201CB35F003E3901 /* Home.swift in Sources */,
@@ -790,6 +800,7 @@
 				5C944595201D7C6900CCF082 /* SpecialTopicViewLayout.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
 				5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */,
+				5C94C35D201F0E2F0043D01F /* QingModuleViewLayout.swift in Sources */,
 				5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */,
 				5C927067200E3A7B00838C1D /* ColorUtils.swift in Sources */,
 				5C0675F8200DEC670019A24D /* BaseTableViewController.swift in Sources */,
@@ -798,6 +809,7 @@
 				5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */,
 				5CACA058201CC0D9003E3901 /* UserListViewLayout.swift in Sources */,
 				5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */,
+				5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
 				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,

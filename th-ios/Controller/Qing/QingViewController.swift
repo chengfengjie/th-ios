@@ -8,8 +8,8 @@
 
 import UIKit
 
-class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingViewLayout, NavBarSearchItemProtocol {
-
+class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingViewLayout, NavBarSearchItemProtocol, InterestGropusCellNodeAction {
+    
     lazy var tableNodeMneuBarHeader: QingViewTableNodeMenuBarHeader = {
         return self.makeTopMenuBarHeader()
     }()
@@ -34,10 +34,30 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         self.makeNavigationBarSearchItem()
         
         self.makeNavigationBarLeftChatItem()
+        
+        self.tableNodeMneuBarHeader.items.forEach {
+            $0.addTarget(self, action: #selector(self.handleClickHeaderMenuItem(sender:)),
+                         for: UIControlEvents.touchUpInside)
+        }
     }
     
     func handleSingnInButtonClick() {
         
+    }
+    
+    @objc func handleClickHeaderMenuItem(sender: UIButton) {
+    }
+    
+    func handleClickHotMomNode() {
+        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
+    }
+    
+    func handleClickBredExchange() {
+        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
+    }
+    
+    func handleClickGrassTime() {
+        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -55,11 +75,11 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         switch indexPath.row {
         case 0:
             return {
-                return InterestGropusCellNode.init()
+                return InterestGropusCellNode(action: self)
             }
         case 1:
             return {
-                return QingHotTodayCellNode.init()
+                return QingHotTodayCellNode()
             }
         case 2:
             return {

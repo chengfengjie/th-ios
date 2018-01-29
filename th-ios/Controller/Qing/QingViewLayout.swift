@@ -21,6 +21,7 @@ class QingViewTableNodeBannerHeader: NSObject {
 
 class QingViewTableNodeMenuBarHeader: NSObject {
     var containerBox: UIView
+    var items: [UIButton] = []
     init(containerBox: UIView) {
         self.containerBox = containerBox
         super.init()
@@ -137,10 +138,13 @@ extension QingViewLayout where Self: QingViewController {
     func makeTopMenuBarHeader() -> QingViewTableNodeMenuBarHeader {
         let header: UIView = UIView.init()
         
+        let headerModel = QingViewTableNodeMenuBarHeader.init(containerBox: header)
+
+        
         let itemInfo: [(String, String)] = self.menuItemInfo
         
         var tempButton: UIButton? = nil
-        for item in itemInfo {
+        for (index, item) in itemInfo.enumerated() {
             let showLine: Bool = item.0 != itemInfo.last?.0
             self.createMenuBarItem(title: item.0, iconName: item.1, showRightline: showLine).do {
                 header.addSubview($0)
@@ -159,10 +163,12 @@ extension QingViewLayout where Self: QingViewController {
                     }
                 })
                 tempButton = $0
+                $0.tag = index + 100
+                headerModel.items.append($0)
             }
         }
         
-        return QingViewTableNodeMenuBarHeader.init(containerBox: header)
+        return headerModel
     }
     
     private func createMenuBarItem(title: String, iconName: String, showRightline: Bool) -> UIButton {
@@ -204,7 +210,15 @@ extension QingViewLayout where Self: QingViewController {
     }
 }
 
+protocol InterestGropusCellNodeAction: class {
+    func handleClickHotMomNode()
+    func handleClickBredExchange()
+    func handleClickGrassTime()
+}
+
 class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
+    
+    weak var action: InterestGropusCellNodeAction?
     
     lazy var segmentLineNode: ASDisplayNode = {
         return self.makeSegmemtLineNode()
@@ -214,19 +228,22 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         return self.makeSectionTitleTextNode()
     }()
     
-    lazy var hotMomLifeNode: ASDisplayNode = {
+    lazy var hotMomLifeNode: HotMonLifeNode = {
         return self.makeHotMomLifeNode()
     }()
     
-    lazy var bredExchangeNode: ASDisplayNode = {
+    lazy var bredExchangeNode: BredExchangeNode = {
         return self.makeBredExchangeNode()
     }()
     
-    lazy var grassTimeNode: ASDisplayNode = {
+    lazy var grassTimeNode: GrassTimeNode = {
         return self.makeGrassTimeNode()
     }()
 
-    override init() {
+    required init(action: InterestGropusCellNodeAction) {
+        
+        self.action = action
+        
         super.init()
         
         self.selectionStyle = .none
@@ -235,11 +252,23 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         
         self.sectionTitleTextNode.attributedText = "兴趣圈".withTextColor(Color.pink)
         
-        self.hotMomLifeNode.backgroundColor = UIColor.hexColor(hex: "fef5ef")
+        self.hotMomLifeNode.do {
+            $0.backgroundColor = UIColor.hexColor(hex: "fef5ef")
+            $0.addTarget(self, action: #selector(self.handleClickHotMomNode),
+                         forControlEvents: .touchUpInside)
+        }
         
-        self.bredExchangeNode.backgroundColor =  UIColor.hexColor(hex: "f4f2fc")
+        self.bredExchangeNode.do {
+            $0.backgroundColor =  UIColor.hexColor(hex: "f4f2fc")
+            $0.addTarget(self, action: #selector(self.handleClickBredExchange),
+                         forControlEvents: .touchUpInside)
+        }
         
-        self.grassTimeNode.backgroundColor = UIColor.hexColor(hex: "ecf4fa")
+        self.grassTimeNode.do {
+            $0.backgroundColor = UIColor.hexColor(hex: "ecf4fa")
+            $0.addTarget(self, action: #selector(self.handleClickGrassTime),
+                         forControlEvents: .touchUpInside)
+        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -271,14 +300,26 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
                                       alignItems: ASStackLayoutAlignItems.stretch,
                                       children: [self.segmentLineNode, sectionTitleInsetSpec, bottomInset])
     }
+    
+    @objc func handleClickHotMomNode() {
+        self.action?.handleClickHotMomNode()
+    }
+    
+    @objc func handleClickBredExchange() {
+        self.action?.handleClickBredExchange()
+    }
+    
+    @objc func handleClickGrassTime() {
+        self.action?.handleClickGrassTime()
+    }
 }
 
 protocol InterestGropusCellNodeLayout {
     var segmentLineNode: ASDisplayNode { get }
     var sectionTitleTextNode: ASTextNode { get }
-    var hotMomLifeNode: ASDisplayNode { get }
-    var bredExchangeNode: ASDisplayNode { get }
-    var grassTimeNode: ASDisplayNode { get }
+    var hotMomLifeNode: HotMonLifeNode { get }
+    var bredExchangeNode: BredExchangeNode { get }
+    var grassTimeNode: GrassTimeNode { get }
 }
 
 extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
@@ -319,21 +360,21 @@ extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
         })
     }
     
-    func makeHotMomLifeNode() -> ASDisplayNode {
+    func makeHotMomLifeNode() -> HotMonLifeNode {
         return HotMonLifeNode.init().then({
             self.addSubnode($0)
             $0.style.preferredSize = self.leftItemSize
         })
     }
     
-    func makeBredExchangeNode() -> ASDisplayNode {
+    func makeBredExchangeNode() -> BredExchangeNode {
         return BredExchangeNode.init().then {
             self.addSubnode($0)
             $0.style.preferredSize = self.leftItemSize
         }
     }
     
-    func makeGrassTimeNode() -> ASDisplayNode {
+    func makeGrassTimeNode() -> GrassTimeNode {
         return GrassTimeNode.init().then {
             self.addSubnode($0)
             $0.backgroundColor = UIColor.green
@@ -343,7 +384,7 @@ extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
 }
 
 /// 辣妈生活板块Node
-class HotMonLifeNode: ASDisplayNode, InterestGroupItemLayout {
+class HotMonLifeNode: ASControlNode, InterestGroupItemLayout {
     lazy var titleTextNode: ASTextNode = {
         return self.makeTitleTextNode()
     }()
@@ -366,7 +407,7 @@ class HotMonLifeNode: ASDisplayNode, InterestGroupItemLayout {
     }
 }
 
-class BredExchangeNode: ASDisplayNode, InterestGroupItemLayout {
+class BredExchangeNode: ASControlNode, InterestGroupItemLayout {
     lazy var titleTextNode: ASTextNode = {
         return self.makeTitleTextNode()
     }()
@@ -390,7 +431,7 @@ class BredExchangeNode: ASDisplayNode, InterestGroupItemLayout {
     }
 }
 
-class GrassTimeNode: ASDisplayNode, InterestGroupItemLayout {
+class GrassTimeNode: ASControlNode, InterestGroupItemLayout {
     lazy var titleTextNode: ASTextNode = {
         return self.makeTitleTextNode()
     }()

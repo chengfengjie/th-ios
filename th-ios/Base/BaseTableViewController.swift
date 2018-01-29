@@ -64,7 +64,7 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
     }
     
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
-        return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 60),
+        return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 30),
                                 max: CGSize.init(width: self.window_width, height: 3000))
     }
     
