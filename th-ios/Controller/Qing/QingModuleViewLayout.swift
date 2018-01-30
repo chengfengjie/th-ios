@@ -10,22 +10,39 @@ import Foundation
 
 protocol QingModuleViewLayout {
     var bannerHeader: QingModuleListBannerHeader { get }
-    var menuHeader: HorizontalScrollMenu { get }
+    var menuHeader: (background: UIView, scrollMenu: HorizontalScrollMenu) { get }
 }
 extension QingModuleViewLayout {
     var bannerHeaderSize: CGSize {
         return CGSize.init(width: UIScreen.main.bounds.width, height: 240)
     }
     var menuHeaderSize: CGSize {
-        return CGSize.init(width: UIScreen.main.bounds.width, height: 40)
+        return CGSize.init(width: UIScreen.main.bounds.width, height: 70)
     }
     func makeBannerHeader() -> QingModuleListBannerHeader {
         return QingModuleListBannerHeader()
     }
-    func makeMenuHeader() -> HorizontalScrollMenu {
-        return HorizontalScrollMenu().then {
-            $0.frame = CGRect.init(origin: CGPoint.zero, size: self.menuHeaderSize)
+    func makeMenuHeader() -> (UIView, HorizontalScrollMenu) {
+        let background: UIView = UIView()
+        background.backgroundColor = UIColor.lineColor
+        background.frame = CGRect.init(origin: CGPoint.zero, size: self.menuHeaderSize)
+        
+        UIView().do {
+            background.addSubview($0)
+            $0.backgroundColor = UIColor.white
+            $0.snp.makeConstraints({ (make) in
+                make.left.right.top.equalTo(0)
+                make.height.equalTo(15)
+            })
         }
+        
+        let scrollMenu = HorizontalScrollMenu()
+        background.addSubview(scrollMenu)
+        scrollMenu.snp.makeConstraints { (make) in
+            make.top.equalTo(30)
+            make.left.right.bottom.equalTo(0)
+        }
+        return (background, scrollMenu)
     }
 }
 
@@ -109,6 +126,7 @@ class QingModuleListBannerHeader: BaseView {
     }
 }
 
+
 class QingModuleTopListCellNode: ASCellNode, NodeElementMaker {
     
     lazy var buttonNode: ASButtonNode = {
@@ -156,4 +174,5 @@ class QingModuleTopListCellNode: ASCellNode, NodeElementMaker {
     }
     
 }
+
 

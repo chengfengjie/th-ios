@@ -46,6 +46,9 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
     }
     
     @objc func handleClickHeaderMenuItem(sender: UIButton) {
+        self.pushViewController(viewController:
+            QingTopicListViewController.init(style: .grouped, type: .news)
+        )
     }
     
     func handleClickHotMomNode() {

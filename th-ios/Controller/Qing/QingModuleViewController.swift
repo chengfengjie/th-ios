@@ -10,14 +10,15 @@ import UIKit
 
 class QingModuleViewController: BaseTableViewController, NavBarSearchItemProtocol, QingModuleViewLayout {
     
+    lazy var menuHeader: (background: UIView, scrollMenu: HorizontalScrollMenu) = {
+        return self.makeMenuHeader()
+    }()
+    
+    
     lazy var bannerHeader: QingModuleListBannerHeader = {
         return self.makeBannerHeader()
     }()
     
-    lazy var menuHeader: HorizontalScrollMenu = {
-        return self.makeMenuHeader()
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +42,7 @@ class QingModuleViewController: BaseTableViewController, NavBarSearchItemProtoco
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            return indexPath.section == 0 ? QingModuleTopListCellNode() : ASTextCellNode()
+            return indexPath.section == 0 ? QingModuleTopListCellNode() : QingTopicListCellNode()
         }
     }
 
@@ -50,7 +51,6 @@ class QingModuleViewController: BaseTableViewController, NavBarSearchItemProtoco
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 0 ? self.bannerHeader : self.menuHeader
+        return section == 0 ? self.bannerHeader : self.menuHeader.background
     }
-
 }

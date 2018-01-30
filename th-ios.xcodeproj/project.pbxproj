@@ -63,6 +63,10 @@
 		5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */; };
 		5C94C35D201F0E2F0043D01F /* QingModuleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */; };
 		5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */; };
+		5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3602020053E0043D01F /* TopicListCellNodeLayout.swift */; };
+		5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3622020168C0043D01F /* QingTopicListViewController.swift */; };
+		5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */; };
+		5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36620201D820043D01F /* QingTopicListLayout.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -156,6 +160,10 @@
 		5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingModuleViewController.swift; sourceTree = "<group>"; };
 		5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingModuleViewLayout.swift; sourceTree = "<group>"; };
 		5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalScrollMenu.swift; sourceTree = "<group>"; };
+		5C94C3602020053E0043D01F /* TopicListCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicListCellNodeLayout.swift; sourceTree = "<group>"; };
+		5C94C3622020168C0043D01F /* QingTopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewController.swift; sourceTree = "<group>"; };
+		5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewLayout.swift; sourceTree = "<group>"; };
+		5C94C36620201D820043D01F /* QingTopicListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListLayout.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -299,6 +307,7 @@
 				5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */,
 				5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */,
 				5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */,
+				5C94C3602020053E0043D01F /* TopicListCellNodeLayout.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -346,8 +355,11 @@
 			children = (
 				5C2B7121200E1ABE005CE83F /* QingViewController.swift */,
 				5CDF46192015774C002F7D8B /* QingViewLayout.swift */,
+				5C94C36620201D820043D01F /* QingTopicListLayout.swift */,
 				5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */,
 				5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */,
+				5C94C3622020168C0043D01F /* QingTopicListViewController.swift */,
+				5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */,
 			);
 			path = Qing;
 			sourceTree = "<group>";
@@ -779,6 +791,7 @@
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
 				5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */,
+				5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */,
 				5C0675C0200C88930019A24D /* AppDelegate.swift in Sources */,
 				5C944597201D917600CCF082 /* SpecialTopicListController.swift in Sources */,
 				5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */,
@@ -797,6 +810,7 @@
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
+				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
 				5C944595201D7C6900CCF082 /* SpecialTopicViewLayout.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
 				5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */,
@@ -818,6 +832,7 @@
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
 				5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */,
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
+				5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
 				5C0675D8200C89A30019A24D /* RootViewController.swift in Sources */,
 				5C92706F20107BCC00838C1D /* SpecialTopicViewController.swift in Sources */,
@@ -829,6 +844,7 @@
 				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
 				5C94459B201DC92B00CCF082 /* TreeHoleViewLayout.swift in Sources */,
 				5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */,
+				5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

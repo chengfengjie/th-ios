@@ -7,7 +7,11 @@
 //
 
 class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
-    
+
+    lazy var bottomline: ASDisplayNode = {
+        return self.makeBottomline()
+    }()
+
     lazy var categoryTextNode: ASTextNode = {
         return self.makeAndAddTextNode()
     }()
@@ -73,7 +77,7 @@ class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
     }
 }
 
-protocol MineCollectTopicCellNodeLayout: MineViewTopicCellNodeLayout {
+protocol MineCollectTopicCellNodeLayout: TopicListCellNodeLayout {
     var deleteButtonNode: ASButtonNode { get }
 }
 extension MineCollectTopicCellNodeLayout where Self: MineCollectTopicCellNode {
