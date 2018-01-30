@@ -39,6 +39,8 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
 
         self.view.backgroundColor = UIColor.white
         
+        self.tableNode.view.separatorStyle = .none
+        
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 0, countText: "13")
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 1, countText: "1")
         self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 2, countText: "231")
@@ -53,7 +55,7 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
     }
     
     @objc func pushToMessageController() {
-        self.pushViewController(viewController: MessageViewController())
+        self.pushViewController(viewController: MessageListViewController(style: .grouped))
     }
     
     @objc func handleClickHeaderMenuBarItem(sender: UIButton) {

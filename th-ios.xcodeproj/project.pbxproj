@@ -67,6 +67,12 @@
 		5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3622020168C0043D01F /* QingTopicListViewController.swift */; };
 		5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */; };
 		5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36620201D820043D01F /* QingTopicListLayout.swift */; };
+		5C94C369202046640043D01F /* PublishTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C368202046640043D01F /* PublishTopicViewController.swift */; };
+		5C94C36B202047330043D01F /* SettingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36A202047330043D01F /* SettingViewLayout.swift */; };
+		5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36C20204A1A0043D01F /* TableCellNodeLayout.swift */; };
+		5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36E202059940043D01F /* MessageListViewController.swift */; };
+		5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C370202059E70043D01F /* MessageListViewLayout.swift */; };
+		5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C37220205D5A0043D01F /* TableChangeHeader.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -164,6 +170,12 @@
 		5C94C3622020168C0043D01F /* QingTopicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewController.swift; sourceTree = "<group>"; };
 		5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewLayout.swift; sourceTree = "<group>"; };
 		5C94C36620201D820043D01F /* QingTopicListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListLayout.swift; sourceTree = "<group>"; };
+		5C94C368202046640043D01F /* PublishTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTopicViewController.swift; sourceTree = "<group>"; };
+		5C94C36A202047330043D01F /* SettingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewLayout.swift; sourceTree = "<group>"; };
+		5C94C36C20204A1A0043D01F /* TableCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellNodeLayout.swift; sourceTree = "<group>"; };
+		5C94C36E202059940043D01F /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
+		5C94C370202059E70043D01F /* MessageListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewLayout.swift; sourceTree = "<group>"; };
+		5C94C37220205D5A0043D01F /* TableChangeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChangeHeader.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -308,6 +320,8 @@
 				5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */,
 				5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */,
 				5C94C3602020053E0043D01F /* TopicListCellNodeLayout.swift */,
+				5C94C36C20204A1A0043D01F /* TableCellNodeLayout.swift */,
+				5C94C37220205D5A0043D01F /* TableChangeHeader.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -358,6 +372,7 @@
 				5C94C36620201D820043D01F /* QingTopicListLayout.swift */,
 				5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */,
 				5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */,
+				5C94C368202046640043D01F /* PublishTopicViewController.swift */,
 				5C94C3622020168C0043D01F /* QingTopicListViewController.swift */,
 				5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */,
 			);
@@ -374,6 +389,9 @@
 				5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */,
 				5C5961792018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift */,
 				5C397AA0201AC17A00C0B898 /* SettingViewController.swift */,
+				5C94C36A202047330043D01F /* SettingViewLayout.swift */,
+				5C94C36E202059940043D01F /* MessageListViewController.swift */,
+				5C94C370202059E70043D01F /* MessageListViewLayout.swift */,
 				5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */,
 			);
 			path = Mine;
@@ -786,9 +804,12 @@
 			files = (
 				5C59617A2018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift in Sources */,
 				5C0675D6200C89760019A24D /* BaseTabBarController.swift in Sources */,
+				5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */,
 				5C944599201D91AB00CCF082 /* SpecialTopicListLayout.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
+				5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */,
+				5C94C36B202047330043D01F /* SettingViewLayout.swift in Sources */,
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
 				5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */,
 				5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */,
@@ -800,6 +821,7 @@
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
+				5C94C369202046640043D01F /* PublishTopicViewController.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
 				5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */,
 				5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */,
@@ -808,6 +830,7 @@
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
+				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
 				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
@@ -832,6 +855,7 @@
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
 				5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */,
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
+				5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */,
 				5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
 				5C0675D8200C89A30019A24D /* RootViewController.swift in Sources */,

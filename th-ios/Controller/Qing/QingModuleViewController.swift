@@ -14,9 +14,12 @@ class QingModuleViewController: BaseTableViewController, NavBarSearchItemProtoco
         return self.makeMenuHeader()
     }()
     
-    
     lazy var bannerHeader: QingModuleListBannerHeader = {
         return self.makeBannerHeader()
+    }()
+    
+    lazy var publishTopicItem: UIButton = {
+        return self.makePublishTopicButton()
     }()
     
     override func viewDidLoad() {
@@ -30,6 +33,13 @@ class QingModuleViewController: BaseTableViewController, NavBarSearchItemProtoco
         
         self.tableNode.view.separatorStyle = .none
         
+        self.publishTopicItem.addTarget(
+            self, action: #selector(self.handleClickPublishTopic),
+            for: UIControlEvents.touchUpInside)
+    }
+    
+    @objc func handleClickPublishTopic() {
+        self.pushViewController(viewController: PublishTopicViewController())
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {

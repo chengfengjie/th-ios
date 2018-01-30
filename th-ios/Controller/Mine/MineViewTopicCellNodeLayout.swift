@@ -37,6 +37,8 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
     override init() {
         super.init()
         
+        self.bottomline.backgroundColor = UIColor.lightGray
+        
         self.selectionStyle = .none
         self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
         

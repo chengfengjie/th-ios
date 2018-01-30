@@ -12,7 +12,7 @@ protocol QingModuleViewLayout {
     var bannerHeader: QingModuleListBannerHeader { get }
     var menuHeader: (background: UIView, scrollMenu: HorizontalScrollMenu) { get }
 }
-extension QingModuleViewLayout {
+extension QingModuleViewLayout where Self: QingModuleViewController {
     var bannerHeaderSize: CGSize {
         return CGSize.init(width: UIScreen.main.bounds.width, height: 240)
     }
@@ -43,6 +43,18 @@ extension QingModuleViewLayout {
             make.left.right.bottom.equalTo(0)
         }
         return (background, scrollMenu)
+    }
+    
+    @discardableResult
+    func makePublishTopicButton() -> UIButton {
+        return UIButton.init(type: .custom).then {
+            self.content.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.bottom.right.equalTo(-20)
+                make.width.height.equalTo(40)
+            })
+            $0.setImage(UIImage.init(named: "qing_publish_icon"), for: UIControlState.normal)
+        }
     }
 }
 

@@ -40,6 +40,7 @@ class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
     
     override init() {
         super.init()
+        self.bottomline.backgroundColor = UIColor.lineColor
         
         self.selectionStyle = .none
         self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
