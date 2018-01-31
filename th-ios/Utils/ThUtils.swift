@@ -15,6 +15,14 @@ extension UIDevice {
         return UIScreen.main.bounds.height == 812.0
     }
     
+    var is_plus: Bool {
+        return UIScreen.main.bounds.height == 736.0
+    }
+    
+    var is_plus_x: Bool {
+        return self.is_plus || self.is_plus
+    }
+    
 }
 
 extension Float {

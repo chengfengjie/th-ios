@@ -339,7 +339,7 @@ extension InterestGropusCellNodeLayout where Self: InterestGropusCellNode {
     
     var leftItemSize: CGSize {
         let w: CGFloat = (self.width - contentInset.left * 3) / 2.0
-        let h: CGFloat = w / 2.0
+        let h: CGFloat = UIDevice.current.is_plus_x ? w * 0.5 :  w * 0.7
         return CGSize.init(width: w, height: h)
     }
     

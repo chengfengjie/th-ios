@@ -20,6 +20,83 @@
 		5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675EC200CA2470019A24D /* HomeViewController.swift */; };
 		5C0675F4200CB28E0019A24D /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F3200CB28E0019A24D /* MineViewController.swift */; };
 		5C0675F8200DEC670019A24D /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F7200DEC670019A24D /* BaseTableViewController.swift */; };
+		5C1E166F20216F5900C23B77 /* MineViewHistoryCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5961792018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift */; };
+		5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675D5200C89760019A24D /* BaseTabBarController.swift */; };
+		5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C370202059E70043D01F /* MessageListViewLayout.swift */; };
+		5C1E167220216F5900C23B77 /* SpecialTopicListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C944598201D91AB00CCF082 /* SpecialTopicListLayout.swift */; };
+		5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C356201ECC900043D01F /* SearchViewLayout.swift */; };
+		5C1E167420216F5900C23B77 /* QingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7121200E1ABE005CE83F /* QingViewController.swift */; };
+		5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36C20204A1A0043D01F /* TableCellNodeLayout.swift */; };
+		5C1E167620216F5900C23B77 /* SettingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36A202047330043D01F /* SettingViewLayout.swift */; };
+		5C1E167720216F5900C23B77 /* TreeHoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707020107C4A00838C1D /* TreeHoleViewController.swift */; };
+		5C1E167820216F5900C23B77 /* HomeCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C927068200F78C400838C1D /* HomeCategoryViewController.swift */; };
+		5C1E167920216F5900C23B77 /* QingTopicListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36620201D820043D01F /* QingTopicListLayout.swift */; };
+		5C1E167A20216F5900C23B77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675BF200C88930019A24D /* AppDelegate.swift */; };
+		5C1E167B20216F5900C23B77 /* SpecialTopicListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C944596201D917600CCF082 /* SpecialTopicListController.swift */; };
+		5C1E167C20216F5900C23B77 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
+		5C1E167D20216F5900C23B77 /* ThUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675DE200C915D0019A24D /* ThUtils.swift */; };
+		5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675EC200CA2470019A24D /* HomeViewController.swift */; };
+		5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */; };
+		5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */; };
+		5C1E168120216F5900C23B77 /* NavBarSearchItemProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9463392012E1DA00F185BA /* NavBarSearchItemProtocol.swift */; };
+		5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C368202046640043D01F /* PublishTopicViewController.swift */; };
+		5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAD201B1F4700C0B898 /* LeaderboardsViewLayout.swift */; };
+		5C1E168420216F5900C23B77 /* HorizontalScrollMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35E201F1FED0043D01F /* HorizontalScrollMenu.swift */; };
+		5C1E168520216F5900C23B77 /* TreeHoleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C352201EBB680043D01F /* TreeHoleListViewController.swift */; };
+		5C1E168620216F5900C23B77 /* HeadlineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */; };
+		5C1E168720216F5900C23B77 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
+		5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94633B2012E43500F185BA /* SearchViewController.swift */; };
+		5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707620108DB600838C1D /* SameCityMainViewController.swift */; };
+		5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675E7200C94090019A24D /* BaseView.swift */; };
+		5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C37220205D5A0043D01F /* TableChangeHeader.swift */; };
+		5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3742020B14C0043D01F /* SelectCityViewController.swift */; };
+		5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */; };
+		5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAF201B203E00C0B898 /* CellNodeElementLayout.swift */; };
+		5C1E168F20216F5900C23B77 /* TopicListCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3602020053E0043D01F /* TopicListCellNodeLayout.swift */; };
+		5C1E169020216F5900C23B77 /* SpecialTopicViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C944594201D7C6900CCF082 /* SpecialTopicViewLayout.swift */; };
+		5C1E169120216F5900C23B77 /* AuthorListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92706C20107B2D00838C1D /* AuthorListViewController.swift */; };
+		5C1E169220216F5900C23B77 /* SameCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707420108D9100838C1D /* SameCityViewController.swift */; };
+		5C1E169320216F5900C23B77 /* QingModuleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */; };
+		5C1E169420216F5900C23B77 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
+		5C1E169520216F5900C23B77 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C927066200E3A7B00838C1D /* ColorUtils.swift */; };
+		5C1E169620216F5900C23B77 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F7200DEC670019A24D /* BaseTableViewController.swift */; };
+		5C1E169720216F5900C23B77 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE54A7201973C700594B9E /* Style.swift */; };
+		5C1E169820216F5900C23B77 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */; };
+		5C1E169920216F5900C23B77 /* HeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7125200E2676005CE83F /* HeadlineViewController.swift */; };
+		5C1E169A20216F5900C23B77 /* UserListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA057201CC0D9003E3901 /* UserListViewLayout.swift */; };
+		5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */; };
+		5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */; };
+		5C1E169D20216F5900C23B77 /* QingModuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */; };
+		5C1E169E20216F5900C23B77 /* SizeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675DD200C915D0019A24D /* SizeUtils.swift */; };
+		5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA0201AC17A00C0B898 /* SettingViewController.swift */; };
+		5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
+		5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */; };
+		5C1E16A220216F5900C23B77 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */; };
+		5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59616F2016E28800ECD88B /* MineViewLayout.swift */; };
+		5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */; };
+		5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675E9200C994B0019A24D /* BaseViewController.swift */; };
+		5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36E202059940043D01F /* MessageListViewController.swift */; };
+		5C1E16A720216F5900C23B77 /* QingTopicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3622020168C0043D01F /* QingTopicListViewController.swift */; };
+		5C1E16A820216F5900C23B77 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */; };
+		5C1E16A920216F5900C23B77 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675D7200C89A30019A24D /* RootViewController.swift */; };
+		5C1E16AA20216F5900C23B77 /* SpecialTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92706E20107BCC00838C1D /* SpecialTopicViewController.swift */; };
+		5C1E16AB20216F5900C23B77 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F3200CB28E0019A24D /* MineViewController.swift */; };
+		5C1E16AC20216F5900C23B77 /* MagicControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92707220107E3D00838C1D /* MagicControllerProtocol.swift */; };
+		5C1E16AD20216F5900C23B77 /* NavigationBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */; };
+		5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4320122071009BE6D4 /* FontUtils.swift */; };
+		5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C92706A20107A4F00838C1D /* LeaderboardsViewController.swift */; };
+		5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
+		5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94459A201DC92B00CCF082 /* TreeHoleViewLayout.swift */; };
+		5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */; };
+		5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */; };
+		5C1E16B520216F5900C23B77 /* Pods_th_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */; };
+		5C1E16B720216F5900C23B77 /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
+		5C1E16B820216F5900C23B77 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C0675C8200C88930019A24D /* LaunchScreen.storyboard */; };
+		5C1E16B920216F5900C23B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C0675C6200C88930019A24D /* Assets.xcassets */; };
+		5C1E16BA20216F5900C23B77 /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE54A92019780A00594B9E /* style.json */; };
+		5C1E16BB20216F5900C23B77 /* fzxbsjt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */; };
+		5C1E16C32021754500C23B77 /* th-ios-adHoc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */; };
+		5C1E16C42021754800C23B77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C0675CB200C88930019A24D /* Info.plist */; };
 		5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7121200E1ABE005CE83F /* QingViewController.swift */; };
 		5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */; };
 		5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7125200E2676005CE83F /* HeadlineViewController.swift */; };
@@ -91,6 +168,7 @@
 		5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
 		5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
 		93AC45EFE4B08DFC7D00045B /* Pods_th_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */; };
+		94E3255FA8926C39C140B446 /* Pods_th_ios_pro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E5BAAAAA476FA8C688D6CB /* Pods_th_ios_pro.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,6 +201,8 @@
 		5C0675EC200CA2470019A24D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C0675F3200CB28E0019A24D /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		5C0675F7200DEC670019A24D /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		5C1E16C120216F5900C23B77 /* th-ios-pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "th-ios-pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "th-ios-adHoc.plist"; path = "/Users/chengfj/Desktop/th/th-ios/th-ios/th-ios-adHoc.plist"; sourceTree = "<absolute>"; };
 		5C2B7121200E1ABE005CE83F /* QingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewController.swift; sourceTree = "<group>"; };
 		5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		5C2B7125200E2676005CE83F /* HeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewController.swift; sourceTree = "<group>"; };
@@ -197,8 +277,11 @@
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
 		5CDF461B20157B40002F7D8B /* STZHONGS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STZHONGS.ttf; sourceTree = "<group>"; };
+		94FF52C3B0FEE41209167EF8 /* Pods-th-ios-pro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios-pro.release.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro.release.xcconfig"; sourceTree = "<group>"; };
+		95E5BAAAAA476FA8C688D6CB /* Pods_th_ios_pro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_th_ios_pro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C804D380364DD9976648036F /* Pods-th-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios/Pods-th-ios.debug.xcconfig"; sourceTree = "<group>"; };
 		DC67186293E182053E6F88A8 /* Pods-th-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-demo/Pods-th-demo.debug.xcconfig"; sourceTree = "<group>"; };
+		E08A2CAD1E059CEA7CABE410 /* Pods-th-ios-pro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios-pro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro.debug.xcconfig"; sourceTree = "<group>"; };
 		E39A36FFB1BC8945BF8C4028 /* Pods_th_demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_th_demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB0554779715DB9DC8DBB51A /* Pods-th-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-th-demo/Pods-th-demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +292,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				93AC45EFE4B08DFC7D00045B /* Pods_th_ios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C1E16B420216F5900C23B77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C1E16B520216F5900C23B77 /* Pods_th_ios.framework in Frameworks */,
+				94E3255FA8926C39C140B446 /* Pods_th_ios_pro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +327,7 @@
 			children = (
 				3FD9555BFB3CA4DB2EED61A3 /* Pods_th_ios.framework */,
 				E39A36FFB1BC8945BF8C4028 /* Pods_th_demo.framework */,
+				95E5BAAAAA476FA8C688D6CB /* Pods_th_ios_pro.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -257,6 +350,7 @@
 				5C0675BC200C88930019A24D /* th-ios.app */,
 				5CBE548320196ABF00594B9E /* th-demo.app */,
 				5C397A99201AB5DB00C0B898 /* th-swift-demo */,
+				5C1E16C120216F5900C23B77 /* th-ios-pro.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -274,6 +368,7 @@
 				5C0675C6200C88930019A24D /* Assets.xcassets */,
 				5C0675C8200C88930019A24D /* LaunchScreen.storyboard */,
 				5C0675CB200C88930019A24D /* Info.plist */,
+				5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */,
 				5C0675E1200C920D0019A24D /* th-ios-Bridging-Header.h */,
 			);
 			path = "th-ios";
@@ -471,6 +566,8 @@
 				2F7CFB316309580213312FF6 /* Pods-th-ios.release.xcconfig */,
 				DC67186293E182053E6F88A8 /* Pods-th-demo.debug.xcconfig */,
 				EB0554779715DB9DC8DBB51A /* Pods-th-demo.release.xcconfig */,
+				E08A2CAD1E059CEA7CABE410 /* Pods-th-ios-pro.debug.xcconfig */,
+				94FF52C3B0FEE41209167EF8 /* Pods-th-ios-pro.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -496,6 +593,26 @@
 			name = "th-ios";
 			productName = "th-ios";
 			productReference = 5C0675BC200C88930019A24D /* th-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5C1E166C20216F5900C23B77 /* th-ios-pro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C1E16BE20216F5900C23B77 /* Build configuration list for PBXNativeTarget "th-ios-pro" */;
+			buildPhases = (
+				5C1E166D20216F5900C23B77 /* [CP] Check Pods Manifest.lock */,
+				5C1E166E20216F5900C23B77 /* Sources */,
+				5C1E16B420216F5900C23B77 /* Frameworks */,
+				5C1E16B620216F5900C23B77 /* Resources */,
+				5C1E16BC20216F5900C23B77 /* [CP] Embed Pods Frameworks */,
+				5C1E16BD20216F5900C23B77 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "th-ios-pro";
+			productName = "th-ios";
+			productReference = 5C1E16C120216F5900C23B77 /* th-ios-pro.app */;
 			productType = "com.apple.product-type.application";
 		};
 		5C397A98201AB5DB00C0B898 /* th-swift-demo */ = {
@@ -550,6 +667,9 @@
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
+					5C1E166C20216F5900C23B77 = {
+						ProvisioningStyle = Manual;
+					};
 					5C397A98201AB5DB00C0B898 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -577,6 +697,7 @@
 				5C0675BB200C88930019A24D /* th-ios */,
 				5CBE548220196ABF00594B9E /* th-demo */,
 				5C397A98201AB5DB00C0B898 /* th-swift-demo */,
+				5C1E166C20216F5900C23B77 /* th-ios-pro */,
 			);
 		};
 /* End PBXProject section */
@@ -588,9 +709,23 @@
 			files = (
 				5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */,
 				5C0675CA200C88930019A24D /* LaunchScreen.storyboard in Resources */,
+				5C1E16C42021754800C23B77 /* Info.plist in Resources */,
 				5C0675C7200C88930019A24D /* Assets.xcassets in Resources */,
 				5CBE54AA2019780A00594B9E /* style.json in Resources */,
 				5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C1E16B620216F5900C23B77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C1E16C32021754500C23B77 /* th-ios-adHoc.plist in Resources */,
+				5C1E16B720216F5900C23B77 /* STZHONGS.ttf in Resources */,
+				5C1E16B820216F5900C23B77 /* LaunchScreen.storyboard in Resources */,
+				5C1E16B920216F5900C23B77 /* Assets.xcassets in Resources */,
+				5C1E16BA20216F5900C23B77 /* style.json in Resources */,
+				5C1E16BB20216F5900C23B77 /* fzxbsjt.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +788,103 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-th-ios/Pods-th-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C1E166D20216F5900C23B77 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-th-ios-pro-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C1E16BC20216F5900C23B77 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CBStoreHouseRefreshControl/CBStoreHouseRefreshControl.framework",
+				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
+				"${BUILT_PRODUCTS_DIR}/JYCarousel/JYCarousel.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Mantle/Mantle.framework",
+				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
+				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/RZTransitions/RZTransitions.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveCocoa/ReactiveCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/ReactiveSwift/ReactiveSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyAttributes/SwiftyAttributes.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
+				"${BUILT_PRODUCTS_DIR}/UIColor+Additions/UIColor_Additions.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/VTMagic/VTMagic.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBStoreHouseRefreshControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JYCarousel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mantle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RZTransitions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyAttributes.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIColor_Additions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VTMagic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C1E16BD20216F5900C23B77 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6D0AC66C81A4EF9DE636C992 /* [CP] Embed Pods Frameworks */ = {
@@ -880,6 +1112,82 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C1E166E20216F5900C23B77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C1E166F20216F5900C23B77 /* MineViewHistoryCellNodeLayout.swift in Sources */,
+				5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */,
+				5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */,
+				5C1E167220216F5900C23B77 /* SpecialTopicListLayout.swift in Sources */,
+				5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */,
+				5C1E167420216F5900C23B77 /* QingViewController.swift in Sources */,
+				5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */,
+				5C1E167620216F5900C23B77 /* SettingViewLayout.swift in Sources */,
+				5C1E167720216F5900C23B77 /* TreeHoleViewController.swift in Sources */,
+				5C1E167820216F5900C23B77 /* HomeCategoryViewController.swift in Sources */,
+				5C1E167920216F5900C23B77 /* QingTopicListLayout.swift in Sources */,
+				5C1E167A20216F5900C23B77 /* AppDelegate.swift in Sources */,
+				5C1E167B20216F5900C23B77 /* SpecialTopicListController.swift in Sources */,
+				5C1E167C20216F5900C23B77 /* UserListController.swift in Sources */,
+				5C1E167D20216F5900C23B77 /* ThUtils.swift in Sources */,
+				5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */,
+				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
+				5C1E168120216F5900C23B77 /* NavBarSearchItemProtocol.swift in Sources */,
+				5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */,
+				5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */,
+				5C1E168420216F5900C23B77 /* HorizontalScrollMenu.swift in Sources */,
+				5C1E168520216F5900C23B77 /* TreeHoleListViewController.swift in Sources */,
+				5C1E168620216F5900C23B77 /* HeadlineViewLayout.swift in Sources */,
+				5C1E168720216F5900C23B77 /* Home.swift in Sources */,
+				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
+				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
+				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
+				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
+				5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */,
+				5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */,
+				5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */,
+				5C1E168F20216F5900C23B77 /* TopicListCellNodeLayout.swift in Sources */,
+				5C1E169020216F5900C23B77 /* SpecialTopicViewLayout.swift in Sources */,
+				5C1E169120216F5900C23B77 /* AuthorListViewController.swift in Sources */,
+				5C1E169220216F5900C23B77 /* SameCityViewController.swift in Sources */,
+				5C1E169320216F5900C23B77 /* QingModuleViewLayout.swift in Sources */,
+				5C1E169420216F5900C23B77 /* NoneContentArticleCellNode.swift in Sources */,
+				5C1E169520216F5900C23B77 /* ColorUtils.swift in Sources */,
+				5C1E169620216F5900C23B77 /* BaseTableViewController.swift in Sources */,
+				5C1E169720216F5900C23B77 /* Style.swift in Sources */,
+				5C1E169820216F5900C23B77 /* AuthorViewController.swift in Sources */,
+				5C1E169920216F5900C23B77 /* HeadlineViewController.swift in Sources */,
+				5C1E169A20216F5900C23B77 /* UserListViewLayout.swift in Sources */,
+				5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */,
+				5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */,
+				5C1E169D20216F5900C23B77 /* QingModuleViewController.swift in Sources */,
+				5C1E169E20216F5900C23B77 /* SizeUtils.swift in Sources */,
+				5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */,
+				5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */,
+				5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */,
+				5C1E16A220216F5900C23B77 /* MessageViewController.swift in Sources */,
+				5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */,
+				5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */,
+				5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */,
+				5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */,
+				5C1E16A720216F5900C23B77 /* QingTopicListViewController.swift in Sources */,
+				5C1E16A820216F5900C23B77 /* ArticleDetailViewController.swift in Sources */,
+				5C1E16A920216F5900C23B77 /* RootViewController.swift in Sources */,
+				5C1E16AA20216F5900C23B77 /* SpecialTopicViewController.swift in Sources */,
+				5C1E16AB20216F5900C23B77 /* MineViewController.swift in Sources */,
+				5C1E16AC20216F5900C23B77 /* MagicControllerProtocol.swift in Sources */,
+				5C1E16AD20216F5900C23B77 /* NavigationBarProtocol.swift in Sources */,
+				5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */,
+				5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */,
+				5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */,
+				5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */,
+				5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */,
+				5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5C397A95201AB5DB00C0B898 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1042,13 +1350,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4NEBCUCZG;
 				INFOPLIST_FILE = "th-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wincode.th-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.thclub.app.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "th-ios/th-ios-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -1062,13 +1373,61 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K4NEBCUCZG;
 				INFOPLIST_FILE = "th-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.wincode.th-ios";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.thclub.app.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "th-ios/th-ios-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		5C1E16BF20216F5900C23B77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E08A2CAD1E059CEA7CABE410 /* Pods-th-ios-pro.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 83JJ58E3TB;
+				INFOPLIST_FILE = "th-ios/th-ios-adHoc.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.thclub.app.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "06c40308-e964-4fa9-8c00-7f4f243b2a34";
+				PROVISIONING_PROFILE_SPECIFIER = Develop;
+				SWIFT_OBJC_BRIDGING_HEADER = "th-ios/th-ios-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5C1E16C020216F5900C23B77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94FF52C3B0FEE41209167EF8 /* Pods-th-ios-pro.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = K4NEBCUCZG;
+				INFOPLIST_FILE = "th-ios/th-ios-adHoc.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = cn.thclub.app.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5d4fbdce-a5c1-4f4f-ab44-42a74462a1fb";
+				PROVISIONING_PROFILE_SPECIFIER = th_AdHoc;
 				SWIFT_OBJC_BRIDGING_HEADER = "th-ios/th-ios-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1155,6 +1514,15 @@
 			buildConfigurations = (
 				5C0675CF200C88930019A24D /* Debug */,
 				5C0675D0200C88930019A24D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C1E16BE20216F5900C23B77 /* Build configuration list for PBXNativeTarget "th-ios-pro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C1E16BF20216F5900C23B77 /* Debug */,
+				5C1E16C020216F5900C23B77 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

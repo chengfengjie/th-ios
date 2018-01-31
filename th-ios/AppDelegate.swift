@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var rootNavgationController: UINavigationController? = nil
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        print(UIScreen.main.bounds)
+        
         // 加载app样式
         AppStyle.loadLocalAppStyle()
         // 设置转场动画

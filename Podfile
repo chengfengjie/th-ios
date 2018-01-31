@@ -30,6 +30,9 @@ end
 target 'th-demo' do
     share_pods
 end
+target 'th-ios-pro' do
+    share_pods
+end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

@@ -25,7 +25,7 @@ class HeaderChangeControl: BaseView {
     private var bottomline: UIView = UIView()
     
     private func updateSubviews() {
-        if self.items.isEmpty {
+        if self.titles.isEmpty {
             return
         }
         self.backgroundColor = UIColor.white
