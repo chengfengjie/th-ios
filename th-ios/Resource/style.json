@@ -14,8 +14,8 @@
     "home_table_node_cell_element_spacing": 15.0,
     "home_table_node_cell_style": {
         "headerItemSize": {
-            "width": 50,
-            "height": 50
+            "width": 40,
+            "height": 40
         },
         "bannerHWRatio": 0.5,
         "contentInset": {
@@ -24,7 +24,7 @@
             "top": 20,
             "bottom": 20
         },
-        "elementSpacing": 10.0,
+        "elementSpacing": 20.0,
         "cateTextStyle": {
             "name": "NF",
             "size": 12,

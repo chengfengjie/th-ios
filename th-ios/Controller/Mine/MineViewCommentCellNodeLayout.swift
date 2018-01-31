@@ -20,6 +20,31 @@ fileprivate protocol MineCommentCellNodeLayout {
 }
 
 extension MineCommentCellNodeLayout where Self: ASCellNode {
+    
+    var commentTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 14)
+            $0.color = UIColor.color3
+            $0.lineSpacing = 3
+        }
+    }
+    
+    var paragraphTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 12)
+            $0.color = Color.color6
+            $0.lineSpacing = 5
+            $0.alignment = NSTextAlignment.justified
+        }
+    }
+    
+    var shareDeleteTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 12)
+            $0.color = UIColor.color9
+        }
+    }
+    
     func makeCommentTextNode() -> ASTextNode {
         return ASTextNode.init().then {
             self.addSubnode($0)
@@ -54,11 +79,18 @@ extension MineCommentCellNodeLayout where Self: ASCellNode {
 
 extension MineCommentCellNodeLayout {
     var commentCellNodeLayoutSpec: ASLayoutSpec {
+        let shareDeleteSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+                                                     spacing: 5,
+                                                     justifyContent: ASStackLayoutJustifyContent.start,
+                                                     alignItems: ASStackLayoutAlignItems.center,
+                                                     children: [self.shareIconNode,
+                                                                self.shareTextNode,
+                                                                self.deleteButtonNode])
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.commentTextNode, self.paragraphTextNode, self.sourceInfoBox])
+                                              children: [self.commentTextNode, self.paragraphTextNode, self.sourceInfoBox, shareDeleteSpec])
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: kContentInset, child: mainSpec)
         return mainInsetSpec
     }
@@ -102,11 +134,11 @@ class SourceInfoBox: ASDisplayNode {
         self.imageNode.url = URL.init(string: "https://pic2.zhimg.com/90/ba332a401_250x0.jpg")
         self.imageNode.backgroundColor = UIColor.orange
         
-        self.titleTextNode.attributedText = "生个毛线的二胎".attributedString
+        self.titleTextNode.attributedText = "生个毛线的二胎".withFont(Font.systemFont(ofSize: 14))
         
-        self.sourceTextNode.attributedText = "文章来自简书".attributedString
+        self.sourceTextNode.attributedText = "文章来自简书".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 10))
         
-        self.dateTimeTextNode.attributedText = "2018.1.1".attributedString
+        self.dateTimeTextNode.attributedText = "2018.1.1".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 10))
 
     }
     
@@ -162,14 +194,18 @@ class MineCommentTopicNodeCell: ASCellNode, MineCommentCellNodeLayout {
     override init() {
         super.init()
         
-        self.commentTextNode.attributedText = "说的不错,确实如此".attributedString
-        self.paragraphTextNode.attributedText = ("自从换了mac以后就一直用EdrawMax，不仅可以代替Visio，而且" +
-        "功能方面要比Visio更加强大，不仅可以画流程图，就连服装设计，科学插画，卡片这些都可以绘制" +
-        "，真是一个软件可以当好几个软件来用，操作也特别简单。").attributedString
+        self.selectionStyle = .none
+        
+        self.shareIconNode.style.preferredSize = CGSize.init(width: 16, height: 16)
+        
+        self.commentTextNode.setText(text: "说的不错,确实如此", style: self.commentTextStyle)
+        self.paragraphTextNode.setText(text: ("自从换了mac以后就一直用EdrawMax，不仅可以代替Visio，而且" +
+            "功能方面要比Visio更加强大，不仅可以画流程图，就连服装设计，科学插画，卡片这些都可以绘制" +
+            "，真是一个软件可以当好几个软件来用，操作也特别简单。"), style: self.paragraphTextStyle)
         self.sourceInfoBox.backgroundColor = UIColor.white
         self.shareIconNode.image = UIImage.init(named: "mine_share_gray")
-        self.shareTextNode.attributedText = "分享".attributedString
-        self.deleteButtonNode.setAttributedTitle("删除".attributedString, for: UIControlState.normal)
+        self.shareTextNode.setText(text: "分享", style: self.shareDeleteTextStyle)
+        self.deleteButtonNode.setTitleText(text: "删除", style: self.shareDeleteTextStyle)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

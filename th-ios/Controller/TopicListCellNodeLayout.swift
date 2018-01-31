@@ -19,6 +19,37 @@ protocol TopicListCellNodeLayout: NodeElementMaker {
     func makeCellNodeBottomBarSpec() -> ASLayoutSpec
 }
 extension TopicListCellNodeLayout where Self: ASCellNode {
+    
+    var categoryStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 12)
+            $0.color = UIColor.color9
+        }
+    }
+    
+    var titleTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 18)
+            $0.color = UIColor.color3
+            $0.lineSpacing = 3
+        }
+    }
+    
+    var contentTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 12)
+            $0.lineSpacing = 4
+            $0.color = UIColor.color9
+        }
+    }
+    
+    var shareTextStyle: TextStyle {
+        return TextStyle().then {
+            $0.font = UIFont.systemFont(ofSize: 12)
+            $0.color = UIColor.pink
+        }
+    }
+    
     func makeImageNodes(imageUrlArray: [URL?]) -> [ASImageNode] {
         var result: [ASImageNode] = []
         for url in imageUrlArray {

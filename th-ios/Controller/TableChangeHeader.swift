@@ -8,7 +8,7 @@
 
 class HeaderChangeControl: BaseView {
     
-    private var items: [UIButton] = []
+    var items: [UIButton] = []
     
     var bottomlineWidth: CGFloat = 80 {
         didSet {
@@ -25,18 +25,22 @@ class HeaderChangeControl: BaseView {
     private var bottomline: UIView = UIView()
     
     private func updateSubviews() {
+        if self.items.isEmpty {
+            return
+        }
         self.backgroundColor = UIColor.white
         self.items.forEach {
             $0.removeFromSuperview()
         }
         self.items.removeAll()
         var temp: UIButton? = nil
-        for item in self.titles {
+        for (index, item) in self.titles.enumerated() {
             self.items.append(UIButton.init(type: .custom).then {
                 $0.setTitle(item, for: UIControlState.normal)
                 $0.setTitleColor(UIColor.color6, for: UIControlState.normal)
                 $0.setTitleColor(UIColor.pink, for: UIControlState.selected)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+                $0.tag = 100 + index
                 self.addSubview($0)
                 $0.snp.makeConstraints({ (make) in
                     make.top.bottom.equalTo(0)

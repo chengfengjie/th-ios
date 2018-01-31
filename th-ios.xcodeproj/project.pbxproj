@@ -73,6 +73,8 @@
 		5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C36E202059940043D01F /* MessageListViewController.swift */; };
 		5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C370202059E70043D01F /* MessageListViewLayout.swift */; };
 		5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C37220205D5A0043D01F /* TableChangeHeader.swift */; };
+		5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3742020B14C0043D01F /* SelectCityViewController.swift */; };
+		5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -176,6 +178,8 @@
 		5C94C36E202059940043D01F /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		5C94C370202059E70043D01F /* MessageListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewLayout.swift; sourceTree = "<group>"; };
 		5C94C37220205D5A0043D01F /* TableChangeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChangeHeader.swift; sourceTree = "<group>"; };
+		5C94C3742020B14C0043D01F /* SelectCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewController.swift; sourceTree = "<group>"; };
+		5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewLayout.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -360,6 +364,8 @@
 			children = (
 				5C92707620108DB600838C1D /* SameCityMainViewController.swift */,
 				5C92707420108D9100838C1D /* SameCityViewController.swift */,
+				5C94C3742020B14C0043D01F /* SelectCityViewController.swift */,
+				5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */,
 			);
 			path = City;
 			sourceTree = "<group>";
@@ -831,6 +837,7 @@
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
+				5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */,
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
 				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
@@ -846,6 +853,7 @@
 				5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */,
 				5CACA058201CC0D9003E3901 /* UserListViewLayout.swift in Sources */,
 				5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */,
+				5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */,
 				5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,

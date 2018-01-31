@@ -55,7 +55,7 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
     }
     
     @objc func pushToMessageController() {
-        self.pushViewController(viewController: MessageListViewController(style: .grouped))
+        self.pushViewController(viewController: MessageListViewController(style: .plain))
     }
     
     @objc func handleClickHeaderMenuBarItem(sender: UIButton) {

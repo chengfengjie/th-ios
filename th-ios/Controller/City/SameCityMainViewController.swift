@@ -67,6 +67,22 @@ class SameCityMainViewController: BaseViewController,
                 make.centerY.equalTo(label.snp.centerY)
             })
         }
+        
+        UIButton.init(type: UIButtonType.custom).do {
+            contentBar.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.left.equalTo(icon.snp.left)
+                make.right.equalTo(label.snp.right).offset(20)
+                make.centerY.equalTo(label.snp.centerY)
+                make.height.equalTo(40)
+            })
+            $0.addTarget(self, action: #selector(self.handleClickCityItem),
+                         for: UIControlEvents.touchUpInside)
+        }
+    }
+    
+    @objc func handleClickCityItem() {
+        self.pushViewController(viewController: SelectCityViewController(style: .grouped))
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {

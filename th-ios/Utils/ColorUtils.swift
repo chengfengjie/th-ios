@@ -14,7 +14,7 @@ extension UIColor {
     static let color3: UIColor = UIColor.add_color(withRGBHexString: "333333")
     static let color6: UIColor = UIColor.add_color(withRGBHexString: "666666")
     static let color9: UIColor = UIColor.add_color(withRGBHexString: "999999")
-    static let lineColor: UIColor = UIColor.hexColor(hex: "f9f9f9")
+    static let lineColor: UIColor = UIColor.hexColor(hex: "e9e9e9")
     
     class func hexColor(hex:String) -> UIColor {
         return UIColor.add_color(withRGBHexString: hex)

@@ -57,7 +57,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
         }
         
         let itemWidth: CGFloat = self.menuItemSize.width
-        let leftInset: CGFloat = 25
+        let leftInset: CGFloat = 20
         let interval: CGFloat = (self.window_width - leftInset * 2.0 - itemWidth * 4.0) / 3.0
         
         let leaderboardsButton: UIButton = createMenuButton(title: "排行", color: UIColor.hexColor(hex: "a6dde8"))

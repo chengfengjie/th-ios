@@ -10,18 +10,49 @@ import UIKit
 
 class MessageListViewController: BaseTableViewController, MessageListViewLayout {
     
+    enum MessageType {
+        case privateMessage
+        case systemMessage
+    }
+    
+    private var messageType: MessageType = .systemMessage
+    
     lazy var headerChangeControl: HeaderChangeControl = {
         return self.makeHeaderChangeControl()
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.setNavigationBarTitle(title: "消息")
         
         self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.headerChangeControl.items.forEach {
+            $0.addTarget(self, action: #selector(self.handleClickChangeItem(sender:)),
+                         for: .touchUpInside)
+        }
+    }
+    
+    @objc func handleClickChangeItem(sender: UIButton) {
+        if sender.tag == 100 {
+            self.messageType = .systemMessage
+        } else {
+            self.messageType = .privateMessage
+        }
+        self.tableNode.reloadData()
     }
 
+    override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
+        return {
+            self.messageType == .privateMessage ? PrivateMessageListCellNode() : SystemMessageListCellNode()
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return self.headerChangeControlSize.height
     }

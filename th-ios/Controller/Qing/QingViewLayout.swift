@@ -104,8 +104,8 @@ extension QingViewLayout where Self: QingViewController {
         
         UIButton.init(type: UIButtonType.custom).do {
             $0.setTitle("签", for: UIControlState.normal)
-            $0.layer.borderColor = UIColor.hexColor(hex: "919191").cgColor
-            $0.setTitleColor(UIColor.color3, for: .normal)
+            $0.layer.borderColor = UIColor.color6.cgColor
+            $0.setTitleColor(UIColor.color6, for: .normal)
             $0.layer.borderWidth = 1
             header.addSubview($0)
             $0.snp.makeConstraints({ (make) in
@@ -118,6 +118,7 @@ extension QingViewLayout where Self: QingViewController {
         UILabel.init().do {
             header.addSubview($0)
             $0.text = "09"
+            $0.textColor = UIColor.color3
             $0.font = UIFont.systemFont(ofSize: 40)
             $0.snp.makeConstraints({ (make) in
                 make.bottom.equalTo(bannerImage.snp.bottom).offset(-15)
@@ -397,8 +398,14 @@ class HotMonLifeNode: ASControlNode, InterestGroupItemLayout {
     override init() {
         super.init()
         
-        self.titleTextNode.attributedText = "# 辣妈生活".attributedString
-        self.descriptionTextNode.attributedText = "妈妈生活吐槽基地".attributedString
+        self.titleTextNode.attributedText = "# 辣妈生活"
+            .withFont(Font.systemFont(ofSize: 18))
+        
+        self.descriptionTextNode.attributedText = "妈妈生活吐槽基地"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 12))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3))
+        
         self.imageNode.image = UIImage.init(named: "qing_freaky_life")
     }
     
@@ -421,8 +428,14 @@ class BredExchangeNode: ASControlNode, InterestGroupItemLayout {
     override init() {
         super.init()
         
-        self.titleTextNode.attributedText = "# 孕育交流".attributedString
-        self.descriptionTextNode.attributedText = "妈妈生活吐槽的空间".attributedString
+        self.titleTextNode.attributedText = "# 孕育交流"
+            .withFont(Font.systemFont(ofSize: 18))
+        
+        self.descriptionTextNode.attributedText = "妈妈生活吐槽的空间"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 12))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3))
+        
         self.imageNode.image = UIImage.init(named: "qing_breeding")
     }
     
@@ -443,8 +456,14 @@ class GrassTimeNode: ASControlNode, InterestGroupItemLayout {
     }()
     override init() {
         super.init()
-        self.titleTextNode.attributedText = "# 种草时间".attributedString
-        self.descriptionTextNode.attributedText = "自古以来人们常说眼睛是心灵之窗,拥有一双漂亮的会说话".attributedString
+        self.titleTextNode.attributedText = "# 种草时间"
+            .withFont(Font.systemFont(ofSize: 18))
+        
+        self.descriptionTextNode.attributedText = "自古以来人们常说眼睛是心灵之窗,拥有一双漂亮的会说话"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 12))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3))
+        
         self.imageNode.image = UIImage.init(named: "qing_grass_time")
     }
     
@@ -834,7 +853,7 @@ extension QingCityCommunityCellNodeLayout where Self: QingCityCommunityCellNode 
     func makeCityItems(cityInfoItems: [String]) -> [ASDisplayNode] {
         var items: [ASDisplayNode] = []
         cityInfoItems.forEach { (cityInfo) in
-            items.append(CityCommunityCellNodeItem.init().then {
+            items.append(CityCommunityCellNodeItem.init(cityName: cityInfo).then {
                 $0.backgroundColor = UIColor.hexColor(hex: "edf9f5")
                 $0.style.preferredSize = self.cityItemSize
                 self.addSubnode($0)
@@ -857,10 +876,14 @@ fileprivate class CityCommunityCellNodeItem: ASDisplayNode {
         }
     }()
     
-    override init() {
+    init(cityName: String) {
         super.init()
-        self.cityNameTextNode.attributedText = "上海".attributedString
-        self.cityInfoTextNode.attributedText = "30982成员 | 133帖子".attributedString
+        self.cityNameTextNode.attributedText = cityName
+            .withFont(Font.systemFont(ofSize: 16))
+            .withTextColor(Color.color3)
+        self.cityInfoTextNode.attributedText = "30982成员 | 133帖子"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 12))
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
