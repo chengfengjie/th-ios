@@ -13,3 +13,5 @@
 @import YYWebImage;
 @import SwiftyJSON;
 @import RZTransitions;
+@import Alamofire;
+@import ReactiveSwift;

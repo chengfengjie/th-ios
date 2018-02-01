@@ -14,6 +14,13 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         return self.makeHeadlineTableNodeHeader()
     }()
     
+    let viewModel: HeadlineViewModel
+    
+    init(cateInfo: JSON) {
+        self.viewModel = HeadlineViewModel.init(cateInfo: cateInfo)
+        super.init(style: .grouped)
+    }
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -68,6 +75,10 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     override func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 120),
                                 max: CGSize.init(width: self.window_width, height: 500))
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let root = UINavigationController.init(rootViewController: ViewController());
         
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = root
+        self.window?.rootViewController = WeexViewController()
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         
@@ -29,6 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         root.delegate = RZTransitionsManager.shared()
         
         return true
+    }
+    
+    func setupWeex() {
+        WXAppConfiguration.setAppName("WeexDemo")
+        WXAppConfiguration.setAppGroup("AliApp")
+        WXAppConfiguration.setAppVersion("1.0.0")
+        
+        WXSDKEngine.initSDKEnvironment()
+                        
+        WXLog.setLogLevel(WXLogLevel.all)
+        
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

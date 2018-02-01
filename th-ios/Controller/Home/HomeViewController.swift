@@ -21,6 +21,10 @@ class HomeViewController: BaseViewController,
             $0.selectedIconName = "tabbar_home_select"
         }
     }()
+    
+    lazy var viewModel: HomeViewModel = {
+        return HomeViewModel()
+    }()
 
     lazy var vtMagicController: VTMagicController = {
         return self.createMagicController()
@@ -35,6 +39,17 @@ class HomeViewController: BaseViewController,
         
         self.makeNavigationBarSearchItem()
         
+        self.bind()
+    }
+    
+    func bind() {
+        
+        self.viewModel.reactive
+            .signal(forKeyPath: "cateData")
+            .skipNil()
+            .observeValues { [weak self] (val) in
+                self?.vtMagicController.magicView.reloadData()
+        }
     }
     
     @objc func handleNavigationBarSearchItemClick() {
@@ -42,7 +57,9 @@ class HomeViewController: BaseViewController,
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
-        return ["头条", "社会热点", "孕产新妈", "身心健康", "早教幼教", "没收", "扩大", "草原"]
+        return self.viewModel.cateData.map({ (val) -> String in
+            return (val as! JSON)["catname"].stringValue
+        })
     }
     
     func magicView(_ magicView: VTMagicView, menuItemAt itemIndex: UInt) -> UIButton {
@@ -50,11 +67,13 @@ class HomeViewController: BaseViewController,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-        if pageIndex == 0 {
+        let index: Int = Int(pageIndex)
+        let dataJSON: JSON = self.viewModel.cateData[index] as! JSON
+        if dataJSON["catid"].intValue == 0 {
             let identifer: String = "headlineIdentifer_\(pageIndex)"
             var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
             if controller == nil {
-                controller = HeadlineViewController(style: UITableViewStyle.grouped)
+                controller = HeadlineViewController.init(cateInfo: dataJSON)
             }
             return controller!
         } else {

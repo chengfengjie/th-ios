@@ -13,4 +13,5 @@
 @import SwiftyAttributes;
 @import YYWebImage;
 @import SwiftyJSON;
+@import WeexSDK;
 

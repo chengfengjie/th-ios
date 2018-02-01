@@ -60,4 +60,12 @@ class MessageListViewController: BaseTableViewController, MessageListViewLayout 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.headerChangeControl
     }
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        if self.messageType == .systemMessage {
+            self.pushViewController(viewController: SystemMessageViewController(style: .grouped))
+        } else {
+            self.pushViewController(viewController: PrivateMessageViewController())
+        }
+    }
 }

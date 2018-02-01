@@ -22,12 +22,14 @@ def share_pods
   pod 'JYCarousel', '~> 0.0.3'
   pod 'SwiftyAttributes', '~> 4.1.0'
   pod 'RZTransitions', '~> 1.2.1'
+  pod 'Alamofire', '~> 4.6.0'
 end
 
 target 'th-ios' do
   share_pods
 end
 target 'th-demo' do
+    pod 'WeexSDK', '~> 0.17.0'
     share_pods
 end
 target 'th-ios-pro' do

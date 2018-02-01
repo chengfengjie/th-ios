@@ -71,7 +71,6 @@
 		5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA0201AC17A00C0B898 /* SettingViewController.swift */; };
 		5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
 		5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C354201EBB7A0043D01F /* TreeHoleListViewLayout.swift */; };
-		5C1E16A220216F5900C23B77 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */; };
 		5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59616F2016E28800ECD88B /* MineViewLayout.swift */; };
 		5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */; };
 		5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675E9200C994B0019A24D /* BaseViewController.swift */; };
@@ -97,12 +96,25 @@
 		5C1E16BB20216F5900C23B77 /* fzxbsjt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */; };
 		5C1E16C32021754500C23B77 /* th-ios-adHoc.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */; };
 		5C1E16C42021754800C23B77 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C0675CB200C88930019A24D /* Info.plist */; };
+		5C1E16C62021FD1300C23B77 /* SystemMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */; };
+		5C1E16C82021FD2500C23B77 /* SystemMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */; };
+		5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */; };
+		5C1E16CB2021FDFB00C23B77 /* PrivateMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */; };
+		5C1E16CD2021FE0900C23B77 /* PrivateMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */; };
+		5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */; };
+		5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */; };
+		5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */; };
+		5C1E16D22022BA0C00C23B77 /* UserInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */; };
+		5C1E16D32022BA1000C23B77 /* UserInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */; };
+		5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
+		5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
+		5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
+		5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
 		5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7121200E1ABE005CE83F /* QingViewController.swift */; };
 		5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */; };
 		5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7125200E2676005CE83F /* HeadlineViewController.swift */; };
 		5C397A9C201AB5DB00C0B898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397A9B201AB5DB00C0B898 /* main.swift */; };
 		5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA0201AC17A00C0B898 /* SettingViewController.swift */; };
-		5C397AA3201AC2CD00C0B898 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */; };
 		5C397AAC201ACD0B00C0B898 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAB201ACD0B00C0B898 /* NextViewController.swift */; };
 		5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAD201B1F4700C0B898 /* LeaderboardsViewLayout.swift */; };
 		5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAF201B203E00C0B898 /* CellNodeElementLayout.swift */; };
@@ -152,6 +164,13 @@
 		5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C37220205D5A0043D01F /* TableChangeHeader.swift */; };
 		5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3742020B14C0043D01F /* SelectCityViewController.swift */; };
 		5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */; };
+		5CA7E2252022F9E0002ECFB9 /* WeexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E2242022F9E0002ECFB9 /* WeexViewController.swift */; };
+		5CA7E227202337B9002ECFB9 /* HomeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* HomeApi.swift */; };
+		5CA7E228202337B9002ECFB9 /* HomeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* HomeApi.swift */; };
+		5CA7E22A202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
+		5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
+		5CA7E23020235E60002ECFB9 /* HeadlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E22F20235E60002ECFB9 /* HeadlineViewModel.swift */; };
+		5CA7E23120235E60002ECFB9 /* HeadlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E22F20235E60002ECFB9 /* HeadlineViewModel.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -203,13 +222,19 @@
 		5C0675F7200DEC670019A24D /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		5C1E16C120216F5900C23B77 /* th-ios-pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "th-ios-pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "th-ios-adHoc.plist"; path = "/Users/chengfj/Desktop/th/th-ios/th-ios/th-ios-adHoc.plist"; sourceTree = "<absolute>"; };
+		5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewController.swift; sourceTree = "<group>"; };
+		5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewLayout.swift; sourceTree = "<group>"; };
+		5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewController.swift; sourceTree = "<group>"; };
+		5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewLayout.swift; sourceTree = "<group>"; };
+		5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoSettingViewController.swift; sourceTree = "<group>"; };
+		5C1E16D42022BC5500C23B77 /* ThApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThApi.swift; sourceTree = "<group>"; };
+		5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5C2B7121200E1ABE005CE83F /* QingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewController.swift; sourceTree = "<group>"; };
 		5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		5C2B7125200E2676005CE83F /* HeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewController.swift; sourceTree = "<group>"; };
 		5C397A99201AB5DB00C0B898 /* th-swift-demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "th-swift-demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C397A9B201AB5DB00C0B898 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5C397AA0201AC17A00C0B898 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		5C397AA4201ACB4800C0B898 /* th-demo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "th-demo-Bridging-Header.h"; sourceTree = "<group>"; };
 		5C397AAB201ACD0B00C0B898 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
 		5C397AAD201B1F4700C0B898 /* LeaderboardsViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardsViewLayout.swift; sourceTree = "<group>"; };
@@ -260,6 +285,10 @@
 		5C94C37220205D5A0043D01F /* TableChangeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChangeHeader.swift; sourceTree = "<group>"; };
 		5C94C3742020B14C0043D01F /* SelectCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewController.swift; sourceTree = "<group>"; };
 		5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewLayout.swift; sourceTree = "<group>"; };
+		5CA7E2242022F9E0002ECFB9 /* WeexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeexViewController.swift; sourceTree = "<group>"; };
+		5CA7E226202337B9002ECFB9 /* HomeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApi.swift; sourceTree = "<group>"; };
+		5CA7E229202337F6002ECFB9 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		5CA7E22F20235E60002ECFB9 /* HeadlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewModel.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -358,6 +387,7 @@
 		5C0675BE200C88930019A24D /* th-ios */ = {
 			isa = PBXGroup;
 			children = (
+				5C1E16DD2022BE5F00C23B77 /* Model */,
 				5CBE549820196C0A00594B9E /* Style */,
 				5C5F0B4020122028009BE6D4 /* Resource */,
 				5C0675D1200C890D0019A24D /* Api */,
@@ -377,6 +407,9 @@
 		5C0675D1200C890D0019A24D /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				5CA7E229202337F6002ECFB9 /* Method.swift */,
+				5C1E16D42022BC5500C23B77 /* ThApi.swift */,
+				5CA7E226202337B9002ECFB9 /* HomeApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -429,7 +462,9 @@
 			isa = PBXGroup;
 			children = (
 				5C0675EC200CA2470019A24D /* HomeViewController.swift */,
+				5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */,
 				5C2B7125200E2676005CE83F /* HeadlineViewController.swift */,
+				5CA7E22F20235E60002ECFB9 /* HeadlineViewModel.swift */,
 				5C94633D2012E6DD00F185BA /* HeadlineViewLayout.swift */,
 				5C927068200F78C400838C1D /* HomeCategoryViewController.swift */,
 				5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */,
@@ -485,6 +520,7 @@
 			children = (
 				5C0675F3200CB28E0019A24D /* MineViewController.swift */,
 				5C59616F2016E28800ECD88B /* MineViewLayout.swift */,
+				5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */,
 				5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */,
 				5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */,
 				5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */,
@@ -493,9 +529,19 @@
 				5C94C36A202047330043D01F /* SettingViewLayout.swift */,
 				5C94C36E202059940043D01F /* MessageListViewController.swift */,
 				5C94C370202059E70043D01F /* MessageListViewLayout.swift */,
-				5C397AA2201AC2CD00C0B898 /* MessageViewController.swift */,
+				5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */,
+				5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */,
+				5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */,
+				5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */,
 			);
 			path = Mine;
+			sourceTree = "<group>";
+		};
+		5C1E16DD2022BE5F00C23B77 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		5C2B7120200E1A5E005CE83F /* Common */ = {
@@ -533,6 +579,7 @@
 				5CBE548520196ABF00594B9E /* AppDelegate.swift */,
 				5CBE548720196ABF00594B9E /* ViewController.swift */,
 				5C397AAB201ACD0B00C0B898 /* NextViewController.swift */,
+				5CA7E2242022F9E0002ECFB9 /* WeexViewController.swift */,
 				5CBE548920196ABF00594B9E /* Main.storyboard */,
 				5CBE548C20196ABF00594B9E /* Assets.xcassets */,
 				5CBE548E20196ABF00594B9E /* LaunchScreen.storyboard */,
@@ -815,6 +862,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CBStoreHouseRefreshControl/CBStoreHouseRefreshControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
 				"${BUILT_PRODUCTS_DIR}/JYCarousel/JYCarousel.framework",
@@ -842,6 +890,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBStoreHouseRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JYCarousel.framework",
@@ -894,6 +943,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-th-demo/Pods-th-demo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CBStoreHouseRefreshControl/CBStoreHouseRefreshControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
 				"${BUILT_PRODUCTS_DIR}/JYCarousel/JYCarousel.framework",
@@ -918,9 +968,11 @@
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/WeexSDK/WeexSDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBStoreHouseRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JYCarousel.framework",
@@ -945,6 +997,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeexSDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -976,6 +1029,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios/Pods-th-ios-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/CBStoreHouseRefreshControl/CBStoreHouseRefreshControl.framework",
 				"${BUILT_PRODUCTS_DIR}/DateTools/DateTools.framework",
 				"${BUILT_PRODUCTS_DIR}/JYCarousel/JYCarousel.framework",
@@ -1003,6 +1057,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CBStoreHouseRefreshControl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateTools.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JYCarousel.framework",
@@ -1044,6 +1099,7 @@
 				5C0675D6200C89760019A24D /* BaseTabBarController.swift in Sources */,
 				5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */,
 				5C944599201D91AB00CCF082 /* SpecialTopicListLayout.swift in Sources */,
+				5CA7E23020235E60002ECFB9 /* HeadlineViewModel.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
 				5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */,
@@ -1051,6 +1107,7 @@
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
 				5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */,
 				5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */,
+				5C1E16C82021FD2500C23B77 /* SystemMessageViewLayout.swift in Sources */,
 				5C0675C0200C88930019A24D /* AppDelegate.swift in Sources */,
 				5C944597201D917600CCF082 /* SpecialTopicListController.swift in Sources */,
 				5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */,
@@ -1058,6 +1115,7 @@
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
+				5C1E16C62021FD1300C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
 				5C94C369202046640043D01F /* PublishTopicViewController.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
@@ -1066,15 +1124,19 @@
 				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
 				5CACA054201CB35F003E3901 /* Home.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
+				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
 				5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */,
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
+				5C1E16CB2021FDFB00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
+				5CA7E22A202337F6002ECFB9 /* Method.swift in Sources */,
 				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
 				5C944595201D7C6900CCF082 /* SpecialTopicViewLayout.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
+				5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */,
 				5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */,
 				5C94C35D201F0E2F0043D01F /* QingModuleViewLayout.swift in Sources */,
 				5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */,
@@ -1091,11 +1153,11 @@
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
 				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,
 				5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */,
-				5C397AA3201AC2CD00C0B898 /* MessageViewController.swift in Sources */,
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
 				5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */,
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
 				5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */,
+				5C1E16CD2021FE0900C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
 				5C0675D8200C89A30019A24D /* RootViewController.swift in Sources */,
@@ -1106,9 +1168,11 @@
 				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
 				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
+				5CA7E227202337B9002ECFB9 /* HomeApi.swift in Sources */,
 				5C94459B201DC92B00CCF082 /* TreeHoleViewLayout.swift in Sources */,
 				5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */,
 				5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */,
+				5C1E16D22022BA0C00C23B77 /* UserInfoSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1120,6 +1184,7 @@
 				5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */,
 				5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */,
 				5C1E167220216F5900C23B77 /* SpecialTopicListLayout.swift in Sources */,
+				5CA7E23120235E60002ECFB9 /* HeadlineViewModel.swift in Sources */,
 				5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */,
 				5C1E167420216F5900C23B77 /* QingViewController.swift in Sources */,
 				5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */,
@@ -1132,8 +1197,10 @@
 				5C1E167C20216F5900C23B77 /* UserListController.swift in Sources */,
 				5C1E167D20216F5900C23B77 /* ThUtils.swift in Sources */,
 				5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */,
+				5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
+				5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C1E168120216F5900C23B77 /* NavBarSearchItemProtocol.swift in Sources */,
 				5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */,
 				5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */,
@@ -1141,13 +1208,16 @@
 				5C1E168520216F5900C23B77 /* TreeHoleListViewController.swift in Sources */,
 				5C1E168620216F5900C23B77 /* HeadlineViewLayout.swift in Sources */,
 				5C1E168720216F5900C23B77 /* Home.swift in Sources */,
+				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
 				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
 				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
 				5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */,
 				5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */,
+				5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */,
+				5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */,
 				5C1E168F20216F5900C23B77 /* TopicListCellNodeLayout.swift in Sources */,
 				5C1E169020216F5900C23B77 /* SpecialTopicViewLayout.swift in Sources */,
 				5C1E169120216F5900C23B77 /* AuthorListViewController.swift in Sources */,
@@ -1159,6 +1229,7 @@
 				5C1E169720216F5900C23B77 /* Style.swift in Sources */,
 				5C1E169820216F5900C23B77 /* AuthorViewController.swift in Sources */,
 				5C1E169920216F5900C23B77 /* HeadlineViewController.swift in Sources */,
+				5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */,
 				5C1E169A20216F5900C23B77 /* UserListViewLayout.swift in Sources */,
 				5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */,
@@ -1167,9 +1238,9 @@
 				5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */,
 				5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */,
 				5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */,
-				5C1E16A220216F5900C23B77 /* MessageViewController.swift in Sources */,
 				5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */,
 				5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */,
+				5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */,
 				5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */,
 				5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */,
 				5C1E16A720216F5900C23B77 /* QingTopicListViewController.swift in Sources */,
@@ -1182,9 +1253,11 @@
 				5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */,
 				5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */,
 				5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */,
+				5CA7E228202337B9002ECFB9 /* HomeApi.swift in Sources */,
 				5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */,
 				5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */,
 				5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */,
+				5C1E16D32022BA1000C23B77 /* UserInfoSettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,6 +1273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CA7E2252022F9E0002ECFB9 /* WeexViewController.swift in Sources */,
 				5CBE548820196ABF00594B9E /* ViewController.swift in Sources */,
 				5C397AAC201ACD0B00C0B898 /* NextViewController.swift in Sources */,
 				5CBE549720196B3F00594B9E /* Style.swift in Sources */,

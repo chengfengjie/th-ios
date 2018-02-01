@@ -33,10 +33,20 @@ extension Float {
 
 typealias ParaStyle = NSMutableParagraphStyle
 extension ParaStyle {
-    class func create(lineSpacing: CGFloat, alignment: NSTextAlignment = .left) -> ParaStyle {
+    class func create(lineSpacing: CGFloat = 0, alignment: NSTextAlignment = .left) -> ParaStyle {
         return ParaStyle().then {
             $0.lineSpacing = lineSpacing
             $0.alignment = alignment
         }
+    }
+    
+    func withLineSpacing(lineSpacing: CGFloat) -> ParaStyle {
+        self.lineSpacing = lineSpacing
+        return self
+    }
+    
+    func withAlignment(alignment: NSTextAlignment) -> ParaStyle {
+        self.alignment = alignment
+        return self
     }
 }
