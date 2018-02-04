@@ -8,13 +8,19 @@
 
 import JYCarousel
 
-class HeadlineTableNodeHeader: CarouseTableNodeHeader {
-    var leaderboardsButton: UIButton? = nil
-    var authorButton: UIButton? = nil
-    var specialTopicButton: UIButton? = nil
-    var treeHoleButton: UIButton? = nil
-    init(carouseTableNodeHeader: CarouseTableNodeHeader) {
-        super.init(container: carouseTableNodeHeader.container, carouse: carouseTableNodeHeader.carouse)
+class HeadlineTopMenuBarHeader: NSObject {
+    var container: UIView
+    var leaderboardsButton: UIButton
+    var authorButton: UIButton
+    var specialTopicButton: UIButton
+    var treeHoleButton: UIButton
+    init(container: UIView, item1: UIButton, item2: UIButton, item3: UIButton, item4: UIButton) {
+        self.container = container
+        self.leaderboardsButton = item1
+        self.authorButton = item2
+        self.specialTopicButton = item3
+        self.treeHoleButton = item4
+        super.init()
     }
 }
 
@@ -35,25 +41,19 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
         return self.css.home_index.headerItemSize
     }
     var menuBarHeight: CGFloat {
-        return self.menuItemSize.height + 30
+        return self.menuItemSize.height + 50
     }
-    var tableNodeHeaderBounds: CGRect {
-        let height: CGFloat = self.carouseBounds.height + self.menuBarHeight
-        return CGRect.init(x: 0, y: 0, width: self.window_width, height: height)
-    }
-    func makeHeadlineTableNodeHeader() -> HeadlineTableNodeHeader {
+    
+    func makeMenuBarHeader() -> HeadlineTopMenuBarHeader {
+        let menuBar: UIView = UIView()
         
-        let carouseHeader: CarouseTableNodeHeader = self.makeCarouseHeaderBox()
-        carouseHeader.container.frame = self.tableNodeHeaderBounds
-        
-        let container: UIView = carouseHeader.container
-        
-        let menuBar: UIView = UIView().then { (bar) in
-            container.addSubview(bar)
-            bar.snp.makeConstraints({ (make) in
-                make.left.right.bottom.equalTo(0)
-                make.height.equalTo(self.menuBarHeight)
+        UIView.init().do {
+            menuBar.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.top.left.right.equalTo(0)
+                make.height.equalTo(1.0 / UIScreen.main.scale)
             })
+            $0.backgroundColor = UIColor.lineColor
         }
         
         let itemWidth: CGFloat = self.menuItemSize.width
@@ -72,7 +72,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
                 self?.handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType.leaderboards)
             })
         }
-
+        
         let authorButton: UIButton = createMenuButton(title: "作者", color: UIColor.hexColor(hex: "bca5f1"))
         authorButton.do { (item) in
             menuBar.addSubview(item)
@@ -98,7 +98,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
                 self?.handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType.special)
             })
         }
-
+        
         let treeHoleButton: UIButton = createMenuButton(title: "树洞", color: UIColor.hexColor(hex: "b2e183"))
         treeHoleButton.do { (item) in
             menuBar.addSubview(item)
@@ -112,12 +112,18 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
             })
         }
         
-        return HeadlineTableNodeHeader.init(carouseTableNodeHeader: carouseHeader).then({
-            $0.leaderboardsButton = leaderboardsButton
-            $0.authorButton = authorButton
-            $0.specialTopicButton = specialButton
-            $0.treeHoleButton = treeHoleButton
-        })
+        return HeadlineTopMenuBarHeader.init(container: menuBar,
+                                            item1: leaderboardsButton,
+                                            item2: authorButton,
+                                            item3: specialButton,
+                                            item4: treeHoleButton)
+        
+    }
+    
+    func makeHeadlineTableNodeHeader() -> CarouseTableNodeHeader {
+        let carouseHeader: CarouseTableNodeHeader = self.makeCarouseHeaderBox()
+        carouseHeader.container.frame = self.carouseBounds
+        return carouseHeader
     }
     
     private func createMenuButton(title: String, color: UIColor) -> UIButton {
@@ -157,36 +163,45 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
         return self.makeAndAddButtonNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        let style: NSMutableParagraphStyle = NSMutableParagraphStyle.init()
-        style.lineSpacing = 5.0
-        style.alignment = NSTextAlignment.justified
+        self.classificationTextNode.attributedText = dataJSON["catname"].stringValue
+            .withFont(Font.songTi(size: 12))
+            .withTextColor(Color.color9)
         
-        self.classificationTextNode.setText(text: "社会热点", style: self.css.home_index.cateTextStyle)
-        self.titleTextNode.setText(text: "悲观，繁荣到极点，过去三年都涨了什么", style: self.css.home_index.titleTextStyle)
+        self.titleTextNode.maximumNumberOfLines = 2
+        self.titleTextNode.truncationMode = .byTruncatingTail
+        self.titleTextNode.attributedText = dataJSON["title"].stringValue
+            .withFont(Font.thin(size: 18))
+            .withTextColor(Color.color3)
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: .justified))
         
-        let contentText: String = "《侠客行》是唐代大诗人李白借乐府古题创作的一首诗。此诗开头四句从侠客的装束、兵刃、坐骑刻画侠客的形象；第二个四句描写侠客高超的武术和淡泊名利的行藏；第三个四句引入信陵君和侯嬴、朱亥的故事来进一步歌颂侠客，同时也委婉地表达了自己的抱负；最后四句表示，即使侠客的行动没有达到目的，但侠客的骨气依然流芳后世，并不逊色于那些功成名就的英雄。全诗抒发了作者对侠客的倾慕，对拯危济难、用世立功生活的向往，形象地表现了作者的豪情壮志。"
+        self.contentTextNode.attributedText = dataJSON["summary"].stringValue
+            .withFont(Font.systemFont(ofSize: 12))
+            .withTextColor(Color.color9)
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
         
-        self.contentTextNode.setText(text: contentText, style: self.css.home_index.contentTextStyle)
+        self.authorIconNode.url = URL.init(string: dataJSON["aimg"].stringValue)
+        self.authorIconNode.defaultImage = UIImage.defaultImage
+        self.authorIconNode.style.preferredSize = CGSize.init(width: 18, height: 18)
         
-        self.authorIconNode.style.preferredSize = self.css.home_index.authorIconSize
-        self.authorIconNode.cornerRadius = self.css.home_index.authorIconSize.width / 2.0
-        self.authorIconNode.url = URL.init(string: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1121475478,2545730346&fm=27&gp=0.jpg")
+        self.authorTextNode.attributedText = dataJSON["author"].stringValue
+            .withFont(Font.systemFont(ofSize: 12))
+            .withTextColor(Color.color9)
         
-        self.authorTextNode.setText(text: "用时间良久", style: self.css.home_index.authorUnlikeTextStyle)
-        
-        self.unlikeButtonNode.setTitleText(text: "不喜欢", style: self.css.home_index.authorUnlikeTextStyle)
+        self.unlikeButtonNode.setAttributedTitle("不喜欢"
+            .withFont(Font.systemFont(ofSize: 12))
+            .withTextColor(Color.color9), for: UIControlState.normal)
         
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         
         let authorSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                             spacing: self.cellNodeElementSpacing,
+                                             spacing: 5,
                                              justifyContent: ASStackLayoutJustifyContent.start,
                                              alignItems: ASStackLayoutAlignItems.center,
                                              children: [self.authorIconNode, self.authorTextNode])
@@ -219,12 +234,12 @@ class ArticleListImageCellNode: ArticleListCellNode, ArticleListImageCellNodeLay
         return self.makeAndAddNetworkImageNode()
     }()
     
-    override init() {
-        super.init()
-        self.imageNode.url = URL.init(string: "http://g.hiphotos.baidu.com/image/h%3D300/sign=bc01b87caf0f4bfb93d09854334e788f/10dfa9ec8a1363275cd315d09a8fa0ec08fac713.jpg")
+    override init(dataJSON: JSON) {
+        super.init(dataJSON: dataJSON)
+        self.imageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.imageNode.defaultImage = UIImage.defaultImage
         self.imageNode.style.preferredSize = self.articleImageSize
         self.titleTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: self.titleNodeMaxWidth)
-        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -236,7 +251,7 @@ class ArticleListImageCellNode: ArticleListCellNode, ArticleListImageCellNodeLay
                                                     children: [self.titleTextNode, self.imageNode])
         
         let authorSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                                spacing: self.cellNodeElementSpacing,
+                                                spacing: 5,
                                                 justifyContent: ASStackLayoutJustifyContent.start,
                                                 alignItems: ASStackLayoutAlignItems.center,
                                                 children: [self.authorIconNode, self.authorTextNode])

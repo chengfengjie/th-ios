@@ -38,6 +38,8 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
             })
             self.content.addSubnode($0)
             $0.frame = self.view.bounds
+            
+            $0.view.separatorColor = UIColor.lineColor
         }
         
         if #available(iOS 11.0, *) {
@@ -65,7 +67,7 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
     
     func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 30),
-                                max: CGSize.init(width: self.window_width, height: 3000))
+                                max: CGSize.init(width: self.window_width, height: 30000))
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -80,7 +80,7 @@ class HomeViewController: BaseViewController,
             let identifer: String = "categoryIdentifer_\(pageIndex)"
             var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
             if controller == nil {
-                controller = HomeCategoryViewController(style: UITableViewStyle.grouped)
+                controller = HomeCategoryViewController(cateInfo: dataJSON)
             }
             return controller!
         }

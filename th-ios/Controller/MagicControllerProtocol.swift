@@ -60,6 +60,7 @@ extension MagicControllerContainerProtocol where Self: BaseViewController {
             $0.magicView.switchStyle = VTSwitchStyle.default
             $0.magicView.dataSource = self
             $0.magicView.delegate = self
+            $0.magicView.navigationInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
         })
     }
     
@@ -88,15 +89,28 @@ extension MagicControllerContainerProtocol where Self: BaseViewController {
         identifer: String = "magicItemIdentifer") -> UIButton {
         var menuItem:UIButton? = magicView.dequeueReusableItem(withIdentifier: identifer)
         if menuItem == nil {
-            menuItem = UIButton.init(type: .custom)
-            menuItem?.setTitleColor(self.css.home_top_bar_text_style.color, for: UIControlState.normal)
+            menuItem = MagicViewItem.init(type: .custom)
+            menuItem?.setTitleColor(UIColor.color9, for: UIControlState.normal)
             menuItem?.setTitleColor(UIColor.pink, for: UIControlState.selected)
             menuItem?.titleLabel?.font = self.css.home_top_bar_text_style.font
             menuItem?.backgroundColor = UIColor.white
         }
         return menuItem!
-
     }
+}
+
+fileprivate class MagicViewItem: UIButton {
+    
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.titleLabel?.font = UIFont.sys(size: 18)
+            } else {
+                self.titleLabel?.font = UIFont.sys(size: 14)
+            }
+        }
+    }
+    
 }
 
 /// VTMagicController包含的控制器遵循此协议，处理起子视图的frame

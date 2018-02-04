@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum HotToplistType: String {
+    case day = "0"
+    case week = "1"
+    case month = "2"
+}
+
 protocol HomeApi: ThApi {}
 
 extension HomeApi {
@@ -41,4 +47,38 @@ extension HomeApi {
         ]
         return self.request(method: ThMethod.getHomeCateList, data: params)
     }
+    
+    /// 获取阅读排行榜列表
+    ///
+    /// - Parameter hotType: 类型
+    /// - Returns: 信号
+    func requestArtcleHotToplist(hotType: HotToplistType) -> Signal<JSON, RequestError> {
+        let params: [String: Any] = [
+            "hottype": hotType.rawValue
+        ]
+        return self.request(method: ThMethod.getArticleHotToplist, data: params)
+    }
+
+    
+    /// 专题列表
+    ///
+    /// - Returns: rignal
+    func requestSpeciallist() -> Signal<JSON, RequestError> {
+        return self.request(method: ThMethod.getSpeciallist)
+    }
+    
+    /// 文章详情
+    ///
+    /// - Parameters:
+    ///   - articleID: 文章ID
+    ///   - userID: 用户ID
+    /// - Returns: signal
+    func requestArticleInfo(articleID: String, userID: String) -> Signal<JSON, RequestError> {
+        let params = [
+            "aid": articleID,
+            "uid": userID,
+        ]
+        return self.request(method: ThMethod.getArticleInfo, data: params)
+    }
+    
 }

@@ -43,7 +43,7 @@ class NoneContentArticleCellNodeImpl: ASCellNode, NoneContentArticleCellNode {
         self.imageNode.style.preferredSize = self.layoutCss.imageSize
         
         self.sourceIconImageNode.url = URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")
-        self.sourceTextNode.style.preferredSize = self.layoutCss.sourceIconSize
+        self.sourceIconImageNode.style.preferredSize = self.layoutCss.sourceIconSize
         
         self.sourceTextNode.setText(text: "21世纪", style: self.layoutCss.sourceNameTextStyle)
         

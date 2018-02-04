@@ -14,10 +14,14 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         return self.makeHeadlineTableNodeHeader()
     }()
     
-    let viewModel: HeadlineViewModel
+    lazy var menuBarHeader: HeadlineTopMenuBarHeader = {
+        return self.makeMenuBarHeader()
+    }()
+    
+    let viewModel: HomeArticleViewModel
     
     init(cateInfo: JSON) {
-        self.viewModel = HeadlineViewModel.init(cateInfo: cateInfo)
+        self.viewModel = HomeArticleViewModel.init(cateInfo: cateInfo)
         super.init(style: .grouped)
     }
     
@@ -28,7 +32,18 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.setupContentTableNodeLayout()
         
         self.setNavigationBarHidden(isHidden: true)
-    
+
+        self.bind()
+        
+        self.tableNode.view.separatorColor = UIColor.lineColor
+    }
+
+    func bind() {
+        
+        self.viewModel.reactive.signal(forKeyPath: "articleData").observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        
     }
     
     func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
@@ -43,33 +58,58 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
             self.pushViewController(viewController: TreeHoleListViewController(style: .plain))
         }
     }
+    
+    override func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return 2
+    }
         
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return section == 0 ? 0 : self.viewModel.articleData.count
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        self.pushViewController(viewController: ArticleDetailViewController())
+        if indexPath.section == 1 {
+            let dataJSON: JSON = self.viewModel.articleData[indexPath.row] as! JSON
+            self.pushViewController(viewController: ArticleDetailViewController(articleID: dataJSON["aid"].stringValue))
+        }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        return {
-            if indexPath.row == 0 {
-                let textNode = ArticleListCellNode.init()
-                return textNode
+        if indexPath.section == 1 {
+            let data: JSON = self.viewModel.articleData[indexPath.row] as! JSON
+            
+            let imageUrl: String = data["pic"].stringValue
+            
+            if imageUrl.isEmpty {
+                return {
+                    return ArticleListCellNode(dataJSON: data)
+                }
             } else {
-                let node = ArticleListImageCellNode.init()
-                return node
+                return {
+                    return ArticleListImageCellNode(dataJSON: data)
+                }
+            }
+        } else {
+            return {
+                return ASTextCellNode()
             }
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.tableNodeHeaderBounds.height
+        if section == 0 {
+            return self.viewModel.adData.isEmpty ? 0.1 : self.carouseBounds.height
+        } else {
+            return self.menuBarHeight
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.tableNodeHeader.container
+        if section == 0 {
+            return  self.viewModel.adData.isEmpty ? nil : self.tableNodeHeader.container
+        } else {
+            return self.menuBarHeader.container
+        }
     }
     
     override func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {

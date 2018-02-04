@@ -45,6 +45,7 @@ extension ThApi {
     public func request(method: ThMethod, data: [String: Any] = [:]) -> Signal<JSON, RequestError> {
         return Signal.init({ (observer, time) in
             let parameters = dataEncode(data: data, method: method)
+            print(parameters)
             let dataRequest = Alamofire.request(Server.host_url,
                                                 method: HTTPMethod.post,
                                                 parameters: parameters,
@@ -66,7 +67,12 @@ extension ThApi {
     private func parseResponseData(res: DataResponse<Data>, observer: Signal<JSON, RequestError>.Observer) {
         if let data = res.data {
             let dataJSON = JSON.init(data: data)
-            if dataJSON["errCode"].intValue == 0 {
+            if dataJSON.isEmpty {
+                let text = String.init(data: data, encoding: String.Encoding.utf8)
+                if let text = text {
+                    print(text)
+                }
+            } else if dataJSON["errCode"].intValue == 0 {
                 observer.send(value: dataJSON["info"])
             } else {
                 observer.send(error: RequestError.warning(message: dataJSON["errMessage"].stringValue))
@@ -77,10 +83,9 @@ extension ThApi {
     }
     
     private func dataEncode(data: [String: Any], method: ThMethod) -> Parameters {
-        let dataJSON = JSON.init(data).stringValue
         return [
             "m": method.rawValue,
-            "params": dataJSON,
+            "params": data.json,
             "sid": "",
             "format": "json",
             "sign": "",
@@ -88,6 +93,22 @@ extension ThApi {
             "deviceInfo": ""
         ]
     }
+}
+
+extension Dictionary {
+    
+    var json: String {
+        do {
+            let options = JSONSerialization.WritingOptions.prettyPrinted
+            let data = try JSONSerialization.data(withJSONObject: self, options: options)
+            if let text = String.init(data: data, encoding: String.Encoding.utf8) {
+                return text
+            }
+        } catch {
+        }
+        return ""
+    }
+    
 }
 
 

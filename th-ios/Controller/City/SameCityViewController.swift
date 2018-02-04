@@ -23,7 +23,6 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
     }
 
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        self.pushViewController(viewController: ArticleDetailViewController())
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -32,7 +31,7 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            return ArticleListCellNode()
+            return ArticleListCellNode(dataJSON: JSON.init([:]))
         }
     }
     

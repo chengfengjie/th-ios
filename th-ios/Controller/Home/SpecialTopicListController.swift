@@ -10,6 +10,8 @@ import UIKit
 
 class SpecialTopicListController: BaseTableViewController {
 
+    let viewModel: SpecialTopicListViewModel = SpecialTopicListViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,15 +19,26 @@ class SpecialTopicListController: BaseTableViewController {
         
         self.setNavigationBarTitle(title: "专题列表")
         
+        self.bindViewModel()
+    }
+    
+    func bindViewModel() {
+        
+        self.viewModel.reactive
+            .signal(forKeyPath: "speciallist")
+            .observeResult { [weak self] (val) in
+                self?.tableNode.reloadData()
+        }
+        
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.viewModel.specilaJsonList.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            return SpecialListCellNode()
+            return SpecialListCellNode(dataJSON: self.viewModel.specilaJsonList[indexPath.row])
         }
     }
     

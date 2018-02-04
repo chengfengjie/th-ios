@@ -50,3 +50,9 @@ extension ParaStyle {
         return self
     }
 }
+
+extension UIImage {
+    
+    static let defaultImage: UIImage = UIImage.init(named: "default_image")!
+    
+}

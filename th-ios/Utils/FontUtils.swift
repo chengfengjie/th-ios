@@ -27,4 +27,12 @@ extension UIFont {
             return UIFont.boldSystemFont(ofSize:size)
         }
     }
+    
+    class func thin(size: CGFloat) -> UIFont {
+        return UIFont.systemFont(ofSize: size, weight: UIFont.Weight.thin)
+    }
+    
+    class func sys(size: CGFloat) -> UIFont {
+        return UIFont.systemFont(ofSize: size)
+    }
 }
