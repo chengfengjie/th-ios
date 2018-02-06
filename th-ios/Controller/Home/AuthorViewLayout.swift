@@ -35,20 +35,26 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
         return self.makeAndAddButtonNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
         self.avatarImageNode.style.preferredSize = CGSize.init(width: 80, height: 80)
         
-        self.avatarImageNode.url = URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")
+        self.avatarImageNode.url = URL.init(string: dataJSON["aImg"].stringValue)
+        self.avatarImageNode.defaultImage = UIImage.defaultImage
         
-        self.authorNameTextNode.attributedText = "孕妇小助理".withFont(Font.systemFont(ofSize: 20))
+        self.authorNameTextNode.attributedText = dataJSON["aAuthor"].stringValue
+            .withFont(Font.systemFont(ofSize: 20))
         
-        self.articleTotalTextNode.attributedText = "29122 篇文章".withFont(Font.systemFont(ofSize: 12)).withTextColor(Color.color9)
+        self.articleTotalTextNode.attributedText = "\(dataJSON["aArticlenum"].stringValue) 篇文章"
+            .withFont(Font.systemFont(ofSize: 12))
+            .withTextColor(Color.color9)
         
-        self.descriptionTextNode.attributedText = "学校被查封、玉芬的离去、以及女儿马小翠的自杀未遂，一连串的打击让马大帅难以承受，急火攻心使马大帅突然双目失明。玉芬的表妹李萍一直在照顾着失明的马大帅。而在马大帅的内心深处，仍对玉芬怀有至深的情感。马大帅虽然双目失明，但感觉心里清静了许多，同意让马小翠与吴总离婚。小翠与钢子有情人终成眷属。同时，马大帅学习了盲人按摩技术，准备带领乡亲们开办一家盲人按摩诊所……".withTextColor(Color.color6).withFont(Font.systemFont(ofSize: 11))
+        self.descriptionTextNode.attributedText = dataJSON["aSummary"].stringValue
+            .withTextColor(Color.color6)
+            .withFont(Font.systemFont(ofSize: 11))
         
         self.attentionButtonNode.setAttributedTitle("+ 关注".withTextColor(Color.white), for: UIControlState.normal)
         

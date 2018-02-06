@@ -8,17 +8,16 @@
 
 import Foundation
 
-class HomeViewModel: NSObject, HomeApi {
+class HomeViewModel: NSObject, ArticleApi {
     
     @objc dynamic var cateData: [Any] = []
-        
+            
     override init() {
         super.init()
         
         self.requestCate().observeResult { (res) in
             switch res {
             case let .success(val):
-                print(val)
                 self.cateData = val["data"]["catelist"].arrayValue
             case let .failure(err):
                 print(err)

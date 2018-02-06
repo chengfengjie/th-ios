@@ -8,7 +8,7 @@
 
 import Foundation
 
-class LeaderboardsViewModel: NSObject, HomeApi {
+class LeaderboardsViewModel: NSObject, ArticleApi {
     
     var type: HotToplistType = HotToplistType.day {
         didSet {

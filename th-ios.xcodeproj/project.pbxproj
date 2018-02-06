@@ -20,6 +20,10 @@
 		5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675EC200CA2470019A24D /* HomeViewController.swift */; };
 		5C0675F4200CB28E0019A24D /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F3200CB28E0019A24D /* MineViewController.swift */; };
 		5C0675F8200DEC670019A24D /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675F7200DEC670019A24D /* BaseTableViewController.swift */; };
+		5C0F911020295C49000DF20E /* AuthorListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0F910F20295C49000DF20E /* AuthorListViewModel.swift */; };
+		5C0F911120295C49000DF20E /* AuthorListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0F910F20295C49000DF20E /* AuthorListViewModel.swift */; };
+		5C0F911320299600000DF20E /* AuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0F911220299600000DF20E /* AuthorViewModel.swift */; };
+		5C0F911420299600000DF20E /* AuthorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0F911220299600000DF20E /* AuthorViewModel.swift */; };
 		5C1E166F20216F5900C23B77 /* MineViewHistoryCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5961792018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift */; };
 		5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0675D5200C89760019A24D /* BaseTabBarController.swift */; };
 		5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C370202059E70043D01F /* MessageListViewLayout.swift */; };
@@ -129,6 +133,26 @@
 		5C5F0B4220122028009BE6D4 /* fzxbsjt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */; };
 		5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4320122071009BE6D4 /* FontUtils.swift */; };
 		5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */; };
+		5C6408B32027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */; };
+		5C6408B42027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */; };
+		5C6408B62027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */; };
+		5C6408B72027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */; };
+		5C6408B92027F42400F95BE1 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B82027F42400F95BE1 /* CityApi.swift */; };
+		5C6408BA2027F42400F95BE1 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B82027F42400F95BE1 /* CityApi.swift */; };
+		5C6408BC2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */; };
+		5C6408BD2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */; };
+		5C6408BF2028022700F95BE1 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BE2028022700F95BE1 /* QingApi.swift */; };
+		5C6408C02028022700F95BE1 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BE2028022700F95BE1 /* QingApi.swift */; };
+		5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C1202802BA00F95BE1 /* QingViewModel.swift */; };
+		5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C1202802BA00F95BE1 /* QingViewModel.swift */; };
+		5C6408C5202872A300F95BE1 /* AuthorizeUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C4202872A300F95BE1 /* AuthorizeUserModel.swift */; };
+		5C6408C6202872A300F95BE1 /* AuthorizeUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C4202872A300F95BE1 /* AuthorizeUserModel.swift */; };
+		5C6408C820287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */; };
+		5C6408C920287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */; };
+		5C6408CB2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */; };
+		5C6408CC2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */; };
+		5C6408CE2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408CD2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift */; };
+		5C6408CF2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408CD2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift */; };
 		5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6541542026E177009EDDC2 /* LeaderboardsViewModel.swift */; };
 		5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6541542026E177009EDDC2 /* LeaderboardsViewModel.swift */; };
 		5C6541582026F36E009EDDC2 /* SpecialTopicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6541572026F36E009EDDC2 /* SpecialTopicListViewModel.swift */; };
@@ -228,6 +252,8 @@
 		5C0675EC200CA2470019A24D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5C0675F3200CB28E0019A24D /* MineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		5C0675F7200DEC670019A24D /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		5C0F910F20295C49000DF20E /* AuthorListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorListViewModel.swift; sourceTree = "<group>"; };
+		5C0F911220299600000DF20E /* AuthorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewModel.swift; sourceTree = "<group>"; };
 		5C1E16C120216F5900C23B77 /* th-ios-pro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "th-ios-pro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C1E16C220216F5900C23B77 /* th-ios-adHoc.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "th-ios-adHoc.plist"; path = "/Users/chengfj/Desktop/th/th-ios/th-ios/th-ios-adHoc.plist"; sourceTree = "<absolute>"; };
 		5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewController.swift; sourceTree = "<group>"; };
@@ -258,6 +284,16 @@
 		5C5F0B4120122028009BE6D4 /* fzxbsjt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fzxbsjt.ttf; sourceTree = "<group>"; };
 		5C5F0B4320122071009BE6D4 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProtocol.swift; sourceTree = "<group>"; };
+		5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityMainViewModel.swift; sourceTree = "<group>"; };
+		5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewModel.swift; sourceTree = "<group>"; };
+		5C6408B82027F42400F95BE1 /* CityApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityApi.swift; sourceTree = "<group>"; };
+		5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityViewModel.swift; sourceTree = "<group>"; };
+		5C6408BE2028022700F95BE1 /* QingApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingApi.swift; sourceTree = "<group>"; };
+		5C6408C1202802BA00F95BE1 /* QingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewModel.swift; sourceTree = "<group>"; };
+		5C6408C4202872A300F95BE1 /* AuthorizeUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeUserModel.swift; sourceTree = "<group>"; };
+		5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCellphoneController.swift; sourceTree = "<group>"; };
+		5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCellphoneLayout.swift; sourceTree = "<group>"; };
+		5C6408CD2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCodeViewController.swift; sourceTree = "<group>"; };
 		5C6541542026E177009EDDC2 /* LeaderboardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardsViewModel.swift; sourceTree = "<group>"; };
 		5C6541572026F36E009EDDC2 /* SpecialTopicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialTopicListViewModel.swift; sourceTree = "<group>"; };
 		5C65415A2026F49C009EDDC2 /* ArticleDetailViewLyout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewLyout.swift; sourceTree = "<group>"; };
@@ -422,6 +458,8 @@
 				5CA7E229202337F6002ECFB9 /* Method.swift */,
 				5C1E16D42022BC5500C23B77 /* ThApi.swift */,
 				5CA7E226202337B9002ECFB9 /* HomeApi.swift */,
+				5C6408B82027F42400F95BE1 /* CityApi.swift */,
+				5C6408BE2028022700F95BE1 /* QingApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -485,8 +523,10 @@
 				5C397AAD201B1F4700C0B898 /* LeaderboardsViewLayout.swift */,
 				5C92706C20107B2D00838C1D /* AuthorListViewController.swift */,
 				5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */,
+				5C0F910F20295C49000DF20E /* AuthorListViewModel.swift */,
 				5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */,
 				5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */,
+				5C0F911220299600000DF20E /* AuthorViewModel.swift */,
 				5C944596201D917600CCF082 /* SpecialTopicListController.swift */,
 				5C944598201D91AB00CCF082 /* SpecialTopicListLayout.swift */,
 				5C6541572026F36E009EDDC2 /* SpecialTopicListViewModel.swift */,
@@ -509,9 +549,12 @@
 			isa = PBXGroup;
 			children = (
 				5C92707620108DB600838C1D /* SameCityMainViewController.swift */,
+				5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */,
 				5C92707420108D9100838C1D /* SameCityViewController.swift */,
+				5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */,
 				5C94C3742020B14C0043D01F /* SelectCityViewController.swift */,
 				5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */,
+				5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */,
 			);
 			path = City;
 			sourceTree = "<group>";
@@ -520,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				5C2B7121200E1ABE005CE83F /* QingViewController.swift */,
+				5C6408C1202802BA00F95BE1 /* QingViewModel.swift */,
 				5CDF46192015774C002F7D8B /* QingViewLayout.swift */,
 				5C94C36620201D820043D01F /* QingTopicListLayout.swift */,
 				5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */,
@@ -549,6 +593,9 @@
 				5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */,
 				5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */,
 				5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */,
+				5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */,
+				5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */,
+				5C6408CD2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -556,6 +603,7 @@
 		5C1E16DD2022BE5F00C23B77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5C6408C4202872A300F95BE1 /* AuthorizeUserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1113,14 +1161,19 @@
 			files = (
 				5C59617A2018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift in Sources */,
 				5C0675D6200C89760019A24D /* BaseTabBarController.swift in Sources */,
+				5C6408B32027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */,
+				5C6408BF2028022700F95BE1 /* QingApi.swift in Sources */,
+				5C6408CB2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */,
 				5C944599201D91AB00CCF082 /* SpecialTopicListLayout.swift in Sources */,
+				5C0F911020295C49000DF20E /* AuthorListViewModel.swift in Sources */,
 				5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
 				5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */,
 				5C94C36B202047330043D01F /* SettingViewLayout.swift in Sources */,
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
+				5C6408BC2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */,
 				5C927069200F78C400838C1D /* HomeCategoryViewController.swift in Sources */,
 				5C94C36720201D820043D01F /* QingTopicListLayout.swift in Sources */,
 				5C1E16C82021FD2500C23B77 /* SystemMessageViewLayout.swift in Sources */,
@@ -1133,19 +1186,23 @@
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C62021FD1300C23B77 /* SystemMessageViewController.swift in Sources */,
+				5C6408C5202872A300F95BE1 /* AuthorizeUserModel.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
 				5C94C369202046640043D01F /* PublishTopicViewController.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
 				5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */,
 				5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */,
 				5C94633E2012E6DD00F185BA /* HeadlineViewLayout.swift in Sources */,
+				5C6408B62027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */,
 				5CACA054201CB35F003E3901 /* Home.swift in Sources */,
+				5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
 				5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */,
+				5C0F911320299600000DF20E /* AuthorViewModel.swift in Sources */,
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C1E16CB2021FDFB00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
@@ -1166,6 +1223,7 @@
 				5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */,
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
+				5C6408CE2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
@@ -1177,6 +1235,7 @@
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
 				5C65415B2026F49C009EDDC2 /* ArticleDetailViewLyout.swift in Sources */,
 				5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */,
+				5C6408B92027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16CD2021FE0900C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
@@ -1193,6 +1252,7 @@
 				5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */,
 				5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */,
 				5C1E16D22022BA0C00C23B77 /* UserInfoSettingViewController.swift in Sources */,
+				5C6408C820287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1202,14 +1262,19 @@
 			files = (
 				5C1E166F20216F5900C23B77 /* MineViewHistoryCellNodeLayout.swift in Sources */,
 				5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */,
+				5C6408B42027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */,
+				5C6408C02028022700F95BE1 /* QingApi.swift in Sources */,
+				5C6408CC2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */,
 				5C1E167220216F5900C23B77 /* SpecialTopicListLayout.swift in Sources */,
+				5C0F911120295C49000DF20E /* AuthorListViewModel.swift in Sources */,
 				5CA7E23120235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */,
 				5C1E167420216F5900C23B77 /* QingViewController.swift in Sources */,
 				5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */,
 				5C1E167620216F5900C23B77 /* SettingViewLayout.swift in Sources */,
 				5C1E167720216F5900C23B77 /* TreeHoleViewController.swift in Sources */,
+				5C6408BD2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */,
 				5C1E167820216F5900C23B77 /* HomeCategoryViewController.swift in Sources */,
 				5C1E167920216F5900C23B77 /* QingTopicListLayout.swift in Sources */,
 				5C1E167A20216F5900C23B77 /* AppDelegate.swift in Sources */,
@@ -1222,19 +1287,23 @@
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */,
+				5C6408C6202872A300F95BE1 /* AuthorizeUserModel.swift in Sources */,
 				5C1E168120216F5900C23B77 /* NavBarSearchItemProtocol.swift in Sources */,
 				5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */,
 				5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */,
 				5C1E168420216F5900C23B77 /* HorizontalScrollMenu.swift in Sources */,
 				5C1E168520216F5900C23B77 /* TreeHoleListViewController.swift in Sources */,
 				5C1E168620216F5900C23B77 /* HeadlineViewLayout.swift in Sources */,
+				5C6408B72027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */,
 				5C1E168720216F5900C23B77 /* Home.swift in Sources */,
+				5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
 				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
 				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
 				5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */,
+				5C0F911420299600000DF20E /* AuthorViewModel.swift in Sources */,
 				5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */,
@@ -1255,6 +1324,7 @@
 				5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */,
 				5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
+				5C6408CF2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C1E169D20216F5900C23B77 /* QingModuleViewController.swift in Sources */,
 				5C1E169E20216F5900C23B77 /* SizeUtils.swift in Sources */,
 				5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */,
@@ -1266,6 +1336,7 @@
 				5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */,
 				5C65415C2026F49C009EDDC2 /* ArticleDetailViewLyout.swift in Sources */,
 				5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */,
+				5C6408BA2027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */,
 				5C1E16A720216F5900C23B77 /* QingTopicListViewController.swift in Sources */,
 				5C1E16A820216F5900C23B77 /* ArticleDetailViewController.swift in Sources */,
@@ -1282,6 +1353,7 @@
 				5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */,
 				5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */,
 				5C1E16D32022BA1000C23B77 /* UserInfoSettingViewController.swift in Sources */,
+				5C6408C920287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

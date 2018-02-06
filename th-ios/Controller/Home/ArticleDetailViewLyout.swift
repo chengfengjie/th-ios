@@ -30,6 +30,10 @@ class ArticleContentCellNode: ASCellNode, ArticleTopicContentCellNodeLayout {
         return self.makeAndAddButtonNode()
     }()
     
+    lazy var feedbackTextNode: ASTextNode = {
+        return self.makeAndAddTextNode()
+    }()
+    
     var paragraphContentlist: [ArticleTopicContentParagraph] = []
 
     let dataJSON: JSON
@@ -65,6 +69,12 @@ class ArticleContentCellNode: ASCellNode, ArticleTopicContentCellNodeLayout {
         self.sourceContainer.borderColor = UIColor.lineColor.cgColor
         self.sourceContainer.borderWidth = 1.0 / UIScreen.main.scale
 
+        let tipAttributeText = ("本页面由童伙妈妈应用采用内搜索技术自动抓取，在未编辑原始内容的情况下对板式做了优化提升阅读体验·"
+            .withTextColor(Color.color9)
+            .withFont(Font.sys(size: 14)) + "版权举报".withFont(Font.boldSystemFont(ofSize: 14))).withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: NSTextAlignment.justified))
+        self.feedbackTextNode.attributedText = "页面排版有问题?"
+            .withFont(Font.sys(size: 14))
+            .withTextColor(Color.color9) + " 报错\n\n".withFont(Font.sys(size: 14)) + tipAttributeText
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -104,11 +114,9 @@ protocol ArticleTopicContentCellNodeLayout: NodeElementMaker {
     var authorAvatarImageNode: ASNetworkImageNode { get }
     var authorTextNode: ASTextNode { get }
     var attendButtonNode: ASButtonNode { get }
-    
     var paragraphContentlist: [ArticleTopicContentParagraph] { get }
-    
     var sourceContainer: SourceContainer { get }
-    
+    var feedbackTextNode: ASTextNode { get }
 }
 
 extension ArticleTopicContentCellNodeLayout where Self: ASCellNode {
@@ -185,6 +193,7 @@ extension ArticleTopicContentCellNodeLayout where Self: ASCellNode {
         
         var children: [ASLayoutElement] = [self.titleTextNode, authorInfoBarSpec] + contentlist
         children.append(ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 0, 0, 0), child: self.sourceContainer))
+        children.append(self.feedbackTextNode)
         
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 20,
@@ -246,5 +255,46 @@ class SourceContainer: ASControlNode, NodeElementMaker {
         let incatorInset = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 0, left: 20, bottom: 0, right: 20),
                                                   child: indicatorSpec)
         return ASWrapperLayoutSpec.init(layoutElements: [contentInset, incatorInset])
+    }
+}
+
+
+class ArticleRelatedCellNode: NoneContentArticleCellNodeImpl {
+ 
+    let dataJSON: JSON
+    init(dataJSON: JSON) {
+        self.dataJSON = dataJSON
+        super.init()
+        
+        self.showCateTextNode = false
+        
+        self.titleTextNode.attributedText = dataJSON["title"].stringValue
+            .withTextColor(Color.color3)
+            .withFont(Font.thin(size: 18))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: .justified))
+        self.titleTextNode.maximumNumberOfLines = 2
+        self.titleTextNode.truncationMode = .byTruncatingTail
+        
+        self.sourceIconImageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
+        self.sourceIconImageNode.defaultImage = UIImage.defaultImage
+        
+        self.sourceTextNode.attributedText = dataJSON["author"].stringValue
+            .withFont(Font.sys(size: 12))
+            .withTextColor(Color.color3)
+        
+        self.unlikeButtonNode.setAttributedTitle("不喜欢"
+            .withFont(Font.sys(size: 12))
+            .withTextColor(Color.color6), for: UIControlState.normal)
+        
+        self.imageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.imageNode.defaultImage = UIImage.defaultImage
+    }
+    
+    override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        if self.dataJSON["pic"].stringValue.isEmpty {
+            return self.buildNoneImageLayoutSpec(constrainedSize: constrainedSize)
+        } else {
+            return self.buildImageLayoutSpec(constrainedSize: constrainedSize)
+        }
     }
 }

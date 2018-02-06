@@ -25,6 +25,8 @@ class SameCityMainViewController: BaseViewController,
         }
     }()
     
+    let viewModel: SameCityMainViewModel = SameCityMainViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,6 +35,16 @@ class SameCityMainViewController: BaseViewController,
         self.setNavigationBarPositionItem()
         
         self.makeNavigationBarSearchItem()
+        
+        self.bindViewModel()
+    }
+    
+    func bindViewModel() {
+        self.viewModel.reactive
+            .signal(forKeyPath: "cateData")
+            .observeValues { [weak self] (value) in
+            self?.vtMagicController.magicView.reloadData()
+        }
     }
     
     private func setNavigationBarPositionItem() {
@@ -86,7 +98,7 @@ class SameCityMainViewController: BaseViewController,
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
-        return ["推荐", "亲子活动", "新鲜事儿", "教育信息", "周边游", "打折信息"]
+        return self.viewModel.cateTitles
     }
     
     func magicView(_ magicView: VTMagicView, menuItemAt itemIndex: UInt) -> UIButton {
@@ -94,10 +106,10 @@ class SameCityMainViewController: BaseViewController,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-        let identifer: String = "identifer";
-        var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
+        let dataJSON: JSON = self.viewModel.cateData[Int(pageIndex)] as! JSON
+        var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: "identifer")
         if controller == nil {
-            controller = SameCityViewController(style: UITableViewStyle.grouped)
+            controller = SameCityViewController(cateId: dataJSON["catid"].stringValue)
         }
         return controller!
     }

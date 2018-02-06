@@ -14,6 +14,16 @@ class AuthorViewController: BaseTableViewController, AuthorViewLayout {
         return self.makeChangeHeader()
     }()
     
+    let viewModel: AuthorViewModel
+    init(authorID: String) {
+        self.viewModel = AuthorViewModel.init(authorID: authorID)
+        super.init(style: UITableViewStyle.grouped)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +31,14 @@ class AuthorViewController: BaseTableViewController, AuthorViewLayout {
         
         self.setNavigationBarCloseItem(isHidden: false)
         
+        self.bindViewModel()
+    }
+    
+    func bindViewModel() {
+        self.viewModel.reactive.signal(forKeyPath: "authorData")
+            .skipNil().observeValues { [weak self] (val) in
+            self?.tableNode.reloadData()
+        }
     }
 
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -42,7 +60,7 @@ class AuthorViewController: BaseTableViewController, AuthorViewLayout {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 return {
-                    return AuthorTopBasicInfo()
+                    return AuthorTopBasicInfo(dataJSON: self.viewModel.authorDataJSON)
                 }
             } else if indexPath.row == 1 {
                 return {

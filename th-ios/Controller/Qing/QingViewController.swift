@@ -26,6 +26,8 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         }
     }()
     
+    let viewModel: QingViewModel = QingViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,9 +37,21 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         
         self.makeNavigationBarLeftChatItem()
         
-        self.tableNodeMneuBarHeader.items.forEach {
-            $0.addTarget(self, action: #selector(self.handleClickHeaderMenuItem(sender:)),
-                         for: UIControlEvents.touchUpInside)
+        self.bindViewModel()
+    }
+    
+    func bindViewModel() {
+        self.tableNodeMneuBarHeader.items.forEach { (item) in
+            item.reactive.controlEvents(.touchUpInside)
+                .observeValues({ [weak self] (sender) in
+                    self?.pushViewController(viewController:
+                        QingTopicListViewController.init(style: .grouped, type: .news)
+                    )
+            })
+        }
+        self.viewModel.reactive.signal(forKeyPath: "data")
+            .skipNil().observeValues { [weak self] (val) in
+            self?.tableNode.reloadData()
         }
     }
     
@@ -45,21 +59,16 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         
     }
     
-    @objc func handleClickHeaderMenuItem(sender: UIButton) {
-        self.pushViewController(viewController:
-            QingTopicListViewController.init(style: .grouped, type: .news)
-        )
-    }
-    
-    func handleClickHotMomNode() {
+
+    func handleClickHotMomNode(data: JSON) {
         self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
-    func handleClickBredExchange() {
+    func handleClickBredExchange(data: JSON) {
         self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
-    func handleClickGrassTime() {
+    func handleClickGrassTime(data: JSON) {
         self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
@@ -78,7 +87,7 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         switch indexPath.row {
         case 0:
             return {
-                return InterestGropusCellNode(action: self)
+                return InterestGropusCellNode(action: self, dataJSON: self.viewModel.interestlist)
             }
         case 1:
             return {
@@ -86,7 +95,7 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
             }
         case 2:
             return {
-                return QingCityCommunityCellNode()
+                return QingCityCommunityCellNode(dataJSON: self.viewModel.citylist)
             }
         default:
             return {

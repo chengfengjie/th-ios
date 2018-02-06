@@ -31,6 +31,10 @@ extension Float {
     }
 }
 
+extension CGFloat {
+    static let pix1: CGFloat = 1.0 / UIScreen.main.scale
+}
+
 typealias ParaStyle = NSMutableParagraphStyle
 extension ParaStyle {
     class func create(lineSpacing: CGFloat = 0, alignment: NSTextAlignment = .left) -> ParaStyle {
@@ -54,5 +58,27 @@ extension ParaStyle {
 extension UIImage {
     
     static let defaultImage: UIImage = UIImage.init(named: "default_image")!
+    
+}
+
+extension String {
+    
+    var isMobileNumber: Bool {
+        let MOBILE: String = "^[1][34578]\\d{9}$"
+        let CM: String = "^1(34[0-8]|(3[5-9]|5[017-9]|8[278])\\d)\\d{7}$"
+        let CU: String = "1(3[0-2]|5[256]|8[56])\\d{8}$"
+        let CT: String = "^1((33|53|8[09])[0-9]|349)\\d{7}$"
+        let PHS: String = "^(0[0-9]{2,3}\\-)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?$"
+        
+        if NSPredicate.init(format: "SELF MATCHES %@", MOBILE).evaluate(with: self) ||
+            NSPredicate.init(format: "SELF MATCHES %@", CM).evaluate(with: self) ||
+            NSPredicate.init(format: "SELF MATCHES %@", CU).evaluate(with: self) ||
+            NSPredicate.init(format: "SELF MATCHES %@", CT).evaluate(with: self) ||
+            NSPredicate.init(format: "SELF MATCHES %@", PHS).evaluate(with: self) {
+            return true
+        }
+        
+        return false
+    }
     
 }

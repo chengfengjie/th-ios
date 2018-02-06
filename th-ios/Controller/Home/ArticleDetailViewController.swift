@@ -27,6 +27,8 @@ class ArticleDetailViewController: BaseTableViewController {
         self.view.backgroundColor = UIColor.white
         
         self.bindViewModel()
+        
+        self.tableNode.view.separatorStyle = .none
     }
     
     func bindViewModel() {
@@ -38,15 +40,39 @@ class ArticleDetailViewController: BaseTableViewController {
         }
         
     }
+    
+    override func numberOfSections(in tableNode: ASTableNode) -> Int {
+        return self.viewModel.dataJSON.isEmpty ? 0 : 2
+    }
 
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return self.viewModel.dataJSON.isEmpty ? 0 : 1
+        } else {
+            return self.viewModel.relatedlist.count
+        }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        return {
-            return ArticleContentCellNode(dataJSON: self.viewModel.dataJSON)
+        if indexPath.section == 0 {
+            return {
+                return ArticleContentCellNode(dataJSON: self.viewModel.dataJSON)
+            }
+        } else {
+            return {
+                return ArticleRelatedCellNode(dataJSON: self.viewModel.relatedlist[indexPath.row])
+            }
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 1 ? 20 : 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return section == 1 ? UIView().then({ (header) in
+            header.backgroundColor = UIColor.defaultBGColor
+        }) : nil
     }
     
     required init?(coder aDecoder: NSCoder) {

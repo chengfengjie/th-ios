@@ -29,9 +29,19 @@ class NoneContentArticleCellNodeImpl: ASCellNode, NoneContentArticleCellNode {
     lazy var unlikeButtonNode: ASButtonNode = {
         return self.makeAndAddButtonNode()
     }()
+    lazy var bottomline: ASDisplayNode = {
+        return ASDisplayNode().then {
+            self.addSubnode($0)
+        }
+    }()
+    
+    var showCateTextNode: Bool = true
     
     override init() {
         super.init()
+        
+        self.bottomline.backgroundColor = UIColor.lineColor
+        self.bottomline.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: CGFloat.pix1)
         
         self.selectionStyle = .none
         
@@ -48,6 +58,7 @@ class NoneContentArticleCellNodeImpl: ASCellNode, NoneContentArticleCellNode {
         self.sourceTextNode.setText(text: "21世纪", style: self.layoutCss.sourceNameTextStyle)
         
         self.unlikeButtonNode.setTitleText(text: "不喜欢", style: self.layoutCss.sourceNameTextStyle)
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -67,6 +78,8 @@ protocol NoneContentArticleCellNode: NodeElementMaker {
     var sourceIconImageNode: ASNetworkImageNode { get }
     var sourceTextNode: ASTextNode { get }
     var unlikeButtonNode: ASButtonNode { get }
+    var showCateTextNode: Bool { get }
+    var bottomline: ASDisplayNode { get }
 }
 
 extension NoneContentArticleCellNode {
@@ -83,18 +96,28 @@ extension NoneContentArticleCellNode {
     }
 
     func buildNoneImageLayoutSpec(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+    
+        var verticalElements: [ASLayoutElement] = [self.categoryTextNode,
+                                                    self.titleTextNode,
+                                                    self.bottomBarSpec()]
+        if !self.showCateTextNode {
+            verticalElements = [self.titleTextNode,
+                                self.bottomBarSpec()]
+        }
+        verticalElements.append(self.bottomline)
+        
         let mainSpec = ASStackLayoutSpec.init(direction: .vertical,
                                               spacing: 15,
                                               justifyContent: .start,
                                               alignItems: .stretch,
-                                              children: [self.categoryTextNode,
-                                                         self.titleTextNode,
-                                                         self.bottomBarSpec()])
+                                              children: verticalElements)
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
         return mainInsetSpec
     }
     
     func buildImageLayoutSpec(constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        
+        
         self.titleTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points,
                                                           value: self.titleWidth)
         
@@ -103,13 +126,21 @@ extension NoneContentArticleCellNode {
                                                  justifyContent: ASStackLayoutJustifyContent.start,
                                                  alignItems: ASStackLayoutAlignItems.stretch,
                                                  children: [self.titleTextNode, self.imageNode])
+        
+        var verticalElements: [ASLayoutElement] = [self.categoryTextNode,
+                                                   contentSpec,
+                                                   self.bottomBarSpec()]
+        if !self.showCateTextNode {
+            verticalElements = [contentSpec, self.bottomBarSpec()]
+        }
+        verticalElements.append(self.bottomline)
+
+        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.categoryTextNode,
-                                                         contentSpec,
-                                                         self.bottomBarSpec()])
+                                              children: verticalElements)
         let mainInset = ASInsetLayoutSpec.init(insets: self.contentInset,
                                                child: mainSpec)
         return mainInset

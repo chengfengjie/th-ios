@@ -212,9 +212,9 @@ extension QingViewLayout where Self: QingViewController {
 }
 
 protocol InterestGropusCellNodeAction: class {
-    func handleClickHotMomNode()
-    func handleClickBredExchange()
-    func handleClickGrassTime()
+    func handleClickHotMomNode(data: JSON)
+    func handleClickBredExchange(data: JSON)
+    func handleClickGrassTime(data: JSON)
 }
 
 class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
@@ -241,7 +241,11 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         return self.makeGrassTimeNode()
     }()
 
-    required init(action: InterestGropusCellNodeAction) {
+    let dataJSON: [JSON]
+    
+    required init(action: InterestGropusCellNodeAction, dataJSON: [JSON]) {
+        
+        self.dataJSON = dataJSON
         
         self.action = action
         
@@ -249,7 +253,7 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
         
         self.selectionStyle = .none
         
-        self.segmentLineNode.backgroundColor = UIColor.hexColor(hex: "f9f9f9")
+        self.segmentLineNode.backgroundColor = UIColor.defaultBGColor
         
         self.sectionTitleTextNode.attributedText = "兴趣圈".withTextColor(Color.pink)
         
@@ -270,6 +274,17 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
             $0.addTarget(self, action: #selector(self.handleClickGrassTime),
                          forControlEvents: .touchUpInside)
         }
+        
+        let elements: [InterestGroupItemLayout] = [self.hotMomLifeNode, self.bredExchangeNode, self.grassTimeNode]
+        for (index, item) in elements.enumerated() {
+            if index < dataJSON.count {
+                item.titleTextNode.attributedText = "# \(dataJSON[index]["name"])"
+                    .withFont(Font.sys(size: 18))
+            } else {
+                (item as! ASDisplayNode).isHidden = true
+            }
+        }
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -303,15 +318,15 @@ class InterestGropusCellNode: ASCellNode, InterestGropusCellNodeLayout {
     }
     
     @objc func handleClickHotMomNode() {
-        self.action?.handleClickHotMomNode()
+        self.action?.handleClickHotMomNode(data: self.dataJSON[0])
     }
     
     @objc func handleClickBredExchange() {
-        self.action?.handleClickBredExchange()
+        self.action?.handleClickBredExchange(data: self.dataJSON[1])
     }
     
     @objc func handleClickGrassTime() {
-        self.action?.handleClickGrassTime()
+        self.action?.handleClickGrassTime(data: self.dataJSON[2])
     }
 }
 
@@ -456,7 +471,7 @@ class GrassTimeNode: ASControlNode, InterestGroupItemLayout {
     }()
     override init() {
         super.init()
-        self.titleTextNode.attributedText = "# 种草时间"
+        self.titleTextNode.attributedText = "# 种草购物"
             .withFont(Font.systemFont(ofSize: 18))
         
         self.descriptionTextNode.attributedText = "自古以来人们常说眼睛是心灵之窗,拥有一双漂亮的会说话"
@@ -593,7 +608,7 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
         
         self.selectionStyle = .none
         
-        self.segmentlineNode.backgroundColor = UIColor.lineColor
+        self.segmentlineNode.backgroundColor = UIColor.defaultBGColor
         
         self.sectionTitleTextNode.attributedText = "今日热议".withTextColor(UIColor.pink)
         
@@ -748,20 +763,18 @@ class QingCityCommunityCellNode: ASCellNode, QingCityCommunityCellNodeLayout {
         return self.makeSectionTitleTextNode()
     }()
     
-    private var cityInfoItems: [ASDisplayNode] = []
+    fileprivate var cityInfoItems: [CityCommunityCellNodeItem] = []
     
-    override init() {
+    init(dataJSON: [JSON]) {
         super.init()
-        
-        let cityInfos: [String] = ["北京", "广州", "深圳", "佛山", "焦作", "大理"]
         
         self.selectionStyle = .none
         
-        self.segmentLineNode.backgroundColor = UIColor.lineColor
+        self.segmentLineNode.backgroundColor = UIColor.defaultBGColor
         
         self.sectionTitleTextNode.attributedText = "同城圈".withTextColor(Color.pink)
         
-        self.cityInfoItems = self.makeCityItems(cityInfoItems: cityInfos)
+        self.cityInfoItems = self.makeCityItems(cityInfoItems: dataJSON)
         
     }
     
@@ -850,10 +863,10 @@ extension QingCityCommunityCellNodeLayout where Self: QingCityCommunityCellNode 
         }
     }
     
-    func makeCityItems(cityInfoItems: [String]) -> [ASDisplayNode] {
-        var items: [ASDisplayNode] = []
+    fileprivate func makeCityItems(cityInfoItems: [JSON]) -> [CityCommunityCellNodeItem] {
+        var items: [CityCommunityCellNodeItem] = []
         cityInfoItems.forEach { (cityInfo) in
-            items.append(CityCommunityCellNodeItem.init(cityName: cityInfo).then {
+            items.append(CityCommunityCellNodeItem.init(cityInfo: cityInfo).then {
                 $0.backgroundColor = UIColor.hexColor(hex: "edf9f5")
                 $0.style.preferredSize = self.cityItemSize
                 self.addSubnode($0)
@@ -876,12 +889,12 @@ fileprivate class CityCommunityCellNodeItem: ASDisplayNode {
         }
     }()
     
-    init(cityName: String) {
+    init(cityInfo: JSON) {
         super.init()
-        self.cityNameTextNode.attributedText = cityName
+        self.cityNameTextNode.attributedText = cityInfo["name"].stringValue
             .withFont(Font.systemFont(ofSize: 16))
             .withTextColor(Color.color3)
-        self.cityInfoTextNode.attributedText = "30982成员 | 133帖子"
+        self.cityInfoTextNode.attributedText = "\(cityInfo["favtimes"].stringValue)成员 | \(cityInfo["threads"].stringValue)帖子"
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 12))
     }

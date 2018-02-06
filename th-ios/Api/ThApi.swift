@@ -68,6 +68,7 @@ extension ThApi {
         if let data = res.data {
             let dataJSON = JSON.init(data: data)
             if dataJSON.isEmpty {
+                print(data.json)
                 let text = String.init(data: data, encoding: String.Encoding.utf8)
                 if let text = text {
                     print(text)
@@ -107,6 +108,21 @@ extension Dictionary {
         } catch {
         }
         return ""
+    }
+    
+}
+
+extension Data {
+    
+    var json: Any {
+        do {
+            let dict = try JSONSerialization.jsonObject(with: self, options: JSONSerialization.ReadingOptions.mutableContainers)
+            print(dict)
+            return dict
+        } catch {
+            print(error)
+            return ""
+        }
     }
     
 }

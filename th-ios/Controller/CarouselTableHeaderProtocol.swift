@@ -30,19 +30,14 @@ extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
         return CGRect.init(x: 0, y: 0, width: self.window_width, height: height)
     }
     
-    private var testImageArray: [URL] {
-        if let url = URL.init(string: "http://a.hiphotos.baidu.com/image/pic/item/500fd9f9d72a6059f550a1832334349b023bbae3.jpg") {
-            return [url]
-        }
-        return []
-    }
-    
     func makeCarouseHeaderBox() -> CarouseTableNodeHeader {
         
         let container: UIView = UIView()
         container.frame = self.self.carouseBounds
         
         let configBlock: CarouselConfigurationBlock = { (make:JYConfiguration?) -> JYConfiguration? in
+            make?.placeholder = UIImage.defaultImage
+            make?.contentMode = .scaleAspectFill
             return make
         }
         
@@ -55,8 +50,6 @@ extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
                                                        click: clickBlock)
         
         container.addSubview(carouselView)
-        
-        carouselView.start(with: NSMutableArray.init(array: self.testImageArray))
         
         return CarouseTableNodeHeader.init(container: container, carouse: carouselView)
     }

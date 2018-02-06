@@ -10,15 +10,6 @@ import UIKit
 
 class AuthorListViewController: BaseViewController, AuthorListViewLayout {
     
-    private class MenuItem {
-        let name: String
-        var isSelected: Bool
-        init(name: String, isSelect: Bool) {
-            self.name = name
-            self.isSelected = isSelect
-        }
-    }
-    
     lazy var menuTableNode: ASTableNode = {
         return self.makeMenuTableNode()
     }()
@@ -27,14 +18,7 @@ class AuthorListViewController: BaseViewController, AuthorListViewLayout {
         return self.makeContentTableNode()
     }()
     
-    private var menuDataSource: [MenuItem] = [
-        MenuItem(name: "育儿", isSelect: true),
-        MenuItem(name: "生活", isSelect: false),
-        MenuItem(name: "资讯", isSelect: false),
-        MenuItem(name: "时尚", isSelect: false),
-        MenuItem(name: "摄影", isSelect: false),
-        MenuItem(name: "孕产", isSelect: false)
-    ]
+    let viewModel: AuthorListViewModel = AuthorListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +37,18 @@ class AuthorListViewController: BaseViewController, AuthorListViewLayout {
         
         self.makeTableNodeSepline()
 
+        self.bindViewModel()
+    }
+    
+    func bindViewModel() {
+        self.viewModel.reactive.signal(forKeyPath: "authorCatelist")
+            .skipNil().observeValues { [weak self] (val) in
+            self?.menuTableNode.reloadData()
+        }
+        self.viewModel.reactive.signal(forKeyPath: "authorlist")
+            .skipNil().observeValues { [weak self] (val) in
+            self?.contentTableNode.reloadData()
+        }
     }
     
 }
@@ -60,7 +56,7 @@ class AuthorListViewController: BaseViewController, AuthorListViewLayout {
 extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return menuDataSource.count
+        return tableNode == self.menuTableNode ? self.viewModel.authorCatelist.count : self.viewModel.authorJSONlist.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
@@ -69,7 +65,7 @@ extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
                 let paraStyle: NSMutableParagraphStyle = NSMutableParagraphStyle().then {
                     $0.alignment = NSTextAlignment.center
                 }
-                let item = self.menuDataSource[indexPath.row]
+                let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist[indexPath.row]
                 return ASTextCellNode().then {
                     $0.selectionStyle = .none
                     $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 60)
@@ -81,18 +77,21 @@ extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
             }
         } else {
             return {
-                return AuthorListCellNode()
+                return AuthorListCellNode(dataJSON: self.viewModel.authorJSONlist[indexPath.row])
             }
         }
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if tableNode == self.menuTableNode {
-            self.menuDataSource.forEach { $0.isSelected = false }
-            self.menuDataSource[indexPath.row].isSelected = true
+            self.viewModel.authorCatelist.forEach { $0.isSelected = false }
+            self.viewModel.authorCatelist[indexPath.row].isSelected = true
             tableNode.reloadData()
+            self.viewModel.currentCateID = self.viewModel.authorCatelist[indexPath.row].catId
         } else {
-            self.pushViewController(viewController: AuthorViewController(style: .grouped))
+            self.pushViewController(viewController:
+                AuthorViewController(authorID: self.viewModel.authorJSONlist[indexPath.row]["id"].stringValue)
+            )
         }
     }
     

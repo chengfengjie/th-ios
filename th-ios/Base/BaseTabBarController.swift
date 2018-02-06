@@ -36,14 +36,19 @@ class BaseTabBarController: UITabBarController, SizeUtil {
     }
     
     @objc private func handleClickBarItem(sender: UIButton) {
-        let index = sender.tag - BaseTabBar.ITEM_TAG_OFFSET
-        baseTabBar?.imageLabelTuple.forEach({ (item) in
-            item.0.isHighlighted = false
-            item.1.isHighlighted = false
-        })
-        baseTabBar?.imageLabelTuple[index].0.isHighlighted = true
-        baseTabBar?.imageLabelTuple[index].1.isHighlighted = true
-        self.selectedViewController = self.viewControllers?[index]
+        if sender.tag == 103 && !isAuthorized() && false {
+           self.pushViewController(viewController: AuthorizeInputCellphoneController())
+        } else {
+            let index = sender.tag - BaseTabBar.ITEM_TAG_OFFSET
+            baseTabBar?.imageLabelTuple.forEach({ (item) in
+                item.0.isHighlighted = false
+                item.1.isHighlighted = false
+            })
+            baseTabBar?.imageLabelTuple[index].0.isHighlighted = true
+            baseTabBar?.imageLabelTuple[index].1.isHighlighted = true
+            self.selectedViewController = self.viewControllers?[index]
+        }
+        
     }
     
     override func setViewControllers(_ viewControllers: [UIViewController]?,

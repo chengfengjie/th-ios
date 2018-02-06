@@ -42,6 +42,7 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         
         self.viewModel.reactive.signal(forKeyPath: "articleData").observeValues { [weak self] (_) in
             self?.tableNode.reloadData()
+            self?.tableNodeHeader.carouse.start(with: self?.viewModel.advUrllist)
         }
         
     }

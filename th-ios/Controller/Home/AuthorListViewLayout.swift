@@ -77,7 +77,7 @@ class AuthorListCellNode: ASCellNode, NodeElementMaker {
     lazy var addIconImageNode: ASImageNode = {
         return self.makeAndAddImageNode()
     }()
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
     
         self.selectionStyle = .none
@@ -85,15 +85,24 @@ class AuthorListCellNode: ASCellNode, NodeElementMaker {
         self.addIconImageNode.style.preferredSize = CGSize.init(width: 30, height: 30)
         self.avatarImageNode.style.preferredSize = CGSize.init(width: 50, height: 50)
         self.avatarImageNode.cornerRadius = 25
-        self.avatarImageNode.url = URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")
+        self.avatarImageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
         
-        self.authorNameTextNode.attributedText = "宝贝健康周".withFont(Font.systemFont(ofSize: 18)).withTextColor(Color.color3)
-        self.subscriptionCountTextNode.attributedText = "281212 订阅".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 12))
+        self.authorNameTextNode.attributedText = dataJSON["author"].stringValue
+            .withFont(Font.systemFont(ofSize: 18))
+            .withTextColor(Color.color3)
+        
+        self.subscriptionCountTextNode.attributedText = "\(dataJSON["follownum"].stringValue) 订阅"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 12))
+        
         self.addIconImageNode.image = UIImage.init(named: "home_author_add")
         
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        print(constrainedSize)
+        self.authorNameTextNode.style.maxWidth = ASDimension.init(unit: ASDimensionUnit.points,
+                                                                  value: constrainedSize.max.width - 160)
         let nameSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 5,
                                               justifyContent: ASStackLayoutJustifyContent.start,

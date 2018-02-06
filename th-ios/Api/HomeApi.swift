@@ -14,9 +14,15 @@ enum HotToplistType: String {
     case month = "2"
 }
 
-protocol HomeApi: ThApi {}
+enum AuthorArticleType: String {
+    case news
+    case hot
+    case comment
+}
 
-extension HomeApi {
+protocol ArticleApi: ThApi {}
+
+extension ArticleApi {
     
     
     /// 获取首页分类
@@ -27,9 +33,9 @@ extension HomeApi {
     func requestCate(isCity: Bool = false, cityName: String = "") -> Signal<JSON, RequestError> {
         var params: [String: Any] = [:]
         if isCity {
-            params["isCity"] = "1"
             params["cityName"] = cityName
         }
+        params["isCity"] = isCity ? "0" : "1"
         return self.request(method: ThMethod.getCate, data: params)
     }
     
@@ -81,4 +87,50 @@ extension HomeApi {
         return self.request(method: ThMethod.getArticleInfo, data: params)
     }
     
+    
+    /// 获取作者分类列表
+    ///
+    /// - Returns: signal
+    func requestAuthorCatelist() -> Signal<JSON, RequestError> {
+        return self.request(method: ThMethod.getAuthorCatelist)
+    }
+    
+    
+    /// 获取作者列表
+    ///
+    /// - Parameter cateID: 分类ID
+    /// - Returns: Signal
+    func requestAuthorlist(cateID: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "catid": cateID
+        ]
+        return self.request(method: ThMethod.getAuthorlist, data: params)
+    }
+    
+    
+    /// 获取作者详细信息
+    ///
+    /// - Parameter authorID: 作者ID
+    /// - Returns: Signal
+    func requestAuthorInfo(authorID: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "auid": authorID
+        ]
+        return self.request(method: ThMethod.getAuthorInfo, data: params)
+    }
+    
+    
+    /// 获取作者文章列表
+    ///
+    /// - Parameters:
+    ///   - authorID: 作者ID
+    ///   - type: 类型描述
+    /// - Returns: Signal
+    func requestAuthorArticlelist(authorID: String, type: AuthorArticleType) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "auid": authorID,
+            "autype": type.rawValue
+        ]
+        return request(method: ThMethod.getAuthorArticlelist, data: params)
+    }
 }

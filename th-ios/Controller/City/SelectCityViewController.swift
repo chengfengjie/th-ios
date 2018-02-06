@@ -9,6 +9,8 @@
 import UIKit
 
 class SelectCityViewController: BaseTableViewController, SelectCityViewLayout {
+    
+    let viewModel: SelectCityViewModel = SelectCityViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()

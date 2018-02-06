@@ -8,13 +8,15 @@
 
 import Foundation
 
-class HomeArticleViewModel: NSObject, HomeApi {
+class HomeArticleViewModel: NSObject, ArticleApi {
     
     let cateInfo: JSON
     
     @objc dynamic var articleData: [Any] = []
     
     @objc dynamic var adData: [Any] = []
+    
+    var advUrllist: NSMutableArray = NSMutableArray()
     
     init(cateInfo: JSON) {
         self.cateInfo = cateInfo
@@ -28,7 +30,14 @@ class HomeArticleViewModel: NSObject, HomeApi {
             .observeResult { (result) in
                 switch result {
                 case let .success(val):
-                    print(val)
+                    self.advUrllist.removeAllObjects()
+                    let advlist: [JSON] = val["data"]["advlist"].arrayValue
+                    advlist.forEach({ (item) in
+                        if let url: URL = URL.init(string: item["url"].stringValue) {
+                            print(url)
+                            self.advUrllist.add(url)
+                        }
+                    })
                     self.articleData = val["data"]["articlelist"].arrayValue
                     self.adData = val["data"]["advlist"].arrayValue
                 case let .failure(err):

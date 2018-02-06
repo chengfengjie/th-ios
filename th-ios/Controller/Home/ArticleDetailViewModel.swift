@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArticleDetailViewModel: NSObject, HomeApi {
+class ArticleDetailViewModel: NSObject, ArticleApi {
     
     @objc dynamic var data: Any? = nil
     var dataJSON: JSON {
@@ -19,12 +19,16 @@ class ArticleDetailViewModel: NSObject, HomeApi {
         }
     }
     
+    var relatedlist: [JSON] {
+        return self.dataJSON["sRelated"].arrayValue
+    }
+    
     let articleID: String
     init(articleID: String) {
-        self.articleID = articleID
+        self.articleID = "85"
         super.init()
         
-        requestArticleInfo(articleID: articleID, userID: "").observeResult { (result) in
+        requestArticleInfo(articleID: self.articleID, userID: "").observeResult { (result) in
             switch result {
             case let .success(value):
                 print(value)

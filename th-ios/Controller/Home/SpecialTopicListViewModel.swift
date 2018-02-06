@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SpecialTopicListViewModel: NSObject, HomeApi{
+class SpecialTopicListViewModel: NSObject, ArticleApi{
     
     @objc dynamic var speciallist: [Any] = []
     
