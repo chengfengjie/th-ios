@@ -12,7 +12,7 @@ import Foundation
     var topicArticleSwitchHeader: UIView { get }
     @objc func handleTopicArticleSwitchItemClick(itemIndex: NSNumber)
 }
-extension TopicArticleSwitchHeaderLayout where Self: BaseViewController {
+extension TopicArticleSwitchHeaderLayout {
     
     var topicArticleSwitchHeaderSize: CGSize {
         return CGSize.init(width: UIScreen.main.bounds.width, height: 50)
@@ -67,9 +67,9 @@ extension TopicArticleSwitchHeaderLayout where Self: BaseViewController {
     }
     
     private func changeBottomLine(line: UIView, item: UIButton, index: Int) {
-        self.performSelector(onMainThread: #selector(self.handleTopicArticleSwitchItemClick(itemIndex:)),
-                             with: NSNumber.init(value: index),
-                             waitUntilDone: true)
+//        self.performSelector(onMainThread: #selector(self.handleTopicArticleSwitchItemClick(itemIndex:)),
+//                             with: NSNumber.init(value: index),
+//                             waitUntilDone: true)
         
         item.isSelected = true
         line.snp.remakeConstraints { (make) in

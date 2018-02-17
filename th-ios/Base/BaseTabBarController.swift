@@ -8,68 +8,29 @@
 
 import UIKit
 
-class BaseTabBarController: UITabBarController, SizeUtil {
+class BaseTabBarController<Model: BaseViewModel>: UITabBarController, SizeUtil {
     
     var baseTabBar: BaseTabBar? = nil
-
+    
+    let viewModel: Model!
+    init(viewModel: Model) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tabBar.isHidden = true
         
         self.delegate = RZTransitionsManager.shared()
-    
-        setupSubviews()
-    }
-    
-    private func setupSubviews() {
-        
-        /// 配置底部tabbar 高度在iPhoneX的高度是83 其他设备49
-        baseTabBar = BaseTabBar.init(frame: CGRect.zero).then {
-            view.addSubview($0)
-            $0.snp.makeConstraints({ (make) in
-                make.left.right.bottom.equalTo(0)
-                make.height.equalTo(self.height_tabBar)
-            })
-        }
-        baseTabBar?.addTarget(target: self, action: #selector(self.handleClickBarItem(sender:)))
-    }
-    
-    @objc private func handleClickBarItem(sender: UIButton) {
-        if sender.tag == 103 && !isAuthorized() && false {
-           self.pushViewController(viewController: AuthorizeInputCellphoneController())
-        } else {
-            let index = sender.tag - BaseTabBar.ITEM_TAG_OFFSET
-            baseTabBar?.imageLabelTuple.forEach({ (item) in
-                item.0.isHighlighted = false
-                item.1.isHighlighted = false
-            })
-            baseTabBar?.imageLabelTuple[index].0.isHighlighted = true
-            baseTabBar?.imageLabelTuple[index].1.isHighlighted = true
-            self.selectedViewController = self.viewControllers?[index]
-        }
-        
-    }
-    
-    override func setViewControllers(_ viewControllers: [UIViewController]?,
-                                     animated: Bool) {
-        
-        super.setViewControllers(viewControllers,
-                                 animated: animated)
-        
-        var items: [BaseTabBarItemConfigModel] = []
-        
-        viewControllers?.forEach({ (item) in
-            if item is BaseTabBarItemConfig {
-                items.append((item as! BaseTabBarItemConfig).itemConfigModel)
-            } else {
-                items.append(BaseTabBarItemConfigModel.init(iconName: "", selectedIconName: "", title: ""))
-            }
-        })
-        
-        baseTabBar?.updateSubViews(items: items)
     }
 }
+
 
 class BaseTabBarItemConfigModel: NSObject {
     var selectedIconName: String

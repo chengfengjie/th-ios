@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let root = UINavigationController.init(rootViewController: ViewController());
         
         self.window = UIWindow.init(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = WeexViewController()
+        self.window?.rootViewController = ViewController()
         self.window?.backgroundColor = UIColor.white
         self.window?.makeKeyAndVisible()
         

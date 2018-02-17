@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserInfoSettingViewController: BaseTableViewController {
+class UserInfoSettingViewController: BaseTableViewController<BaseViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

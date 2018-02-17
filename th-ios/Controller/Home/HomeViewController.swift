@@ -8,11 +8,14 @@
 
 import UIKit
 
-class HomeViewController: BaseViewController,
+class HomeViewController: BaseViewController<HomeViewModel>,
     BaseTabBarItemConfig,
     MagicControllerContainerProtocol,
     HomeViewControllerLayout,
     NavBarSearchItemProtocol {
+    
+    private let headlineIdentifer = "headlineIdentifer"
+    private let categoryIdentifer = "categoryIdentifer"
     
     lazy var itemConfigModel: BaseTabBarItemConfigModel = {
         return BaseTabBarItemConfigModel().then {
@@ -22,10 +25,6 @@ class HomeViewController: BaseViewController,
         }
     }()
     
-    lazy var viewModel: HomeViewModel = {
-        return HomeViewModel()
-    }()
-
     lazy var vtMagicController: VTMagicController = {
         return self.createMagicController()
     }()
@@ -37,29 +36,23 @@ class HomeViewController: BaseViewController,
         
         self.makeNavigationBarLogo()
         
-        self.makeNavigationBarSearchItem()
-        
-        self.bind()
+        self.bindViewModel()
     }
     
-    func bind() {
+    override func bindViewModel() {
+        super.bindViewModel()
         
-        self.viewModel.reactive
-            .signal(forKeyPath: "cateData")
-            .skipNil()
-            .observeValues { [weak self] (val) in
-                self?.vtMagicController.magicView.reloadData()
+        self.viewModel.cateDataProperty.signal.observeValues { [weak self] (_) in
+            self?.vtMagicController.magicView.reloadData()
         }
     }
     
-    @objc func handleNavigationBarSearchItemClick() {
-        
+    func bind() {
+
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
-        return self.viewModel.cateData.map({ (val) -> String in
-            return (val as! JSON)["catname"].stringValue
-        })
+        return self.viewModel.cateDataProperty.value.map { $0["catname"].stringValue }
     }
     
     func magicView(_ magicView: VTMagicView, menuItemAt itemIndex: UInt) -> UIButton {
@@ -67,20 +60,20 @@ class HomeViewController: BaseViewController,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-        let index: Int = Int(pageIndex)
-        let dataJSON: JSON = self.viewModel.cateData[index] as! JSON
+        let dataJSON: JSON = self.viewModel.cateDataProperty.value[pageIndex.int]
+
         if dataJSON["catid"].intValue == 0 {
-            let identifer: String = "headlineIdentifer_\(pageIndex)"
-            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
+            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: headlineIdentifer)
             if controller == nil {
-                controller = HeadlineViewController.init(cateInfo: dataJSON)
+                let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
+                controller = HeadlineViewController(style: UITableViewStyle.grouped, viewModel: model)
             }
             return controller!
         } else {
-            let identifer: String = "categoryIdentifer_\(pageIndex)"
-            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: identifer)
+            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: categoryIdentifer)
             if controller == nil {
-                controller = HomeCategoryViewController(cateInfo: dataJSON)
+                let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
+                controller = HomeCategoryViewController(style: UITableViewStyle.grouped, viewModel: model)
             }
             return controller!
         }

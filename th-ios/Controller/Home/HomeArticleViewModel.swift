@@ -8,15 +8,25 @@
 
 import Foundation
 
-class HomeArticleViewModel: NSObject, ArticleApi {
+class HomeArticleViewModel: BaseViewModel, ArticleApi {
     
     let cateInfo: JSON
-    
-    @objc dynamic var articleData: [Any] = []
-    
-    @objc dynamic var adData: [Any] = []
-    
-    var advUrllist: NSMutableArray = NSMutableArray()
+        
+    var advUrllist: NSMutableArray {
+        let array: NSMutableArray = NSMutableArray()
+        self.adDataProperty.value.forEach { (item) in
+            if let url = URL.init(string: item["url"].stringValue) {
+                array.add(url)
+            }
+        }
+        return array
+    }
+    lazy var articleDataProperty: MutableProperty<[JSON]> = {
+        return MutableProperty<[JSON]>.init([])
+    }()
+    lazy var adDataProperty: MutableProperty<[JSON]> = {
+        return MutableProperty<[JSON]>.init([])
+    }()
     
     init(cateInfo: JSON) {
         self.cateInfo = cateInfo
@@ -30,19 +40,25 @@ class HomeArticleViewModel: NSObject, ArticleApi {
             .observeResult { (result) in
                 switch result {
                 case let .success(val):
-                    self.advUrllist.removeAllObjects()
-                    let advlist: [JSON] = val["data"]["advlist"].arrayValue
-                    advlist.forEach({ (item) in
-                        if let url: URL = URL.init(string: item["url"].stringValue) {
-                            print(url)
-                            self.advUrllist.add(url)
-                        }
-                    })
-                    self.articleData = val["data"]["articlelist"].arrayValue
-                    self.adData = val["data"]["advlist"].arrayValue
+                    print(val)
+                    self.adDataProperty.value = val["data"]["advlist"].arrayValue
+                    self.articleDataProperty.value = val["data"]["articlelist"].arrayValue
                 case let .failure(err):
                     print(err)
                 }
         }
     }
+    
+    lazy var leaderboardsViewModel: LeaderboardsViewModel = {
+        return LeaderboardsViewModel()
+    }()
+    
+    lazy var authorListViewModel: AuthorListViewModel = {
+        return AuthorListViewModel()
+    }()
+    
+    lazy var specialTopiclistViewModel: SpecialTopicListViewModel = {
+        return SpecialTopicListViewModel()
+    }()
+    
 }

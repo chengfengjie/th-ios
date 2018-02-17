@@ -74,38 +74,40 @@ class QingTopicListCellNode: ASCellNode, TopicListCellNodeLayout {
         return barSpec
     }
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
         self.bottomline.backgroundColor = UIColor.lineColor
         
-        self.categoryTextNode.attributedText = "美食"
+        self.categoryTextNode.attributedText = "分类"
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.pink)
         
-        self.titleTextNode.attributedText = "在南京的雪中,走到白头"
+        self.titleTextNode.attributedText = dataJSON["subject"].stringValue
             .withFont(Font.systemFont(ofSize: 18))
             .withTextColor(Color.color3)
         
-        self.contentTextNode.attributedText = "是漫长的黑夜，爱人熟睡去，胎儿夭折去。翻开那本日记，写下今日下雨，我亦怎能不伤心。他才40天，是我没有挽留，还是他已定好要走？来的却也那么匆匆。伴随血液流淌而去，我明明感觉到了你，还未成人形，还未来得及为你准备好新衣。我牢记你是我的第一个孩子，我还为你取了名。兴许，你原本不属于这里，却为何来我人生踏这一足迹，使我背负着自责和骂名。"
+        self.contentTextNode.attributedText = dataJSON["message"].stringValue
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 12))
             .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
         
-        self.sourceAvatarImageNode.url = URL.init(string: "https://himg.bdimg.com/sys/portrait/item/38b8e69184e5bdb1e5b888e69db0e5a4ab87b1.jpg")
-        self.sourceAvatarImageNode.style.preferredSize = CGSize.init(width: 19, height: 19)
-        self.sourceAvatarImageNode.cornerRadius = 9
+        self.sourceAvatarImageNode.url = URL.init(string: dataJSON["uimg"].stringValue)
+        self.sourceAvatarImageNode.style.preferredSize = CGSize.init(width: 20, height: 20)
+        self.sourceAvatarImageNode.cornerRadius = 10
+        self.sourceAvatarImageNode.defaultImage = UIImage.defaultImage
+        self.sourceAvatarImageNode.backgroundColor = UIColor.defaultBGColor
         
-        self.sourceNameTextNode.attributedText = "落花生"
+        self.sourceNameTextNode.attributedText = dataJSON["author"].stringValue
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color3)
         
         self.viewTotalIconNode.image = UIImage.init(named: "search_eye")
         self.viewTotalIconNode.style.preferredSize = CGSize.init(width: 18, height: 18)
         
-        self.viewTotalTextNode.attributedText = "121312"
+        self.viewTotalTextNode.attributedText = dataJSON["views"].stringValue
             .withTextColor(Color.color6)
             .withFont(Font.systemFont(ofSize: 12))
     }

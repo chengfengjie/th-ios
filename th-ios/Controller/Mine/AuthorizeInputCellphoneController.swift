@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import ReactiveSwift
 
-class AuthorizeInputCellphoneController: BaseViewController, AuthorizeInputCellphoneLayout {
+class AuthorizeInputCellphoneController: BaseViewController<AuthorizeInputCellPhoneViewModel>, AuthorizeInputCellphoneLayout {
     
     lazy var elements: AuthorizeInputCellphoneElements = {
         return self.layoutSubviews()
@@ -19,29 +20,22 @@ class AuthorizeInputCellphoneController: BaseViewController, AuthorizeInputCellp
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.elements.closeButton.reactive
-            .controlEvents(.touchUpInside)
-            .observeValues { [weak self] (sender) in
-                self?.popViewController(animated: true)
+        self.elements.closeButton.reactive.controlEvents(.touchUpInside).observeValues { [weak self] (sender) in
+            self?.popViewController(animated: true)
         }
         
-        self.elements.cellPhoneTextField.reactive
-            .continuousTextValues
-            .skipNil().observeValues { [weak self] (text) in
-                self?.cellPhone = text
-                if text.isMobileNumber {
-                    self?.elements.nextButton.backgroundColor = UIColor.pink
-                } else {
-                    self?.elements.nextButton.backgroundColor = UIColor.hexColor(hex: "d8d8d8")
-                }
+        self.viewModel.cellPhone <~ self.elements.cellPhoneTextField.reactive.continuousTextValues.skipNil()
+        
+        self.viewModel.canSendCode.signal.observeValues { (isEnable) in
+            self.elements.nextButton.backgroundColor = isEnable ? UIColor.pink : UIColor.hexColor(hex: "d8d8d8")
         }
         
-        self.elements.nextButton.reactive
-            .controlEvents(.touchUpInside)
-            .observeValues { [weak self] (sender) in
-                if self!.cellPhone.isMobileNumber {
-                    self?.pushViewController(viewController: AuthorizeInputCodeViewController())
-                }
+        self.elements.nextButton.reactive.pressed = CocoaAction(viewModel.sendCodeAction)
+        
+        self.viewModel.sendCodeAction.values.observeValues { (model) in
+            
         }
     }
+    
+    
 }

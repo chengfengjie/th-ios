@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpecialTopicViewController: BaseTableViewController {
+class SpecialTopicViewController: BaseTableViewController<BaseViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()

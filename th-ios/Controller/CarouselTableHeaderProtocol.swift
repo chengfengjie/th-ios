@@ -18,11 +18,12 @@ class CarouseTableNodeHeader: NSObject {
     }
 }
 
-protocol CarouselTableHeaderProtocol {
+protocol CarouselTableHeaderProtocol: SizeUtil {
     var tableNodeHeader: CarouseTableNodeHeader { get }
+    var css: AppStyle { get }
 }
 
-extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
+extension CarouselTableHeaderProtocol {
     
     var carouseBounds: CGRect {
         let proportion: CGFloat = self.css.home_index.bannerHWRatio.cgFloat
@@ -33,7 +34,7 @@ extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
     func makeCarouseHeaderBox() -> CarouseTableNodeHeader {
         
         let container: UIView = UIView()
-        container.frame = self.self.carouseBounds
+        container.frame = self.carouseBounds
         
         let configBlock: CarouselConfigurationBlock = { (make:JYConfiguration?) -> JYConfiguration? in
             make?.placeholder = UIImage.defaultImage
@@ -50,6 +51,16 @@ extension CarouselTableHeaderProtocol where Self: BaseTableViewController {
                                                        click: clickBlock)
         
         container.addSubview(carouselView)
+        
+        UIView().do {
+            container.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.left.right.bottom.top.equalTo(0)
+            })
+            $0.backgroundColor = UIColor.black
+            $0.alpha = 0.3
+            $0.isUserInteractionEnabled = false
+        }
         
         return CarouseTableNodeHeader.init(container: container, carouse: carouselView)
     }

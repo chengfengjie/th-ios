@@ -7,24 +7,49 @@
 //
 
 import UIKit
+import MBProgressHUD
 
-class BaseViewController: UIViewController, CustomNavigationBarProtocol {
+class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavigationBarProtocol {
     
     let content: UIView = UIView.init()
-
-    lazy var customeNavBar: CustomNavBar = {
-        return self.makeCustomNavigationBar()
-    }()
+    
+    let viewModel: ViewModel!
+    
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    var hud: MBProgressHUD!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.viewModel.viewModelDidLoad()
+        
         self.view.addSubview(self.content)
         self.content.frame = self.view.bounds
         
+        hud = MBProgressHUD.init(view: self.view)
+        self.view.addSubview(hud)
+        
         self.setNavigationBarHidden(isHidden: false)
     }
-        
+    
+    func bindViewModel() {
+        self.viewModel.isRequest.signal.observeValues { [weak self] (isRequest) in
+            if isRequest {
+                self?.hud.show(animated: true)
+            } else {
+                self?.hud.hide(animated: true)
+            }
+        }
+    }
+    
+    lazy var customeNavBar: CustomNavBar = {
+        return self.makeCustomNavigationBar()
+    }()
+    
     func setNavigationBarHidden(isHidden: Bool) {
         if isHidden {
             self.customeNavBar.navBarBox.isHidden = true
@@ -57,7 +82,12 @@ class BaseViewController: UIViewController, CustomNavigationBarProtocol {
         }
     }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 }
+
 
 /// 获取根控制器协议，UIViewController， UIView 可直接获取
 protocol RootNavigationControllerProtocol {}

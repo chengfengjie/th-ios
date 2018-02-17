@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TreeHoleListViewController: BaseTableViewController, TreeHoleListViewLayout {
+class TreeHoleListViewController: BaseTableViewController<BaseViewModel>, TreeHoleListViewLayout {
 
     lazy var headerChangeControl: HeaderChangeControl = {
         return self.makeHeaderChangeControl()
@@ -60,16 +60,16 @@ class TreeHoleListViewController: BaseTableViewController, TreeHoleListViewLayou
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             return self.headerChangeControl
         }
         return nil
     }
     
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            self.pushViewController(viewController: TreeHoleViewController(style: .grouped))
+            //self.pushViewController(viewController: TreeHoleViewController(style: .grouped))
         }
     }
 

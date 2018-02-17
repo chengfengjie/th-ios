@@ -8,39 +8,51 @@
 
 import UIKit
 
-class SameCityViewModel: NSObject, ArticleApi {
+class SameCityViewModel: BaseViewModel, ArticleApi {
 
     var pageNume: Int = 1
     
-    @objc dynamic var articlelist: [Any] = []
+    var articlelistProperty: MutableProperty<[JSON]>!
+    var adUrlArrayProperty: MutableProperty<NSMutableArray>!
+    var adlistProperty: MutableProperty<[JSON]>!
     
-    var advUrllist: NSMutableArray = NSMutableArray()
+    var fetchDataAction: Action<Int, [JSON], RequestError>!
     
     let cateID: String
     init(cateID: String) {
         self.cateID = cateID
         super.init()
         
-        self.fetchData()
+        self.articlelistProperty = MutableProperty<[JSON]>.init([])
+        self.adUrlArrayProperty = MutableProperty<NSMutableArray>.init(NSMutableArray.init())
+        self.adlistProperty = MutableProperty<[JSON]>.init([])
+        
+        self.fetchDataAction = Action<Int, [JSON], RequestError>
+            .init(execute: { (page) -> SignalProducer<[JSON], RequestError> in
+                return self.fetchDataProducer(page: page)
+        })
     }
     
-    func fetchData() {
+    func fetchDataProducer(page: Int) ->  SignalProducer<[JSON], RequestError> {
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
         self.requestCateArticleData(cateId: self.cateID, pageNum: self.pageNume).observeResult { (result) in
             switch result {
             case let .success(value):
-                print(value)
-                self.advUrllist.removeAllObjects()
-                let advlist: [JSON] = value["data"]["advlist"].arrayValue
-                advlist.forEach({ (item) in
+                self.articlelistProperty.value = value["data"]["articlelist"].arrayValue
+                self.adlistProperty.value =  value["data"]["advlist"].arrayValue
+                let array: NSMutableArray = NSMutableArray()
+                self.adlistProperty.value.forEach({ (item) in
                     if let url: URL = URL.init(string: item["url"].stringValue) {
-                        print(url)
-                        self.advUrllist.add(url)
+                        array.add(url)
                     }
                 })
-                self.articlelist = value["data"]["articlelist"].arrayValue
+                self.adUrlArrayProperty.value = array
+                observer.send(value: self.articlelistProperty.value)
+                observer.sendCompleted()
             case let .failure(error):
-                print(error)
+                observer.send(error: error)
             }
         }
+        return  SignalProducer<[JSON], RequestError>.init(signal)
     }
 }

@@ -13,9 +13,28 @@ private let kSegmentLineSize: CGSize = CGSize.init(width: UIScreen.main.bounds.w
 
 class QingViewTableNodeBannerHeader: NSObject {
     var containerBox: UIView
-    init(containerBox: UIView) {
+    let bannerImage: UIImageView
+    let signButton: UIButton
+    let dayLabel: UILabel
+    let dayInfoLabel: UILabel
+    init(containerBox: UIView,
+         bannerImage: UIImageView,
+         signButton: UIButton,
+         dayLabel: UILabel,
+         dayInfoLabel: UILabel) {
         self.containerBox = containerBox
+        self.bannerImage = bannerImage
+        self.signButton = signButton
+        self.dayLabel = dayLabel
+        self.dayInfoLabel = dayInfoLabel
         super.init()
+    }
+    
+    func updateData(dataJSON: JSON) {
+        self.bannerImage.yy_setImage(with: URL.init(string: dataJSON["img"].stringValue),
+                                     placeholder: UIImage.defaultImage)
+        self.dayLabel.text = dataJSON["day"].stringValue
+        self.dayInfoLabel.text = "\(dataJSON["dateJq"].stringValue)\n\(dataJSON["dateEn"].stringValue)"
     }
 }
 
@@ -30,7 +49,6 @@ class QingViewTableNodeMenuBarHeader: NSObject {
 
 protocol QingViewLayout {
     var tableNodeBannerHeader: QingViewTableNodeBannerHeader { get }
-    func handleSingnInButtonClick()
     var tableNodeMneuBarHeader: QingViewTableNodeMenuBarHeader { get }
 }
 
@@ -85,8 +103,8 @@ extension QingViewLayout where Self: QingViewController {
         
         let bannerImage: UIImageView = UIImageView.init().then {
             header.addSubview($0)
-            $0.yy_imageURL = URL.init(string: "http://a.hiphotos.baidu.com/image/h%3D300/sign=71f6f27f2c7f9e2f6f351b082f31e962/500fd9f9d72a6059f550a1832334349b023bbae3.jpg")
-            $0.backgroundColor = UIColor.orange
+            $0.contentMode = UIViewContentMode.scaleAspectFill
+            $0.layer.masksToBounds = true
             $0.snp.makeConstraints({ (make) in
                 make.top.equalTo(0)
                 make.left.equalTo(self.contentInset.left)
@@ -98,11 +116,11 @@ extension QingViewLayout where Self: QingViewController {
         CAGradientLayer.init().do {
             $0.frame = CGRect.init(origin: CGPoint.init(x: self.contentInset.left, y: 0),
                                    size: self.bannerImageSize)
-            $0.colors = [UIColor.white.cgColor, UIColor.init(white: 1, alpha: 0.2).cgColor]
+            $0.colors = [UIColor.white.cgColor, UIColor.init(white: 1, alpha: 0.3).cgColor]
             header.layer.addSublayer($0)
         }
         
-        UIButton.init(type: UIButtonType.custom).do {
+        let signButton = UIButton.init(type: UIButtonType.custom).then {
             $0.setTitle("签", for: UIControlState.normal)
             $0.layer.borderColor = UIColor.color6.cgColor
             $0.setTitleColor(UIColor.color6, for: .normal)
@@ -115,18 +133,32 @@ extension QingViewLayout where Self: QingViewController {
             })
         }
         
-        UILabel.init().do {
+        let day = UILabel.init().then {
             header.addSubview($0)
-            $0.text = "09"
             $0.textColor = UIColor.color3
-            $0.font = UIFont.systemFont(ofSize: 40)
+            $0.font = UIFont.systemFont(ofSize: 50)
             $0.snp.makeConstraints({ (make) in
                 make.bottom.equalTo(bannerImage.snp.bottom).offset(-15)
                 make.left.equalTo(bannerImage.snp.left).offset(15)
             })
         }
         
-        return QingViewTableNodeBannerHeader.init(containerBox: header)
+        let dayInfo = UILabel().then {
+            header.addSubview($0)
+            $0.textColor = UIColor.color3
+            $0.numberOfLines = 2
+            $0.font = UIFont.thin(size: 20)
+            $0.snp.makeConstraints({ (make) in
+                make.left.equalTo(day.snp.right).offset(20)
+                make.centerY.equalTo(day.snp.centerY)
+            })
+        }
+        
+        return QingViewTableNodeBannerHeader.init(containerBox: header,
+                                                  bannerImage: bannerImage,
+                                                  signButton: signButton,
+                                                  dayLabel: day,
+                                                  dayInfoLabel: dayInfo)
     }
     
     var menuItemInfo: [(String, String)] {

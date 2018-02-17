@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthorViewModel: NSObject, ArticleApi {
+class AuthorViewModel: BaseViewModel, ArticleApi {
     
     @objc dynamic var authorData: Any? = nil
     var authorDataJSON: JSON {

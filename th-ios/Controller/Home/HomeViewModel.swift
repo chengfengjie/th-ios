@@ -8,21 +8,35 @@
 
 import Foundation
 
-class HomeViewModel: NSObject, ArticleApi {
+class HomeViewModel: BaseViewModel, ArticleApi {
     
-    @objc dynamic var cateData: [Any] = []
+    lazy var cateDataProperty: MutableProperty<[JSON]> = {
+        return MutableProperty.init([])
+    }()
+    lazy var fetchCateDataAction: Action<Int, [JSON], RequestError> = {
+        return Action<Int, [JSON], RequestError>.init(execute: { (input) ->
+            SignalProducer<[JSON], RequestError> in
+            return SignalProducer.init(self.fetchSaveCateDatalist())
+        })
+    }()
             
     override init() {
         super.init()
-        
-        self.requestCate().observeResult { (res) in
-            switch res {
-            case let .success(val):
-                self.cateData = val["data"]["catelist"].arrayValue
-            case let .failure(err):
-                print(err)
-            }
-        }
+        self.fetchCateDataAction.apply(0).start()
     }
     
+    private func fetchSaveCateDatalist() -> Signal<[JSON], RequestError> {
+        self.isRequest.value = true
+        return self.requestCate().map({ (data) -> [JSON] in
+            self.isRequest.value = false
+            let result: [JSON] = data["data"]["catelist"].arrayValue
+            self.cateDataProperty.value = result
+            return result
+        })
+    }
+    
+    func createHomeArticleViewModel(cateIndex: Int) -> HomeArticleViewModel {
+        let cateData: JSON = self.cateDataProperty.value[cateIndex]
+        return HomeArticleViewModel.init(cateInfo: cateData)
+    }
 }

@@ -8,9 +8,8 @@
 
 import UIKit
 
-class SelectCityViewController: BaseTableViewController, SelectCityViewLayout {
+class SelectCityViewController: BaseTableViewController<SelectCityViewModel>, SelectCityViewLayout {
     
-    let viewModel: SelectCityViewModel = SelectCityViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +41,7 @@ class SelectCityViewController: BaseTableViewController, SelectCityViewLayout {
         return self.sectionTitleSize.height
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.buildSectionTitleHeader(titleText: "推荐")
     }
 }

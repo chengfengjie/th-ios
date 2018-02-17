@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ThApi {
     let animateType: PushAnimateType = .zoomPush
     
     static var rootNavgationController: UINavigationController? = nil
+    
+    let rootViewModel: RootViewModel = RootViewModel()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // 加载app样式
@@ -53,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ThApi {
     private func setupRootController() {
     
         AppDelegate.rootNavgationController = UINavigationController
-            .init(rootViewController: RootViewController())
+            .init(rootViewController: RootViewController(viewModel: self.rootViewModel))
             .then({
                 $0.isNavigationBarHidden = true
                 $0.delegate = RZTransitionsManager.shared()

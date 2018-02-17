@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QingTopicListViewController: BaseTableViewController {
+class QingTopicListViewController: BaseTableViewController<BaseViewModel> {
     
     enum TopicListType {
         case news
@@ -30,16 +30,7 @@ class QingTopicListViewController: BaseTableViewController {
         }
     }
     
-    private let listType: TopicListType
-    
-    init(style: UITableViewStyle, type: TopicListType) {
-        self.listType = type
-        super.init(style: style)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let listType: TopicListType = .news
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +48,7 @@ class QingTopicListViewController: BaseTableViewController {
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            return QingTopicListCellNode()
+            return QingTopicListCellNode(dataJSON: JSON.init([]))
         }
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingViewLayout, NavBarSearchItemProtocol, InterestGropusCellNodeAction {
+class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItemConfig, QingViewLayout, NavBarSearchItemProtocol, InterestGropusCellNodeAction {
     
     lazy var tableNodeMneuBarHeader: QingViewTableNodeMenuBarHeader = {
         return self.makeTopMenuBarHeader()
@@ -26,50 +26,40 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         }
     }()
     
-    let viewModel: QingViewModel = QingViewModel()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableNode.view.separatorStyle = .none
-        
-        self.makeNavigationBarSearchItem()
-        
+                
         self.makeNavigationBarLeftChatItem()
-        
-        self.bindViewModel()
     }
     
-    func bindViewModel() {
+    override func bindViewModel() {
         self.tableNodeMneuBarHeader.items.forEach { (item) in
-            item.reactive.controlEvents(.touchUpInside)
-                .observeValues({ [weak self] (sender) in
-                    self?.pushViewController(viewController:
-                        QingTopicListViewController.init(style: .grouped, type: .news)
-                    )
+            item.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
+                let controller = QingTopicListViewController.init(style: UITableViewStyle.grouped,
+                                                                  viewModel: BaseViewModel())
+                self?.pushViewController(viewController: controller)
             })
         }
-        self.viewModel.reactive.signal(forKeyPath: "data")
-            .skipNil().observeValues { [weak self] (val) in
-            self?.tableNode.reloadData()
+        
+        self.viewModel.signInfoProperty.signal.observeValues { [weak self] (data) in
+            self?.tableNodeBannerHeader.updateData(dataJSON: data)
+        }
+        
+        self.tableNodeBannerHeader.signButton.reactive
+            .controlEvents(.touchUpInside)
+            .observeValues { [weak self] (sender) in
         }
     }
     
-    func handleSingnInButtonClick() {
-        
-    }
-    
-
     func handleClickHotMomNode(data: JSON) {
-        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
     func handleClickBredExchange(data: JSON) {
-        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
     func handleClickGrassTime(data: JSON) {
-        self.pushViewController(viewController: QingModuleViewController(style: .grouped))
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -115,7 +105,7 @@ class QingViewController: BaseTableViewController, BaseTabBarItemConfig, QingVie
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
             return self.tableNodeBannerHeader.containerBox

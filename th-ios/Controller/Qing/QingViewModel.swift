@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QingViewModel: NSObject, QingApi {
+class QingViewModel: BaseViewModel, QingApi {
 
     var citylist: [JSON] {
         return self.dataJSON["citylist"].arrayValue
@@ -20,6 +20,8 @@ class QingViewModel: NSObject, QingApi {
         return self.dataJSON["hotlist"].arrayValue
     }
     
+    var signInfoProperty: MutableProperty<JSON> = MutableProperty<JSON>.init(JSON.emptyJSON)
+    
     @objc dynamic var data: Any? = nil
     var dataJSON: JSON {
         return self.data == nil ? JSON.init([]) : self.data as! JSON
@@ -29,17 +31,33 @@ class QingViewModel: NSObject, QingApi {
         super.init()
         
         self.fetchData()
+        
+        self.fetchSignData()
     }
     
     func fetchData() {
         self.request(method: ThMethod.getQingHomeData).observeResult { (result) in
             switch result {
             case let .success(value):
-                print(value)
                 self.data = value["data"]
             case let .failure(error):
                 print(error)
             }
         }
+    }
+    
+    func fetchSignData() {
+        self.requestSignInfo().observeResult { (result) in
+            switch result {
+            case let .success(data):
+                self.signInfoProperty.value = data["data"]
+            case let .failure(error):
+                NSLog("%s", error.localizedDescription)
+            }
+        }
+    }
+    
+    var signViewModel: SignViewModel {
+        return SignViewModel.init(signInfo: self.signInfoProperty.value)
     }
 }

@@ -7,21 +7,24 @@
 //
 
 import UIKit
+import Result
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        UIButton.init(type: .system).do {
-            $0.setTitle("push to controller", for: UIControlState.normal)
-            self.view.addSubview($0)
-            $0.snp.makeConstraints({ (make) in
-                make.centerY.equalTo(self.view.snp.centerY)
-                make.centerX.equalTo(self.view.snp.centerX)
-            })
-            $0.addTarget(self, action: #selector(self.pushToController), for: UIControlEvents.touchUpInside)
+        let (signal, observer) = Signal<Int, NoError>.pipe()
+        
+        signal.observeValues { (val) in
+            print(val)
+        }
+        
+        observer.send(value: 100)
+        
+        let textField: UITextField = UITextField()
+        textField.reactive.continuousTextValues.skipNil().observeValues { (text) in
+            
         }
     }
 

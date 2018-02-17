@@ -8,52 +8,71 @@
 
 import Foundation
 
-class LeaderboardsViewModel: NSObject, ArticleApi {
+class LeaderboardsViewModel: BaseViewModel, ArticleApi {
     
     var type: HotToplistType = HotToplistType.day {
         didSet {
-            self.fetchData()
+            self.fetchDataAction.apply(0).start()
         }
     }
-    
-    @objc dynamic var dayToplist: [Any] = []
-    @objc dynamic var weekToplist: [Any] = []
-    @objc dynamic var monthToplist: [Any] = []
     
     var currentData: [JSON] {
         switch self.type {
         case .day:
-            return self.dayToplist as! [JSON]
+            return self.dayToplistProperty.value
         case .week:
-            return self.weekToplist as! [JSON]
+            return self.weekToplistProperty.value
         case .month:
-            return self.monthToplist as! [JSON]
+            return self.monthToplistProperty.value
         }
     }
+
+    var dayToplistProperty: MutableProperty<[JSON]>!
+    var weekToplistProperty: MutableProperty<[JSON]>!
+    var monthToplistProperty: MutableProperty<[JSON]>!
+    
+    var fetchDataAction: Action<Int, [JSON], RequestError>!
     
     override init() {
         super.init()
         
-        self.fetchData()
+        self.dayToplistProperty = MutableProperty<[JSON]>([])
+        self.weekToplistProperty = MutableProperty<[JSON]>([])
+        self.monthToplistProperty = MutableProperty<[JSON]>([])
+        
+        self.fetchDataAction = Action<Int, [JSON], RequestError>.init(execute: { (val) -> SignalProducer<[JSON], RequestError> in
+            return self.fetchDataProducer()
+        })
     }
     
-    func fetchData() {
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        self.type = .day
+    }
+    
+    func fetchDataProducer() -> SignalProducer<[JSON], RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
         self.requestArtcleHotToplist(hotType: self.type).observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(val):
-                print(val)
                 switch self.type {
                 case .day:
-                    self.dayToplist = val["data"]["hotlist"].arrayValue
+                    self.dayToplistProperty.value = val["data"]["hotlist"].arrayValue
                 case .month:
-                    self.monthToplist = val["data"]["hotlist"].arrayValue
+                    self.monthToplistProperty.value = val["data"]["hotlist"].arrayValue
                 case .week:
-                    self.weekToplist = val["data"]["hotlist"].arrayValue
+                    self.weekToplistProperty.value = val["data"]["hotlist"].arrayValue
                 }
+                observer.send(value: self.currentData)
+                observer.sendCompleted()
             case let .failure(err):
-                print(err)
+                observer.send(error: err)
+                self.errorMsg.value = err.localizedDescription
             }
         }
+        return SignalProducer<[JSON], RequestError>.init(signal)
     }
     
 }

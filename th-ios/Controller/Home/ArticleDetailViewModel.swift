@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArticleDetailViewModel: NSObject, ArticleApi {
+class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
     @objc dynamic var data: Any? = nil
     var dataJSON: JSON {
@@ -23,6 +23,11 @@ class ArticleDetailViewModel: NSObject, ArticleApi {
         return self.dataJSON["sRelated"].arrayValue
     }
     
+    @objc dynamic var adData: Any? = nil
+    var adJSONData: JSON {
+        return self.adData == nil ? JSON.emptyJSON : self.adData as! JSON
+    }
+    
     let articleID: String
     init(articleID: String) {
         self.articleID = "85"
@@ -33,9 +38,23 @@ class ArticleDetailViewModel: NSObject, ArticleApi {
             case let .success(value):
                 print(value)
                 self.data = value["data"]
+                self.fetchAdData()
             case let .failure(error):
                 print(error)
             }
+        }
+    }
+    
+    func fetchAdData() {
+        self.requestArticleAd(cateID: self.dataJSON["sCateid"].stringValue)
+            .observeResult { (result) in
+                switch result {
+                case let .success(data):
+                    print(data)
+                    self.adData = data["data"]["advlist"]
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
         }
     }
 }

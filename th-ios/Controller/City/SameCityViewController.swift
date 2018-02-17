@@ -8,18 +8,11 @@
 
 import UIKit
 
-class SameCityViewController: BaseTableViewController, MagicContentLayoutProtocol, CarouselTableHeaderProtocol {
+class SameCityViewController: BaseTableViewController<SameCityViewModel>, MagicContentLayoutProtocol, CarouselTableHeaderProtocol {
     
     lazy var tableNodeHeader: CarouseTableNodeHeader = {
         return self.makeCarouseHeaderBox()
     }()
-    
-    let viewModel: SameCityViewModel
-    
-    init(cateId: String) {
-        self.viewModel = SameCityViewModel(cateID: cateId)
-        super.init(style: UITableViewStyle.grouped)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,28 +22,32 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.setNavigationBarHidden(isHidden: true)
         
         self.bindViewModel()
+        
     }
     
-    func bindViewModel() {
-        self.viewModel.reactive
-            .signal(forKeyPath: "articlelist")
-            .observeValues { [weak self] (value) in
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        viewModel.fetchDataAction.apply(0).start()
+        
+        viewModel.fetchDataAction.values.observeValues { [weak self] (_) in
             self?.tableNode.reloadData()
-            self?.tableNodeHeader.carouse.start(with: self?.viewModel.advUrllist)
+        }
+        
+        viewModel.adUrlArrayProperty.signal.observeValues { [weak self] (array) in
+            self?.tableNodeHeader.carouse.start(with: array)
         }
     }
 
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
-        let dataJSON: JSON = self.viewModel.articlelist[indexPath.row] as! JSON
-        self.pushViewController(viewController: ArticleDetailViewController(articleID: dataJSON["aid"].stringValue))
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.articlelist.count
+        return viewModel.articlelistProperty.value.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let data: JSON = self.viewModel.articlelist[indexPath.row] as! JSON
+        let data: JSON = viewModel.articlelistProperty.value[indexPath.row]
         let imageUrl: String = data["pic"].stringValue
         if imageUrl.isEmpty {
             return {
@@ -64,14 +61,10 @@ class SameCityViewController: BaseTableViewController, MagicContentLayoutProtoco
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.viewModel.advUrllist.count == 0 ? 0.1 : self.carouseBounds.height
+        return viewModel.adlistProperty.value.isEmpty ? 0.1 : self.carouseBounds.height
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.viewModel.advUrllist.count == 0 ? nil : self.tableNodeHeader.container
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return viewModel.adlistProperty.value.isEmpty ? nil : self.tableNodeHeader.container
     }
 }

@@ -46,7 +46,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
     
     func makeMenuBarHeader() -> HeadlineTopMenuBarHeader {
         let menuBar: UIView = UIView()
-        
+                
         UIView.init().do {
             menuBar.addSubview($0)
             $0.snp.makeConstraints({ (make) in
@@ -123,6 +123,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
     func makeHeadlineTableNodeHeader() -> CarouseTableNodeHeader {
         let carouseHeader: CarouseTableNodeHeader = self.makeCarouseHeaderBox()
         carouseHeader.container.frame = self.carouseBounds
+        print(carouseHeader.container.frame)
         return carouseHeader
     }
     

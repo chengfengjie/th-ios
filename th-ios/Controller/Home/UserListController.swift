@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserListController: BaseTableViewController {
+class UserListController: BaseTableViewController<BaseViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

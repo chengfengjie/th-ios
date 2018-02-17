@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthorListViewController: BaseViewController, AuthorListViewLayout {
+class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorListViewLayout, ASTableDelegate, ASTableDataSource {
     
     lazy var menuTableNode: ASTableNode = {
         return self.makeMenuTableNode()
@@ -17,9 +17,7 @@ class AuthorListViewController: BaseViewController, AuthorListViewLayout {
     lazy var contentTableNode: ASTableNode = {
         return self.makeContentTableNode()
     }()
-    
-    let viewModel: AuthorListViewModel = AuthorListViewModel()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,27 +34,27 @@ class AuthorListViewController: BaseViewController, AuthorListViewLayout {
         self.contentTableNode.dataSource = self
         
         self.makeTableNodeSepline()
-
+        
         self.bindViewModel()
     }
     
-    func bindViewModel() {
-        self.viewModel.reactive.signal(forKeyPath: "authorCatelist")
-            .skipNil().observeValues { [weak self] (val) in
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        viewModel.fetchAuthorCateAction.values.observeResult { [weak self] (data) in
             self?.menuTableNode.reloadData()
         }
-        self.viewModel.reactive.signal(forKeyPath: "authorlist")
-            .skipNil().observeValues { [weak self] (val) in
+        
+        viewModel.fetchAuthorlistAction.values.observeResult { [weak self] (data) in
             self?.contentTableNode.reloadData()
         }
+        
     }
     
-}
-
-extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
-    
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return tableNode == self.menuTableNode ? self.viewModel.authorCatelist.count : self.viewModel.authorJSONlist.count
+        return tableNode == self.menuTableNode ?
+            self.viewModel.authorCatelist.value.count
+            : self.viewModel.authorlist.value.count
     }
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
@@ -65,7 +63,7 @@ extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
                 let paraStyle: NSMutableParagraphStyle = NSMutableParagraphStyle().then {
                     $0.alignment = NSTextAlignment.center
                 }
-                let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist[indexPath.row]
+                let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist.value[indexPath.row]
                 return ASTextCellNode().then {
                     $0.selectionStyle = .none
                     $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 60)
@@ -77,22 +75,24 @@ extension AuthorListViewController: ASTableDelegate, ASTableDataSource {
             }
         } else {
             return {
-                return AuthorListCellNode(dataJSON: self.viewModel.authorJSONlist[indexPath.row])
+                return AuthorListCellNode(dataJSON: self.viewModel.authorlist.value[indexPath.row])
             }
         }
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if tableNode == self.menuTableNode {
-            self.viewModel.authorCatelist.forEach { $0.isSelected = false }
-            self.viewModel.authorCatelist[indexPath.row].isSelected = true
+            self.viewModel.authorCatelist.value.forEach { $0.isSelected = false }
+            self.viewModel.authorCatelist.value[indexPath.row].isSelected = true
             tableNode.reloadData()
-            self.viewModel.currentCateID = self.viewModel.authorCatelist[indexPath.row].catId
+            self.viewModel.currentCateID = self.viewModel.authorCatelist.value[indexPath.row].catId
         } else {
-            self.pushViewController(viewController:
-                AuthorViewController(authorID: self.viewModel.authorJSONlist[indexPath.row]["id"].stringValue)
-            )
+//            self.pushViewController(viewController:
+//                AuthorViewController(authorID: self.viewModel.authorJSONlist[indexPath.row]["id"].stringValue)
+//            )
         }
     }
     
+    
 }
+

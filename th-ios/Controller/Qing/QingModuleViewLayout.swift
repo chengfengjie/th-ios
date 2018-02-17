@@ -24,22 +24,13 @@ extension QingModuleViewLayout where Self: QingModuleViewController {
     }
     func makeMenuHeader() -> (UIView, HorizontalScrollMenu) {
         let background: UIView = UIView()
-        background.backgroundColor = UIColor.lineColor
+        background.backgroundColor = UIColor.defaultBGColor
         background.frame = CGRect.init(origin: CGPoint.zero, size: self.menuHeaderSize)
-        
-        UIView().do {
-            background.addSubview($0)
-            $0.backgroundColor = UIColor.white
-            $0.snp.makeConstraints({ (make) in
-                make.left.right.top.equalTo(0)
-                make.height.equalTo(15)
-            })
-        }
         
         let scrollMenu = HorizontalScrollMenu()
         background.addSubview(scrollMenu)
         scrollMenu.snp.makeConstraints { (make) in
-            make.top.equalTo(30)
+            make.top.equalTo(15)
             make.left.right.bottom.equalTo(0)
         }
         return (background, scrollMenu)
@@ -92,7 +83,6 @@ class QingModuleListBannerHeader: BaseView {
     
     override func setupSubViews() {
         
-        self.backgroundImage.yy_imageURL = URL.init(string: "http://d.hiphotos.baidu.com/image/h%3D300/sign=e8687b80a064034f10cdc4069fc27980/622762d0f703918f037f88975a3d269758eec4c5.jpg")
         self.backgroundImage.contentMode = .scaleAspectFill
         self.backgroundImage.layer.masksToBounds = true
         self.backgroundImage.snp.makeConstraints { (make) in
@@ -104,36 +94,44 @@ class QingModuleListBannerHeader: BaseView {
             make.left.right.bottom.top.equalTo(0)
         }
         
-        self.titleLabel.attributedText = "# 辣妈生活 #"
-            .withFont(Font.systemFont(ofSize: 20))
-            .withTextColor(Color.white)
-            .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: .center))
         self.titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(40)
             make.left.equalTo(40)
             make.right.equalTo(-40)
         }
         
-        self.infoLabel.attributedText = "成员: 78W | 话题: 1.2W"
-            .withFont(Font.systemFont(ofSize: 12))
-            .withTextColor(Color.init(white: 1, alpha: 0.7))
-            .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: .center))
         self.infoLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
             make.left.equalTo(20)
             make.right.equalTo(-20)
         }
         
-        self.descriptionLabel.attributedText = "雨后的天总是带有微微的潮意，雨后的天空拥有着不同以往的清新的气息，独自一个人漫步在那落叶铺就的叶之路上，一路上听着那窸窸窣窣的声音，一切仿佛都安静下来了，在这里，能感受到每一朵的呼吸声和水滴一滴一滴的低落声。"
-            .withTextColor(Color.init(white: 1, alpha: 0.7))
-            .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
-            .withFont(Font.systemFont(ofSize: 12))
         self.descriptionLabel.numberOfLines = 5
         self.descriptionLabel.snp.makeConstraints { (make) in
             make.left.equalTo(20)
             make.right.equalTo(-20)
             make.top.equalTo(self.infoLabel.snp.bottom).offset(20)
         }
+    }
+    
+    func updateData(dataJSON: JSON) {
+        self.backgroundImage.yy_setImage(with: URL.init(string: dataJSON["banner"].stringValue),
+                                         placeholder: UIImage.defaultImage)
+        
+        self.titleLabel.attributedText = "# \(dataJSON["name"].stringValue)"
+            .withFont(Font.systemFont(ofSize: 20))
+            .withTextColor(Color.white)
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: .center))
+        
+        self.infoLabel.attributedText = "成员: \(dataJSON["favtimes"].stringValue) | 话题: \(dataJSON["threads"].stringValue)"
+            .withFont(Font.systemFont(ofSize: 12))
+            .withTextColor(Color.init(white: 1, alpha: 0.7))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: .center))
+        
+        self.descriptionLabel.attributedText = dataJSON["description"].stringValue
+            .withTextColor(Color.init(white: 1, alpha: 0.7))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
+            .withFont(Font.systemFont(ofSize: 12))
         
     }
 }
@@ -157,7 +155,7 @@ class QingModuleTopListCellNode: ASCellNode, NodeElementMaker {
         return UIScreen.main.bounds.width - self.buttonSize.width - 10 - self.makeDefaultContentInset().left * 2
     }
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
@@ -168,7 +166,7 @@ class QingModuleTopListCellNode: ASCellNode, NodeElementMaker {
         self.buttonNode.setAttributedTitle("置顶".withFont(Font.systemFont(ofSize: 12)).withTextColor(Color.pink),
                                            for: UIControlState.normal)
         
-        self.titleTextNode.attributedText = "清风过境，带着浓浓的秋意催开了将绽未绽"
+        self.titleTextNode.attributedText = dataJSON["subject"].stringValue
             .withFont(Font.systemFont(ofSize: 14))
             .withTextColor(Color.color3)
             .withParagraphStyle(ParaStyle.create(lineSpacing: 3))

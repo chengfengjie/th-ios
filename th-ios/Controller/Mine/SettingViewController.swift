@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingViewController: BaseTableViewController, SettingViewLayout {
+class SettingViewController: BaseTableViewController<BaseViewModel>, SettingViewLayout {
     
     lazy var logoutFooter: (footer: UIView, button: UIButton) = {
         return self.makeLogoutTableFooter()
@@ -69,11 +69,11 @@ class SettingViewController: BaseTableViewController, SettingViewLayout {
         return self.tableNodeHeaderHeight
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.makeTableNodeHeader(title: section == 0 ? "互动设置" : "其他设置")
     }
 
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
     }
     

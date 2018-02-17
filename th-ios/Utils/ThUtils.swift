@@ -82,3 +82,15 @@ extension String {
     }
     
 }
+
+extension JSON {
+    static var emptyJSON: JSON {
+        return JSON.init([:])
+    }
+}
+
+extension UInt {
+    var int: Int {
+        return Int.init(self)
+    }
+}

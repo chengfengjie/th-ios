@@ -8,9 +8,7 @@
 
 import UIKit
 
-class LeaderboardsViewController: BaseTableViewController, LeaderboardsViewLayout {
-    
-    let viewModel: LeaderboardsViewModel = LeaderboardsViewModel()
+class LeaderboardsViewController: BaseTableViewController<LeaderboardsViewModel>, LeaderboardsViewLayout {
     
     lazy var headerChangeControl: HeaderChangeControl = {
         return self.makeHeaderChangeControl()
@@ -25,13 +23,15 @@ class LeaderboardsViewController: BaseTableViewController, LeaderboardsViewLayou
         
         self.tableNode.contentInset = UIEdgeInsetsMake(self.height_navBar.cgFloat, 0, 0, 0)
         
-    
+        self.tableNode.view.separatorStyle = .none
+        
         self.bindViewModel()
     }
     
-    func bindViewModel() {
+    override func bindViewModel() {
+        super.bindViewModel()
         
-        self.headerChangeControl.items.forEach { (item) in
+        headerChangeControl.items.forEach { (item) in
             item.reactive.controlEvents(.touchUpInside)
                 .observeValues({ [weak self] (sender) in
                     switch sender.tag {
@@ -46,25 +46,11 @@ class LeaderboardsViewController: BaseTableViewController, LeaderboardsViewLayou
                     }
             })
         }
-        
-        self.viewModel.reactive
-            .signal(forKeyPath: "dayToplist")
-            .observeValues { (val) in
-                self.tableNode.reloadData()
+                
+        viewModel.fetchDataAction.values
+            .observeValues { [weak self] (val) in
+                self?.tableNode.reloadData()
         }
-        
-        self.viewModel.reactive
-            .signal(forKeyPath: "weekToplist")
-            .observeValues { (val) in
-                self.tableNode.reloadData()
-        }
-        
-        self.viewModel.reactive
-            .signal(forKeyPath: "monthToplist")
-            .observeValues { (val) in
-                self.tableNode.reloadData()
-        }
-    
     }
     
     
@@ -72,7 +58,7 @@ class LeaderboardsViewController: BaseTableViewController, LeaderboardsViewLayou
         return self.headerChangeControlSize.height
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.headerChangeControl
     }
     

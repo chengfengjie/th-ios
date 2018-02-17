@@ -8,7 +8,13 @@
 
 import Foundation
 
+protocol HorizontalScrollMenuAction: NSObjectProtocol {
+    func scrollMenuDidClick(itemIndex: Int)
+}
+
 class HorizontalScrollMenu: BaseView, ASCollectionDataSource, ASCollectionDelegate {
+    
+    weak var delegate: HorizontalScrollMenuAction? = nil
     
     var currentIndexPath: IndexPath = IndexPath.init(row: 0, section: 0)
     
@@ -18,7 +24,11 @@ class HorizontalScrollMenu: BaseView, ASCollectionDataSource, ASCollectionDelega
     
     private let line = UIView()
     
-    var dataSource: [String] = ["最新", "热门", "精华", "美食", "职场", "装修", "星座", "故事"]
+    var dataSource: [String] = [] {
+        didSet {
+            self.collection.reloadData()
+        }
+    }
     
     override func setupSubViews() {
         self.collection.backgroundColor = UIColor.white
@@ -42,15 +52,15 @@ class HorizontalScrollMenu: BaseView, ASCollectionDataSource, ASCollectionDelega
         super.layoutSubviews()
         self.collection.frame = self.bounds
         if let layout = self.collection.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize = CGSize.init(width: 80, height: self.collection.frame.height)
+            layout.itemSize = CGSize.init(width: 180, height: self.collection.frame.height)
         }
         line.frame = CGRect.init(origin: CGPoint.init(x: 0, y: self.frame.height-2),
-                                 size: CGSize.init(width: 40, height: 2))
+                                 size: CGSize.init(width: self.itemWidth, height: 2))
     }
     
     func makeCollectionLayout() -> UICollectionViewLayout {
         return UICollectionViewFlowLayout().then {
-            $0.itemSize = CGSize.init(width: 80, height: 20)
+            $0.itemSize = CGSize.init(width: 180, height: 20)
             $0.scrollDirection = .horizontal
             $0.minimumLineSpacing = 20
             $0.minimumInteritemSpacing = 20
@@ -83,9 +93,11 @@ class HorizontalScrollMenu: BaseView, ASCollectionDataSource, ASCollectionDelega
         }
     }
     
+    let itemWidth: CGFloat = 80
+    
     func collectionNode(_ collectionNode: ASCollectionNode, constrainedSizeForItemAt indexPath: IndexPath) -> ASSizeRange {
-        return ASSizeRange.init(min: CGSize.init(width: 40, height: self.frame.height),
-                                max: CGSize.init(width: 40, height: self.frame.height))
+        return ASSizeRange.init(min: CGSize.init(width: itemWidth, height: self.frame.height),
+                                max: CGSize.init(width: itemWidth, height: self.frame.height))
     }
     
     func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
@@ -99,9 +111,12 @@ class HorizontalScrollMenu: BaseView, ASCollectionDataSource, ASCollectionDelega
         self.currentIndexPath = indexPath
         
         UIView.animate(withDuration: 0.2) {
-            self.line.frame = CGRect.init(origin: CGPoint.init(x: CGFloat(indexPath.row * 60), y: self.frame.height-2),
-                                     size: CGSize.init(width: 40, height: 2))
+            self.line.frame = CGRect.init(origin: CGPoint.init(x: CGFloat(indexPath.row) * (self.itemWidth + 20),
+                                                               y: self.frame.height-2),
+                                          size: CGSize.init(width: self.itemWidth, height: 2))
         }
+        
+        self.delegate?.scrollMenuDidClick(itemIndex: indexPath.row)
 
     }
 }

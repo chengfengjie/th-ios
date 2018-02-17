@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SameCityMainViewController: BaseViewController,
+class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
     BaseTabBarItemConfig,
     MagicControllerContainerProtocol,
     NavBarSearchItemProtocol {
@@ -25,8 +25,6 @@ class SameCityMainViewController: BaseViewController,
         }
     }()
     
-    let viewModel: SameCityMainViewModel = SameCityMainViewModel()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,15 +32,16 @@ class SameCityMainViewController: BaseViewController,
         
         self.setNavigationBarPositionItem()
         
-        self.makeNavigationBarSearchItem()
-        
         self.bindViewModel()
+        
     }
     
-    func bindViewModel() {
-        self.viewModel.reactive
-            .signal(forKeyPath: "cateData")
-            .observeValues { [weak self] (value) in
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        viewModel.fetchDataAction.apply(0).start()
+        
+        viewModel.cateDataProperty.signal.observeValues { [weak self] (_) in
             self?.vtMagicController.magicView.reloadData()
         }
     }
@@ -94,7 +93,7 @@ class SameCityMainViewController: BaseViewController,
     }
     
     @objc func handleClickCityItem() {
-        self.pushViewController(viewController: SelectCityViewController(style: .grouped))
+        //self.pushViewController(viewController: SelectCityViewController(style: .grouped))
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
@@ -106,10 +105,10 @@ class SameCityMainViewController: BaseViewController,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-        let dataJSON: JSON = self.viewModel.cateData[Int(pageIndex)] as! JSON
         var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: "identifer")
         if controller == nil {
-            controller = SameCityViewController(cateId: dataJSON["catid"].stringValue)
+            let model = self.viewModel.getSameCityViewModel(cateIndex: pageIndex.int)
+            controller = SameCityViewController(style: UITableViewStyle.grouped, viewModel: model)
         }
         return controller!
     }

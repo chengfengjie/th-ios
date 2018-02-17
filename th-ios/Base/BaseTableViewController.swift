@@ -8,12 +8,12 @@
 
 import UIKit
 
-class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataSource {
+class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, ASTableDelegate, ASTableDataSource {
 
     var tableNode: ASTableNode
-    init(style: UITableViewStyle) {
+    init(style: UITableViewStyle, viewModel: Model) {
         self.tableNode = ASTableNode.init(style: style)
-        super.init(nibName: nil, bundle: nil)
+        super.init(viewModel: viewModel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,6 +76,14 @@ class BaseTableViewController: BaseViewController, ASTableDelegate, ASTableDataS
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 

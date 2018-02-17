@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthorListViewModel: NSObject, ArticleApi {
+class AuthorListViewModel: BaseViewModel, ArticleApi {
     
     class MenuItem: NSObject {
         let name: String
@@ -21,55 +21,83 @@ class AuthorListViewModel: NSObject, ArticleApi {
             super.init()
         }
     }
-
-    @objc dynamic var authorCatelist: [MenuItem] = []
     
-    @objc dynamic var authorlist: [Any] = []
+    var authorCatelist: MutableProperty<[MenuItem]>!
+    var authorlist: MutableProperty<[JSON]>!
     
-    var authorJSONlist: [JSON] {
-        return self.authorlist as! [JSON]
-    }
+    var fetchAuthorlistAction: Action<String, [JSON], RequestError>!
+    var fetchAuthorCateAction: Action<Int, [MenuItem], RequestError>!
     
     var currentCateID: String = "" {
         didSet {
-            self.fetchData()
+            self.fetchAuthorlistAction.apply(self.currentCateID).start()
         }
     }
     
     override init() {
         super.init()
         
-        self.requestAuthorCatelist().observeResult { (result) in
-            switch result {
-            case let .success(value):
-                print(value)
-                self.willChangeValue(forKey: "authorCatelist")
-                self.authorCatelist.removeAll()
-                value["data"]["catelist"].arrayValue.forEach({ (item) in
-                    self.authorCatelist.append(MenuItem.init(dataJSON: item))
-                })
-                self.authorCatelist.first?.isSelected = true
-                if let first = self.authorCatelist.first {
-                    self.currentCateID = first.catId
-                }
-                self.didChangeValue(forKey: "authorCatelist")
-            case let .failure(err):
-                print(err.localizedDescription)
-            }
-        }
+        self.authorCatelist = MutableProperty<[MenuItem]>([])
+        self.authorlist = MutableProperty<[JSON]>([])
+        
+        self.fetchAuthorCateAction = Action<Int, [MenuItem], RequestError>
+            .init(execute: { (_) -> SignalProducer<[MenuItem], RequestError> in
+            return self.fetchCatelistProducer()
+        })
+        
+        self.fetchAuthorlistAction = Action<String, [JSON], RequestError>
+            .init(execute: { (catID) -> SignalProducer<[JSON], RequestError> in
+            return self.fetchAithorlistProducer(catID: catID)
+        })
+        
+        self.fetchAuthorCateAction.apply(0).start()
     }
     
-    func fetchData() {
-        self.authorlist = []
-        self.requestAuthorlist(cateID: self.currentCateID).observeResult { (result) in
+    private func fetchCatelistProducer() -> SignalProducer<[MenuItem], RequestError> {
+        let (signal, observer) = Signal<[MenuItem], RequestError>.pipe()
+        self.isRequest.value = true
+        self.requestAuthorCatelist().observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(data):
-                print(data)
-                self.authorlist = data["data"]["cateauthor"].arrayValue
+                var list: [MenuItem] = []
+                data["data"]["catelist"].arrayValue.forEach({ (item) in
+                    list.append(MenuItem.init(dataJSON: item))
+                })
+                list.first?.isSelected = true
+                if let item = list.first {
+                    self.currentCateID = item.catId
+                }
+                self.authorCatelist.value = list
+                observer.send(value: list)
+                observer.sendCompleted()
             case let .failure(err):
-                print(err.localizedDescription)
+                observer.send(error: err)
+                self.errorMsg.value = err.localizedDescription
             }
         }
+        
+        return SignalProducer<[MenuItem], RequestError>.init(signal)
+    }
+    
+    private func fetchAithorlistProducer(catID: String) -> SignalProducer<[JSON], RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
+        self.requestAuthorlist(cateID: self.currentCateID).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(data):
+                let list = data["data"]["cateauthor"].arrayValue
+                self.authorlist.value = list
+                observer.send(value: list)
+                observer.sendCompleted()
+            case let .failure(err):
+                observer.send(error: err)
+                self.errorMsg.value = err.localizedDescription
+            }
+        }
+        
+        return SignalProducer<[JSON], RequestError>.init(signal)
     }
     
 }

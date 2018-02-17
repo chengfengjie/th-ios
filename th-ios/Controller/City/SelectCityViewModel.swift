@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectCityViewModel: NSObject, CityApi {
+class SelectCityViewModel: BaseViewModel, CityApi {
 
     override init() {
         super.init()

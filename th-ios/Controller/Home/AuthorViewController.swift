@@ -8,21 +8,12 @@
 
 import UIKit
 
-class AuthorViewController: BaseTableViewController, AuthorViewLayout {
+class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorViewLayout {
     
     lazy var changeHeader: AuthorChnageHeader = {
         return self.makeChangeHeader()
     }()
-    
-    let viewModel: AuthorViewModel
-    init(authorID: String) {
-        self.viewModel = AuthorViewModel.init(authorID: authorID)
-        super.init(style: UITableViewStyle.grouped)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,15 +21,13 @@ class AuthorViewController: BaseTableViewController, AuthorViewLayout {
         self.setNavigationBarTitle(title: "作者")
         
         self.setNavigationBarCloseItem(isHidden: false)
-        
-        self.bindViewModel()
     }
     
-    func bindViewModel() {
-        self.viewModel.reactive.signal(forKeyPath: "authorData")
-            .skipNil().observeValues { [weak self] (val) in
-            self?.tableNode.reloadData()
-        }
+    override func bindViewModel() {
+//        self.viewModel.reactive.signal(forKeyPath: "authorData")
+//            .skipNil().observeValues { [weak self] (val) in
+//            self?.tableNode.reloadData()
+//        }
     }
 
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -80,16 +69,16 @@ class AuthorViewController: BaseTableViewController, AuthorViewLayout {
         return 0.1
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             return self.changeHeader
         }
         return nil
     }
     
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 1 {
-            self.pushViewController(viewController: UserListController(style: .grouped))
+            //self.pushViewController(viewController: UserListController(style: .grouped))
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageListViewController: BaseTableViewController, MessageListViewLayout {
+class MessageListViewController: BaseTableViewController<BaseViewModel>, MessageListViewLayout {
     
     enum MessageType {
         case privateMessage
@@ -57,15 +57,15 @@ class MessageListViewController: BaseTableViewController, MessageListViewLayout 
         return self.headerChangeControlSize.height
     }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.headerChangeControl
     }
     
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if self.messageType == .systemMessage {
-            self.pushViewController(viewController: SystemMessageViewController(style: .grouped))
+//            self.pushViewController(viewController: SystemMessageViewController(style: .grouped))
         } else {
-            self.pushViewController(viewController: PrivateMessageViewController())
+//            self.pushViewController(viewController: PrivateMessageViewController())
         }
     }
 }

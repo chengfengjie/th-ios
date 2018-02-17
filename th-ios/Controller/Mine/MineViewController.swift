@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderLayout {
+class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItemConfig, MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderLayout {
     
     lazy var topicArticleSwitchHeader: UIView = {
         return self.makeTopicArticleSwitchHeader()
@@ -51,11 +51,11 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
     }
     
     @objc func pushToSettingController() {
-        self.pushViewController(viewController: SettingViewController(style: .grouped))
+//        self.pushViewController(viewController: SettingViewController(style: .grouped))
     }
     
     @objc func pushToMessageController() {
-        self.pushViewController(viewController: MessageListViewController(style: .plain))
+//        self.pushViewController(viewController: MessageListViewController(style: .plain))
     }
     
     @objc func handleClickHeaderMenuBarItem(sender: UIButton) {
@@ -130,7 +130,7 @@ class MineViewController: BaseTableViewController, BaseTabBarItemConfig, MineVie
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return self.tableNodeHeader.containerBox

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthorizeInputCodeViewController: BaseViewController {
+class AuthorizeInputCodeViewController: BaseViewController<BaseViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtocol, HeadlineViewControllerLayout {
-    
+class HeadlineViewController: BaseTableViewController<HomeArticleViewModel>,
+MagicContentLayoutProtocol, HeadlineViewControllerLayout {
+        
     lazy var tableNodeHeader: CarouseTableNodeHeader = {
         return self.makeHeadlineTableNodeHeader()
     }()
@@ -18,13 +19,6 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         return self.makeMenuBarHeader()
     }()
     
-    let viewModel: HomeArticleViewModel
-    
-    init(cateInfo: JSON) {
-        self.viewModel = HomeArticleViewModel.init(cateInfo: cateInfo)
-        super.init(style: .grouped)
-    }
-    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -32,17 +26,21 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
         self.setupContentTableNodeLayout()
         
         self.setNavigationBarHidden(isHidden: true)
-
-        self.bind()
         
         self.tableNode.view.separatorColor = UIColor.lineColor
-    }
-
-    func bind() {
         
-        self.viewModel.reactive.signal(forKeyPath: "articleData").observeValues { [weak self] (_) in
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        
+        viewModel.adDataProperty.signal.observeValues { [weak self] (data) in
+            self?.tableNodeHeader.carouse.start(with: self!.viewModel.advUrllist)
             self?.tableNode.reloadData()
-            self?.tableNodeHeader.carouse.start(with: self?.viewModel.advUrllist)
+        }
+        
+        viewModel.articleDataProperty.signal.observeValues { [weak self] (data) in
+            self?.tableNode.reloadData()
         }
         
     }
@@ -50,13 +48,20 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
         switch type {
         case .leaderboards:
-            self.pushViewController(viewController: LeaderboardsViewController(style: .plain))
+            let controller = LeaderboardsViewController(
+                style: UITableViewStyle.plain,
+                viewModel: viewModel.leaderboardsViewModel)
+            self.pushViewController(viewController: controller)
         case .author:
-            self.pushViewController(viewController: AuthorListViewController())
+            let controller = AuthorListViewController(viewModel: viewModel.authorListViewModel)
+            self.pushViewController(viewController: controller)
         case .special:
-            self.pushViewController(viewController: SpecialTopicListController(style: .plain))
+            let controller = SpecialTopicListController(
+                style: UITableViewStyle.plain, viewModel: viewModel.specialTopiclistViewModel)
+            self.pushViewController(viewController: controller)
         case .treehole:
-            self.pushViewController(viewController: TreeHoleListViewController(style: .plain))
+            break
+//            self.pushViewController(viewController: TreeHoleListViewController(style: .plain))
         }
     }
     
@@ -65,19 +70,19 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     }
         
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 0 : self.viewModel.articleData.count
+        return section == 0 ? 0 : self.viewModel.articleDataProperty.value.count
     }
     
-    func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            let dataJSON: JSON = self.viewModel.articleData[indexPath.row] as! JSON
-            self.pushViewController(viewController: ArticleDetailViewController(articleID: dataJSON["aid"].stringValue))
+//            let dataJSON: JSON = self.viewModel.articleDataProperty.value[indexPath.row]
+//            self.pushViewController(viewController: ArticleDetailViewController(articleID: dataJSON["aid"].stringValue))
         }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if indexPath.section == 1 {
-            let data: JSON = self.viewModel.articleData[indexPath.row] as! JSON
+            let data: JSON = self.viewModel.articleDataProperty.value[indexPath.row]
             
             let imageUrl: String = data["pic"].stringValue
             
@@ -99,15 +104,15 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return self.viewModel.adData.isEmpty ? 0.1 : self.carouseBounds.height
+            return self.viewModel.adDataProperty.value.isEmpty ? 0.1 : self.carouseBounds.height
         } else {
             return self.menuBarHeight
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            return  self.viewModel.adData.isEmpty ? nil : self.tableNodeHeader.container
+            return  self.viewModel.adDataProperty.value.isEmpty ? nil : self.tableNodeHeader.container
         } else {
             return self.menuBarHeader.container
         }
@@ -116,10 +121,6 @@ class HeadlineViewController: BaseTableViewController, MagicContentLayoutProtoco
     override func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 120),
                                 max: CGSize.init(width: self.window_width, height: 500))
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
 }

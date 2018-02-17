@@ -32,4 +32,16 @@ enum ThMethod: String {
     
     /// 获取轻聊首页数据
     case getQingHomeData = "getForum"
+    /// 获取轻聊板块首页数据
+    case getQingModuleData = "getForumCate"
+    /// 获取轻聊模块也分类
+    case getQingModuleCatelist = "getForumList"
+    /// 获取轻聊板块的话题列表
+    case getQingModuleTopiclist = "getForumCatelist"
+    /// 获取文章或者话题详情页面的广告
+    case getArticleTopicAd = "getAd"
+    /// 获取签到信息
+    case getSignInfo = "getSign"
+    /// 获取验证码
+    case getMobileVerCode = "getMobileYzm"
 }

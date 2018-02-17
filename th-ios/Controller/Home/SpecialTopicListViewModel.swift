@@ -8,26 +8,43 @@
 
 import Foundation
 
-class SpecialTopicListViewModel: NSObject, ArticleApi{
+class SpecialTopicListViewModel: BaseViewModel, ArticleApi{
     
-    @objc dynamic var speciallist: [Any] = []
+    var speciallist: MutableProperty<[JSON]>!
     
-    var specilaJsonList: [JSON] {
-        return self.speciallist as! [JSON]
-    }
+    var fetchlistAction: Action<Int, [JSON], RequestError>!
     
     override init() {
         super.init()
         
+        self.speciallist = MutableProperty<[JSON]>([])
+        
+        self.fetchlistAction = Action<Int, [JSON], RequestError>
+            .init(execute: { (_) -> SignalProducer<[JSON], RequestError> in
+            return self.fetchlistProducer()
+        })
+        
+        self.fetchlistAction.apply(0).start()
+        
+    }
+    
+    private func fetchlistProducer() -> SignalProducer<[JSON], RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
         self.requestSpeciallist().observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(val):
-                print(val)
-                self.speciallist = val["data"]["speciallist"].arrayValue
+                let list = val["data"]["speciallist"].arrayValue
+                self.speciallist.value = list
+                observer.send(value: list)
+                observer.sendCompleted()
             case let .failure(err):
-                print(err)
+                observer.send(error: err)
+                self.errorMsg.value = err.localizedDescription
             }
         }
+        return SignalProducer.init(signal)
     }
     
 }

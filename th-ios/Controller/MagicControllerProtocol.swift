@@ -45,12 +45,13 @@ extension MagicLayoutSize {
 /// 需要使用VTMagicController的控制器遵循此协议，如果继承自BaseViewController，可以调用布局方法
 protocol MagicControllerContainerProtocol: VTMagicViewDataSource, VTMagicViewDelegate, MagicLayoutSize {
     var vtMagicController: VTMagicController { get }
+    var content: UIView { get }
 }
 
 // MARK: - BaseViewController布局VTMagicController的方法
 // 先调用createMagicController创建controller赋值给vtMagicController
 // 再调用 layoutMagicController 完成布局
-extension MagicControllerContainerProtocol where Self: BaseViewController {
+extension MagicControllerContainerProtocol where Self: UIViewController {
     
     func createMagicController() -> VTMagicController {
         return VTMagicController.init().then({
@@ -114,9 +115,11 @@ fileprivate class MagicViewItem: UIButton {
 }
 
 /// VTMagicController包含的控制器遵循此协议，处理起子视图的frame
-protocol MagicContentLayoutProtocol: MagicLayoutSize {}
+protocol MagicContentLayoutProtocol: MagicLayoutSize {
+    var tableNode: ASTableNode { get }
+}
 /// VTMagicController的子控制器是BaseTableViewController的时候，添加处理tableNode的方法
-extension MagicContentLayoutProtocol where Self: BaseTableViewController {
+extension MagicContentLayoutProtocol {
     func setupContentTableNodeLayout(existNavBar:Bool = true, existTabBar: Bool = true) {
         self.tableNode.frame = CGRect.init().with({
             $0.origin.x = 0
