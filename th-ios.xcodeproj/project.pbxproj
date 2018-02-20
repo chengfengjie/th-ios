@@ -227,6 +227,10 @@
 		5CAA28A02036C9A10059DCEA /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA289E2036C9A10059DCEA /* RootViewModel.swift */; };
 		5CAA28A22036E4CA0059DCEA /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A12036E4CA0059DCEA /* MineViewModel.swift */; };
 		5CAA28A32036E4CA0059DCEA /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A12036E4CA0059DCEA /* MineViewModel.swift */; };
+		5CAA28A52039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */; };
+		5CAA28A62039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */; };
+		5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */; };
+		5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -377,6 +381,8 @@
 		5CAA289B203686F10059DCEA /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		5CAA289E2036C9A10059DCEA /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		5CAA28A12036E4CA0059DCEA /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCodeViewLayout.swift; sourceTree = "<group>"; };
+		5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCodeView.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -649,6 +655,7 @@
 				5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */,
 				5CAA28952035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift */,
 				5C6408CD2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift */,
+				5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */,
 				5CAA2898203681360059DCEA /* AuthorizeInputCodeViewModel.swift */,
 			);
 			path = Mine;
@@ -670,6 +677,7 @@
 				5C94C358201EFA3D0043D01F /* TopicArticleSwitchHeader.swift */,
 				5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */,
 				5CFD61F62030191C0099C104 /* ReaderLayout.swift */,
+				5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1259,6 +1267,7 @@
 				5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
+				5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
@@ -1292,6 +1301,7 @@
 				5C6408CE2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
+				5CAA28A52039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
 				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,
 				5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */,
@@ -1374,6 +1384,7 @@
 				5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
+				5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
 				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
 				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
@@ -1407,6 +1418,7 @@
 				5C6408CF2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C1E169D20216F5900C23B77 /* QingModuleViewController.swift in Sources */,
 				5C1E169E20216F5900C23B77 /* SizeUtils.swift in Sources */,
+				5CAA28A62039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */,
 				5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */,
 				5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */,
 				5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */,

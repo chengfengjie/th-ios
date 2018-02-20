@@ -38,8 +38,8 @@ class RootViewController: BaseTabBarController<RootViewModel> {
     }
     
     @objc private func handleClickBarItem(sender: UIButton) {
-        if sender.tag == 103 && !UserModel.current.isLogin {
-            self.pushViewController(viewController: AuthorizeInputCellphoneController(viewModel: self.viewModel.loginInputPhoneViewModel))
+        if sender.tag == 103 && !UserModel.current.isLogin.value {
+            self.rootPresentLoginController()
         } else {
             let index = sender.tag - BaseTabBar.ITEM_TAG_OFFSET
             baseTabBar?.imageLabelTuple.forEach({ (item) in

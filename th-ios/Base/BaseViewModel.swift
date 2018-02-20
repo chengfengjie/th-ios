@@ -9,15 +9,24 @@
 import UIKit
 
 class BaseViewModel: BaseViewModelStatus {
+    
     var isRequest: MutableProperty<Bool> = MutableProperty(false)
     var errorMsg: MutableProperty<String> = MutableProperty("")
     var successMsg: MutableProperty<String> = MutableProperty("")
+    
+    var currentUser: UserModel {
+        return UserModel.current
+    }
     
     var loginInputPhoneViewModel: AuthorizeInputCellPhoneViewModel {
         return AuthorizeInputCellPhoneViewModel()
     }
     
     func viewModelDidLoad() {
+        
+    }
+    
+    func currentUserDidChange() {
         
     }
 }

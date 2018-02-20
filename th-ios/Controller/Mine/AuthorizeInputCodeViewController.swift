@@ -8,28 +8,41 @@
 
 import UIKit
 
-class AuthorizeInputCodeViewController: BaseViewController<BaseViewModel> {
+class AuthorizeInputCodeViewController: BaseViewController<AuthorizeInputCodeViewModel>, AuthorizeInputCodeViewLayout, InputCodeViewDelegate {
+    
+    lazy var elements: AuthorizeInputCodeViewElements = {
+        return self.layoutSubviews()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        self.bindViewModel()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        self.elements.closeItem.reactive.controlEvents(.touchUpInside)
+            .observeValues { [weak self] (_) in
+            self?.popToRootViewController(animated: true)
+        }
+        
+        self.elements.inputCodeView.delegate = self
+        
+        self.elements.phoneLabel.text = self.viewModel.cellPhone
+        
+        self.viewModel.loginAction.values.observeValues { [weak self] (_) in
+            self?.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        
+        self.elements.backItem.reactive.controlEvents(.touchUpInside)
+            .observeValues { [weak self] (_) in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
-    */
 
+    func completeInput(code: String) {
+        viewModel.inputCode.value = code
+    }
 }

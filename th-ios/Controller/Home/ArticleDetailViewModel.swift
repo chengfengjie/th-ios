@@ -10,51 +10,78 @@ import Foundation
 
 class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
-    @objc dynamic var data: Any? = nil
-    var dataJSON: JSON {
-        if self.data == nil {
-            return JSON.init([:])
-        } else {
-            return self.data as! JSON
-        }
-    }
-    
+    var articleData: MutableProperty<JSON>!
+    var adData: MutableProperty<JSON>!
+
     var relatedlist: [JSON] {
-        return self.dataJSON["sRelated"].arrayValue
+        return self.articleData.value["sRelated"].arrayValue
     }
     
-    @objc dynamic var adData: Any? = nil
-    var adJSONData: JSON {
-        return self.adData == nil ? JSON.emptyJSON : self.adData as! JSON
-    }
+    var fetchArticleDataAction: Action<(), JSON, RequestError>!
+    
+    var fetchAdDataAction: Action<(), JSON, RequestError>!
     
     let articleID: String
     init(articleID: String) {
         self.articleID = "85"
         super.init()
+    
+        self.articleData = MutableProperty<JSON>(JSON.emptyJSON)
+        self.adData = MutableProperty<JSON>(JSON.emptyJSON)
         
-        requestArticleInfo(articleID: self.articleID, userID: "").observeResult { (result) in
-            switch result {
-            case let .success(value):
-                print(value)
-                self.data = value["data"]
-                self.fetchAdData()
-            case let .failure(error):
-                print(error)
-            }
+        self.fetchArticleDataAction = Action<(), JSON, RequestError>
+            .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
+            return self.createFetchArticleDataProducer()
+        })
+        
+        self.fetchAdDataAction = Action<(), JSON, RequestError>
+            .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
+            return self.createFetchAdDataProducer()
+        })
+    }
+    
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        
+        self.fetchArticleDataAction.values.observeValues { [weak self] (_) in
+            self?.fetchAdDataAction.apply(()).start()
         }
     }
     
-    func fetchAdData() {
-        self.requestArticleAd(cateID: self.dataJSON["sCateid"].stringValue)
+    private func createFetchArticleDataProducer() -> SignalProducer<JSON, RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        requestArticleInfo(articleID: self.articleID, userID: self.currentUser.userID.value).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(value):
+                print(value)
+                let data = value["data"]
+                self.articleData.value = data
+                observer.send(value: data)
+                observer.sendCompleted()
+            case let .failure(error):
+                observer.send(error: error)
+                self.errorMsg.value = error.localizedDescription
+            }
+        }
+        return SignalProducer.init(signal)
+    }
+    
+    func createFetchAdDataProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.requestArticleAd(cateID: self.articleData.value["sCateid"].stringValue)
             .observeResult { (result) in
                 switch result {
                 case let .success(data):
-                    print(data)
-                    self.adData = data["data"]["advlist"]
+                    let list = data["data"]["advlist"]
+                    self.adData.value = list
+                    observer.send(value: list)
+                    observer.sendCompleted()
                 case let .failure(error):
-                    print(error.localizedDescription)
+                    observer.send(error: error)
                 }
         }
+        return SignalProducer.init(signal)
     }
 }

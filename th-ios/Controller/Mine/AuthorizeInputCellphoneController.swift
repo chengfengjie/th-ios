@@ -20,22 +20,31 @@ class AuthorizeInputCellphoneController: BaseViewController<AuthorizeInputCellPh
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.white
+        
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
         self.elements.closeButton.reactive.controlEvents(.touchUpInside).observeValues { [weak self] (sender) in
-            self?.popViewController(animated: true)
+            self?.navigationController?.dismiss(animated: true, completion: nil)
         }
         
         self.viewModel.cellPhone <~ self.elements.cellPhoneTextField.reactive.continuousTextValues.skipNil()
         
-        self.viewModel.canSendCode.signal.observeValues { (isEnable) in
-            self.elements.nextButton.backgroundColor = isEnable ? UIColor.pink : UIColor.hexColor(hex: "d8d8d8")
+        self.viewModel.canSendCode.signal.observeValues { [weak self] (isEnable) in
+            self?.elements.nextButton.backgroundColor = isEnable ? UIColor.pink : UIColor.hexColor(hex: "d8d8d8")
         }
         
         self.elements.nextButton.reactive.pressed = CocoaAction(viewModel.sendCodeAction)
         
-        self.viewModel.sendCodeAction.values.observeValues { (model) in
-            
+        self.viewModel.sendCodeAction.values.observeValues { [weak self] (model) in
+            let controller = AuthorizeInputCodeViewController(viewModel: model)
+            self?.navigationController?.pushViewController(controller, animated: true)
         }
+
     }
-    
     
 }

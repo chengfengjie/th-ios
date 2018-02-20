@@ -43,6 +43,11 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
             self?.tableNode.reloadData()
         }
         
+        viewModel.clickArticleCellNodeAction.values.observeValues { [weak self] (model) in
+            let controller = ArticleDetailViewController(style: UITableViewStyle.grouped, viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
+        
     }
     
     func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
@@ -75,8 +80,7 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-//            let dataJSON: JSON = self.viewModel.articleDataProperty.value[indexPath.row]
-//            self.pushViewController(viewController: ArticleDetailViewController(articleID: dataJSON["aid"].stringValue))
+            viewModel.clickArticleCellNodeAction.apply(indexPath).start()
         }
     }
     

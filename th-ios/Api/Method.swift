@@ -44,4 +44,6 @@ enum ThMethod: String {
     case getSignInfo = "getSign"
     /// 获取验证码
     case getMobileVerCode = "getMobileYzm"
+    /// 手机登录
+    case login = "getMobileLogin"
 }

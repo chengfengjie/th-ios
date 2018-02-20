@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, ThApi {
@@ -31,7 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ThApi {
         setupTransitionAnimate()
         // 设置根控制器
         setupRootController()
-                
+        
+        SVProgressHUD.setContainerView(rootNavigationController!.view)
+        
         return true
     }
     

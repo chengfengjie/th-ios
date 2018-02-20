@@ -85,5 +85,9 @@ class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, 
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
 }
 

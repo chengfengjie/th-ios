@@ -12,8 +12,20 @@ extension UserModel {
     static let current: UserModel = UserModel()
 }
 
-class UserModel: NSObject {
+class UserModel {
 
-    var isLogin: Bool = false
+    var isLogin: MutableProperty<Bool>!
+    var avatar: MutableProperty<URL?>!
+    var sid: MutableProperty<String>!
+    var userID: MutableProperty<String>!
+    var userName: MutableProperty<String>!
+    
+    init() {
+        self.isLogin = MutableProperty(false)
+        self.avatar = MutableProperty<URL?>(nil)
+        self.sid = MutableProperty<String>("")
+        self.userID = MutableProperty<String>("")
+        self.userName = MutableProperty<String>("")
+    }
     
 }

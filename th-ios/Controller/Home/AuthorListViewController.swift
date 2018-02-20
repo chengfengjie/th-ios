@@ -60,15 +60,12 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if tableNode == self.menuTableNode {
             return {
-                let paraStyle: NSMutableParagraphStyle = NSMutableParagraphStyle().then {
-                    $0.alignment = NSTextAlignment.center
-                }
                 let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist.value[indexPath.row]
                 return ASTextCellNode().then {
                     $0.selectionStyle = .none
                     $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 60)
                     $0.textNode.attributedText = item.name
-                        .withParagraphStyle(paraStyle)
+                        .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: NSTextAlignment.center))
                         .withTextColor(item.isSelected ? Color.pink : Color.color6)
                         .withFont(Font.systemFont(ofSize: 13))
                 }

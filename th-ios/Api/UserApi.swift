@@ -24,4 +24,17 @@ extension UserApi {
         return self.request(method: ThMethod.getMobileVerCode, data: params)
     }
     
+    /// 手机号登录
+    ///
+    /// - Parameters:
+    ///   - phone: 手机号
+    ///   - code: 验证码
+    /// - Returns: signal
+    func requestLogin(phone: String, code: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "phone": phone,
+            "yzm": code
+        ]
+        return self.request(method: ThMethod.login, data: params)
+    }
 }

@@ -81,6 +81,16 @@ extension String {
         return false
     }
     
+    func heightWithStringAttributes(attributes : [NSAttributedStringKey : Any], fixedWidth : CGFloat) -> CGFloat {
+        guard self.count > 0 && fixedWidth > 0 else {
+            return 0
+        }
+        
+        let size = CGSize.init(width: fixedWidth, height: 20000)
+        let text = self as NSString
+        let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
+        return rect.size.height
+    }    
 }
 
 extension JSON {

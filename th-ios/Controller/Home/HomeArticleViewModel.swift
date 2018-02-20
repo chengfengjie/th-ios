@@ -28,9 +28,18 @@ class HomeArticleViewModel: BaseViewModel, ArticleApi {
         return MutableProperty<[JSON]>.init([])
     }()
     
+    var clickArticleCellNodeAction: Action<IndexPath, ArticleDetailViewModel, NoError>!
+    
     init(cateInfo: JSON) {
         self.cateInfo = cateInfo
         super.init()
+        
+        self.clickArticleCellNodeAction = Action<IndexPath, ArticleDetailViewModel, NoError>
+            .init(execute: { (indexPath) -> SignalProducer<ArticleDetailViewModel, NoError> in
+            let articleID: String = self.articleDataProperty.value[indexPath.row]["aid"].stringValue
+            let model: ArticleDetailViewModel = ArticleDetailViewModel(articleID: articleID)
+            return SignalProducer<ArticleDetailViewModel, NoError>.init(value: model)
+        })
         
         self.requestData()
     }
@@ -60,5 +69,4 @@ class HomeArticleViewModel: BaseViewModel, ArticleApi {
     lazy var specialTopiclistViewModel: SpecialTopicListViewModel = {
         return SpecialTopicListViewModel()
     }()
-    
 }
