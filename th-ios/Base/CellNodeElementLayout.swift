@@ -36,3 +36,26 @@ extension NodeElementMaker where Self: ASDisplayNode {
         }
     }
 }
+
+protocol NodeBottomlineMaker {
+    var bottomline: ASDisplayNode { get }
+}
+extension NodeBottomlineMaker where Self: ASDisplayNode {
+    func makeBottomlineNode() -> ASDisplayNode {
+        return ASDisplayNode().then {
+            self.addSubnode($0)
+            $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: CGFloat.pix1)
+            $0.backgroundColor = UIColor.lineColor
+        }
+    }
+    
+    func makeBottomlineWraperSpec(mainSpec: ASLayoutSpec, lineInset: UIEdgeInsets = UIEdgeInsets.zero) -> ASLayoutSpec {
+        let lineInsetSpec = ASInsetLayoutSpec.init(insets: lineInset, child: self.bottomline)
+        return ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
+                                      spacing: 0,
+                                      justifyContent: ASStackLayoutJustifyContent.start,
+                                      alignItems: ASStackLayoutAlignItems.stretch,
+                                      children: [mainSpec, lineInsetSpec])
+    }
+
+}

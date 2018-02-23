@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthorListViewModel: BaseViewModel, ArticleApi {
+class AuthorListViewModel: BaseViewModel, ArticleApi, UserApi {
     
     class MenuItem: NSObject {
         let name: String
@@ -27,6 +27,10 @@ class AuthorListViewModel: BaseViewModel, ArticleApi {
     
     var fetchAuthorlistAction: Action<String, [JSON], RequestError>!
     var fetchAuthorCateAction: Action<Int, [MenuItem], RequestError>!
+    
+    var flowUserAction: Action<IndexPath, JSON, RequestError>!
+    
+    var clickAuthorAction: Action<IndexPath, AuthorViewModel, NoError>!
     
     var currentCateID: String = "" {
         didSet {
@@ -48,6 +52,22 @@ class AuthorListViewModel: BaseViewModel, ArticleApi {
         self.fetchAuthorlistAction = Action<String, [JSON], RequestError>
             .init(execute: { (catID) -> SignalProducer<[JSON], RequestError> in
             return self.fetchAithorlistProducer(catID: catID)
+        })
+        
+        self.flowUserAction = Action<IndexPath, JSON, RequestError>
+            .init(execute: { (indexPath) -> SignalProducer<JSON, RequestError> in
+                if self.currentUser.isLogin.value {
+                    return self.createFllowUserSignalProducer(indexPath: indexPath)
+                } else {
+                    return SignalProducer.init(error: RequestError.forbidden)
+                }
+        })
+        
+        self.clickAuthorAction = Action<IndexPath, AuthorViewModel, NoError>
+            .init(execute: { (indexPath) -> SignalProducer<AuthorViewModel, NoError> in
+                let id: String = self.authorlist.value[indexPath.row]["id"].stringValue
+                let model: AuthorViewModel = AuthorViewModel(authorID: id)
+                return SignalProducer.init(value: model)
         })
         
         self.fetchAuthorCateAction.apply(0).start()
@@ -87,6 +107,7 @@ class AuthorListViewModel: BaseViewModel, ArticleApi {
             self.isRequest.value = false
             switch result {
             case let .success(data):
+                print(data)
                 let list = data["data"]["cateauthor"].arrayValue
                 self.authorlist.value = list
                 observer.send(value: list)
@@ -98,6 +119,26 @@ class AuthorListViewModel: BaseViewModel, ArticleApi {
         }
         
         return SignalProducer<[JSON], RequestError>.init(signal)
+    }
+    
+    private func createFllowUserSignalProducer(indexPath: IndexPath) -> SignalProducer<JSON, RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        requestFllowUser(userID: self.authorlist.value[indexPath.row]["id"].stringValue)
+            .observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(data):
+                print(data)
+                observer.send(value: data)
+                observer.sendCompleted()
+                self.successMsg.value = "关注成功"
+            case let .failure(error):
+                observer.send(error: error)
+                self.errorMsg.value = error.localizedDescription
+            }
+        }
+        return SignalProducer.init(signal)
     }
     
 }

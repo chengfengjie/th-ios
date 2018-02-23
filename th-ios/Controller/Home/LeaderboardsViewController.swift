@@ -51,6 +51,11 @@ class LeaderboardsViewController: BaseTableViewController<LeaderboardsViewModel>
             .observeValues { [weak self] (val) in
                 self?.tableNode.reloadData()
         }
+        
+        viewModel.clickAritlceAction.values.observeValues { [weak self] (model) in
+            let controller = ArticleDetailViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
     }
     
     
@@ -70,6 +75,10 @@ class LeaderboardsViewController: BaseTableViewController<LeaderboardsViewModel>
         return {
             return LeaderboardsViewCellNode(dataJSON: self.viewModel.currentData[indexPath.row])
         }
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        viewModel.clickAritlceAction.apply(indexPath).start()
     }
     
 }

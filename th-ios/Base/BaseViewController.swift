@@ -16,14 +16,16 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     
     let viewModel: ViewModel!
     
-    init(viewModel: ViewModel) {
+    required init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
-    var hud: MBProgressHUD!
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    var successHUD: MBProgressHUD!
+    var hud: MBProgressHUD!
     
     var errorHUD: MBProgressHUD!
     
@@ -39,15 +41,6 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
         hud.backgroundView.style = .solidColor
         self.view.addSubview(hud)
         
-        successHUD = MBProgressHUD.init(view: self.view)
-        successHUD.mode = .customView
-        successHUD.isSquare = true
-        
-        let successIcon = UIImage.init(named: "Checkmark")!
-            .withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-        successHUD.customView = UIImageView.init(image: successIcon)
-        self.view.addSubview(successHUD)
-        
         errorHUD = MBProgressHUD.init(view: self.view)
         errorHUD.mode = .text
         self.view.addSubview(errorHUD)
@@ -56,22 +49,24 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     }
     
     func bindViewModel() {
-        self.viewModel.isRequest.signal.observeValues { [weak self] (isRequest) in
+        viewModel.isRequest.signal.observeValues { [weak self] (isRequest) in
             if isRequest {
                 self?.hud.show(animated: true)
             } else {
                 self?.hud.hide(animated: true)
             }
         }
-        self.viewModel.errorMsg.signal.observeValues { [weak self] (errMsg) in
-            self?.errorHUD.label.text = errMsg
-            self?.errorHUD.show(animated: true)
-            self?.errorHUD.hide(animated: true, afterDelay: 1.0)
+        viewModel.errorMsg.signal.observeValues { [weak self] (errMsg) in
+            if !errMsg.isEmpty {
+                self?.errorHUD.label.text = errMsg
+                self?.errorHUD.show(animated: true)
+                self?.errorHUD.hide(animated: true, afterDelay: 1.0)
+            }
         }
-        self.viewModel.successMsg.signal.observeValues { [weak self] (successMsg) in
-            self?.successHUD.label.text = successMsg
-            self?.successHUD.show(animated: true)
-            self?.successHUD.hide(animated: true, afterDelay: 1.0)
+        viewModel.successMsg.signal.observeValues { (successMsg) in
+            if !successMsg.isEmpty {
+                MBProgressHUD.showSuccessHUD(text: successMsg)
+            }
         }
     }
     
@@ -110,11 +105,6 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
             self.customeNavBar.titleLabel?.attributedText = titleAttributeText
         }
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
 }
 
 
@@ -145,4 +135,5 @@ extension RootNavigationControllerProtocol {
         self.rootPresent(viewController: root, animated: true)
     }
 }
+
 

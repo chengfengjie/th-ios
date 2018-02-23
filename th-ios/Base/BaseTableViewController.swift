@@ -11,13 +11,14 @@ import UIKit
 class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, ASTableDelegate, ASTableDataSource {
 
     var tableNode: ASTableNode
-    init(style: UITableViewStyle, viewModel: Model) {
-        self.tableNode = ASTableNode.init(style: style)
-        super.init(viewModel: viewModel)
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init(viewModel: Model) {
+        self.tableNode = ASTableNode.init(style: UITableViewStyle.grouped)
+        super.init(viewModel: viewModel)
     }
     
     override func viewDidLoad() {

@@ -21,6 +21,10 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
     var fetchAdDataAction: Action<(), JSON, RequestError>!
     
+    var commentTotalAction: Action<(), ArticleCommentListViewModel, NoError>!
+    
+    var commentAction: Action<(), CommentArticleViewModel, RequestError>!
+    
     let articleID: String
     init(articleID: String) {
         self.articleID = "85"
@@ -38,6 +42,29 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
             .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
             return self.createFetchAdDataProducer()
         })
+        
+        self.commentTotalAction = Action<(), ArticleCommentListViewModel, NoError>
+            .init(execute: { (tulp) -> SignalProducer<ArticleCommentListViewModel, NoError> in
+            return SignalProducer.init(value: self.commentViewModel)
+        })
+        
+        self.commentAction = Action<(), CommentArticleViewModel, RequestError>
+            .init(execute: { (tulp) -> SignalProducer<CommentArticleViewModel, RequestError> in
+                if self.currentUser.isLogin.value {
+                    return SignalProducer.init(value: self.commentArticleViewModel)
+                } else {
+                    return SignalProducer.init(error: RequestError.forbidden)
+                }
+            
+        })
+    }
+    
+    private lazy var commentViewModel: ArticleCommentListViewModel = {
+        return ArticleCommentListViewModel(articleID: self.articleID)
+    }()
+    
+    private var commentArticleViewModel: CommentArticleViewModel {
+        return CommentArticleViewModel(articleID: self.articleID)
     }
     
     override func viewModelDidLoad() {

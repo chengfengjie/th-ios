@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import DateTools
 
 extension UIDevice {
     
@@ -90,7 +91,12 @@ extension String {
         let text = self as NSString
         let rect = text.boundingRect(with: size, options:.usesLineFragmentOrigin, attributes: attributes, context:nil)
         return rect.size.height
-    }    
+    }
+    
+    func dateFormat() -> String {
+        return Date.format(type: DateFormatType.normal,
+                           date: Date.parse(text: self))
+    }
 }
 
 extension JSON {
@@ -102,5 +108,41 @@ extension JSON {
 extension UInt {
     var int: Int {
         return Int.init(self)
+    }
+}
+
+enum DateFormatType {
+    case normal
+}
+
+extension Date {
+    
+    static func parse(text: String) -> Date? {
+        if let time: Double = Double.init(text) {
+            return Date.init(timeIntervalSince1970: time)
+        }
+        return nil
+    }
+    
+    static func format(type: DateFormatType, date: Date?) -> String {
+        if date == nil {
+            return ""
+        }
+        return date!.format()
+    }
+    
+    private func format() -> String {
+        let date: NSDate = self as NSDate
+        if date.isToday() {
+            return date.formattedDate(withFormat: "今天 HH:mm")
+        }
+        if date.isYesterday() {
+            return date.formattedDate(withFormat: "昨天 HH:mm")
+        }
+        if date.isInLeapYear() {
+            return date.formattedDate(withFormat: "MM-dd HH:mm")
+        }
+        
+        return date.formattedDate(withFormat: "YYYY-MM-dd HH:mm")
     }
 }

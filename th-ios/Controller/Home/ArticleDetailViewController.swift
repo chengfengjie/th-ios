@@ -41,10 +41,22 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
             self?.tableNode.reloadData()
         }
         
-        self.bottomBar.goodItem.reactive
-            .controlEvents(.touchUpInside)
-            .observeValues { (sender) in
-                print(sender)
+        bottomBar.commentTotalItem.reactive.pressed = CocoaAction(viewModel.commentTotalAction)
+        viewModel.commentTotalAction.values.observeValues { [weak self] (model) in
+            let controller = ArticleCommentListViewController(viewModel: model)
+            controller.modalTransitionStyle = .crossDissolve
+            controller.modalPresentationStyle = .overCurrentContext
+            self?.rootPresent(viewController: controller, animated: true)
+        }
+        
+        bottomBar.commentItem.reactive.pressed = CocoaAction(viewModel.commentAction)
+        viewModel.commentAction.values.observeValues { [weak self] (model) in
+            let controller = CommentArticleViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
+        
+        viewModel.commentAction.errors.observeValues { [weak self] (err) in
+            self?.rootPresentLoginController()
         }
     }
     

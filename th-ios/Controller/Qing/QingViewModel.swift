@@ -11,53 +11,97 @@ import UIKit
 class QingViewModel: BaseViewModel, QingApi {
 
     var citylist: [JSON] {
-        return self.dataJSON["citylist"].arrayValue
+        return self.qingIndexData.value["citylist"].arrayValue
     }
     var interestlist: [JSON] {
-        return self.dataJSON["interestlist"].arrayValue
+        return self.qingIndexData.value["interestlist"].arrayValue
     }
     var hotlist: [JSON] {
-        return self.dataJSON["hotlist"].arrayValue
+        return self.qingIndexData.value["hotlist"].arrayValue
     }
     
-    var signInfoProperty: MutableProperty<JSON> = MutableProperty<JSON>.init(JSON.emptyJSON)
+    var qingIndexData: MutableProperty<JSON>!
+    var signInfoProperty: MutableProperty<JSON>!
     
-    @objc dynamic var data: Any? = nil
-    var dataJSON: JSON {
-        return self.data == nil ? JSON.init([]) : self.data as! JSON
-    }
+    var fetchQingIndexDataAction: Action<(), JSON, RequestError>!
+    var fetchSignDataAction: Action<(), JSON, RequestError>!
+    
+    var signAction: Action<(), SignViewModel, NoError>!
+    
+    var topiclistAction: Action<TopicListType, QingTopicListViewModel, RequestError>!
     
     override init() {
         super.init()
         
-        self.fetchData()
+        self.qingIndexData = MutableProperty(JSON.emptyJSON)
+        self.signInfoProperty = MutableProperty(JSON.emptyJSON)
         
-        self.fetchSignData()
+        self.fetchQingIndexDataAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+            return self.createFetchDataSignalProducer()
+        })
+        
+        self.fetchSignDataAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+            return self.createFetchSignDataSignalProducer()
+        })
+        
+        self.signAction = Action<(), SignViewModel, NoError>
+            .init(execute: { (_) -> SignalProducer<SignViewModel, NoError> in
+            return SignalProducer.init(value: SignViewModel(signInfo: self.signInfoProperty.value))
+        })
+        
+        self.topiclistAction = Action<TopicListType, QingTopicListViewModel, RequestError>
+            .init(execute: { (type) -> SignalProducer<QingTopicListViewModel, RequestError> in
+                if self.currentUser.isLogin.value {
+                    return SignalProducer.init(value: QingTopicListViewModel(type: type))
+                } else {
+                    return SignalProducer.init(error: RequestError.forbidden)
+                }
+            })
     }
     
-    func fetchData() {
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        self.fetchQingIndexDataAction.apply(()).start()
+        self.fetchSignDataAction.apply(()).start()
+    }
+    
+    private func createFetchDataSignalProducer() -> SignalProducer<JSON, RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
         self.request(method: ThMethod.getQingHomeData).observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(value):
-                self.data = value["data"]
+                print(value)
+                let data = value["data"]
+                self.qingIndexData.value = data
+                observer.send(value: data)
+                observer.sendCompleted()
             case let .failure(error):
-                print(error)
+                observer.send(error: error)
+                self.errorMsg.value = error.localizedDescription
             }
         }
+        return SignalProducer.init(signal)
     }
     
-    func fetchSignData() {
+    private func createFetchSignDataSignalProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
         self.requestSignInfo().observeResult { (result) in
             switch result {
             case let .success(data):
-                self.signInfoProperty.value = data["data"]
+                print("-----"+data.description)
+                let aData = data["data"]
+                self.signInfoProperty.value = aData
+                observer.send(value: aData)
+                observer.sendCompleted()
             case let .failure(error):
-                NSLog("%s", error.localizedDescription)
+                self.errorMsg.value = error.localizedDescription
+                observer.send(error: error)
             }
         }
-    }
-    
-    var signViewModel: SignViewModel {
-        return SignViewModel.init(signInfo: self.signInfoProperty.value)
+        return SignalProducer.init(signal)
     }
 }

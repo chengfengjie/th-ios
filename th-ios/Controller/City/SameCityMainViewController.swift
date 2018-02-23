@@ -108,7 +108,7 @@ class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
         var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: "identifer")
         if controller == nil {
             let model = self.viewModel.getSameCityViewModel(cateIndex: pageIndex.int)
-            controller = SameCityViewController(style: UITableViewStyle.grouped, viewModel: model)
+            controller = SameCityViewController(viewModel: model)
         }
         return controller!
     }

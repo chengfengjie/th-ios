@@ -37,4 +37,15 @@ extension UserApi {
         ]
         return self.request(method: ThMethod.login, data: params)
     }
+
+    /// 关注用户
+    ///
+    /// - Parameter userID: 用户id
+    /// - Returns: Signal
+    func requestFllowUser(userID: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "fuid": userID
+        ]
+        return self.request(method: ThMethod.followUser, data: params)
+    }
 }

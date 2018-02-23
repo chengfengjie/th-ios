@@ -17,7 +17,7 @@ extension AuthorViewLayout {
     }
 }
 
-class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
+class AuthorTopBasicInfo: ASCellNode, NodeElementMaker, NodeBottomlineMaker {
     
     lazy var avatarImageNode: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
@@ -35,10 +35,16 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
         return self.makeAndAddButtonNode()
     }()
     
+    lazy var bottomline: ASDisplayNode = {
+        return self.makeBottomlineNode()
+    }()
+    
     init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
+        
+        self.bottomline.backgroundColor = UIColor.lineColor
         
         self.avatarImageNode.style.preferredSize = CGSize.init(width: 80, height: 80)
         
@@ -56,7 +62,16 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
             .withTextColor(Color.color6)
             .withFont(Font.systemFont(ofSize: 11))
         
-        self.attentionButtonNode.setAttributedTitle("+ 关注".withTextColor(Color.white), for: UIControlState.normal)
+        if dataJSON["follow"].stringValue == "0" {
+            self.attentionButtonNode.setAttributedTitle("+ 关注"
+                .withTextColor(Color.white), for: UIControlState.normal)
+            self.attentionButtonNode.backgroundColor = UIColor.pink
+        } else {
+            self.attentionButtonNode.setAttributedTitle("取消关注"
+                .withTextColor(Color.white), for: UIControlState.normal)
+            self.attentionButtonNode.backgroundColor = UIColor.lightGray
+        }
+        
         
         self.attentionButtonNode.backgroundColor = UIColor.pink
         
@@ -89,13 +104,19 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker {
                                               alignItems: ASStackLayoutAlignItems.stretch,
                                               children: [topSpec, self.descriptionTextNode, attentionSpec])
         
-        let mainInset = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 15, left: 15, bottom: 15, right: 15), child: mainSpec)
-        return mainInset
+        let mainInset = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 15, left: 15, bottom: 20, right: 15), child: mainSpec)
+        return self.makeBottomlineWraperSpec(mainSpec: mainInset,
+                                             lineInset: UIEdgeInsets.init(top: 0, left: 15, bottom: 0, right: 15))
     }
     
 }
 
-class AttentionAuthorCellNode: ASCellNode, NodeElementMaker {
+class AttentionAuthorCellNode: ASCellNode, NodeElementMaker, NodeBottomlineMaker {
+    
+    lazy var bottomline: ASDisplayNode = {
+        return self.makeBottomlineNode()
+    }()
+    
     var avatarUrls: [URL] = []
     lazy var textNode: ASTextNode = {
         return self.makeAndAddTextNode()
@@ -103,9 +124,12 @@ class AttentionAuthorCellNode: ASCellNode, NodeElementMaker {
     lazy var indicator: ASImageNode = {
         return self.makeAndAddImageNode()
     }()
+    
     var avatarImageNodeArray: [ASNetworkImageNode] = []
     override init() {
         super.init()
+        
+        self.bottomline.backgroundColor = UIColor.lineColor
         
         self.selectionStyle = .none
         
@@ -143,11 +167,13 @@ class AttentionAuthorCellNode: ASCellNode, NodeElementMaker {
                                               alignItems: ASStackLayoutAlignItems.center,
                                               children: [leftSpec, rightSpec])
         let insetSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 15, 20, 15), child: mainSpec)
-        return insetSpec
+        return self.makeBottomlineWraperSpec(mainSpec: insetSpec)
     }
 }
 
 class AuthorChnageHeader: BaseView {
+    
+    var clickAction: Action<(AuthorArticleType), [JSON], RequestError>?
     
     let headerBounds: CGRect = CGRect.init(
         x: 0, y: 0, width: UIScreen.main.bounds.height, height: 50)
@@ -171,6 +197,7 @@ class AuthorChnageHeader: BaseView {
                 make.top.bottom.equalTo(0)
             })
             $0.isSelected = true
+            $0.tag = 100
         }
         
         let comment: UIButton = UIButton.init(type: .custom).then {
@@ -183,6 +210,7 @@ class AuthorChnageHeader: BaseView {
                 make.left.equalTo(newest.snp.right).offset(30)
                 make.top.bottom.equalTo(0)
             })
+            $0.tag = 101
         }
         
         
@@ -196,6 +224,7 @@ class AuthorChnageHeader: BaseView {
                 make.left.equalTo(comment.snp.right).offset(30)
                 make.top.bottom.equalTo(0)
             })
+            $0.tag = 102
         }
         
         self.items = [newest, comment, hot]
@@ -209,6 +238,16 @@ class AuthorChnageHeader: BaseView {
                 make.height.equalTo(2)
                 make.width.equalTo(50)
             })
+        }
+        
+        UIView().do { (l) in
+            self.addSubview(l)
+            l.snp.makeConstraints({ (make) in
+                make.left.right.bottom.equalTo(0)
+                make.height.equalTo(CGFloat.pix1)
+            })
+            l.backgroundColor = UIColor.lineColor
+            
         }
         
         self.items.forEach {
@@ -233,14 +272,31 @@ class AuthorChnageHeader: BaseView {
         UIView.animate(withDuration: 0.2) {
             self.layoutIfNeeded()
         }
+        
+        switch sender.tag {
+        case 100:
+            self.clickAction?.apply((AuthorArticleType.news)).start()
+        case 101:
+            self.clickAction?.apply((AuthorArticleType.comment)).start()
+        case 102:
+            self.clickAction?.apply((AuthorArticleType.hot)).start()
+        default:
+            break
+        }
     }
     
 }
 
 class AuthorArticleListCellNode: NoneContentArticleCellNodeImpl {
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
+        
+        self.titleTextNode.setText(text: dataJSON["title"].stringValue, style: self.layoutCss.titleTextStyle)
+        self.imageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
+        self.sourceIconImageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.sourceTextNode.setText(text: dataJSON["author"].stringValue, style: self.layoutCss.sourceNameTextStyle)
+
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

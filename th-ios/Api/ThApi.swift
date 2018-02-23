@@ -21,6 +21,7 @@ enum RequestError: Error {
     case forbidden
     case netError
     case emptyData
+    case server
     
     var localizedDescription: String {
         switch self {
@@ -34,11 +35,15 @@ enum RequestError: Error {
             return "网络错误"
         case .emptyData:
             return "无返回数据"
+        case .server:
+            return "服务器内部错误"
         }
     }
 }
 
-protocol ThApi {}
+protocol ThApi {
+    var sid: String { get }
+}
 extension ThApi {
     
     @discardableResult
@@ -54,7 +59,7 @@ extension ThApi {
             dataRequest.responseData { (res) in
 
                 if res.response != nil {
-                    self.parseResponseData(res: res, observer: observer)
+                    self.parseResponseData(res: res, observer: observer, debugInfo: method.rawValue)
                 } else {
                     observer.send(error: RequestError.netError)
                 }
@@ -64,15 +69,15 @@ extension ThApi {
         })
     }
     
-    private func parseResponseData(res: DataResponse<Data>, observer: Signal<JSON, RequestError>.Observer) {
+    private func parseResponseData(res: DataResponse<Data>, observer: Signal<JSON, RequestError>.Observer, debugInfo: String = "") {
         if let data = res.data {
             let dataJSON = JSON.init(data: data)
             if dataJSON.isEmpty {
-                print(data.json)
                 let text = String.init(data: data, encoding: String.Encoding.utf8)
                 if let text = text {
-                    print(text)
+                    print("\n" + debugInfo + "\n" + text + "\n")
                 }
+                observer.send(error: RequestError.server)
             } else if dataJSON["errCode"].intValue == 0 {
                 observer.send(value: dataJSON["info"])
             } else {
@@ -87,7 +92,7 @@ extension ThApi {
         return [
             "m": method.rawValue,
             "params": data.json,
-            "sid": "",
+            "sid": self.sid,
             "format": "json",
             "sign": "",
             "phoneType": "iphone",
@@ -97,7 +102,6 @@ extension ThApi {
 }
 
 extension Dictionary {
-    
     var json: String {
         do {
             let options = JSONSerialization.WritingOptions.prettyPrinted
@@ -109,22 +113,19 @@ extension Dictionary {
         }
         return ""
     }
-    
 }
 
 extension Data {
-    
     var json: Any {
         do {
-            let dict = try JSONSerialization.jsonObject(with: self, options: JSONSerialization.ReadingOptions.mutableContainers)
-            print(dict)
+            let options = JSONSerialization.ReadingOptions.mutableContainers
+            let dict = try JSONSerialization.jsonObject(with: self, options: options)
             return dict
         } catch {
             print(error)
             return ""
         }
     }
-    
 }
 
 

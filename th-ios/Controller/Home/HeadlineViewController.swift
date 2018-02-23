@@ -44,7 +44,7 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
         }
         
         viewModel.clickArticleCellNodeAction.values.observeValues { [weak self] (model) in
-            let controller = ArticleDetailViewController(style: UITableViewStyle.grouped, viewModel: model)
+            let controller = ArticleDetailViewController(viewModel: model)
             self?.pushViewController(viewController: controller)
         }
         
@@ -53,16 +53,13 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
         switch type {
         case .leaderboards:
-            let controller = LeaderboardsViewController(
-                style: UITableViewStyle.plain,
-                viewModel: viewModel.leaderboardsViewModel)
+            let controller = LeaderboardsViewController(viewModel: viewModel.leaderboardsViewModel)
             self.pushViewController(viewController: controller)
         case .author:
             let controller = AuthorListViewController(viewModel: viewModel.authorListViewModel)
             self.pushViewController(viewController: controller)
         case .special:
-            let controller = SpecialTopicListController(
-                style: UITableViewStyle.plain, viewModel: viewModel.specialTopiclistViewModel)
+            let controller = SpecialTopicListController(viewModel: viewModel.specialTopiclistViewModel)
             self.pushViewController(viewController: controller)
         case .treehole:
             break

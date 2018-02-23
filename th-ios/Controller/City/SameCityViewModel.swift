@@ -18,6 +18,8 @@ class SameCityViewModel: BaseViewModel, ArticleApi {
     
     var fetchDataAction: Action<Int, [JSON], RequestError>!
     
+    var clickArticleAction: Action<IndexPath, ArticleDetailViewModel, NoError>!
+    
     let cateID: String
     init(cateID: String) {
         self.cateID = cateID
@@ -31,6 +33,13 @@ class SameCityViewModel: BaseViewModel, ArticleApi {
             .init(execute: { (page) -> SignalProducer<[JSON], RequestError> in
                 return self.fetchDataProducer(page: page)
         })
+        
+        self.clickArticleAction = Action<IndexPath, ArticleDetailViewModel, NoError>
+            .init(execute: { (indexPath) -> SignalProducer<ArticleDetailViewModel, NoError> in
+                let aid: String = self.articlelistProperty.value[indexPath.row]["aid"].stringValue
+                let viewModel = ArticleDetailViewModel(articleID: aid)
+                return SignalProducer.init(value: viewModel)
+        })
     }
     
     func fetchDataProducer(page: Int) ->  SignalProducer<[JSON], RequestError> {
@@ -38,6 +47,7 @@ class SameCityViewModel: BaseViewModel, ArticleApi {
         self.requestCateArticleData(cateId: self.cateID, pageNum: self.pageNume).observeResult { (result) in
             switch result {
             case let .success(value):
+                print(value)
                 self.articlelistProperty.value = value["data"]["articlelist"].arrayValue
                 self.adlistProperty.value =  value["data"]["advlist"].arrayValue
                 let array: NSMutableArray = NSMutableArray()

@@ -29,6 +29,12 @@ enum ThMethod: String {
     case getAuthorInfo = "getAuthorInfo"
     /// 获取作者的文章列表
     case getAuthorArticlelist = "getAuthorArticle"
+    /// 评论文章
+    case commentArticle = "putPortalComment"
+    /// 获取文章评论
+    case getArticleCommentlist = "getPortalComment"
+    /// 关注用户
+    case followUser = "addFollowOne"
     
     /// 获取轻聊首页数据
     case getQingHomeData = "getForum"

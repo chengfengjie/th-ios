@@ -37,9 +37,15 @@ class SameCityViewController: BaseTableViewController<SameCityViewModel>, MagicC
         viewModel.adUrlArrayProperty.signal.observeValues { [weak self] (array) in
             self?.tableNodeHeader.carouse.start(with: array)
         }
+        
+        viewModel.clickArticleAction.values.observeValues { [weak self] (model) in
+            let controller = ArticleDetailViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
     }
 
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        viewModel.clickArticleAction.apply(indexPath).start()
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -67,4 +73,5 @@ class SameCityViewController: BaseTableViewController<SameCityViewModel>, MagicC
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return viewModel.adlistProperty.value.isEmpty ? nil : self.tableNodeHeader.container
     }
+    
 }

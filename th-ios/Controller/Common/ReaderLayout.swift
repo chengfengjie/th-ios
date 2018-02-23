@@ -131,7 +131,7 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     }()
     
     fileprivate lazy var editMenu: EditMenu = {
-        let frame = CGRect.init(x: 20, y: 100, width: UIScreen.main.bounds.width-40, height: 50)
+        let frame = CGRect.init(x: 20, y: 100, width: UIScreen.main.bounds.width-40, height: 55)
         return EditMenu.init(frame: frame)
     }()
     

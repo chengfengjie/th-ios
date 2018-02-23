@@ -33,6 +33,8 @@ class LeaderboardsViewModel: BaseViewModel, ArticleApi {
     
     var fetchDataAction: Action<Int, [JSON], RequestError>!
     
+    var clickAritlceAction: Action<IndexPath, ArticleDetailViewModel, NoError>!
+    
     override init() {
         super.init()
         
@@ -42,6 +44,13 @@ class LeaderboardsViewModel: BaseViewModel, ArticleApi {
         
         self.fetchDataAction = Action<Int, [JSON], RequestError>.init(execute: { (val) -> SignalProducer<[JSON], RequestError> in
             return self.fetchDataProducer()
+        })
+        
+        self.clickAritlceAction = Action<IndexPath, ArticleDetailViewModel, NoError>
+            .init(execute: { (indexPath) -> SignalProducer<ArticleDetailViewModel, NoError> in
+                let articleID: String = self.currentData[indexPath.row]["aid"].stringValue
+                let model: ArticleDetailViewModel = ArticleDetailViewModel(articleID: articleID)
+                return SignalProducer.init(value: model)
         })
     }
     

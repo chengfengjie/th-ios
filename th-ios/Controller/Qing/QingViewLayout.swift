@@ -619,8 +619,8 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
         return self.makeContentTextNode()
     }()
     
-    lazy var sourceAvatarNode: ASImageNode = {
-        return self.makeSourceAvatarNode()
+    lazy var sourceAvatarNode: ASNetworkImageNode = {
+        return self.makeAndAddNetworkImageNode()
     }()
     
     lazy var sourceTextNode: ASTextNode = {
@@ -635,8 +635,10 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
         return self.makeViewCountTextNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON?) {
         super.init()
+        
+        let data: JSON = dataJSON == nil ? JSON.emptyJSON : dataJSON!
         
         self.selectionStyle = .none
         
@@ -644,21 +646,28 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
         
         self.sectionTitleTextNode.attributedText = "今日热议".withTextColor(UIColor.pink)
         
-        self.titleTextNode.attributedText = "只有足够努力,你才能吧毫无道理变成理所当然"
+        self.titleTextNode.attributedText = data["subject"].stringValue
             .withFont(Font.boldSystemFont(ofSize: 16))
             .withTextColor(Color.color3)
         
-        self.contentTextNode.attributedText = "只有足够努力,你才能吧毫无道理变成理所当然只有足够努力,你才能吧毫无道理变成理所当然只有足够努力,你才能吧毫无道理变成理所当然"
-            .withFont(Font.systemFont(ofSize: 11))
+        self.contentTextNode.attributedText = data["message"].stringValue
+            .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9)
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 4, alignment: .justified))
         
-        self.sourceAvatarNode.image = UIImage.init(named: "qing_grass_time")
+        self.sourceAvatarNode.url = URL.init(string: data["uimg"].stringValue)
+        self.sourceAvatarNode.style.preferredSize = CGSize.init(width: 18, height: 18)
+        self.sourceAvatarNode.defaultImage = UIImage.defaultImage
         
-        self.sourceTextNode.attributedText = "初恋在线".attributedString
+        self.sourceTextNode.attributedText = data["author"].stringValue
+            .withFont(Font.sys(size: 12))
+            .withTextColor(Color.color9)
         
         self.viewCountIconNode.image = UIImage.init(named: "qing_eye")
         
-        self.viewCountTextNode.attributedText = "123".attributedString
+        self.viewCountTextNode.attributedText = data["views"].stringValue
+            .withFont(Font.sys(size: 12))
+            .withTextColor(Color.color9)
         
     }
     
@@ -710,12 +719,12 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
     
 }
 
-protocol QingHotTodayCellNodeLayout {
+protocol QingHotTodayCellNodeLayout: NodeElementMaker {
     var segmentlineNode: ASDisplayNode { get }
     var sectionTitleTextNode: ASTextNode { get }
     var titleTextNode: ASTextNode { get }
     var contentTextNode: ASTextNode { get }
-    var sourceAvatarNode: ASImageNode { get }
+    var sourceAvatarNode: ASNetworkImageNode { get }
     var sourceTextNode: ASTextNode { get }
     var viewCountIconNode: ASImageNode { get }
     var viewCountTextNode: ASTextNode { get }

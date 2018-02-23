@@ -133,4 +133,31 @@ extension ArticleApi {
         ]
         return request(method: ThMethod.getAuthorArticlelist, data: params)
     }
+    
+    
+    /// 评论文章
+    ///
+    /// - Parameters:
+    ///   - articleID: 文章ID
+    ///   - commentText: 评论内容
+    /// - Returns: Signal
+    func requestCommentArticle(articleID: String, commentText: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleID,
+            "message": commentText
+        ]
+        return request(method: ThMethod.commentArticle, data: params)
+    }
+    
+    
+    /// 获取文章评论列表
+    ///
+    /// - Parameter articleID: 文章ID
+    /// - Returns: Signal
+    func requestArticleCommentlist(articleID: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleID
+        ]
+        return request(method: ThMethod.getArticleCommentlist, data: params)
+    }
 }

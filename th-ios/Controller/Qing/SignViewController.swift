@@ -52,9 +52,6 @@ class SignViewController: BaseViewController<SignViewModel>, SignViewLayout {
             .withParagraphStyle(ParaStyle.create(lineSpacing: 10, alignment: NSTextAlignment.left))
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     deinit {
         print("deinit")

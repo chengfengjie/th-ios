@@ -8,27 +8,7 @@
 
 import UIKit
 
-class QingTopicListViewController: BaseTableViewController<BaseViewModel> {
-    
-    enum TopicListType {
-        case news
-        case published
-        case attented
-        case viewhistory
-        
-        func getTitle() -> String {
-            switch self {
-            case .news:
-                return "最新话题"
-            case .published:
-                return "我发表的话题"
-            case .attented:
-                return "我参与的话题"
-            case .viewhistory:
-                return "最近浏览"
-            }
-        }
-    }
+class QingTopicListViewController: BaseTableViewController<QingTopicListViewModel> {
     
     private let listType: TopicListType = .news
     

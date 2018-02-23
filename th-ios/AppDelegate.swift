@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, ThApi {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     enum PushAnimateType {
         case cardSlide

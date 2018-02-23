@@ -66,14 +66,14 @@ class HomeViewController: BaseViewController<HomeViewModel>,
             var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: headlineIdentifer)
             if controller == nil {
                 let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
-                controller = HeadlineViewController(style: UITableViewStyle.grouped, viewModel: model)
+                controller = HeadlineViewController(viewModel: model)
             }
             return controller!
         } else {
             var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: categoryIdentifer)
             if controller == nil {
                 let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
-                controller = HomeCategoryViewController(style: UITableViewStyle.grouped, viewModel: model)
+                controller = HomeCategoryViewController(viewModel: model)
             }
             return controller!
         }

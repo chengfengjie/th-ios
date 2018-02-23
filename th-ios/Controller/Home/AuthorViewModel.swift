@@ -9,46 +9,78 @@
 import UIKit
 
 class AuthorViewModel: BaseViewModel, ArticleApi {
+
+    var authorInfo: MutableProperty<JSON>!
+    var articlelist: MutableProperty<[JSON]>!
     
-    @objc dynamic var authorData: Any? = nil
-    var authorDataJSON: JSON {
-        return self.authorData == nil ? JSON.init([:]) : self.authorData as! JSON
-    }
-    
-    var currentType: AuthorArticleType = .news {
-        didSet {
-            self.fetchData()
-        }
-    }
-    
-    @objc dynamic var articleData: [Any] = []
+    var fetchAurhorInfoAction: Action<(), JSON, RequestError>!
+    var fetchArticlelistAction: Action<(AuthorArticleType), [JSON], RequestError>!
     
     let authorID: String
     init(authorID: String) {
         self.authorID = authorID
         super.init()
         
-        self.requestAuthorInfo(authorID: self.authorID).observeResult { (result) in
-            switch result {
-            case let .success(data):
-                print(data)
-                self.authorData = data["data"]
-            case let .failure(err):
-                print(err.localizedDescription)
-            }
-        }
+        self.authorInfo = MutableProperty<JSON>(JSON.emptyJSON)
+        self.articlelist = MutableProperty<[JSON]>([])
         
-        self.fetchData()
+        self.fetchAurhorInfoAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+            return self.createFetchAuthorInfoSignalProducer()
+        })
+        
+        self.fetchArticlelistAction = Action<(AuthorArticleType), [JSON], RequestError>
+            .init(execute: { (type) -> SignalProducer<[JSON], RequestError> in
+            return self.createFetchArticlelistSignalProducer(type: type)
+        })
+        
     }
     
-    func fetchData() {
-        self.requestAuthorArticlelist(authorID: self.authorID, type: self.currentType).observeResult { (result) in
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        
+        self.fetchAurhorInfoAction.apply(()).start()
+        
+        self.fetchArticlelistAction.apply((.news)).start()
+    }
+    
+    private func createFetchAuthorInfoSignalProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.isRequest.value = true
+        requestAuthorInfo(authorID: self.authorID).observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(data):
                 print(data)
+                let info = data["data"]
+                self.authorInfo.value = info
+                observer.send(value: info)
+                observer.sendCompleted()
             case let .failure(err):
-                print(err.localizedDescription)
+                observer.send(error: err)
+                self.errorMsg.value = err.localizedDescription
             }
         }
+        return SignalProducer.init(signal)
+    }
+    
+    private func createFetchArticlelistSignalProducer(type: AuthorArticleType) -> SignalProducer<[JSON], RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
+        requestAuthorArticlelist(authorID: self.authorID, type: type).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(data):
+                print(data)
+                let list = data["data"]["aAlist"].arrayValue
+                self.articlelist.value = list
+                observer.send(value: list)
+                observer.sendCompleted()
+            case let .failure(err):
+                self.errorMsg.value = err.localizedDescription
+                observer.send(error: err)
+            }
+        }
+        return SignalProducer.init(signal)
     }
 }

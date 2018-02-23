@@ -49,6 +49,19 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
             self?.contentTableNode.reloadData()
         }
         
+        viewModel.flowUserAction.errors.observeValues { [weak self] (error) in
+            switch error {
+            case .forbidden:
+                self?.rootPresentLoginController()
+            default:
+                break
+            }
+        }
+        
+        viewModel.clickAuthorAction.values.observeValues { [weak self] (model) in
+            let controller = AuthorViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -72,21 +85,21 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
             }
         } else {
             return {
-                return AuthorListCellNode(dataJSON: self.viewModel.authorlist.value[indexPath.row])
+                let cellNode = AuthorListCellNode(dataJSON: self.viewModel.authorlist.value[indexPath.row])
+                cellNode.clickAddAction = self.viewModel.flowUserAction
+                return cellNode
             }
         }
     }
     
     func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if tableNode == self.menuTableNode {
-            self.viewModel.authorCatelist.value.forEach { $0.isSelected = false }
-            self.viewModel.authorCatelist.value[indexPath.row].isSelected = true
+            viewModel.authorCatelist.value.forEach { $0.isSelected = false }
+            viewModel.authorCatelist.value[indexPath.row].isSelected = true
             tableNode.reloadData()
-            self.viewModel.currentCateID = self.viewModel.authorCatelist.value[indexPath.row].catId
+            viewModel.currentCateID = self.viewModel.authorCatelist.value[indexPath.row].catId
         } else {
-//            self.pushViewController(viewController:
-//                AuthorViewController(authorID: self.viewModel.authorJSONlist[indexPath.row]["id"].stringValue)
-//            )
+            viewModel.clickAuthorAction.apply(indexPath).start()
         }
     }
     

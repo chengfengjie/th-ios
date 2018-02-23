@@ -25,12 +25,18 @@ class HomeCategoryViewController: BaseTableViewController<HomeArticleViewModel>,
     }
     
     override func bindViewModel() {
+        
         self.viewModel.adDataProperty.signal.observeValues { (_) in
             self.tableNodeHeader.carouse.start(with: self.viewModel.advUrllist)
         }
         
         self.viewModel.articleDataProperty.signal.observeValues { (data) in
             self.tableNode.reloadData()
+        }
+        
+        viewModel.clickArticleCellNodeAction.values.observeValues { [weak self] (model) in
+            let controller = ArticleDetailViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
         }
     }
     
@@ -65,7 +71,11 @@ class HomeCategoryViewController: BaseTableViewController<HomeArticleViewModel>,
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return self.viewModel.adDataProperty.value.isEmpty ? nil : self.tableNodeHeader.container
-    }    
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        viewModel.clickArticleCellNodeAction.apply(indexPath).start()
+    }
 
 }
 

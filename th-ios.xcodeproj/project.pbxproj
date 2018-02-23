@@ -129,6 +129,8 @@
 		5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */; };
 		5C397AB4201C3F9D00C0B898 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */; };
 		5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */; };
+		5C4ECE5C203EA24900C2D27F /* HUDUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */; };
+		5C4ECE5D203EA24900C2D27F /* HUDUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */; };
 		5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C55B4B1202D975A00B8DC39 /* CommonApi.swift */; };
 		5C55B4B3202D975A00B8DC39 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C55B4B1202D975A00B8DC39 /* CommonApi.swift */; };
 		5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59616F2016E28800ECD88B /* MineViewLayout.swift */; };
@@ -207,8 +209,8 @@
 		5C9853B6202DC34300421C79 /* AdvertisingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */; };
 		5C9853B7202DC34300421C79 /* AdvertisingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */; };
 		5CA7E2252022F9E0002ECFB9 /* WeexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E2242022F9E0002ECFB9 /* WeexViewController.swift */; };
-		5CA7E227202337B9002ECFB9 /* HomeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* HomeApi.swift */; };
-		5CA7E228202337B9002ECFB9 /* HomeApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* HomeApi.swift */; };
+		5CA7E227202337B9002ECFB9 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* ArticleApi.swift */; };
+		5CA7E228202337B9002ECFB9 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* ArticleApi.swift */; };
 		5CA7E22A202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
 		5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
 		5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E22F20235E60002ECFB9 /* HomeArticleViewModel.swift */; };
@@ -231,6 +233,20 @@
 		5CAA28A62039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */; };
 		5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */; };
 		5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */; };
+		5CAA28AB203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28AA203DA53F0059DCEA /* ArticleCommentListViewController.swift */; };
+		5CAA28AC203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28AA203DA53F0059DCEA /* ArticleCommentListViewController.swift */; };
+		5CAA28AE203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28AD203DA6450059DCEA /* ArticleCommentListViewModel.swift */; };
+		5CAA28AF203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28AD203DA6450059DCEA /* ArticleCommentListViewModel.swift */; };
+		5CAA28B1203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B0203DAAF50059DCEA /* ArticleCommentListViewLayout.swift */; };
+		5CAA28B2203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B0203DAAF50059DCEA /* ArticleCommentListViewLayout.swift */; };
+		5CAA28B4203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B3203E4CCC0059DCEA /* CommentArticleViewController.swift */; };
+		5CAA28B5203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B3203E4CCC0059DCEA /* CommentArticleViewController.swift */; };
+		5CAA28B7203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B6203E4CEF0059DCEA /* CommentArticleViewModel.swift */; };
+		5CAA28B8203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B6203E4CEF0059DCEA /* CommentArticleViewModel.swift */; };
+		5CAA28BA203E4D8E0059DCEA /* CommentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B9203E4D8E0059DCEA /* CommentLayout.swift */; };
+		5CAA28BB203E4D8E0059DCEA /* CommentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28B9203E4D8E0059DCEA /* CommentLayout.swift */; };
+		5CAA28BD203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28BC203E4EFF0059DCEA /* CommentArticleViewLayout.swift */; };
+		5CAA28BE203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28BC203E4EFF0059DCEA /* CommentArticleViewLayout.swift */; };
 		5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */; };
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
@@ -243,6 +259,8 @@
 		5CBE549720196B3F00594B9E /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE549620196B3F00594B9E /* Style.swift */; };
 		5CBE54A8201973C700594B9E /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE54A7201973C700594B9E /* Style.swift */; };
 		5CBE54AA2019780A00594B9E /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE54A92019780A00594B9E /* style.json */; };
+		5CDC3BA1203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */; };
+		5CDC3BA2203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */; };
 		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
 		5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
 		5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
@@ -310,6 +328,7 @@
 		5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorListViewLayout.swift; sourceTree = "<group>"; };
 		5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 		5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewLayout.swift; sourceTree = "<group>"; };
+		5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDUtils.swift; sourceTree = "<group>"; };
 		5C55B4B1202D975A00B8DC39 /* CommonApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonApi.swift; sourceTree = "<group>"; };
 		5C59616F2016E28800ECD88B /* MineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewLayout.swift; sourceTree = "<group>"; };
 		5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewTopicCellNodeLayout.swift; sourceTree = "<group>"; };
@@ -371,7 +390,7 @@
 		5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewLayout.swift; sourceTree = "<group>"; };
 		5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingCellNode.swift; sourceTree = "<group>"; };
 		5CA7E2242022F9E0002ECFB9 /* WeexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeexViewController.swift; sourceTree = "<group>"; };
-		5CA7E226202337B9002ECFB9 /* HomeApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeApi.swift; sourceTree = "<group>"; };
+		5CA7E226202337B9002ECFB9 /* ArticleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleApi.swift; sourceTree = "<group>"; };
 		5CA7E229202337F6002ECFB9 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		5CA7E22F20235E60002ECFB9 /* HomeArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArticleViewModel.swift; sourceTree = "<group>"; };
 		5CAA288F2035C28C0059DCEA /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
@@ -383,6 +402,13 @@
 		5CAA28A12036E4CA0059DCEA /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		5CAA28A42039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCodeViewLayout.swift; sourceTree = "<group>"; };
 		5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCodeView.swift; sourceTree = "<group>"; };
+		5CAA28AA203DA53F0059DCEA /* ArticleCommentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCommentListViewController.swift; sourceTree = "<group>"; };
+		5CAA28AD203DA6450059DCEA /* ArticleCommentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCommentListViewModel.swift; sourceTree = "<group>"; };
+		5CAA28B0203DAAF50059DCEA /* ArticleCommentListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleCommentListViewLayout.swift; sourceTree = "<group>"; };
+		5CAA28B3203E4CCC0059DCEA /* CommentArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentArticleViewController.swift; sourceTree = "<group>"; };
+		5CAA28B6203E4CEF0059DCEA /* CommentArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentArticleViewModel.swift; sourceTree = "<group>"; };
+		5CAA28B9203E4D8E0059DCEA /* CommentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentLayout.swift; sourceTree = "<group>"; };
+		5CAA28BC203E4EFF0059DCEA /* CommentArticleViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentArticleViewLayout.swift; sourceTree = "<group>"; };
 		5CACA051201CB0F9003E3901 /* NoneContentArticleCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneContentArticleCellNode.swift; sourceTree = "<group>"; };
 		5CACA053201CB35F003E3901 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		5CACA055201CBFCA003E3901 /* UserListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListController.swift; sourceTree = "<group>"; };
@@ -397,6 +423,7 @@
 		5CBE549620196B3F00594B9E /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5CBE54A7201973C700594B9E /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5CBE54A92019780A00594B9E /* style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewModel.swift; sourceTree = "<group>"; };
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
 		5CDF461B20157B40002F7D8B /* STZHONGS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STZHONGS.ttf; sourceTree = "<group>"; };
@@ -505,7 +532,7 @@
 			children = (
 				5CA7E229202337F6002ECFB9 /* Method.swift */,
 				5C1E16D42022BC5500C23B77 /* ThApi.swift */,
-				5CA7E226202337B9002ECFB9 /* HomeApi.swift */,
+				5CA7E226202337B9002ECFB9 /* ArticleApi.swift */,
 				5C6408B82027F42400F95BE1 /* CityApi.swift */,
 				5C6408BE2028022700F95BE1 /* QingApi.swift */,
 				5C55B4B1202D975A00B8DC39 /* CommonApi.swift */,
@@ -521,6 +548,7 @@
 				5C0675DE200C915D0019A24D /* ThUtils.swift */,
 				5C927066200E3A7B00838C1D /* ColorUtils.swift */,
 				5C5F0B4320122071009BE6D4 /* FontUtils.swift */,
+				5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -591,6 +619,12 @@
 				5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */,
 				5C65415A2026F49C009EDDC2 /* ArticleDetailViewLyout.swift */,
 				5C65415D2026F4A9009EDDC2 /* ArticleDetailViewModel.swift */,
+				5CAA28AA203DA53F0059DCEA /* ArticleCommentListViewController.swift */,
+				5CAA28B0203DAAF50059DCEA /* ArticleCommentListViewLayout.swift */,
+				5CAA28AD203DA6450059DCEA /* ArticleCommentListViewModel.swift */,
+				5CAA28B3203E4CCC0059DCEA /* CommentArticleViewController.swift */,
+				5CAA28BC203E4EFF0059DCEA /* CommentArticleViewLayout.swift */,
+				5CAA28B6203E4CEF0059DCEA /* CommentArticleViewModel.swift */,
 				5CACA055201CBFCA003E3901 /* UserListController.swift */,
 				5CACA057201CC0D9003E3901 /* UserListViewLayout.swift */,
 			);
@@ -615,8 +649,8 @@
 			isa = PBXGroup;
 			children = (
 				5C2B7121200E1ABE005CE83F /* QingViewController.swift */,
-				5C6408C1202802BA00F95BE1 /* QingViewModel.swift */,
 				5CDF46192015774C002F7D8B /* QingViewLayout.swift */,
+				5C6408C1202802BA00F95BE1 /* QingViewModel.swift */,
 				5C94C36620201D820043D01F /* QingTopicListLayout.swift */,
 				5C94C35A201F0AF20043D01F /* QingModuleViewController.swift */,
 				5C94C35C201F0E2F0043D01F /* QingModuleViewLayout.swift */,
@@ -624,6 +658,7 @@
 				5C94C368202046640043D01F /* PublishTopicViewController.swift */,
 				5C94C3622020168C0043D01F /* QingTopicListViewController.swift */,
 				5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */,
+				5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */,
 				5C6D391A202C902C00696E16 /* TopicDetailViewController.swift */,
 				5CFD61F9203043C60099C104 /* SignViewController.swift */,
 				5C28E1CA20347CED00475727 /* SignViewLayout.swift */,
@@ -678,6 +713,7 @@
 				5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */,
 				5CFD61F62030191C0099C104 /* ReaderLayout.swift */,
 				5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */,
+				5CAA28B9203E4D8E0059DCEA /* CommentLayout.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1230,6 +1266,7 @@
 				5C6408CB2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */,
 				5C944599201D91AB00CCF082 /* SpecialTopicListLayout.swift in Sources */,
+				5CAA28BD203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */,
 				5C0F911020295C49000DF20E /* AuthorListViewModel.swift in Sources */,
 				5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
@@ -1249,10 +1286,13 @@
 				5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */,
 				5CFD61F72030191C0099C104 /* ReaderLayout.swift in Sources */,
 				5C28E1CB20347CED00475727 /* SignViewLayout.swift in Sources */,
+				5C4ECE5C203EA24900C2D27F /* HUDUtils.swift in Sources */,
 				5C0675E0200C915D0019A24D /* ThUtils.swift in Sources */,
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
 				5C6541582026F36E009EDDC2 /* SpecialTopicListViewModel.swift in Sources */,
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5CAA28B7203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */,
+				5CAA28BA203E4D8E0059DCEA /* CommentLayout.swift in Sources */,
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C62021FD1300C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C94633A2012E1DA00F185BA /* NavBarSearchItemProtocol.swift in Sources */,
@@ -1266,11 +1306,13 @@
 				5CACA054201CB35F003E3901 /* Home.swift in Sources */,
 				5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
+				5CAA28AE203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
 				5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
+				5CAA28AB203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */,
 				5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */,
 				5C6D391B202C902C00696E16 /* TopicDetailViewController.swift in Sources */,
 				5C0F911320299600000DF20E /* AuthorViewModel.swift in Sources */,
@@ -1294,6 +1336,7 @@
 				5C397AB4201C3F9D00C0B898 /* AuthorViewController.swift in Sources */,
 				5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */,
 				5CACA058201CC0D9003E3901 /* UserListViewLayout.swift in Sources */,
+				5CAA28B4203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */,
 				5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */,
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
@@ -1309,9 +1352,11 @@
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
 				5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */,
 				5C0675EA200C994B0019A24D /* BaseViewController.swift in Sources */,
+				5CDC3BA1203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */,
 				5C65415B2026F49C009EDDC2 /* ArticleDetailViewLyout.swift in Sources */,
 				5CAA289C203686F10059DCEA /* BaseViewModel.swift in Sources */,
 				5CAA28962035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift in Sources */,
+				5CAA28B1203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */,
 				5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */,
 				5C6408B92027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16CD2021FE0900C23B77 /* PrivateMessageViewLayout.swift in Sources */,
@@ -1327,7 +1372,7 @@
 				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
 				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
-				5CA7E227202337B9002ECFB9 /* HomeApi.swift in Sources */,
+				5CA7E227202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C94459B201DC92B00CCF082 /* TreeHoleViewLayout.swift in Sources */,
 				5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */,
 				5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */,
@@ -1347,6 +1392,7 @@
 				5C6408CC2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */,
 				5C1E167220216F5900C23B77 /* SpecialTopicListLayout.swift in Sources */,
+				5CAA28BE203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */,
 				5C0F911120295C49000DF20E /* AuthorListViewModel.swift in Sources */,
 				5C55B4B3202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23120235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
@@ -1366,10 +1412,13 @@
 				5C1E167D20216F5900C23B77 /* ThUtils.swift in Sources */,
 				5CFD61F82030191C0099C104 /* ReaderLayout.swift in Sources */,
 				5C28E1CC20347CED00475727 /* SignViewLayout.swift in Sources */,
+				5C4ECE5D203EA24900C2D27F /* HUDUtils.swift in Sources */,
 				5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */,
 				5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C6541592026F36E009EDDC2 /* SpecialTopicListViewModel.swift in Sources */,
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5CAA28B8203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */,
+				5CAA28BB203E4D8E0059DCEA /* CommentLayout.swift in Sources */,
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C1E168120216F5900C23B77 /* NavBarSearchItemProtocol.swift in Sources */,
@@ -1383,11 +1432,13 @@
 				5C1E168720216F5900C23B77 /* Home.swift in Sources */,
 				5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
+				5CAA28AF203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
 				5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
 				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
 				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
+				5CAA28AC203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */,
 				5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */,
 				5C6D391C202C902C00696E16 /* TopicDetailViewController.swift in Sources */,
 				5C0F911420299600000DF20E /* AuthorViewModel.swift in Sources */,
@@ -1411,6 +1462,7 @@
 				5C1E169920216F5900C23B77 /* HeadlineViewController.swift in Sources */,
 				5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */,
 				5C1E169A20216F5900C23B77 /* UserListViewLayout.swift in Sources */,
+				5CAA28B5203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */,
 				5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */,
 				5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
@@ -1426,9 +1478,11 @@
 				5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */,
 				5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */,
 				5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */,
+				5CDC3BA2203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */,
 				5C65415C2026F49C009EDDC2 /* ArticleDetailViewLyout.swift in Sources */,
 				5CAA289D203686F10059DCEA /* BaseViewModel.swift in Sources */,
 				5CAA28972035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift in Sources */,
+				5CAA28B2203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */,
 				5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */,
 				5C6408BA2027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */,
@@ -1444,7 +1498,7 @@
 				5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */,
 				5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */,
 				5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */,
-				5CA7E228202337B9002ECFB9 /* HomeApi.swift in Sources */,
+				5CA7E228202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */,
 				5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */,
 				5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */,

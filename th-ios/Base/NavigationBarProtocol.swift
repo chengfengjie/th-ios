@@ -62,10 +62,11 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
         return UIButton.init(type: UIButtonType.custom).then({ (item) in
             self.customeNavBar.navBarContent.addSubview(item)
             item.setImage(UIImage.init(named: iconName), for: UIControlState.normal)
-            item.imageEdgeInsets = UIEdgeInsets.init(top: 15, left: 20, bottom: 15, right: 10)
+            item.imageEdgeInsets = UIEdgeInsets.init(top: 12, left: 12, bottom:12, right: 12)
             item.snp.makeConstraints({ (make) in
-                make.left.top.bottom.equalTo(0)
-                make.width.equalTo(self.customeNavBar.navBarContent.snp.height)
+                make.left.equalTo(10)
+                make.centerY.equalTo(self.customeNavBar.navBarContent.snp.centerY)
+                make.width.height.equalTo(40)
             })
         })
     }
@@ -87,6 +88,26 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
                 make.width.equalTo(navBarContent.snp.height)
             })
         })
+    }
+    
+    
+    /// 创建导航栏右侧文本按钮
+    ///
+    /// - Parameter text: 文本
+    /// - Returns: 按钮
+    @discardableResult
+    func makeNavBarRightTextItem(text: String) -> UIButton {
+        let navBarContent: UIView = self.customeNavBar.navBarContent
+        return UIButton.init(type: .custom).then {
+            navBarContent.addSubview($0)
+            $0.setTitle(text, for: UIControlState.normal)
+            $0.titleLabel?.font = UIFont.sys(size: 14)
+            $0.setTitleColor(UIColor.color6, for: UIControlState.normal)
+            $0.snp.makeConstraints({ (make) in
+                make.top.bottom.equalTo(0)
+                make.right.equalTo(-20)
+            })
+        }
     }
     
     
@@ -202,7 +223,7 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
             contentBar.addSubview($0)
             $0.snp.makeConstraints({ (make) in
                 make.left.right.bottom.equalTo(0)
-                make.height.equalTo(1)
+                make.height.equalTo(CGFloat.pix1)
             })
         }
     }

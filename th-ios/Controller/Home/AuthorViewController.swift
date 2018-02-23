@@ -21,13 +21,26 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
         self.setNavigationBarTitle(title: "作者")
         
         self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.tableNode.view.separatorStyle = .none
+        
+        self.makeNavBarBottomline()
+        
+        self.bindViewModel()
     }
     
     override func bindViewModel() {
-//        self.viewModel.reactive.signal(forKeyPath: "authorData")
-//            .skipNil().observeValues { [weak self] (val) in
-//            self?.tableNode.reloadData()
-//        }
+        super.bindViewModel()
+        
+        changeHeader.clickAction = viewModel.fetchArticlelistAction
+        
+        viewModel.authorInfo.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadSections(IndexSet.init(integer: 0), with: .automatic)
+        }
+
+        viewModel.articlelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadSections(IndexSet.init(integer: 1), with: .automatic)
+        }
     }
 
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -39,7 +52,7 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
         case 0:
             return 2
         case 1:
-            return 19
+            return self.viewModel.articlelist.value.count
         default:
             return 0
         }
@@ -49,7 +62,7 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 return {
-                    return AuthorTopBasicInfo(dataJSON: self.viewModel.authorDataJSON)
+                    return AuthorTopBasicInfo(dataJSON: self.viewModel.authorInfo.value)
                 }
             } else if indexPath.row == 1 {
                 return {
@@ -58,7 +71,7 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
             }
         }
         return {
-            return AuthorArticleListCellNode()
+            return AuthorArticleListCellNode(dataJSON: self.viewModel.articlelist.value[indexPath.row])
         }
     }
     

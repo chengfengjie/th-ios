@@ -18,8 +18,8 @@ class RootViewController: BaseTabBarController<RootViewModel> {
         self.setViewControllers([
             HomeViewController(viewModel: self.viewModel.homeViewModel),
             SameCityMainViewController(viewModel: self.viewModel.sameCityMainViewModel),
-            QingViewController(style: .grouped, viewModel: self.viewModel.qingViewModel),
-            MineViewController(style: .grouped, viewModel: self.viewModel.mineViewModel)
+            QingViewController(viewModel: self.viewModel.qingViewModel),
+            MineViewController(viewModel: self.viewModel.mineViewModel)
             ], animated: false)
         
     }

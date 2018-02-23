@@ -32,24 +32,45 @@ class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItem
         self.tableNode.view.separatorStyle = .none
                 
         self.makeNavigationBarLeftChatItem()
+        
+        self.bindViewModel()
     }
     
     override func bindViewModel() {
-        self.tableNodeMneuBarHeader.items.forEach { (item) in
-            item.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
-                let controller = QingTopicListViewController.init(style: UITableViewStyle.grouped,
-                                                                  viewModel: BaseViewModel())
-                self?.pushViewController(viewController: controller)
-            })
+        super.bindViewModel()
+        
+        viewModel.qingIndexData.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
         }
         
-        self.viewModel.signInfoProperty.signal.observeValues { [weak self] (data) in
+        tableNodeBannerHeader.signButton.reactive.pressed = CocoaAction(viewModel.signAction)
+        viewModel.signAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SignViewController(viewModel: model))
+        }
+        
+        viewModel.signInfoProperty.signal.observeValues { [weak self] (data) in
             self?.tableNodeBannerHeader.updateData(dataJSON: data)
         }
         
-        self.tableNodeBannerHeader.signButton.reactive
-            .controlEvents(.touchUpInside)
-            .observeValues { [weak self] (sender) in
+        self.tableNodeMneuBarHeader.items.forEach { (item) in
+            item.reactive.controlEvents(.touchUpInside).observeValues({ (sender) in
+                guard let type = TopicListType(rawValue: sender.tag) else { return }
+                self.viewModel.topiclistAction.apply(type).start()
+            })
+        }
+        
+        viewModel.topiclistAction.values.observeValues { [weak self] (model) in
+            let controller = QingTopicListViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
+        }
+        
+        viewModel.topiclistAction.errors.observeValues { [weak self] (error) in
+            switch error {
+            case .forbidden:
+                self?.rootPresentLoginController()
+            default:
+                break
+            }
         }
     }
     
@@ -81,7 +102,7 @@ class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItem
             }
         case 1:
             return {
-                return QingHotTodayCellNode()
+                return QingHotTodayCellNode(dataJSON: self.viewModel.hotlist.first)
             }
         case 2:
             return {
