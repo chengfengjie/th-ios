@@ -38,12 +38,16 @@ enum ThMethod: String {
     
     /// 获取轻聊首页数据
     case getQingHomeData = "getForum"
+    /// 获取轻聊话题列表
+    case getQingTopiclist = "getForumType"
     /// 获取轻聊板块首页数据
     case getQingModuleData = "getForumCate"
     /// 获取轻聊模块也分类
     case getQingModuleCatelist = "getForumList"
     /// 获取轻聊板块的话题列表
     case getQingModuleTopiclist = "getForumCatelist"
+    /// 获取话题详细信息
+    case getTopicInfo = "getThreadInfo"
     /// 获取文章或者话题详情页面的广告
     case getArticleTopicAd = "getAd"
     /// 获取签到信息
@@ -52,4 +56,22 @@ enum ThMethod: String {
     case getMobileVerCode = "getMobileYzm"
     /// 手机登录
     case login = "getMobileLogin"
+    /// 获取个人资料
+    case getUserInfo = "getPerData"
+    /// 获取个人中心信息
+    case getUserCenterInfo = "getPerCenter"
+    /// 获取个人中心话题
+    case getUserCenterTopic = "getPerThread"
+    /// 修改个人资料
+    case updateUserInfo = "putPerData"
+    /// 修改用户头像
+    case updateUserAvatar = "modHeadImage"
+    /// 获取用户收藏的文章或者话题
+    case getFavoritelist = "getPerFavorite"
+    /// 获取用户评论过的话题或文章
+    case getUserCommentlist = "getPerComment"
+    /// 获取系统消息列表
+    case getSystemMessagelist = "getGroupPm"
+    /// 获取用户私信记录
+    case getUserMessagelist = "getLetterNote"
 }

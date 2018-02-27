@@ -93,7 +93,7 @@ class AuthorListViewModel: BaseViewModel, ArticleApi, UserApi {
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
             }
         }
         
@@ -114,7 +114,7 @@ class AuthorListViewModel: BaseViewModel, ArticleApi, UserApi {
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
             }
         }
         
@@ -132,10 +132,10 @@ class AuthorListViewModel: BaseViewModel, ArticleApi, UserApi {
                 print(data)
                 observer.send(value: data)
                 observer.sendCompleted()
-                self.successMsg.value = "关注成功"
+                self.okMessage.value = "关注成功"
             case let .failure(error):
                 observer.send(error: error)
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
             }
         }
         return SignalProducer.init(signal)

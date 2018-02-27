@@ -69,7 +69,7 @@ extension TopicListCellNodeLayout where Self: ASCellNode {
     func makeBottomline() -> ASDisplayNode {
         return ASDisplayNode().then {
             self.addSubnode($0)
-            $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 1)
+            $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: CGFloat.pix1)
             $0.backgroundColor = UIColor.lineColor
         }
     }
@@ -104,16 +104,28 @@ extension TopicListCellNodeLayout {
         return self.noneImageCellNodeLayoutSpec
     }
     
+    private var cateText: String {
+        if let attrText = self.categoryTextNode.attributedText {
+            return attrText.string
+        }
+        return ""
+    }
+    
     var noneImageCellNodeLayoutSpec: ASLayoutSpec {
+        var children: [ASLayoutElement] = [self.titleTextNode,
+                                           self.contentTextNode,
+                                           self.makeCellNodeBottomBarSpec(),
+                                           self.bottomline]
+        if !self.cateText.isEmpty {
+            children.insert(self.categoryTextNode, at: 0)
+        }
+
+        
         let contentSpec: ASStackLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                                                     spacing: 15,
                                                                     justifyContent: ASStackLayoutJustifyContent.start,
                                                                     alignItems: ASStackLayoutAlignItems.stretch,
-                                                                    children: [self.categoryTextNode,
-                                                                               self.titleTextNode,
-                                                                               self.contentTextNode,
-                                                                               self.makeCellNodeBottomBarSpec(),
-                                                                               self.bottomline])
+                                                                    children: children)
         let contentInsetSpec: ASInsetLayoutSpec = ASInsetLayoutSpec.init(insets: self.contentInset,
                                                                          child: contentSpec)
         return contentInsetSpec
@@ -141,11 +153,16 @@ extension TopicListCellNodeLayout {
                                                       alignItems: ASStackLayoutAlignItems.stretch,
                                                       children: [titleContentSpec, image])
         
+        var children: [ASLayoutElement] = [imageContentSpec, self.makeCellNodeBottomBarSpec(), self.bottomline]
+        if !self.cateText.isEmpty {
+            children.insert(self.categoryTextNode, at: 0)
+        }
+        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.categoryTextNode, imageContentSpec, self.makeCellNodeBottomBarSpec(), self.bottomline])
+                                              children: children)
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
         return mainInsetSpec
     }
@@ -178,15 +195,19 @@ extension TopicListCellNodeLayout {
                                                alignItems: ASStackLayoutAlignItems.stretch,
                                                children: [image1, rightImageSpec])
         
+        var children: [ASLayoutElement] = [self.titleTextNode,
+                                           self.contentTextNode,
+                                           imageSpec,
+                                           self.makeCellNodeBottomBarSpec(), self.bottomline]
+        if !self.cateText.isEmpty {
+            children.insert(self.categoryTextNode, at: 0)
+        }
+        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.categoryTextNode,
-                                                         self.titleTextNode,
-                                                         self.contentTextNode,
-                                                         imageSpec,
-                                                         self.makeCellNodeBottomBarSpec(), self.bottomline])
+                                              children: children)
         
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: self.contentInset, child: mainSpec)
         

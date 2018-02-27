@@ -49,13 +49,13 @@ class AuthorizeInputCodeViewModel: BaseViewModel, UserApi {
                 UserModel.current.userID.value = userJSON["sUserid"].stringValue
                 UserModel.current.userName.value = userJSON["sUsername"].stringValue
                 UserModel.current.isLogin.value = true
-                self.successMsg.value = "登录成功"
+                self.okMessage.value = "登录成功"
                 observer.send(value: data)
                 observer.sendCompleted()
             case let .failure(error):
                 print(error)
                 observer.send(error: error)
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
             }
         }
         return SignalProducer.init(signal)

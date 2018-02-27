@@ -638,7 +638,7 @@ class QingHotTodayCellNode: ASCellNode, QingHotTodayCellNodeLayout {
     init(dataJSON: JSON?) {
         super.init()
         
-        let data: JSON = dataJSON == nil ? JSON.emptyJSON : dataJSON!
+        let data: JSON = dataJSON == nil ? JSON.empty : dataJSON!
         
         self.selectionStyle = .none
         

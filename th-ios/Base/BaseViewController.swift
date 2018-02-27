@@ -49,6 +49,7 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     }
     
     func bindViewModel() {
+        
         viewModel.isRequest.signal.observeValues { [weak self] (isRequest) in
             if isRequest {
                 self?.hud.show(animated: true)
@@ -56,14 +57,22 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
                 self?.hud.hide(animated: true)
             }
         }
-        viewModel.errorMsg.signal.observeValues { [weak self] (errMsg) in
-            if !errMsg.isEmpty {
-                self?.errorHUD.label.text = errMsg
+                
+        viewModel.requestError.signal.observeValues { [weak self] (error) in
+            guard let err = error else {
+                return
+            }
+            switch err {
+            case .forbidden:
+                self?.rootPresentLoginController()
+            default:
+                self?.errorHUD.label.text = err.localizedDescription
                 self?.errorHUD.show(animated: true)
                 self?.errorHUD.hide(animated: true, afterDelay: 1.0)
             }
         }
-        viewModel.successMsg.signal.observeValues { (successMsg) in
+        
+        viewModel.okMessage.signal.observeValues { (successMsg) in
             if !successMsg.isEmpty {
                 MBProgressHUD.showSuccessHUD(text: successMsg)
             }

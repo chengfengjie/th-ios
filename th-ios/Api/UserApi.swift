@@ -48,4 +48,86 @@ extension UserApi {
         ]
         return self.request(method: ThMethod.followUser, data: params)
     }
+
+    /// 获取个人信息
+    ///
+    /// - Returns: Signal
+    func requestUserInfo() -> Signal<JSON, RequestError> {
+        return request(method: ThMethod.getUserInfo)
+    }
+    
+    
+    /// 获取个人中心个个人信息
+    ///
+    /// - Returns: Signal
+    func requestUserCenterInfo() -> Signal<JSON, RequestError> {
+        return request(method: ThMethod.getUserCenterInfo)
+    }
+    
+    
+    /// 获取个人中心话题
+    ///
+    /// - Returns: Signal
+    func requestUserCenterTopic() -> Signal<JSON, RequestError> {
+        return request(method: ThMethod.getUserCenterTopic)
+    }
+    
+    
+    /// 更新个人信息
+    ///
+    /// - Parameters:
+    ///   - nickName: 昵称
+    ///   - province: 省份
+    ///   - city: 城市
+    ///   - bio: 个人简介
+    /// - Returns: Signal
+    func requestUpdateUserInfo(nickName: String,
+                               province: String,
+                               city: String,
+                               bio: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "nickname": nickName,
+            "resideprovince": province,
+            "residecity": city,
+            "bio": bio
+        ]
+        return request(method: .updateUserInfo, data: params)
+    }
+    
+    
+    /// 获取用户关注的话题或者文章
+    ///
+    /// - Parameter type: 类型 0 话题  1 文章
+    /// - Returns: Signal
+    func requestUserFavoritelist(type: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "idtype": type
+        ]
+        return request(method: .getFavoritelist, data: params)
+    }
+    
+    /// 获取用户评论过的文章或者话题
+    ///
+    /// - Parameter type: 类型 0 话题  1 文章
+    /// - Returns: Signal
+    func requestUserCommentlist(type: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "type": type
+        ]
+        return request(method: ThMethod.getUserCommentlist, data: params)
+    }
+    
+    /// 获取系统消息列表
+    ///
+    /// - Returns: Signal
+    func requestSystemMessagelist() -> Signal<JSON, RequestError> {
+        return request(method: ThMethod.getSystemMessagelist)
+    }
+    
+    /// 获取用户私信
+    ///
+    /// - Returns: Signal
+    func requestUserMessagelist() -> Signal<JSON, RequestError> {
+        return request(method: ThMethod.getUserMessagelist)
+    }
 }

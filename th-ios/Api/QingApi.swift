@@ -73,4 +73,28 @@ extension QingApi {
     func requestSignInfo() -> Signal<JSON, RequestError> {
         return self.request(method: ThMethod.getSignInfo)
     }
+    
+    
+    /// 获取话题列表
+    ///
+    /// - Parameter type: 0： 最新  1： 我写的  2：我参与的
+    /// - Returns: signal
+    func requestQingTopiclist(type: Int, page: Int) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "typeid": type.description,
+            "page": page.description
+        ]
+        return request(method: ThMethod.getQingTopiclist, data: params)
+    }
+    
+    /// 获取话题详细信息
+    ///
+    /// - Parameter tid: 话题ID
+    /// - Returns: signal
+    func requestQingTopicInfo(tid: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "tid": tid
+        ]
+        return request(method: ThMethod.getTopicInfo, data: params)
+    }
 }

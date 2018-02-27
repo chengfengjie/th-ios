@@ -6,7 +6,7 @@
 //  Copyright © 2018年 wincode.com. All rights reserved.
 //
 
-class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
+class MineCollectCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
 
     lazy var bottomline: ASDisplayNode = {
         return self.makeBottomline()
@@ -38,22 +38,25 @@ class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
         return self.makeAndAddButtonNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         self.bottomline.backgroundColor = UIColor.lineColor
         
         self.selectionStyle = .none
         self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
         
-        self.categoryTextNode.setText(text: "种草时间", style: self.categoryStyle)
-        self.titleTextNode.setText(text: "我的把实打实会话体验", style: self.titleTextStyle)
-        self.contentTextNode.setText(text: "我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验", style: self.contentTextStyle)
+        self.categoryTextNode.setText(text: "", style: self.categoryStyle)
+        self.titleTextNode.setText(text: dataJSON["title"].stringValue, style: self.titleTextStyle)
+        self.contentTextNode.setText(text: dataJSON["summary"].stringValue, style: self.contentTextStyle)
         self.shareIconNode.image = UIImage.init(named: "share_pink")
+
         self.shareTextNode.setText(text: "分享", style: self.shareTextStyle)
-        self.imageNodeArray = self.makeImageNodes(imageUrlArray: [
-            URL.init(string: "http://d.hiphotos.baidu.com/image/h%3D300/sign=9af99ce45efbb2fb2b2b5e127f4b2043/a044ad345982b2b713b5ad7d3aadcbef76099b65.jpg"),
-            URL.init(string: "http://e.hiphotos.baidu.com/image/h%3D300/sign=8d3a9ea62c7f9e2f6f351b082f31e962/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg"),
-            URL.init(string: "http://img1.imgtn.bdimg.com/it/u=1167088769,847502684&fm=200&gp=0.jpg")])
+        
+        let picUrls: [URL?] = dataJSON["pic"].arrayValue.map { (pic) -> URL? in
+            return URL.init(string: pic.stringValue)
+        }
+        
+        self.imageNodeArray = self.makeImageNodes(imageUrlArray: picUrls)
         
         self.deleteButtonNode.setAttributedTitle(" ·  删除".withTextColor(Color.hexColor(hex: "95ccd7")), for: UIControlState.normal)
     }
@@ -81,7 +84,7 @@ class MineCollectTopicCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
 protocol MineCollectTopicCellNodeLayout: TopicListCellNodeLayout {
     var deleteButtonNode: ASButtonNode { get }
 }
-extension MineCollectTopicCellNodeLayout where Self: MineCollectTopicCellNode {
+extension MineCollectTopicCellNodeLayout where Self: MineCollectCellNode {
     func makeDeleteButtonNode() -> ASButtonNode {
         return ASButtonNode.init().then({
             self.addSubnode($0)

@@ -7,11 +7,30 @@
 //
 
 import UIKit
+import ReactiveSwift
 
-class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItemConfig, MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderLayout {
+class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItemConfig,
+MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
     
-    lazy var topicArticleSwitchHeader: UIView = {
-        return self.makeTopicArticleSwitchHeader()
+    lazy var favoriteSwitchHeader: TopicArticleSwitchHeader = {
+        return TopicArticleSwitchHeader().then {
+            $0.tag = 100
+            $0.action = self
+        }
+    }()
+    
+    lazy var commentSwitchHeader: TopicArticleSwitchHeader = {
+        return TopicArticleSwitchHeader().then {
+            $0.tag = 101
+            $0.action = self
+        }
+    }()
+    
+    lazy var historySwitchHeader: TopicArticleSwitchHeader = {
+        return TopicArticleSwitchHeader().then {
+            $0.tag = 102
+            $0.action = self
+        }
     }()
     
     lazy var tableNodeHeader: MineViewTableNodeHeader = {
@@ -41,21 +60,65 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
         
         self.tableNode.view.separatorStyle = .none
         
-        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 0, countText: "13")
-        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 1, countText: "1")
-        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 2, countText: "231")
-        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 3, countText: "16")
+        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 0, countText: "0")
+        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 1, countText: "0")
+        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 2, countText: "0")
+        self.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 3, countText: "0")
         
-        self.topMessageItem.addTarget(self, action: #selector(self.pushToMessageController), for: .touchUpInside)
-        self.topSettingItem.addTarget(self, action: #selector(self.pushToSettingController), for: .touchUpInside)
+        self.bindViewModel()
     }
     
-    @objc func pushToSettingController() {
-//        self.pushViewController(viewController: SettingViewController(style: .grouped))
-    }
-    
-    @objc func pushToMessageController() {
-//        self.pushViewController(viewController: MessageListViewController(style: .plain))
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        self.topSettingItem.reactive.pressed = CocoaAction(viewModel.settingItemAction)
+        viewModel.settingItemAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SettingViewController(viewModel: model))
+        }
+     
+        self.topMessageItem.reactive.pressed = CocoaAction(viewModel.messageItemAction)
+        viewModel.messageItemAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: MessageListViewController(viewModel: model))
+        }
+        
+        tableNodeHeader.userAvatar.yy_setImage(
+            with: viewModel.userAvatar.value,
+            placeholder: UIImage.defaultImage)
+        viewModel.userAvatar.signal.observeValues { [weak self] (url) in
+            self?.tableNodeHeader.userAvatar.yy_setImage(with: url, placeholder: UIImage.defaultImage)
+        }
+        
+        tableNodeHeader.addressLabel.reactive.text <~ viewModel.addressText
+        tableNodeHeader.nickNameLabel.reactive.text <~ viewModel.nickNameText
+        tableNodeHeader.infoLabel.reactive.text <~ viewModel.infoText
+        
+        viewModel.topicTotalText.signal.observeValues { [weak self] (text) in
+            self?.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 0, countText: text)
+        }
+        viewModel.favoriteTotalText.signal.observeValues { [weak self] (text) in
+            self?.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 1, countText: text)
+        }
+        viewModel.commentTotalText.signal.observeValues { [weak self] (text) in
+            self?.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 2, countText: text)
+        }
+        viewModel.historyTotalText.signal.observeValues { [weak self] (text) in
+            self?.tableNodeHeader.bottomBar.setItemCountText(itemIndex: 3, countText: text)
+        }
+        
+        tableNodeHeader.actionButton.reactive.pressed = CocoaAction(viewModel.userInfoAction)
+        viewModel.userInfoAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: EditUserInfoViewController(viewModel: model))
+        }
+        
+        viewModel.userTopiclist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.userFavoriteTopiclist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.userFavoriteArticlelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
     }
     
     @objc func handleClickHeaderMenuBarItem(sender: UIButton) {
@@ -74,8 +137,18 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
         self.tableNode.reloadData()
     }
     
-    @objc func handleTopicArticleSwitchItemClick(itemIndex: NSNumber) {
-        print(itemIndex)
+    func switchDidChange(buttonIndex: Int, header: TopicArticleSwitchHeader) {
+        let type: UserAboutType = buttonIndex == 0 ? UserAboutType.topic : UserAboutType.article
+        switch header.tag {
+        case 100:
+            self.viewModel.currentFavoriteType.value = type
+        case 101:
+            self.viewModel.currentCommentType.value = type
+        case 102:
+            self.viewModel.currentHistoryType.value = type
+        default:
+            break
+        }
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -90,9 +163,17 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         switch self.tableNodeHeader.selectItemType {
         case .topic:
-            return 10
+            return viewModel.userTopiclist.value.count
         case .collect:
-            return section == 0 ? 0 : 10
+            if section == 0 {
+                return 0
+            }
+            switch viewModel.currentFavoriteType.value {
+            case .topic:
+                return viewModel.userFavoriteTopiclist.value.count
+            case .article:
+                return viewModel.userFavoriteArticlelist.value.count
+            }
         case .comment:
             return section == 0 ? 0 : 10
         case .viewhistory:
@@ -104,11 +185,16 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return {
-                return MineViewTopicCellNode()
+                return MineViewTopicCellNode(dataJSON: self.viewModel.userTopiclist.value[indexPath.row])
             }
         case .collect:
             return {
-                return MineCollectTopicCellNode()
+                switch self.viewModel.currentFavoriteType.value {
+                case .article:
+                    return MineCollectCellNode(dataJSON: self.viewModel.userFavoriteArticlelist.value[indexPath.row])
+                case .topic:
+                    return MineCollectCellNode(dataJSON: self.viewModel.userFavoriteTopiclist.value[indexPath.row])
+                }
             }
         case .comment:
             return {
@@ -126,7 +212,7 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
         case .topic:
             return self.tableNodeHeaderBounds.height
         case .comment, .collect, .viewhistory:
-            return section == 0 ? self.tableNodeHeaderBounds.height : self.topicArticleSwitchHeaderSize.height
+            return section == 0 ? self.tableNodeHeaderBounds.height : 50
         }
     }
     
@@ -134,9 +220,12 @@ class MineViewController: BaseTableViewController<MineViewModel>, BaseTabBarItem
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return self.tableNodeHeader.containerBox
-        case .comment, .collect, .viewhistory:
-            return section == 0 ? self.tableNodeHeader.containerBox : self.topicArticleSwitchHeader
-
+        case .collect:
+            return section == 0 ? self.tableNodeHeader.containerBox : self.favoriteSwitchHeader
+        case .comment:
+            return section == 0 ? self.tableNodeHeader.containerBox : self.commentSwitchHeader
+        case .viewhistory:
+            return section == 0 ? self.tableNodeHeader.containerBox : self.historySwitchHeader
         }
     }
 }

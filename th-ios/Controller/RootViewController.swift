@@ -22,11 +22,19 @@ class RootViewController: BaseTabBarController<RootViewModel> {
             MineViewController(viewModel: self.viewModel.mineViewModel)
             ], animated: false)
         
+        self.viewModel.currentUser.isLogin.signal.observeValues { [weak self] (isLogin) in
+            self?.selectedViewController = self?.viewControllers?.first
+            self?.baseTabBar?.imageLabelTuple.forEach({ (item) in
+                item.0.isHighlighted = false
+                item.1.isHighlighted = false
+            })
+            self?.baseTabBar?.imageLabelTuple.first?.0.isHighlighted = true
+            self?.baseTabBar?.imageLabelTuple.first?.1.isHighlighted = true
+        }
+        
     }
 
     private func setupSubviews() {
-        
-        /// 配置底部tabbar 高度在iPhoneX的高度是83 其他设备49
         baseTabBar = BaseTabBar.init(frame: CGRect.zero).then {
             view.addSubview($0)
             $0.snp.makeConstraints({ (make) in
@@ -55,20 +63,14 @@ class RootViewController: BaseTabBarController<RootViewModel> {
     
     override func setViewControllers(_ viewControllers: [UIViewController]?,
                                      animated: Bool) {
-        
         super.setViewControllers(viewControllers,
                                  animated: animated)
-        
         var items: [BaseTabBarItemConfigModel] = []
-        
         viewControllers?.forEach({ (item) in
             if item is BaseTabBarItemConfig {
                 items.append((item as! BaseTabBarItemConfig).itemConfigModel)
-            } else {
-                items.append(BaseTabBarItemConfigModel.init(iconName: "", selectedIconName: "", title: ""))
             }
         })
-        
         baseTabBar?.updateSubViews(items: items)
     }
 }

@@ -34,7 +34,7 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
         return self.makeAndAddTextNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.bottomline.backgroundColor = UIColor.lineColor
@@ -42,15 +42,17 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
         self.selectionStyle = .none
         self.shareIconNode.style.preferredSize = CGSize.init(width: 15, height: 15)
         
-        self.categoryTextNode.setText(text: "种草时间", style: self.categoryStyle)
-        self.titleTextNode.setText(text: "我的把实打实会话体验", style: self.titleTextStyle)
-        self.contentTextNode.setText(text: "我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验我的把实打实会话体验", style: self.contentTextStyle)
+        self.categoryTextNode.setText(text: dataJSON["fname"].stringValue, style: self.categoryStyle)
+        self.titleTextNode.setText(text: dataJSON["subject"].stringValue, style: self.titleTextStyle)
+        self.contentTextNode.setText(text: dataJSON["message"].stringValue, style: self.contentTextStyle)
         self.shareIconNode.image = UIImage.init(named: "share_pink")
         self.shareTextNode.setText(text: "分享", style: self.shareTextStyle)
-        self.imageNodeArray = self.makeImageNodes(imageUrlArray: [
-            URL.init(string: "http://d.hiphotos.baidu.com/image/h%3D300/sign=9af99ce45efbb2fb2b2b5e127f4b2043/a044ad345982b2b713b5ad7d3aadcbef76099b65.jpg"),
-            URL.init(string: "http://e.hiphotos.baidu.com/image/h%3D300/sign=8d3a9ea62c7f9e2f6f351b082f31e962/500fd9f9d72a6059099ccd5a2334349b023bbae5.jpg"),
-            URL.init(string: "http://img1.imgtn.bdimg.com/it/u=1167088769,847502684&fm=200&gp=0.jpg")])
+        
+        let picUrls: [URL?] = dataJSON["pic"].arrayValue.map { (pic) -> URL? in
+            return URL.init(string: pic.stringValue)
+        }
+        
+        self.imageNodeArray = self.makeImageNodes(imageUrlArray: picUrls)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -72,4 +74,5 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
                                       children: [self.shareIconNode, self.shareTextNode])
     }
 }
+
 

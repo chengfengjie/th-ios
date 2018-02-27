@@ -21,7 +21,7 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
         self.authorID = authorID
         super.init()
         
-        self.authorInfo = MutableProperty<JSON>(JSON.emptyJSON)
+        self.authorInfo = MutableProperty<JSON>(JSON.empty)
         self.articlelist = MutableProperty<[JSON]>([])
         
         self.fetchAurhorInfoAction = Action<(), JSON, RequestError>
@@ -58,7 +58,7 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
             }
         }
         return SignalProducer.init(signal)
@@ -77,7 +77,7 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
                 observer.send(value: list)
                 observer.sendCompleted()
             case let .failure(err):
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
                 observer.send(error: err)
             }
         }

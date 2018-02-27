@@ -66,6 +66,14 @@ class UserModel: NSObject, NSCoding {
                 UserModel.saveCurrentUser()
         }
     }
+    
+    func clear() {
+        self.isLogin.value = false
+        self.avatar.value = nil
+        self.sid.value = ""
+        self.userID.value = ""
+        self.userName.value = ""
+    }
 
 }
 

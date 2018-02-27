@@ -8,11 +8,13 @@
 
 import Foundation
 
-@objc protocol TopicArticleSwitchHeaderLayout {
-    var topicArticleSwitchHeader: UIView { get }
-    @objc func handleTopicArticleSwitchItemClick(itemIndex: NSNumber)
+protocol TopicArticleSwitchHeaderAction: NSObjectProtocol {
+    func switchDidChange(buttonIndex: Int, header: TopicArticleSwitchHeader)
 }
-extension TopicArticleSwitchHeaderLayout {
+
+class TopicArticleSwitchHeader: BaseView {
+    
+    weak var action: TopicArticleSwitchHeaderAction? = nil
     
     var topicArticleSwitchHeaderSize: CGSize {
         return CGSize.init(width: UIScreen.main.bounds.width, height: 50)
@@ -22,11 +24,11 @@ extension TopicArticleSwitchHeaderLayout {
         return CGSize.init(width: 50, height: 35)
     }
     
-    func makeTopicArticleSwitchHeader() -> UIView {
-        let header: UIView = UIView()
+    override func setupSubViews() {
+        super.setupSubViews()
         
         let topicButton: UIButton = self.createSwitchItem(title: "话题").then {
-            header.addSubview($0)
+            self.addSubview($0)
             $0.isSelected = true
             $0.snp.makeConstraints({ (make) in
                 make.left.equalTo(20)
@@ -36,7 +38,7 @@ extension TopicArticleSwitchHeaderLayout {
         }
         
         let articleButton = self.createSwitchItem(title: "文章").then {
-            header.addSubview($0)
+            self.addSubview($0)
             $0.snp.makeConstraints({ (make) in
                 make.left.equalTo(topicButton.snp.right).offset(25)
                 make.bottom.equalTo(0)
@@ -45,7 +47,7 @@ extension TopicArticleSwitchHeaderLayout {
         }
         
         let bottomline = UIView().then {
-            header.addSubview($0)
+            self.addSubview($0)
             $0.backgroundColor = UIColor.pink
             $0.snp.makeConstraints({ (make) in
                 make.bottom.equalTo(0)
@@ -63,14 +65,9 @@ extension TopicArticleSwitchHeaderLayout {
             topicButton.isSelected = false
             self?.changeBottomLine(line: bottomline, item: event.value!, index: 1)
         }
-        return header
     }
     
     private func changeBottomLine(line: UIView, item: UIButton, index: Int) {
-//        self.performSelector(onMainThread: #selector(self.handleTopicArticleSwitchItemClick(itemIndex:)),
-//                             with: NSNumber.init(value: index),
-//                             waitUntilDone: true)
-        
         item.isSelected = true
         line.snp.remakeConstraints { (make) in
             make.bottom.equalTo(0)
@@ -81,6 +78,7 @@ extension TopicArticleSwitchHeaderLayout {
         UIView.animate(withDuration: 0.2) {
             line.superview?.layoutIfNeeded()
         }
+        self.action?.switchDidChange(buttonIndex: index, header: self)
     }
     
     private func createSwitchItem(title: String) -> UIButton {
@@ -91,5 +89,6 @@ extension TopicArticleSwitchHeaderLayout {
             $0.setTitleColor(UIColor.pink, for: UIControlState.selected)
         }
     }
+
     
 }

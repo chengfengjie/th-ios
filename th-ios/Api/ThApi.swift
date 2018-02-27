@@ -22,6 +22,7 @@ enum RequestError: Error {
     case netError
     case emptyData
     case server
+    case noError
     
     var localizedDescription: String {
         switch self {
@@ -37,6 +38,8 @@ enum RequestError: Error {
             return "无返回数据"
         case .server:
             return "服务器内部错误"
+        case .noError:
+            return ""
         }
     }
 }

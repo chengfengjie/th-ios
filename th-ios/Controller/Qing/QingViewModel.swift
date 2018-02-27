@@ -30,11 +30,13 @@ class QingViewModel: BaseViewModel, QingApi {
     
     var topiclistAction: Action<TopicListType, QingTopicListViewModel, RequestError>!
     
+    var topicModuleAction: Action<JSON, QingModuleViewModel, NoError>!
+    
     override init() {
         super.init()
         
-        self.qingIndexData = MutableProperty(JSON.emptyJSON)
-        self.signInfoProperty = MutableProperty(JSON.emptyJSON)
+        self.qingIndexData = MutableProperty(JSON.empty)
+        self.signInfoProperty = MutableProperty(JSON.empty)
         
         self.fetchQingIndexDataAction = Action<(), JSON, RequestError>
             .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
@@ -56,9 +58,17 @@ class QingViewModel: BaseViewModel, QingApi {
                 if self.currentUser.isLogin.value {
                     return SignalProducer.init(value: QingTopicListViewModel(type: type))
                 } else {
-                    return SignalProducer.init(error: RequestError.forbidden)
+                    self.requestError.value = RequestError.forbidden
+                    return SignalProducer.empty
                 }
             })
+        
+        self.topicModuleAction = Action<JSON, QingModuleViewModel, NoError>
+            .init(execute: { (data) -> SignalProducer<QingModuleViewModel, NoError> in
+                let fid: String = data["fid"].stringValue
+                let model: QingModuleViewModel = QingModuleViewModel(fid: fid)
+                return SignalProducer.init(value: model)
+        })
     }
     
     override func viewModelDidLoad() {
@@ -81,7 +91,7 @@ class QingViewModel: BaseViewModel, QingApi {
                 observer.sendCompleted()
             case let .failure(error):
                 observer.send(error: error)
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
             }
         }
         return SignalProducer.init(signal)
@@ -92,13 +102,12 @@ class QingViewModel: BaseViewModel, QingApi {
         self.requestSignInfo().observeResult { (result) in
             switch result {
             case let .success(data):
-                print("-----"+data.description)
                 let aData = data["data"]
                 self.signInfoProperty.value = aData
                 observer.send(value: aData)
                 observer.sendCompleted()
             case let .failure(error):
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
                 observer.send(error: error)
             }
         }

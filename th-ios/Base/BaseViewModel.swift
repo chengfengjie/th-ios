@@ -10,31 +10,32 @@ import UIKit
 
 class BaseViewModel: NSObject {
     
-    var isRequest: MutableProperty<Bool> = MutableProperty(false)
-    var errorMsg: MutableProperty<String> = MutableProperty("")
-    var successMsg: MutableProperty<String> = MutableProperty("")
+    var isRequest: MutableProperty<Bool>!
+    var requestError: MutableProperty<RequestError?>!
+    var okMessage: MutableProperty<String>!
+    
+    override init() {
+        super.init()
         
-    var currentUser: UserModel {
-        return UserModel.current
-    }
-    
-    func currentUserDidChange() {}
-    
-    var sid: String {
-        return self.currentUser.sid.value
-    }
-    
-    var loginInputPhoneViewModel: AuthorizeInputCellPhoneViewModel {
-        return AuthorizeInputCellPhoneViewModel()
+        self.isRequest = MutableProperty(false)
+        self.requestError = MutableProperty(RequestError.noError)
+        self.okMessage = MutableProperty("")
+
     }
     
     func viewModelDidLoad() {
         self.isRequest.value = false
-        self.errorMsg.value = ""
-        self.successMsg.value = ""
+        self.requestError.value = RequestError.noError
+        self.okMessage.value = ""
     }
-    
+}
 
-
+extension BaseViewModel {
+    var currentUser: UserModel {
+        return UserModel.current
+    }
+    var sid: String {
+        return self.currentUser.sid.value
+    }
 }
 

@@ -19,6 +19,11 @@ enum SelectHeaderMenuBarItemType {
 
 class MineViewTableNodeHeader: NSObject {
     var containerBox: UIView
+    var userAvatar: UIImageView!
+    var addressLabel: UILabel!
+    var nickNameLabel: UILabel!
+    var infoLabel: UILabel!
+    var actionButton: UIButton!
     var bottomBar: MineTableNodeHeaderMenuBar
     var selectItemType: SelectHeaderMenuBarItemType = .topic
     init(container: UIView, bar: MineTableNodeHeaderMenuBar) {
@@ -47,7 +52,6 @@ extension MineViewTableNodeHeaderLayout where Self: MineViewController {
             containerBox.addSubview($0)
             $0.layer.cornerRadius = 50
             $0.layer.masksToBounds = true
-            $0.yy_imageURL = URL.init(string: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3782995800,4211953052&fm=27&gp=0.jpg")
             $0.snp.makeConstraints({ (make) in
                 make.top.equalTo(0)
                 make.centerX.equalTo(containerBox.snp.centerX)
@@ -101,7 +105,7 @@ extension MineViewTableNodeHeaderLayout where Self: MineViewController {
         
         let infoLabel: UILabel = UILabel().then {
             containerBox.addSubview($0)
-            $0.text = "198 粉丝 | 9987关注"
+            $0.text = "0粉丝 | 0关注"
             $0.textColor = Color.color6
             $0.font = UIFont.systemFont(ofSize: 13)
             $0.snp.makeConstraints({ (make) in
@@ -122,7 +126,7 @@ extension MineViewTableNodeHeaderLayout where Self: MineViewController {
         
         UIView().do {
             containerBox.addSubview($0)
-            $0.backgroundColor = Color.lineColor
+            $0.backgroundColor = Color.defaultBGColor
             $0.snp.makeConstraints({ (make) in
                 make.left.right.equalTo(0)
                 make.top.equalTo(menuBar.snp.bottom)
@@ -130,7 +134,21 @@ extension MineViewTableNodeHeaderLayout where Self: MineViewController {
             })
         }
         
-        return MineViewTableNodeHeader.init(container: containerBox, bar: menuBar)
+        let actionButton: UIButton = UIButton.init(type: .custom).then {
+            containerBox.addSubview($0)
+            $0.snp.makeConstraints({ (make) in
+                make.top.left.right.equalTo(0)
+                make.bottom.equalTo(-90)
+            })
+        }
+        
+        return MineViewTableNodeHeader.init(container: containerBox, bar: menuBar).then {
+            $0.userAvatar = userAvatar
+            $0.addressLabel = addressLabel
+            $0.nickNameLabel = nickNameLabel
+            $0.infoLabel = infoLabel
+            $0.actionButton = actionButton
+        }
     }
 }
 
@@ -175,7 +193,7 @@ class MineTableNodeHeaderMenuBar: BaseView {
             $0.backgroundColor = Color.lineColor
             $0.snp.makeConstraints({ (make) in
                 make.left.right.top.equalTo(0)
-                make.height.equalTo(1)
+                make.height.equalTo(CGFloat.pix1)
             })
         }
         

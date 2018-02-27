@@ -90,5 +90,9 @@ class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
 }
 

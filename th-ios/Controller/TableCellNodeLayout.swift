@@ -39,7 +39,7 @@ class SwitchControlCellNode: ASCellNode, NodeElementMaker {
         self.backgroundColor = UIColor.white
         
         self.bottomlineNode.backgroundColor = bottomline ? UIColor.lineColor : UIColor.clear
-        self.bottomlineNode.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 1)
+        self.bottomlineNode.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: CGFloat.pix1)
         
         self.titleTextNode.attributedText = title
             .withFont(Font.systemFont(ofSize: 14))
@@ -99,7 +99,7 @@ class IndicatorCellNode: ASCellNode, NodeElementMaker {
         self.indicatorImageNode.alpha = 0.7
         
         self.bottomlineNode.backgroundColor = bottomline ? UIColor.lineColor : UIColor.clear
-        self.bottomlineNode.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 1)
+        self.bottomlineNode.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: CGFloat.pix1)
 
         self.textNode.attributedText = title
             .withFont(Font.systemFont(ofSize: 14))

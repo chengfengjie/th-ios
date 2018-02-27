@@ -8,12 +8,8 @@
 
 import UIKit
 
-class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewControllerLayout, TopicArticleSwitchHeaderLayout {
+class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewControllerLayout {
     
-    lazy var topicArticleSwitchHeader: UIView = {
-        return self.makeTopicArticleSwitchHeader()
-    }()
-
     lazy var searchControl: SearchControl = {
         return self.makeSearchControl()
     }()
@@ -45,11 +41,11 @@ class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewCo
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.topicArticleSwitchHeaderSize.height
+        return 50
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.topicArticleSwitchHeader
+        return nil
     }
 }
 

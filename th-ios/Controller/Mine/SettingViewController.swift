@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingViewController: BaseTableViewController<BaseViewModel>, SettingViewLayout {
+class SettingViewController: BaseTableViewController<SettingViewModel>, SettingViewLayout {
     
     lazy var logoutFooter: (footer: UIView, button: UIButton) = {
         return self.makeLogoutTableFooter()
@@ -24,6 +24,17 @@ class SettingViewController: BaseTableViewController<BaseViewModel>, SettingView
         self.tableNode.backgroundColor = UIColor.hexColor(hex: "efefef")
         
         self.tableNode.view.separatorStyle = .none
+    
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        self.logoutFooter.button.reactive.pressed = CocoaAction(viewModel.logoutAction)
+        self.viewModel.logoutAction.values.observeValues { [weak self] (_) in
+            self?.popViewController(animated: false)
+        }
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -81,7 +92,7 @@ class SettingViewController: BaseTableViewController<BaseViewModel>, SettingView
         return section == 0 ? 0.1 : self.logoutFooterHeight
     }
     
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return section == 0 ? nil : self.logoutFooter.footer
     }
 }

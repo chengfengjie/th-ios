@@ -47,12 +47,12 @@ class CommentArticleViewModel: BaseViewModel, ArticleApi {
                 self.isRequest.value = false
                 switch result {
                 case let .success(data):
-                    self.successMsg.value = "评论成功"
+                    self.okMessage.value = "评论成功"
                     observer.send(value: data["data"])
                     observer.sendCompleted()
                 case let .failure(error):
                     observer.send(error: error)
-                    self.errorMsg.value = error.localizedDescription
+                    self.requestError.value = error
                 }
         }
         return SignalProducer.init(signal)

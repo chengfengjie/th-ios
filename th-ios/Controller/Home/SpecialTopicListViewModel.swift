@@ -41,7 +41,7 @@ class SpecialTopicListViewModel: BaseViewModel, ArticleApi{
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
             }
         }
         return SignalProducer.init(signal)

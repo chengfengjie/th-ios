@@ -78,7 +78,7 @@ class LeaderboardsViewModel: BaseViewModel, ArticleApi {
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.errorMsg.value = err.localizedDescription
+                self.requestError.value = err
             }
         }
         return SignalProducer<[JSON], RequestError>.init(signal)

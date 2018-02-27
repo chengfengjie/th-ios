@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopicDetailViewController: BaseViewController<BaseViewModel> {
+class TopicDetailViewController: BaseViewController<TopicDetailViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

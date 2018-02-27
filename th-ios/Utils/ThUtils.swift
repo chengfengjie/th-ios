@@ -100,7 +100,7 @@ extension String {
 }
 
 extension JSON {
-    static var emptyJSON: JSON {
+    static var empty: JSON {
         return JSON.init([:])
     }
 }

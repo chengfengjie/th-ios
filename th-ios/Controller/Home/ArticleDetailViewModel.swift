@@ -30,8 +30,8 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
         self.articleID = "85"
         super.init()
     
-        self.articleData = MutableProperty<JSON>(JSON.emptyJSON)
-        self.adData = MutableProperty<JSON>(JSON.emptyJSON)
+        self.articleData = MutableProperty<JSON>(JSON.empty)
+        self.adData = MutableProperty<JSON>(JSON.empty)
         
         self.fetchArticleDataAction = Action<(), JSON, RequestError>
             .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
@@ -89,7 +89,7 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
                 observer.sendCompleted()
             case let .failure(error):
                 observer.send(error: error)
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
             }
         }
         return SignalProducer.init(signal)

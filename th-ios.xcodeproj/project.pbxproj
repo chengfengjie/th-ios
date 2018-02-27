@@ -108,8 +108,6 @@
 		5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */; };
 		5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */; };
 		5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */; };
-		5C1E16D22022BA0C00C23B77 /* UserInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */; };
-		5C1E16D32022BA1000C23B77 /* UserInfoSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */; };
 		5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
 		5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
 		5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
@@ -129,6 +127,18 @@
 		5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */; };
 		5C397AB4201C3F9D00C0B898 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */; };
 		5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */; };
+		5C45E54E204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */; };
+		5C45E54F204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */; };
+		5C45E551204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */; };
+		5C45E552204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */; };
+		5C45E5542042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5532042B9C90026FAB8 /* EditUserInfoViewController.swift */; };
+		5C45E5552042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5532042B9C90026FAB8 /* EditUserInfoViewController.swift */; };
+		5C45E5572042B9DD0026FAB8 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5562042B9DD0026FAB8 /* EditUserInfoViewModel.swift */; };
+		5C45E5582042B9DD0026FAB8 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5562042B9DD0026FAB8 /* EditUserInfoViewModel.swift */; };
+		5C45E55A2042BB660026FAB8 /* EditUserInfoViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5592042BB660026FAB8 /* EditUserInfoViewLayout.swift */; };
+		5C45E55B2042BB660026FAB8 /* EditUserInfoViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E5592042BB660026FAB8 /* EditUserInfoViewLayout.swift */; };
+		5C45E55D2044564F0026FAB8 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E55C2044564F0026FAB8 /* MessageListViewModel.swift */; };
+		5C45E55E2044564F0026FAB8 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E55C2044564F0026FAB8 /* MessageListViewModel.swift */; };
 		5C4ECE5C203EA24900C2D27F /* HUDUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */; };
 		5C4ECE5D203EA24900C2D27F /* HUDUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */; };
 		5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C55B4B1202D975A00B8DC39 /* CommonApi.swift */; };
@@ -264,6 +274,8 @@
 		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
 		5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
 		5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
+		5CF96F102040F3500085E828 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF96F0F2040F3500085E828 /* SettingViewModel.swift */; };
+		5CF96F112040F3500085E828 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF96F0F2040F3500085E828 /* SettingViewModel.swift */; };
 		5CFD61F72030191C0099C104 /* ReaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD61F62030191C0099C104 /* ReaderLayout.swift */; };
 		5CFD61F82030191C0099C104 /* ReaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD61F62030191C0099C104 /* ReaderLayout.swift */; };
 		5CFD61FA203043C60099C104 /* SignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD61F9203043C60099C104 /* SignViewController.swift */; };
@@ -310,7 +322,6 @@
 		5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewLayout.swift; sourceTree = "<group>"; };
 		5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewController.swift; sourceTree = "<group>"; };
 		5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewLayout.swift; sourceTree = "<group>"; };
-		5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoSettingViewController.swift; sourceTree = "<group>"; };
 		5C1E16D42022BC5500C23B77 /* ThApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThApi.swift; sourceTree = "<group>"; };
 		5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5C28E1CA20347CED00475727 /* SignViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewLayout.swift; sourceTree = "<group>"; };
@@ -328,6 +339,12 @@
 		5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorListViewLayout.swift; sourceTree = "<group>"; };
 		5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 		5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewLayout.swift; sourceTree = "<group>"; };
+		5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewLayout.swift; sourceTree = "<group>"; };
+		5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewModel.swift; sourceTree = "<group>"; };
+		5C45E5532042B9C90026FAB8 /* EditUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewController.swift; sourceTree = "<group>"; };
+		5C45E5562042B9DD0026FAB8 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
+		5C45E5592042BB660026FAB8 /* EditUserInfoViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewLayout.swift; sourceTree = "<group>"; };
+		5C45E55C2044564F0026FAB8 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		5C4ECE5B203EA24900C2D27F /* HUDUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDUtils.swift; sourceTree = "<group>"; };
 		5C55B4B1202D975A00B8DC39 /* CommonApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonApi.swift; sourceTree = "<group>"; };
 		5C59616F2016E28800ECD88B /* MineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewLayout.swift; sourceTree = "<group>"; };
@@ -427,6 +444,7 @@
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
 		5CDF461B20157B40002F7D8B /* STZHONGS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STZHONGS.ttf; sourceTree = "<group>"; };
+		5CF96F0F2040F3500085E828 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5CFD61F62030191C0099C104 /* ReaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderLayout.swift; sourceTree = "<group>"; };
 		5CFD61F9203043C60099C104 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
 		94FF52C3B0FEE41209167EF8 /* Pods-th-ios-pro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-th-ios-pro.release.xcconfig"; path = "Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro.release.xcconfig"; sourceTree = "<group>"; };
@@ -660,6 +678,8 @@
 				5C94C364202016B80043D01F /* QingTopicListViewLayout.swift */,
 				5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */,
 				5C6D391A202C902C00696E16 /* TopicDetailViewController.swift */,
+				5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */,
+				5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */,
 				5CFD61F9203043C60099C104 /* SignViewController.swift */,
 				5C28E1CA20347CED00475727 /* SignViewLayout.swift */,
 				5C28E1CD203485E400475727 /* SignViewModel.swift */,
@@ -673,15 +693,19 @@
 				5C0675F3200CB28E0019A24D /* MineViewController.swift */,
 				5C59616F2016E28800ECD88B /* MineViewLayout.swift */,
 				5CAA28A12036E4CA0059DCEA /* MineViewModel.swift */,
-				5C1E16D12022BA0B00C23B77 /* UserInfoSettingViewController.swift */,
+				5C45E5532042B9C90026FAB8 /* EditUserInfoViewController.swift */,
+				5C45E5592042BB660026FAB8 /* EditUserInfoViewLayout.swift */,
+				5C45E5562042B9DD0026FAB8 /* EditUserInfoViewModel.swift */,
 				5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */,
 				5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */,
 				5C59617520187AE400ECD88B /* MineViewCommentCellNodeLayout.swift */,
 				5C5961792018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift */,
 				5C397AA0201AC17A00C0B898 /* SettingViewController.swift */,
 				5C94C36A202047330043D01F /* SettingViewLayout.swift */,
+				5CF96F0F2040F3500085E828 /* SettingViewModel.swift */,
 				5C94C36E202059940043D01F /* MessageListViewController.swift */,
 				5C94C370202059E70043D01F /* MessageListViewLayout.swift */,
+				5C45E55C2044564F0026FAB8 /* MessageListViewModel.swift */,
 				5C1E16C52021FD1300C23B77 /* SystemMessageViewController.swift */,
 				5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */,
 				5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */,
@@ -1291,6 +1315,7 @@
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
 				5C6541582026F36E009EDDC2 /* SpecialTopicListViewModel.swift in Sources */,
 				5C59617620187AE400ECD88B /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5C45E55D2044564F0026FAB8 /* MessageListViewModel.swift in Sources */,
 				5CAA28B7203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */,
 				5CAA28BA203E4D8E0059DCEA /* CommentLayout.swift in Sources */,
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
@@ -1342,11 +1367,14 @@
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA2899203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
 				5C6408CE2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
+				5C45E54E204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */,
+				5C45E5542042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */,
 				5C94C35B201F0AF20043D01F /* QingModuleViewController.swift in Sources */,
 				5C0675DF200C915D0019A24D /* SizeUtils.swift in Sources */,
 				5CAA28A52039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */,
 				5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */,
 				5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */,
+				5C45E5572042B9DD0026FAB8 /* EditUserInfoViewModel.swift in Sources */,
 				5C94C355201EBB7A0043D01F /* TreeHoleListViewLayout.swift in Sources */,
 				5C65415E2026F4A9009EDDC2 /* ArticleDetailViewModel.swift in Sources */,
 				5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */,
@@ -1369,14 +1397,16 @@
 				5C92707320107E3D00838C1D /* MagicControllerProtocol.swift in Sources */,
 				5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */,
 				5C6C6D42202B22FB0056C784 /* QingModuleViewModel.swift in Sources */,
+				5C45E55A2042BB660026FAB8 /* EditUserInfoViewLayout.swift in Sources */,
 				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
 				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
 				5CA7E227202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C94459B201DC92B00CCF082 /* TreeHoleViewLayout.swift in Sources */,
+				5CF96F102040F3500085E828 /* SettingViewModel.swift in Sources */,
+				5C45E551204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */,
 				5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */,
 				5C94C365202016B80043D01F /* QingTopicListViewLayout.swift in Sources */,
-				5C1E16D22022BA0C00C23B77 /* UserInfoSettingViewController.swift in Sources */,
 				5C6408C820287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1417,6 +1447,7 @@
 				5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C6541592026F36E009EDDC2 /* SpecialTopicListViewModel.swift in Sources */,
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5C45E55E2044564F0026FAB8 /* MessageListViewModel.swift in Sources */,
 				5CAA28B8203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */,
 				5CAA28BB203E4D8E0059DCEA /* CommentLayout.swift in Sources */,
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
@@ -1468,11 +1499,14 @@
 				5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA289A203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
 				5C6408CF2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
+				5C45E54F204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */,
+				5C45E5552042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */,
 				5C1E169D20216F5900C23B77 /* QingModuleViewController.swift in Sources */,
 				5C1E169E20216F5900C23B77 /* SizeUtils.swift in Sources */,
 				5CAA28A62039CB7C0059DCEA /* AuthorizeInputCodeViewLayout.swift in Sources */,
 				5C1E169F20216F5900C23B77 /* SettingViewController.swift in Sources */,
 				5C1E16A020216F5900C23B77 /* QingViewLayout.swift in Sources */,
+				5C45E5582042B9DD0026FAB8 /* EditUserInfoViewModel.swift in Sources */,
 				5C1E16A120216F5900C23B77 /* TreeHoleListViewLayout.swift in Sources */,
 				5C65415F2026F4A9009EDDC2 /* ArticleDetailViewModel.swift in Sources */,
 				5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */,
@@ -1495,14 +1529,16 @@
 				5C1E16AC20216F5900C23B77 /* MagicControllerProtocol.swift in Sources */,
 				5C1E16AD20216F5900C23B77 /* NavigationBarProtocol.swift in Sources */,
 				5C6C6D43202B22FB0056C784 /* QingModuleViewModel.swift in Sources */,
+				5C45E55B2042BB660026FAB8 /* EditUserInfoViewLayout.swift in Sources */,
 				5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */,
 				5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */,
 				5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */,
 				5CA7E228202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */,
+				5CF96F112040F3500085E828 /* SettingViewModel.swift in Sources */,
+				5C45E552204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */,
 				5C1E16B220216F5900C23B77 /* AuthorViewLayout.swift in Sources */,
 				5C1E16B320216F5900C23B77 /* QingTopicListViewLayout.swift in Sources */,
-				5C1E16D32022BA1000C23B77 /* UserInfoSettingViewController.swift in Sources */,
 				5C6408C920287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

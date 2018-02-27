@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageListViewController: BaseTableViewController<BaseViewModel>, MessageListViewLayout {
+class MessageListViewController: BaseTableViewController<MessageListViewModel>, MessageListViewLayout {
     
     enum MessageType {
         case privateMessage

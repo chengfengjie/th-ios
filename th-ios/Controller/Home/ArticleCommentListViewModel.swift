@@ -45,7 +45,7 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
                 observer.sendCompleted()
             case let .failure(error):
                 observer.send(error: error)
-                self.errorMsg.value = error.localizedDescription
+                self.requestError.value = error
             }
         }
         

@@ -64,23 +64,22 @@ class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItem
             self?.pushViewController(viewController: controller)
         }
         
-        viewModel.topiclistAction.errors.observeValues { [weak self] (error) in
-            switch error {
-            case .forbidden:
-                self?.rootPresentLoginController()
-            default:
-                break
-            }
+        viewModel.topicModuleAction.values.observeValues { [weak self] (model) in
+            let controller = QingModuleViewController(viewModel: model)
+            self?.pushViewController(viewController: controller)
         }
     }
     
     func handleClickHotMomNode(data: JSON) {
+        viewModel.topicModuleAction.apply(data).start()
     }
     
     func handleClickBredExchange(data: JSON) {
+        viewModel.topicModuleAction.apply(data).start()
     }
     
     func handleClickGrassTime(data: JSON) {
+        viewModel.topicModuleAction.apply(data).start()
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
