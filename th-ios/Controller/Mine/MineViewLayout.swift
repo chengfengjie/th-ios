@@ -10,7 +10,7 @@ import Foundation
 
 protocol MineViewControllerLayout {}
 
-enum SelectHeaderMenuBarItemType {
+enum SelectHeaderMenuBarItemType: Int {
     case topic
     case collect
     case comment
@@ -182,8 +182,7 @@ class MineTableNodeHeaderMenuBar: BaseView {
         return [
             self.topicItem,
             self.collectItem,
-            self.commentItem,
-            self.viewHistoryItem]
+            self.commentItem]
     }
     
     override func setupSubViews() {

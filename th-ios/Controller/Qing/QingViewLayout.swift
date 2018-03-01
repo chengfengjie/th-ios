@@ -806,6 +806,8 @@ class QingCityCommunityCellNode: ASCellNode, QingCityCommunityCellNodeLayout {
     
     fileprivate var cityInfoItems: [CityCommunityCellNodeItem] = []
     
+    var clickAction: Action<JSON, QingModuleViewModel, NoError>?
+    
     init(dataJSON: [JSON]) {
         super.init()
         
@@ -817,6 +819,15 @@ class QingCityCommunityCellNode: ASCellNode, QingCityCommunityCellNodeLayout {
         
         self.cityInfoItems = self.makeCityItems(cityInfoItems: dataJSON)
         
+        self.cityInfoItems.forEach { (item) in
+            item.addTarget(self, action: #selector(handleClickItem(sender:)),
+                           forControlEvents: ASControlNodeEvent.touchUpInside)
+        }
+        
+    }
+    
+    @objc fileprivate func handleClickItem(sender: CityCommunityCellNodeItem) {
+        self.clickAction?.apply(sender.cityInfo).start()
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -906,18 +917,21 @@ extension QingCityCommunityCellNodeLayout where Self: QingCityCommunityCellNode 
     
     fileprivate func makeCityItems(cityInfoItems: [JSON]) -> [CityCommunityCellNodeItem] {
         var items: [CityCommunityCellNodeItem] = []
+        var index: Int = 100
         cityInfoItems.forEach { (cityInfo) in
             items.append(CityCommunityCellNodeItem.init(cityInfo: cityInfo).then {
                 $0.backgroundColor = UIColor.hexColor(hex: "edf9f5")
                 $0.style.preferredSize = self.cityItemSize
+                $0.index = index
                 self.addSubnode($0)
             })
+            index = index + 1
         }
         return items
     }
 }
 
-fileprivate class CityCommunityCellNodeItem: ASDisplayNode {
+fileprivate class CityCommunityCellNodeItem: ASControlNode {
     
     lazy var cityNameTextNode: ASTextNode = {
         return ASTextNode().then {
@@ -930,7 +944,12 @@ fileprivate class CityCommunityCellNodeItem: ASDisplayNode {
         }
     }()
     
+    var index: Int = 0
+    
+    let cityInfo: JSON!
+    
     init(cityInfo: JSON) {
+        self.cityInfo = cityInfo
         super.init()
         self.cityNameTextNode.attributedText = cityInfo["name"].stringValue
             .withFont(Font.systemFont(ofSize: 16))

@@ -10,84 +10,145 @@ import UIKit
 
 class QingModuleViewModel: BaseViewModel, QingApi {
     
-    @objc dynamic var data: Any? = nil
-    var dataJSON: JSON {
-        return self.data == nil ? JSON.init([]) : self.data as! JSON
-    }
+    var currentCateID: MutableProperty<String>!
     
-    @objc dynamic var catelist: [Any] = []
-    var cateJSONlist: [JSON] {
-        return self.catelist as! [JSON]
-    }
-    var cateTitlelist: [String] {
-        return self.cateJSONlist.map({ (json) -> String in
-            return json["name"].stringValue
-        })
-    }
-
+    var fetchModuleDataAction: Action<(), JSON, RequestError>!
     
-    var toplist: [JSON] {
-        return self.dataJSON["toplist"].arrayValue
-    }
+    var moduleData: MutableProperty<JSON>!
     
-    var cateID: String = "" {
-        didSet {
-            self.requestTopiclist()
-        }
-    }
-    
+    var moduleToplist: MutableProperty<[JSON]>!
     
     var currentType: QingModuleTopiclistType = .news
     
-    @objc dynamic var topiclist: [Any] = []
-    var topicJSONlist: [JSON] {
-        return self.topiclist as! [JSON]
-    }
+    var fetchCatelistAction: Action<(), JSON, RequestError>!
+    
+    var catelist: MutableProperty<[JSON]>!
+    
+    var cateTitlelist: MutableProperty<[String]>!
+    
+    var fetchTopiclistAction: Action<(), [JSON], RequestError>!
+    
+    var topiclist: MutableProperty<[JSON]>!
+    
+    var topicDetailAction: Action<JSON, TopicDetailViewModel, NoError>!
+    
+    var publishTopicAction: Action<(), PublishTopicViewModel, RequestError>!
     
     let fid: String
     init(fid: String) {
         self.fid = fid
         super.init()
         
-        self.requestQingModuleDate(fid: self.fid).observeResult { (result) in
+        self.moduleData = MutableProperty<JSON>(JSON.empty)
+        self.moduleToplist = MutableProperty<[JSON]>([])
+        
+        self.catelist = MutableProperty<[JSON]>([])
+        self.cateTitlelist = MutableProperty<[String]>([])
+        
+        self.currentCateID = MutableProperty<String>("")
+        
+        self.topiclist = MutableProperty<[JSON]>([])
+        
+        self.fetchTopiclistAction = Action<(), [JSON], RequestError>
+            .init(execute: { (_) -> SignalProducer<[JSON], RequestError> in
+                return self.createFetchTopiclistSignalProducer()
+        })
+        
+        self.fetchModuleDataAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+                return self.createFetchModuleDataSignalProducer()
+        })
+        
+        self.fetchCatelistAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+                return self.createFetchCatelistSignalProducer()
+        })
+        
+        self.topicDetailAction = Action<JSON, TopicDetailViewModel, NoError>
+            .init(execute: { (data) -> SignalProducer<TopicDetailViewModel, NoError> in
+                return SignalProducer.init(value: TopicDetailViewModel(topicID: data["tid"].stringValue))
+        })
+        
+        self.publishTopicAction = Action<(), PublishTopicViewModel, RequestError>
+            .init(execute: { (_) -> SignalProducer<PublishTopicViewModel, RequestError> in
+            if self.currentUser.isLogin.value {
+                return SignalProducer.init(value: PublishTopicViewModel())
+            } else {
+                return SignalProducer.init(error: RequestError.forbidden)
+            }
+        })
+    }
+    
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        
+        self.fetchModuleDataAction.apply(()).start()
+        
+        self.fetchCatelistAction.apply(()).start()
+        
+        self.currentCateID.signal.observeValues { (_) in
+            self.fetchTopiclistAction.apply(()).start()
+        }
+    }
+    
+    private func createFetchModuleDataSignalProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.isRequest.value = true
+        self.requestQingModuleData(fid: self.fid).observeResult { (result) in
+            self.isRequest.value = false
             switch result {
             case let .success(value):
-                self.data = value["data"]
+                self.moduleData.value = value["data"]
+                self.moduleToplist.value = value["data"]["toplist"].arrayValue
+                observer.send(value: value["data"])
+                observer.sendCompleted()
             case let .failure(error):
-                print(error)
+                self.requestError.value = error
+                observer.send(error: error)
             }
         }
-        
-        self.requestCatelist()
+        return SignalProducer.init(signal)
     }
     
-    func requestCatelist() {
-        self.requestQingModuleCatelist(fid: self.fid).observeResult { (result) in
+    private func createFetchCatelistSignalProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        requestQingModuleCatelist(fid: self.fid).observeResult { (result) in
             switch result {
             case let .success(data):
-                self.catelist = data["data"].arrayValue
-                if !self.cateJSONlist.isEmpty {
-                    self.cateID = self.cateJSONlist[0]["typeid"].stringValue
+                self.catelist.value = data["data"].arrayValue
+                if !self.catelist.value.isEmpty {
+                    self.currentCateID.value = self.catelist.value[0]["typeid"].stringValue
                 }
+                self.cateTitlelist.value = self.catelist.value.map({ (item) -> String in
+                    return item["name"].stringValue
+                })
+                observer.send(value: data)
+                observer.sendCompleted()
             case let .failure(error):
-                print(error)
+                self.requestError.value = error
+                observer.send(error: error)
             }
         }
+        return SignalProducer.init(signal)
     }
     
-    func requestTopiclist() {
-        self.requestQingModuleTopiclist(fid: self.fid, type: self.currentType, cateID: self.cateID, page: 1)
+    private func createFetchTopiclistSignalProducer() -> SignalProducer<[JSON], RequestError> {
+        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
+        requestQingModuleTopiclist(fid: self.fid, type: self.currentType, cateID: self.currentCateID.value, page: 1)
             .observeResult { (result) in
                 switch result {
                 case let .success(data):
                     print(data)
-                    self.topiclist = data["data"]["forumlist"].arrayValue
+                    let list = data["data"]["forumlist"].arrayValue
+                    self.topiclist.value = list
+                    observer.send(value: list)
+                    observer.sendCompleted()
                 case let .failure(error):
-                    print(error)
+                    self.requestError.value = error
+                    observer.send(error: error)
                 }
                 
         }
+        return SignalProducer.init(signal)
     }
-    
-    
 }

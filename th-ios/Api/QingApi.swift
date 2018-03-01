@@ -30,7 +30,7 @@ extension QingApi {
     ///
     /// - Parameter fid: fid
     /// - Returns: Signal
-    func requestQingModuleDate(fid: String) -> Signal<JSON, RequestError> {
+    func requestQingModuleData(fid: String) -> Signal<JSON, RequestError> {
         let params: [String: String] = [
             "fid": fid
         ]

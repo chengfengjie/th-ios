@@ -78,6 +78,14 @@ extension MineCommentCellNodeLayout where Self: ASCellNode {
 }
 
 extension MineCommentCellNodeLayout {
+    
+    var hasParagraphText:Bool {
+        if let attrText = self.paragraphTextNode.attributedText {
+            return !attrText.string.isEmpty
+        }
+        return false
+    }
+    
     var commentCellNodeLayoutSpec: ASLayoutSpec {
         let shareDeleteSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
                                                      spacing: 5,
@@ -86,11 +94,19 @@ extension MineCommentCellNodeLayout {
                                                      children: [self.shareIconNode,
                                                                 self.shareTextNode,
                                                                 self.deleteButtonNode])
+        
+        var children: [ASLayoutElement] = [self.commentTextNode,
+                                           self.sourceInfoBox,
+                                           shareDeleteSpec]
+        if self.hasParagraphText {
+            children.insert(self.paragraphTextNode, at: 1)
+        }
+        
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
-                                              children: [self.commentTextNode, self.paragraphTextNode, self.sourceInfoBox, shareDeleteSpec])
+                                              children: children)
         let mainInsetSpec = ASInsetLayoutSpec.init(insets: kContentInset, child: mainSpec)
         return mainInsetSpec
     }
@@ -128,13 +144,17 @@ class SourceInfoBox: ASDisplayNode {
         self.style.preferredSize = CGSize.init(width: UIScreen.main.bounds.width - kContentInset.left * 2,
                                                height: 80)
         self.borderColor = UIColor.lineColor.cgColor
-        self.borderWidth = 1
+        self.borderWidth = CGFloat.pix1
         
         self.imageNode.style.preferredSize = CGSize.init(width: 50, height: 50)
         self.imageNode.url = URL.init(string: "https://pic2.zhimg.com/90/ba332a401_250x0.jpg")
         self.imageNode.backgroundColor = UIColor.orange
         
         self.titleTextNode.attributedText = "生个毛线的二胎".withFont(Font.systemFont(ofSize: 14))
+        self.titleTextNode.maximumNumberOfLines = 1
+        
+        let width = self.style.preferredSize.width - (65 + kContentInset.left * 2)
+        self.titleTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: width)
         
         self.sourceTextNode.attributedText = "文章来自简书".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 10))
         
@@ -144,12 +164,12 @@ class SourceInfoBox: ASDisplayNode {
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let sourceTimeSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                                    spacing: 10,
-                                                    justifyContent: ASStackLayoutJustifyContent.spaceAround,
+                                                    spacing: 0,
+                                                    justifyContent: ASStackLayoutJustifyContent.spaceBetween,
                                                     alignItems: ASStackLayoutAlignItems.center,
                                                     children: [self.sourceTextNode, self.dateTimeTextNode])
         let rightSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
-                                               spacing: 10,
+                                               spacing: 18,
                                                justifyContent: ASStackLayoutJustifyContent.start,
                                                alignItems: ASStackLayoutAlignItems.stretch,
                                                children: [self.titleTextNode, sourceTimeSpec])
@@ -165,8 +185,12 @@ class SourceInfoBox: ASDisplayNode {
     }
 }
 
-class MineCommentTopicNodeCell: ASCellNode, MineCommentCellNodeLayout {
-    
+class MineCommentNodeCell: ASCellNode, MineCommentCellNodeLayout, NodeBottomlineMaker {
+
+    lazy var bottomline: ASDisplayNode = {
+        return self.makeBottomlineNode()
+    }()
+
     fileprivate lazy var commentTextNode: ASTextNode = {
         return self.makeCommentTextNode()
     }()
@@ -191,25 +215,33 @@ class MineCommentTopicNodeCell: ASCellNode, MineCommentCellNodeLayout {
         return self.makeDeleteButtonNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
+        self.bottomline.backgroundColor = UIColor.lineColor
+        
         self.shareIconNode.style.preferredSize = CGSize.init(width: 16, height: 16)
         
-        self.commentTextNode.setText(text: "说的不错,确实如此", style: self.commentTextStyle)
-        self.paragraphTextNode.setText(text: ("自从换了mac以后就一直用EdrawMax，不仅可以代替Visio，而且" +
-            "功能方面要比Visio更加强大，不仅可以画流程图，就连服装设计，科学插画，卡片这些都可以绘制" +
-            "，真是一个软件可以当好几个软件来用，操作也特别简单。"), style: self.paragraphTextStyle)
+        self.commentTextNode.setText(text: dataJSON["message"]["msg"].stringValue, style: self.commentTextStyle)
+        self.paragraphTextNode.setText(text: dataJSON["message"]["quote"].stringValue, style: self.paragraphTextStyle)
         self.sourceInfoBox.backgroundColor = UIColor.white
+        self.sourceInfoBox.imageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.sourceInfoBox.imageNode.defaultImage = UIImage.defaultImage
+        self.sourceInfoBox.titleTextNode.attributedText = dataJSON["title"].stringValue
+            .withFont(Font.systemFont(ofSize: 14))
+        self.sourceInfoBox.sourceTextNode.attributedText = "来自:\(dataJSON["from"].stringValue)"
+            .withTextColor(Color.color9)
+            .withFont(Font.systemFont(ofSize: 10))
+        
         self.shareIconNode.image = UIImage.init(named: "mine_share_gray")
         self.shareTextNode.setText(text: "分享", style: self.shareDeleteTextStyle)
         self.deleteButtonNode.setTitleText(text: "删除", style: self.shareDeleteTextStyle)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return self.commentCellNodeLayoutSpec
+        return self.makeBottomlineWraperSpec(mainSpec: self.commentCellNodeLayoutSpec)
     }
 }
 

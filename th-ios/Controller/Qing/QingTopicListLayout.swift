@@ -93,6 +93,7 @@ class QingTopicListCellNode: ASCellNode, TopicListCellNodeLayout {
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 12))
             .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
+        self.contentTextNode.maximumNumberOfLines = 5
         
         self.sourceAvatarImageNode.url = URL.init(string: dataJSON["uimg"].stringValue)
         self.sourceAvatarImageNode.style.preferredSize = CGSize.init(width: 20, height: 20)

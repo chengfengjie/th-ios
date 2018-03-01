@@ -32,39 +32,38 @@ NavBarSearchItemProtocol, QingModuleViewLayout, HorizontalScrollMenuAction {
                 
         self.tableNode.view.separatorStyle = .none
         
+        self.bindViewModel()
     }
     
     override func bindViewModel() {
         
         self.menuHeader.scrollMenu.delegate = self
         
-        self.publishTopicItem.addTarget(
-            self, action: #selector(self.handleClickPublishTopic),
-            for: UIControlEvents.touchUpInside)
+        self.publishTopicItem.reactive.pressed = CocoaAction(viewModel.publishTopicAction)
         
-//        self.viewModel.reactive.signal(forKeyPath: "data")
-//            .skipNil().observeValues { [weak self] (val) in
-//            self?.tableNode.reloadData()
-//            self?.bannerHeader.updateData(dataJSON: val as! JSON)
-//        }
-//
-//        self.viewModel.reactive.signal(forKeyPath: "catelist")
-//            .skipNil().observeValues { [weak self] (val) in
-//             self?.menuHeader.scrollMenu.dataSource = self!.viewModel.cateTitlelist
-//        }
-//
-//        self.viewModel.reactive.signal(forKeyPath: "topiclist")
-//            .skipNil().observeValues { [weak self] (val) in
-//            self?.tableNode.reloadData()
-//        }
+        viewModel.moduleData.signal.observeValues { [weak self] (data) in
+            self?.bannerHeader.updateData(dataJSON: data)
+        }
+        
+        viewModel.cateTitlelist.signal.observeValues { [weak self] (list) in
+            self?.menuHeader.scrollMenu.dataSource = list
+        }
+        
+        viewModel.topiclist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        
+        viewModel.topicDetailAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: TopicDetailViewController(viewModel: model))
+        }
+        
+        viewModel.publishTopicAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: PublishTopicViewController(viewModel: model))
+        }
     }
     
     func scrollMenuDidClick(itemIndex: Int) {
-        self.viewModel.cateID = self.viewModel.cateJSONlist[itemIndex]["typeid"].stringValue
-    }
-    
-    @objc func handleClickPublishTopic() {
-//        self.pushViewController(viewController: PublishTopicViewController())
+        self.viewModel.currentCateID.value = self.viewModel.catelist.value[itemIndex]["typeid"].stringValue
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -72,20 +71,20 @@ NavBarSearchItemProtocol, QingModuleViewLayout, HorizontalScrollMenuAction {
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? self.viewModel.toplist.count : self.viewModel.topicJSONlist.count
+        return section == 0 ? self.viewModel.moduleToplist.value.count : self.viewModel.topiclist.value.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
             return indexPath.section == 0
-                ? QingModuleTopListCellNode(dataJSON: self.viewModel.toplist[indexPath.row])
-                : QingTopicListCellNode(dataJSON: self.viewModel.topicJSONlist[indexPath.row])
+                ? QingModuleTopListCellNode(dataJSON: self.viewModel.moduleToplist.value[indexPath.row])
+                : QingTopicListCellNode(dataJSON: self.viewModel.topiclist.value[indexPath.row])
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            return self.viewModel.toplist.isEmpty ? 0.1 : 15
+            return self.viewModel.moduleToplist.value.isEmpty ? 0.1 : 15
         } else {
             return 0.1
         }
@@ -96,12 +95,13 @@ NavBarSearchItemProtocol, QingModuleViewLayout, HorizontalScrollMenuAction {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return section == 0 ? self.bannerHeader : self.menuHeader.background
+        return section == 0 ? self.bannerHeader
+            : (self.viewModel.catelist.value.isEmpty ? nil : self.menuHeader.background)
     }
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-//            self.pushViewController(viewController: TopicDetailViewController())
+            self.viewModel.topicDetailAction.apply(self.viewModel.topiclist.value[indexPath.row]).start()
         }
     }
     

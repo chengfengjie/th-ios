@@ -101,11 +101,19 @@ class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItem
             }
         case 1:
             return {
-                return QingHotTodayCellNode(dataJSON: self.viewModel.hotlist.first)
+                if self.viewModel.hotlist.isEmpty {
+                    return ASCellNode().then {
+                        $0.style.preferredSize = CGSize.init(width: 1, height: 0)
+                    }
+                } else {
+                    return QingHotTodayCellNode(dataJSON: self.viewModel.hotlist.first)
+                }
             }
         case 2:
             return {
-                return QingCityCommunityCellNode(dataJSON: self.viewModel.citylist)
+                return QingCityCommunityCellNode(dataJSON: self.viewModel.citylist).then {
+                    $0.clickAction = self.viewModel.topicModuleAction
+                }
             }
         default:
             return {

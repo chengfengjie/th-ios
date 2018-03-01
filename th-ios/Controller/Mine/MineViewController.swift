@@ -110,6 +110,7 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
             self?.pushViewController(viewController: EditUserInfoViewController(viewModel: model))
         }
         
+        
         viewModel.userTopiclist.signal.observeValues { [weak self] (_) in
             self?.tableNode.reloadData()
         }
@@ -117,6 +118,12 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
             self?.tableNode.reloadData()
         }
         viewModel.userFavoriteArticlelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.userCommentArticlelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.userCommentTopiclist.signal.observeValues { [weak self] (_) in
             self?.tableNode.reloadData()
         }
     }
@@ -161,13 +168,14 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
+        if self.tableNodeHeader.selectItemType != .topic && section == 0 {
+            return 0
+        }
+        
         switch self.tableNodeHeader.selectItemType {
         case .topic:
             return viewModel.userTopiclist.value.count
         case .collect:
-            if section == 0 {
-                return 0
-            }
             switch viewModel.currentFavoriteType.value {
             case .topic:
                 return viewModel.userFavoriteTopiclist.value.count
@@ -175,7 +183,12 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
                 return viewModel.userFavoriteArticlelist.value.count
             }
         case .comment:
-            return section == 0 ? 0 : 10
+            switch viewModel.currentCommentType.value {
+            case .topic:
+                return viewModel.userCommentTopiclist.value.count
+            case .article:
+                return viewModel.userCommentArticlelist.value.count
+            }
         case .viewhistory:
             return section == 0 ? 0 : 10
         }
@@ -198,7 +211,13 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
             }
         case .comment:
             return {
-                return MineCommentTopicNodeCell()
+                switch self.viewModel.currentCommentType.value {
+                case .article:
+                    return MineCommentNodeCell(dataJSON: self.viewModel.userCommentArticlelist.value[indexPath.row])
+                case .topic:
+                    return MineCommentNodeCell(dataJSON: self.viewModel.userCommentTopiclist.value[indexPath.row])
+                }
+                
             }
         case .viewhistory:
             return {

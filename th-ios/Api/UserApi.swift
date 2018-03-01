@@ -130,4 +130,16 @@ extension UserApi {
     func requestUserMessagelist() -> Signal<JSON, RequestError> {
         return request(method: ThMethod.getUserMessagelist)
     }
+    
+    
+    /// 获取系统消息记录详细信息
+    ///
+    /// - Parameter pmid: 消息ID
+    /// - Returns: Signal
+    func requestSystemMessageInfo(pmid: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "pmid": pmid
+        ]
+        return request(method: ThMethod.getSystemMessageInfo, data: params)
+    }
 }

@@ -33,6 +33,10 @@ class MineViewModel: BaseViewModel, UserApi {
     
     var userFavoriteArticlelist: MutableProperty<[JSON]>!
     
+    var userCommentTopiclist: MutableProperty<[JSON]>!
+    
+    var userCommentArticlelist: MutableProperty<[JSON]>!
+    
     var settingItemAction: Action<(), SettingViewModel, NoError>!
     
     var messageItemAction: Action<(), MessageListViewModel, NoError>!
@@ -69,6 +73,8 @@ class MineViewModel: BaseViewModel, UserApi {
         self.userTopiclist = MutableProperty<[JSON]>(Array())
         self.userFavoriteTopiclist = MutableProperty<[JSON]>(Array())
         self.userFavoriteArticlelist = MutableProperty<[JSON]>(Array())
+        self.userCommentTopiclist = MutableProperty<[JSON]>(Array())
+        self.userCommentArticlelist = MutableProperty<[JSON]>(Array())
         
         self.userInfoJSON = MutableProperty<JSON>(JSON.empty)
         
@@ -203,6 +209,15 @@ class MineViewModel: BaseViewModel, UserApi {
             switch result {
             case let .success(value):
                 print(value)
+                let list = value["data"]["lists"].arrayValue
+                switch type {
+                case .topic:
+                    self.userCommentTopiclist.value = list
+                case .article:
+                    self.userCommentArticlelist.value = list
+                }
+                observer.send(value: list)
+                observer.sendCompleted()
             case let .failure(error):
                 self.requestError.value = error
                 observer.send(error: error)

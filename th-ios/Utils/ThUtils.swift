@@ -97,6 +97,11 @@ extension String {
         return Date.format(type: DateFormatType.normal,
                            date: Date.parse(text: self))
     }
+    
+    func dateFormat(type: DateFormatType) -> String {
+        return Date.format(type: type,date: Date.parse(text: self))
+
+    }
 }
 
 extension JSON {
@@ -113,6 +118,7 @@ extension UInt {
 
 enum DateFormatType {
     case normal
+    case yymmdd
 }
 
 extension Date {
@@ -128,7 +134,12 @@ extension Date {
         if date == nil {
             return ""
         }
-        return date!.format()
+        switch type {
+        case .normal:
+            return date!.format()
+        case .yymmdd:
+            return (date! as NSDate).formattedDate(withFormat: "yyyy.MM.dd")
+        }
     }
     
     private func format() -> String {

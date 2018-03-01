@@ -415,7 +415,7 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
     
     func buildLayoutSpec() -> ASLayoutSpec {
         
-        let titleSpec = makeInsetSpec(spec: self.titleTextNode)
+        let titleSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 20, 0, 20), child: self.titleTextNode)
         
         let authorSpec: ASLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
                                                 spacing: 5,
@@ -438,8 +438,8 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
         }
         
         var children: [ASLayoutElement] = [titleSpec, authorInfoBarSpec] + contentlist
-        children.append(ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 0, 0, 0), child: self.sourceContainer))
-        children.append(self.feedbackTextNode)
+        children.append(ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 20, 0, 20), child: self.sourceContainer))
+        children.append(ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(0, 20, 20, 20), child: self.feedbackTextNode))
         
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 20,

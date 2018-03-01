@@ -48,9 +48,7 @@ class MineCollectCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
         self.categoryTextNode.setText(text: "", style: self.categoryStyle)
         self.titleTextNode.setText(text: dataJSON["title"].stringValue, style: self.titleTextStyle)
         self.contentTextNode.setText(text: dataJSON["summary"].stringValue, style: self.contentTextStyle)
-        self.shareIconNode.image = UIImage.init(named: "share_pink")
-
-        self.shareTextNode.setText(text: "分享", style: self.shareTextStyle)
+        self.shareIconNode.image = UIImage.init(named: "share_blue")
         
         let picUrls: [URL?] = dataJSON["pic"].arrayValue.map { (pic) -> URL? in
             return URL.init(string: pic.stringValue)
@@ -58,7 +56,11 @@ class MineCollectCellNode: ASCellNode, MineCollectTopicCellNodeLayout {
         
         self.imageNodeArray = self.makeImageNodes(imageUrlArray: picUrls)
         
-        self.deleteButtonNode.setAttributedTitle(" ·  删除".withTextColor(Color.hexColor(hex: "95ccd7")), for: UIControlState.normal)
+        self.deleteButtonNode.setAttributedTitle(" ·  删除"
+            .withTextColor(Color.hexColor(hex: "95ccd7")), for: UIControlState.normal)
+        self.shareTextNode.attributedText = "分享"
+            .withTextColor(Color.hexColor(hex: "95ccd7"))
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

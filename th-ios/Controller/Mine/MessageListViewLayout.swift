@@ -44,24 +44,26 @@ class PrivateMessageListCellNode: ASCellNode, PrivateMessageListCellNodeLayout {
         return self.makeAndAddImageNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        self.userAvatarImageNode.url = URL.init(string: "https://himg.bdimg.com/sys/portrait/item/38b8e69184e5bdb1e5b888e69db0e5a4ab87b1.jpg")
+        self.userAvatarImageNode.url = URL.init(string: dataJSON["img"].stringValue)
         self.userAvatarImageNode.style.preferredSize = CGSize.init(width: 40, height: 40)
         self.userAvatarImageNode.cornerRadius = 20
+        self.userAvatarImageNode.defaultImage = UIImage.defaultImage
         
-        self.userNameTextNode.attributedText = "汝之尾巴草"
+        self.userNameTextNode.attributedText = dataJSON["nickname"].stringValue
             .withFont(Font.systemFont(ofSize: 18))
             .withTextColor(Color.color3)
         
-        self.dateTimeTextNode.attributedText = "2016.09.13 16:20"
+        self.dateTimeTextNode.attributedText = dataJSON["dateline"].stringValue
+            .dateFormat(type: DateFormatType.yymmdd)
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 10))
         
-        self.contentTextNode.attributedText = "那天你却为何不下雨，让那坏人无法出门去，我也可清者自清。天，我亦是你落下的孩子，你不庇佑吗？任凭坏人将我摁倒在地，声嘶力竭无人回应，天，那时为何你不下瓢泼大雨，好冲刷走我肮脏的身躯。如今你却下着雨，让我听起你，往事泪成雨"
+        self.contentTextNode.attributedText = dataJSON["message"].stringValue
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 12))
             .withParagraphStyle(ParaStyle.create(lineSpacing: 4, alignment: .justified))
@@ -89,7 +91,7 @@ extension PrivateMessageListCellNodeLayout where Self: ASCellNode {
                                                   alignItems: ASStackLayoutAlignItems.stretch,
                                                   children: [self.userNameTextNode, self.dateTimeTextNode])
         let avatarNameSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                                    spacing: 5,
+                                                    spacing: 10,
                                                     justifyContent: ASStackLayoutJustifyContent.start,
                                                     alignItems: ASStackLayoutAlignItems.center,
                                                     children: [self.userAvatarImageNode, nameTimeSpec])
@@ -129,12 +131,13 @@ class SystemMessageListCellNode: ASCellNode, SystemMessageListCellNodeLayout {
         return self.makeAndAddTextNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        self.dateTimeTextNode.attributedText = "2016.09.13"
+        self.dateTimeTextNode.attributedText = dataJSON["dateline"].stringValue
+            .dateFormat(type: .yymmdd)
             .withFont(Font.systemFont(ofSize: 10))
             .withTextColor(Color.color9)
         
@@ -142,7 +145,7 @@ class SystemMessageListCellNode: ASCellNode, SystemMessageListCellNodeLayout {
         self.noticeDotNode.cornerRadius = 2.5
         self.noticeDotNode.backgroundColor = UIColor.pink
         
-        self.titleTextNode.attributedText = "家长必看的一个故事"
+        self.titleTextNode.attributedText = dataJSON["title"].stringValue
             .withTextColor(Color.color3)
             .withFont(Font.systemFont(ofSize: 18))
         
@@ -150,7 +153,7 @@ class SystemMessageListCellNode: ASCellNode, SystemMessageListCellNodeLayout {
             .withFont(Font.systemFont(ofSize: 16))
             .withTextColor(Color.color9), for: UIControlState.normal)
         
-        self.contentNode.attributedText = "白云也长成了乌云，积累不了太多的事情所有全盘抖露，让风儿忘记吹散你，倾听你的哭诉。让闪电和雷鸣都为你不平，狂怒着划破天际。为何你还是要长大？"
+        self.contentNode.attributedText = dataJSON["val"].stringValue
             .withTextColor(Color.color6)
             .withFont(Font.systemFont(ofSize: 14))
             .withParagraphStyle(ParaStyle.create(lineSpacing: 4, alignment: .justified))

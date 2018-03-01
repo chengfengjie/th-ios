@@ -45,8 +45,10 @@ class HomeArticleViewModel: BaseViewModel, ArticleApi {
     }
     
     func requestData() {
+        self.isRequest.value = true
         self.requestCateArticleData(cateId: self.cateInfo["catid"].stringValue, pageNum: 1)
             .observeResult { (result) in
+                self.isRequest.value = false
                 switch result {
                 case let .success(val):
                     print(val)

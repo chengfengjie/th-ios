@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PublishTopicViewController: BaseViewController<BaseViewModel> {
+class PublishTopicViewController: BaseViewController<PublishTopicViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

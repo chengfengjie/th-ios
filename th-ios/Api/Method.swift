@@ -74,4 +74,6 @@ enum ThMethod: String {
     case getSystemMessagelist = "getGroupPm"
     /// 获取用户私信记录
     case getUserMessagelist = "getLetterNote"
+    /// 获取系统详细信息
+    case getSystemMessageInfo = "getGroupPmOne"
 }

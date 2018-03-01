@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PrivateMessageViewController: BaseViewController<BaseViewModel> {
+class PrivateMessageViewController: BaseViewController<PrivateMessageViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

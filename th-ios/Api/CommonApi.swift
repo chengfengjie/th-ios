@@ -31,9 +31,9 @@ extension CommonApi {
     ///
     /// - Parameter cateID: 分类ID
     /// - Returns: Signal
-    func requestTopicAd(cateID: String) -> Signal<JSON, RequestError> {
+    func requestTopicAd(topicID: String) -> Signal<JSON, RequestError> {
         let params: [String: String] = [
-            "catid": cateID,
+            "catid": topicID,
             "targets": "1",
             "style": "0",
             "isall": "0"

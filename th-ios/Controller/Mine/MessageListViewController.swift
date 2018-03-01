@@ -28,9 +28,30 @@ class MessageListViewController: BaseTableViewController<MessageListViewModel>, 
         
         self.setNavigationBarCloseItem(isHidden: false)
         
-        self.headerChangeControl.items.forEach {
-            $0.addTarget(self, action: #selector(self.handleClickChangeItem(sender:)),
-                         for: .touchUpInside)
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        headerChangeControl.items.forEach {
+            $0.reactive.controlEvents(.touchUpInside)
+                .observeValues({ [weak self] (sender) in
+                    self?.handleClickChangeItem(sender: sender)
+                })
+        }
+        
+        viewModel.systemMessagelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.userMessagelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+        viewModel.systemCellNodeAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SystemMessageViewController(viewModel: model))
+        }
+        viewModel.userMessageCellNodeAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: PrivateMessageViewController(viewModel: model))
         }
     }
     
@@ -44,12 +65,22 @@ class MessageListViewController: BaseTableViewController<MessageListViewModel>, 
     }
 
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        switch self.messageType {
+        case .systemMessage:
+            return self.viewModel.systemMessagelist.value.count
+        case .privateMessage:
+            return self.viewModel.userMessagelist.value.count
+        }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            self.messageType == .privateMessage ? PrivateMessageListCellNode() : SystemMessageListCellNode()
+            switch self.messageType {
+            case .systemMessage:
+                return SystemMessageListCellNode(dataJSON: self.viewModel.systemMessagelist.value[indexPath.row])
+            case .privateMessage:
+                return PrivateMessageListCellNode(dataJSON: self.viewModel.userMessagelist.value[indexPath.row])
+            }
         }
     }
     
@@ -63,9 +94,9 @@ class MessageListViewController: BaseTableViewController<MessageListViewModel>, 
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if self.messageType == .systemMessage {
-//            self.pushViewController(viewController: SystemMessageViewController(style: .grouped))
+            viewModel.systemCellNodeAction.apply(indexPath).start()
         } else {
-//            self.pushViewController(viewController: PrivateMessageViewController())
+            viewModel.userMessageCellNodeAction.apply(indexPath).start()
         }
     }
 }
