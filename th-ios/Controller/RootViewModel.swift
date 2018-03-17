@@ -16,7 +16,7 @@ class RootViewModel: BaseViewModel {
     let mineViewModel: MineViewModel!
     
     override init() {
-        self.homeViewModel = HomeViewModel.init()
+        self.homeViewModel = HomeViewModel()
         self.sameCityMainViewModel = SameCityMainViewModel()
         self.qingViewModel = QingViewModel()
         self.mineViewModel = MineViewModel()

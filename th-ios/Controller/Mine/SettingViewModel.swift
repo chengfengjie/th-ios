@@ -12,6 +12,8 @@ class SettingViewModel: BaseViewModel {
     
     var logoutAction: Action<(), (), NoError>!
     
+    var feedBackAction: Action<(), FeedbackViewModel, NoError>!
+    
     override init() {
         super.init()
         
@@ -27,7 +29,11 @@ class SettingViewModel: BaseViewModel {
                     observer.sendCompleted()
                 })
                 return SignalProducer.init(signal)
-                
+        })
+        
+        self.feedBackAction = Action<(), FeedbackViewModel, NoError>
+            .init(execute: { (_) -> SignalProducer<FeedbackViewModel, NoError> in
+                return SignalProducer.init(value: FeedbackViewModel())
         })
     }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpecialTopicListController: BaseTableViewController<SpecialTopicListViewModel> {
+class SpecialListController: BaseTableViewController<SpecialListViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,8 @@ class SpecialTopicListController: BaseTableViewController<SpecialTopicListViewMo
         self.setNavigationBarTitle(title: "专题列表")
         
         self.bindViewModel()
+        
+        self.tableNode.view.separatorStyle = .none
     }
     
     override func bindViewModel() {
@@ -26,6 +28,11 @@ class SpecialTopicListController: BaseTableViewController<SpecialTopicListViewMo
         viewModel.fetchlistAction.values.observeValues { [weak self] (_) in
             self?.tableNode.reloadData()
         }
+        
+        viewModel.specialDetailAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SpecialViewController(viewModel: model))
+        }
+        
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -39,5 +46,6 @@ class SpecialTopicListController: BaseTableViewController<SpecialTopicListViewMo
     }
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.specialDetailAction.apply(indexPath).start()
     }
 }

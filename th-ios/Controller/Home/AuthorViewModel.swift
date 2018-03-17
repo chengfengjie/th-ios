@@ -16,6 +16,8 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
     var fetchAurhorInfoAction: Action<(), JSON, RequestError>!
     var fetchArticlelistAction: Action<(AuthorArticleType), [JSON], RequestError>!
     
+    var articleDetailAction: Action<IndexPath, ArticleDetailViewModel, RequestError>!
+    
     let authorID: String
     init(authorID: String) {
         self.authorID = authorID
@@ -32,6 +34,13 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
         self.fetchArticlelistAction = Action<(AuthorArticleType), [JSON], RequestError>
             .init(execute: { (type) -> SignalProducer<[JSON], RequestError> in
             return self.createFetchArticlelistSignalProducer(type: type)
+        })
+        
+        self.articleDetailAction = Action<IndexPath, ArticleDetailViewModel, RequestError>
+            .init(execute: { (indexPath) -> SignalProducer<ArticleDetailViewModel, RequestError> in
+                let aId: String = self.articlelist.value[indexPath.row]["aId"].stringValue
+                let model: ArticleDetailViewModel = ArticleDetailViewModel(articleID: aId)
+                return SignalProducer.init(value: model)
         })
         
     }

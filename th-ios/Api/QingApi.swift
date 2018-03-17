@@ -97,4 +97,41 @@ extension QingApi {
         ]
         return request(method: ThMethod.getTopicInfo, data: params)
     }
+    
+    
+    /// 上传话题的图片
+    ///
+    /// - Parameter imageData: 图片data
+    /// - Returns: Signal
+    func requestUploadTopicImage(dataString: String) -> Signal<JSON, RequestError> {
+        let params: [String: Any] = [
+            "image": "data:image/png;base64," + dataString
+        ]
+        return request(method: ThMethod.uploadTopicImage, data: params)
+    }
+    
+    
+    /// 发布话题
+    ///
+    /// - Parameters:
+    ///   - fid: 模块ID
+    ///   - typeId: 分类ID
+    ///   - title: 标题
+    ///   - message: 内容
+    ///   - pic: 图片
+    /// - Returns: Signal
+    func requestPublishTopic(
+        fid: String, typeId: String, title: String, message:String,
+        pic: [String: String]) -> Signal<JSON, RequestError> {
+        
+        let params: [String: Any] = [
+            "fid": fid,
+            "typeid": typeId,
+            "subject": title,
+            "message": message,
+            "pic": pic
+        ]
+        return request(method: ThMethod.publishTopic, data: params)
+        
+    }
 }

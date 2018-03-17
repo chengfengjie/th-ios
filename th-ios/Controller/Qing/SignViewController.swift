@@ -29,6 +29,10 @@ class SignViewController: BaseViewController<SignViewModel>, SignViewLayout {
     lazy var descriptionLabel: UILabel = {
         return self.makeDescriptionLabel()
     }()
+    
+    lazy var shareButton: UIButton = {
+        return self.makeShareButton()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +54,8 @@ class SignViewController: BaseViewController<SignViewModel>, SignViewLayout {
             .withFont(Font.sys(size: 13))
             .withTextColor(Color.color3)
             .withParagraphStyle(ParaStyle.create(lineSpacing: 10, alignment: NSTextAlignment.left))
+        
+        self.shareButton.backgroundColor = UIColor.clear
     }
 
     

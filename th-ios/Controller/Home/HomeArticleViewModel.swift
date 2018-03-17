@@ -68,7 +68,7 @@ class HomeArticleViewModel: BaseViewModel, ArticleApi {
         return AuthorListViewModel()
     }()
     
-    lazy var specialTopiclistViewModel: SpecialTopicListViewModel = {
-        return SpecialTopicListViewModel()
+    lazy var specialTopiclistViewModel: SpecialListViewModel = {
+        return SpecialListViewModel()
     }()
 }

@@ -14,6 +14,7 @@ protocol SignViewLayout {
     var dayLabel: UILabel { get }
     var infoLabel: UILabel { get }
     var descriptionLabel: UILabel { get }
+    var shareButton: UIButton { get }
 }
 extension SignViewLayout where Self: SignViewController {
     
@@ -86,5 +87,28 @@ extension SignViewLayout where Self: SignViewController {
             })
             $0.numberOfLines = 0
         }
+    }
+    
+    func makeShareButton() -> UIButton {
+        return UIButton.init(type: .custom).then({ (item) in
+            self.view.addSubview(item)
+            item.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.content.snp.centerX)
+                make.bottom.equalTo(-50)
+                make.width.height.equalTo(70)
+            })
+            item.setImage(UIImage.init(named: "qing_border_share"), for: UIControlState.normal)
+            
+            UILabel.init().do({ (label) in
+                self.view.addSubview(label)
+                label.snp.makeConstraints({ (make) in
+                    make.centerX.equalTo(item.snp.centerX)
+                    make.top.equalTo(item.snp.bottom).offset(15)
+                })
+                label.text = "分享"
+                label.textColor = UIColor.color6
+                label.font = UIFont.thin(size: 15)
+            })
+        })
     }
 }

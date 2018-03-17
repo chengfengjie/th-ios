@@ -9,10 +9,10 @@
 import UIKit
 
 class SameCityMainViewModel: BaseViewModel, ArticleApi {
-
-    var currentCity: String = "25"
     
     var cateDataProperty: MutableProperty<[JSON]>!
+    
+    var selectCityAction: Action<(), SelectCityViewModel, RequestError>!
     
     var cateTitles: [String] {
         return self.cateDataProperty.value.map({ (item) -> String in
@@ -22,6 +22,8 @@ class SameCityMainViewModel: BaseViewModel, ArticleApi {
     
     var fetchDataAction: Action<Int, [JSON], RequestError>!
     
+    var searchAction: Action<(), SearchViewModel, NoError>!
+    
     override init() {
         super.init()
         self.cateDataProperty = MutableProperty<[JSON]>([])
@@ -30,12 +32,31 @@ class SameCityMainViewModel: BaseViewModel, ArticleApi {
             .init(execute: { (_) -> SignalProducer<[JSON], RequestError> in
             return self.fetchDataProducer()
         })
+        
+        self.selectCityAction = Action<(), SelectCityViewModel, RequestError>
+            .init(execute: { (_) -> SignalProducer<SelectCityViewModel, RequestError> in
+                return SignalProducer.init(value: SelectCityViewModel())
+        })
+        
+        self.currentUser.currentCityId.signal.observeValues { (id) in
+            self.fetchDataAction.apply(0).start()
+        }
+        
+        self.searchAction = Action<(), SearchViewModel, NoError>
+            .init(execute: { (_) -> SignalProducer<SearchViewModel, NoError> in
+                return SignalProducer.init(value: SearchViewModel())
+            })
+    }
+    
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        self.fetchDataAction.apply(0).start()
     }
     
     private func fetchDataProducer() -> SignalProducer<[JSON], RequestError> {
         let (signal, observer) = Signal<[JSON], RequestError>.pipe()
         self.isRequest.value = true
-        self.requestCate(isCity: true, cityName: currentCity).observeResult { (result) in
+        self.requestCate(isCity: true, cityName: self.currentUser.currentCityId.value).observeResult { (result) in
             self.isRequest.value = false
             switch result {
             case let .success(value):

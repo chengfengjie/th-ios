@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewModel>, ArticleDetailViewLayout {
     
@@ -58,6 +59,18 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
         viewModel.commentAction.errors.observeValues { [weak self] (err) in
             self?.rootPresentLoginController()
         }
+        
+        bottomBar.goodItem.reactive.isSelected <~ viewModel.islike
+        
+        bottomBar.goodItem.reactive.pressed = CocoaAction(viewModel.likeArticleAction)
+        
+        viewModel.authorInfoAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: AuthorViewController(viewModel: model))
+        }
+        
+        viewModel.feedbackAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: FeedbackViewController(viewModel: model))
+        }
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -76,19 +89,19 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if indexPath.section == 0 {
-            return {
-                let cellNode = ArticleContentCellNode(dataJSON: self.viewModel.articleData.value)
-                self.articleContentCellNode = cellNode
-                return cellNode
-            }
+            let cellNode = ArticleContentCellNode(dataJSON: self.viewModel.articleData.value)
+            self.articleContentCellNode = cellNode
+            cellNode.followAction = self.viewModel.followAuthorAction
+            cellNode.cancelFollowAction = self.viewModel.cancelFollowAuthorAction
+            cellNode.authorAction = self.viewModel.authorInfoAction
+            cellNode.feedbackAction = self.viewModel.feedbackAction
+            return ASCellNode.createBlock(cellNode: cellNode)
         } else if indexPath.section == 1 {
-            return {
-                return AdvertisingCellNode(dataJSON: self.viewModel.adData.value)
-            }
+            let cellNode = AdvertisingCellNode(dataJSON: self.viewModel.adData.value)
+            return ASCellNode.createBlock(cellNode: cellNode)
         } else {
-            return {
-                return ArticleRelatedCellNode(dataJSON: self.viewModel.relatedlist[indexPath.row])
-            }
+            let cellNode = ArticleRelatedCellNode(dataJSON: self.viewModel.relatedlist[indexPath.row])
+            return ASCellNode.createBlock(cellNode: cellNode)
         }
     }
     

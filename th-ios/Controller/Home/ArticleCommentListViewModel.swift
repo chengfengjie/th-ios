@@ -11,7 +11,12 @@ import UIKit
 class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
 
     var commentlist: MutableProperty<[JSON]>!
+    
     var fetchCommentlistAction: Action<(), [JSON], RequestError>!
+    
+    var replayCommentAction: Action<JSON, CommentArticleViewModel, RequestError>!
+    
+    var likeCommentAction: Action<JSON, JSON, RequestError>!
     
     let articleID: String
     init(articleID: String) {
@@ -22,7 +27,30 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
         
         self.fetchCommentlistAction = Action<(), [JSON], RequestError>
             .init(execute: { (arg0) -> SignalProducer<[JSON], RequestError> in
-            return self.createFetchCommentlistSignalProducer()
+                return self.createFetchCommentlistSignalProducer()
+        })
+        
+        self.replayCommentAction = Action<JSON, CommentArticleViewModel, RequestError>
+            .init(execute: { (comment) -> SignalProducer<CommentArticleViewModel, RequestError> in
+                if self.currentUser.isLogin.value {
+                    let model = CommentArticleViewModel(articleID: articleID)
+                    model.isReply = true
+                    model.commentId = comment["cid"].stringValue
+                    return SignalProducer.init(value: model)
+                } else {
+                    self.requestError.value = RequestError.forbidden
+                    return SignalProducer.empty
+                }
+        })
+        
+        self.likeCommentAction = Action<JSON, JSON, RequestError>
+            .init(execute: { (comment) -> SignalProducer<JSON, RequestError> in
+                if self.currentUser.isLogin.value {
+                    return self.createLikeCommmentSignalProducer(comment: comment)
+                } else {
+                    self.requestError.value = RequestError.forbidden
+                    return SignalProducer.empty
+                }
         })
     }
     
@@ -52,4 +80,19 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
         return SignalProducer.init(signal)
     }
     
+    private func createLikeCommmentSignalProducer(comment: JSON) -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.isRequest.value = true
+        requestLikeArticleComment(cid: comment["cid"].stringValue).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(value):
+                observer.send(value: value)
+                observer.sendCompleted()
+            case let .failure(error):
+                observer.send(error: error)
+            }
+        }
+        return SignalProducer.init(signal)
+    }
 }

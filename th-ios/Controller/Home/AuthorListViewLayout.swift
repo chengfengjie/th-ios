@@ -67,6 +67,7 @@ extension AuthorListViewLayout where Self: AuthorListViewController {
 class AuthorListCellNode: ASCellNode, NodeElementMaker {
     
     var clickAddAction: Action<IndexPath, JSON, RequestError>?
+    var clickCancelAction: Action<IndexPath, JSON, RequestError>?
     
     lazy var avatarImageNode: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
@@ -77,16 +78,18 @@ class AuthorListCellNode: ASCellNode, NodeElementMaker {
     lazy var subscriptionCountTextNode: ASTextNode = {
         return self.makeAndAddTextNode()
     }()
-    lazy var addIconImageNode: ASImageNode = {
-        return self.makeAndAddImageNode()
+    lazy var addIconImageNode: ASButtonNode = {
+        return self.makeAndAddButtonNode()
     }()
     
+    let dataJSON: JSON
     init(dataJSON: JSON) {
+        self.dataJSON = dataJSON
         super.init()
     
         self.selectionStyle = .none
         
-        self.addIconImageNode.style.preferredSize = CGSize.init(width: 30, height: 30)
+        self.addIconImageNode.style.preferredSize = CGSize.init(width: 40, height: 40)
         self.avatarImageNode.style.preferredSize = CGSize.init(width: 50, height: 50)
         self.avatarImageNode.cornerRadius = 25
         self.avatarImageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
@@ -100,7 +103,18 @@ class AuthorListCellNode: ASCellNode, NodeElementMaker {
             .withTextColor(Color.color9)
             .withFont(Font.systemFont(ofSize: 12))
         
-        self.addIconImageNode.image = UIImage.init(named: "home_author_add")
+        self.addIconImageNode.cornerRadius = 5
+        if dataJSON["isfollow"].stringValue == "0" {
+            self.addIconImageNode.setAttributedTitle("+"
+                .withTextColor(Color.white)
+                .withFont(UIFont.sys(size: 20)),for: UIControlState.normal)
+            self.addIconImageNode.backgroundColor = UIColor.pink
+            
+        } else {
+            self.addIconImageNode.setAttributedTitle("取消"
+                .withTextColor(Color.white).withFont(Font.sys(size: 12)), for: UIControlState.normal)
+            self.addIconImageNode.backgroundColor = UIColor.lightGray
+        }
         
         self.addIconImageNode.addTarget(
             self, action: #selector(self.clickAddIcon),
@@ -109,13 +123,17 @@ class AuthorListCellNode: ASCellNode, NodeElementMaker {
     
     @objc func clickAddIcon() {
         if let indexPath = self.indexPath {
-            self.clickAddAction?.apply(indexPath).start()
+            if self.dataJSON["isfollow"].stringValue == "0" {
+                self.clickAddAction?.apply(indexPath).start()
+            } else {
+                self.clickCancelAction?.apply(indexPath).start()
+            }
         }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         self.authorNameTextNode.style.maxWidth = ASDimension.init(unit: ASDimensionUnit.points,
-                                                                  value: constrainedSize.max.width - 160)
+                                                                  value: constrainedSize.max.width - 170)
         let nameSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
                                               spacing: 5,
                                               justifyContent: ASStackLayoutJustifyContent.start,

@@ -27,6 +27,8 @@ class TopicArticleSwitchHeader: BaseView {
     override func setupSubViews() {
         super.setupSubViews()
         
+        self.backgroundColor = UIColor.white
+        
         let topicButton: UIButton = self.createSwitchItem(title: "话题").then {
             self.addSubview($0)
             $0.isSelected = true
@@ -55,6 +57,17 @@ class TopicArticleSwitchHeader: BaseView {
                 make.height.equalTo(2)
                 make.centerX.equalTo(topicButton.snp.centerX)
             })
+        }
+        
+        UIView().do { (line) in
+            self.addSubview(line)
+            line.snp.makeConstraints({ (make) in
+                make.left.equalTo(20)
+                make.right.equalTo(-20)
+                make.height.equalTo(CGFloat.pix1)
+                make.bottom.equalTo(0)
+            })
+            line.backgroundColor = UIColor.lineColor
         }
         
         topicButton.reactive.controlEvents(.touchUpInside).observe { [weak self] (event) in

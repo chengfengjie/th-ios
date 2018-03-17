@@ -21,19 +21,43 @@ class SelectCityViewController: BaseTableViewController<SelectCityViewModel>, Se
         self.tableNode.view.separatorStyle = .none
         
         self.tableNode.contentInset = UIEdgeInsetsMake(100, 0, 0, 0)
+        
+        self.bindViewModel()
     }
 
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        self.viewModel.fetchCityDataAction.values.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
+    }
+    
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
-        return 1
+        return 2
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return self.viewModel.citylist.value.count
+        default:
+            return 0
+        }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        return {
-            return RecommendCityCellNode()
+        if indexPath.section == 0 {
+            return ASCellNode.createBlock(cellNode: RecommendCityCellNode())
+        } else {
+            let cellNode = ASTextCellNode()
+            cellNode.textAttributes = [NSAttributedStringKey.font:UIFont.sys(size: 16),
+                                       NSAttributedStringKey.foregroundColor: UIColor.color6]
+            cellNode.text = self.viewModel.citylist.value[indexPath.row]["catname"].stringValue
+            cellNode.accessoryType = .disclosureIndicator
+            return ASCellNode.createBlock(cellNode: cellNode)
         }
     }
     
@@ -42,6 +66,16 @@ class SelectCityViewController: BaseTableViewController<SelectCityViewModel>, Se
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.buildSectionTitleHeader(titleText: "推荐")
+        if section == 0 {
+            return self.buildSectionTitleHeader(titleText: "推荐")
+        } else {
+            return self.buildSectionTitleHeader(titleText: "全部城市")
+        }
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        tableNode.deselectRow(at: indexPath, animated: true)
+        self.viewModel.selectCityAction.apply(indexPath).start()
+        self.popViewController(animated: true)
     }
 }

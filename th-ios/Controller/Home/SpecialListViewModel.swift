@@ -8,11 +8,13 @@
 
 import Foundation
 
-class SpecialTopicListViewModel: BaseViewModel, ArticleApi{
+class SpecialListViewModel: BaseViewModel, ArticleApi{
     
     var speciallist: MutableProperty<[JSON]>!
     
     var fetchlistAction: Action<Int, [JSON], RequestError>!
+    
+    var specialDetailAction: Action<IndexPath, SpecialViewModel, RequestError>!
     
     override init() {
         super.init()
@@ -24,8 +26,18 @@ class SpecialTopicListViewModel: BaseViewModel, ArticleApi{
             return self.fetchlistProducer()
         })
         
-        self.fetchlistAction.apply(0).start()
+        self.specialDetailAction = Action<IndexPath, SpecialViewModel, RequestError>
+            .init(execute: { (indexPath) -> SignalProducer<SpecialViewModel, RequestError> in
+                let specialInfo: JSON = self.speciallist.value[indexPath.row]
+                return SignalProducer.init(value: SpecialViewModel(specialInfo: specialInfo))
+        })
         
+        
+    }
+    
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
+        self.fetchlistAction.apply(0).start()
     }
     
     private func fetchlistProducer() -> SignalProducer<[JSON], RequestError> {
@@ -35,6 +47,7 @@ class SpecialTopicListViewModel: BaseViewModel, ArticleApi{
             self.isRequest.value = false
             switch result {
             case let .success(val):
+                print(val)
                 let list = val["data"]["speciallist"].arrayValue
                 self.speciallist.value = list
                 observer.send(value: list)

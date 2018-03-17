@@ -59,7 +59,7 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
             let controller = AuthorListViewController(viewModel: viewModel.authorListViewModel)
             self.pushViewController(viewController: controller)
         case .special:
-            let controller = SpecialTopicListController(viewModel: viewModel.specialTopiclistViewModel)
+            let controller = SpecialListController(viewModel: viewModel.specialTopiclistViewModel)
             self.pushViewController(viewController: controller)
         case .treehole:
             break

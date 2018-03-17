@@ -35,6 +35,10 @@ class SettingViewController: BaseTableViewController<SettingViewModel>, SettingV
         self.viewModel.logoutAction.values.observeValues { [weak self] (_) in
             self?.popViewController(animated: false)
         }
+        
+        viewModel.feedBackAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: FeedbackViewController(viewModel: model))
+        }
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -86,6 +90,15 @@ class SettingViewController: BaseTableViewController<SettingViewModel>, SettingV
 
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         tableNode.deselectRow(at: indexPath, animated: true)
+
+        if indexPath.section == 1 {
+            switch indexPath.row {
+            case 1:
+                self.viewModel.feedBackAction.apply(()).start()
+            default:
+                break
+            }
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

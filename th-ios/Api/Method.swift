@@ -76,4 +76,24 @@ enum ThMethod: String {
     case getUserMessagelist = "getLetterNote"
     /// 获取系统详细信息
     case getSystemMessageInfo = "getGroupPmOne"
+    /// 搜索
+    case search = "getSearchArticle"
+    /// 上传话题图片
+    case uploadTopicImage = "upThreadImage"
+    /// 发布话题
+    case publishTopic = "putForum"
+    /// 回复文章评论
+    case replayArticleComment = "putPortalCommentToCom"
+    /// 获取专题文章列表
+    case getSpecialArticlelist = "getArticleSpecial"
+    /// 关注作者
+    case flowAuthor = "getAuthorFollow"
+    /// 设置喜欢文章的状态
+    case likeArticleState = "getArticleLike"
+    /// 是否喜欢文章评论
+    case likeArticleComment = "getArticleTalkLike"
+    /// 取消关注作者
+    case cancelFollowAuthor = "delAuthorFollow"
+    /// 反馈建议
+    case feedback = "putfeedback"
 }

@@ -105,7 +105,13 @@ extension ArticleCommentListViewLayout where Self: ArticleCommentListViewControl
 
 class ArticleCommentListCellNode: CommentCellNode {
     
+    var replayAction: Action<JSON, Any, RequestError>?
+    
+    var likeAction: Action<JSON, JSON, RequestError>?
+    
+    let dataJSON: JSON
     init(dataJSON: JSON) {
+        self.dataJSON = dataJSON
         super.init()
         
         self.avatar.url = URL.init(string: dataJSON["uimg"].stringValue)
@@ -120,13 +126,35 @@ class ArticleCommentListCellNode: CommentCellNode {
             .withTextColor(Color.color9)
             .withFont(Font.sys(size: 12))
         
+        if dataJSON["islike"].stringValue == "1" {
+            self.goodButtonNode.image = UIImage.init(named: "qing_like_color")
+        } else {
+            self.goodButtonNode.image = UIImage.init(named: "qing_like_dark_gray")
+        }
+        
         self.goodTotalTextNode.attributedText = "0"
             .withFont(.sys(size: 12))
             .withTextColor(Color.color9)
         
-        self.commentTextNode.attributedText = dataJSON["message"].stringValue
+        self.commentTextNode.attributedText = dataJSON["quote"].stringValue
             .withTextColor(Color.color3).withFont(Font.sys(size: 16))
             .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: NSTextAlignment.justified))
+        
+        self.replyButtonNode.addTarget(self, action: #selector(self.handleReply), forControlEvents: .touchUpInside)
+        
+        self.goodButtonNode.addTarget(self, action: #selector(self.handleLike), forControlEvents: .touchUpInside)
+
+        self.goodTotalTextNode.addTarget(self, action: #selector(self.handleLike), forControlEvents: .touchUpInside)
+        
+        self.reportButtonNode.isHidden = true
+    }
+    
+    @objc func handleReply() {
+        self.replayAction?.apply(self.dataJSON).start()
+    }
+    
+    @objc func handleLike() {
+        self.likeAction?.apply(self.dataJSON).start()
     }
     
 }

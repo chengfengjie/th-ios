@@ -62,6 +62,14 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
             let controller = AuthorViewController(viewModel: model)
             self?.pushViewController(viewController: controller)
         }
+        
+        viewModel.flowUserAction.values.observeValues { [weak self] (_) in
+            self?.viewModel.fetchAuthorlistAction.apply("").start()
+        }
+        
+        viewModel.cancelFlowAuthorAction.values.observeValues { [weak self] (_) in
+            self?.viewModel.fetchAuthorlistAction.apply("").start()
+        }
     }
     
     func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
@@ -72,23 +80,21 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if tableNode == self.menuTableNode {
-            return {
-                let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist.value[indexPath.row]
-                return ASTextCellNode().then {
-                    $0.selectionStyle = .none
-                    $0.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 60)
-                    $0.textNode.attributedText = item.name
-                        .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: NSTextAlignment.center))
-                        .withTextColor(item.isSelected ? Color.pink : Color.color6)
-                        .withFont(Font.systemFont(ofSize: 13))
-                }
-            }
+            let item: AuthorListViewModel.MenuItem = self.viewModel.authorCatelist.value[indexPath.row]
+            let cellNode: ASTextCellNode = ASTextCellNode()
+            cellNode.selectionStyle = .none
+            cellNode.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: 60)
+            cellNode.textNode.attributedText = item.name
+                .withParagraphStyle(ParaStyle.create(lineSpacing: 0, alignment: NSTextAlignment.center))
+                .withTextColor(item.isSelected ? Color.pink : Color.color6)
+                .withFont(Font.systemFont(ofSize: 13))
+            return ASCellNode.createBlock(cellNode: cellNode)
         } else {
-            return {
-                let cellNode = AuthorListCellNode(dataJSON: self.viewModel.authorlist.value[indexPath.row])
-                cellNode.clickAddAction = self.viewModel.flowUserAction
-                return cellNode
-            }
+            let cellNode = AuthorListCellNode(dataJSON: self.viewModel.authorlist.value[indexPath.row])
+            cellNode.clickAddAction = self.viewModel.flowUserAction
+            cellNode.clickCancelAction = self.viewModel.cancelFlowAuthorAction
+            return ASCellNode.createBlock(cellNode: cellNode)
+
         }
     }
     

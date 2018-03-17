@@ -41,4 +41,35 @@ extension CommonApi {
         return self.request(method: ThMethod.getArticleTopicAd, data: params)
     }
     
+    
+    /// 搜索文章
+    ///
+    /// - Parameters:
+    ///   - keyWord: 关键字
+    ///   - page: 分页
+    /// - Returns: Signal
+    func requestSearchArticle(keyWord: String, page: Int) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "tkey": keyWord,
+            "page": page.description,
+            "type": "0"
+        ]
+        return request(method: ThMethod.search, data: params)
+    }
+    
+    /// 搜索话题
+    ///
+    /// - Parameters:
+    ///   - keyWord: 关键字
+    ///   - page: 分页
+    /// - Returns: Signal
+    func requestSearchTopic(keyWord: String, page: Int) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "tkey": keyWord,
+            "page": page.description,
+            "type": "1"
+        ]
+        return request(method: ThMethod.search, data: params)
+    }
+    
 }

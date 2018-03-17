@@ -49,6 +49,13 @@ protocol ThApi {
 }
 extension ThApi {
     
+    public func encodeImage(image: UIImage) -> String {
+        if let data = UIImageJPEGRepresentation(image, CGFloat.init(0.1)) {
+            return "data:image/png;base64," + data.base64EncodedString()
+        }
+        return "";
+    }
+    
     @discardableResult
     public func request(method: ThMethod, data: [String: Any] = [:]) -> Signal<JSON, RequestError> {
         return Signal.init({ (observer, time) in

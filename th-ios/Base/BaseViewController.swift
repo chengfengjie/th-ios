@@ -14,15 +14,15 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     
     let content: UIView = UIView.init()
     
+    lazy var customeNavBar: CustomNavBar = {
+        return self.makeCustomNavigationBar()
+    }()
+    
     let viewModel: ViewModel!
     
     required init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     var hud: MBProgressHUD!
@@ -79,10 +79,6 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
         }
     }
     
-    lazy var customeNavBar: CustomNavBar = {
-        return self.makeCustomNavigationBar()
-    }()
-    
     func setNavigationBarHidden(isHidden: Bool) {
         if isHidden {
             self.customeNavBar.navBarBox.isHidden = true
@@ -100,10 +96,14 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
                 self.customeNavBar.closeItem = item
                 item.reactive.controlEvents(.touchUpInside)
                     .observe({ [weak self] (signal) in
-                        self?.popViewController(animated: true)
+                        self?.handleClickCloseItem()
                     })
             })
         }
+    }
+    
+    func handleClickCloseItem() {
+        self.popViewController(animated: true)
     }
     
     func setNavigationBarTitle(title: String) {
@@ -114,6 +114,16 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
             self.customeNavBar.titleLabel?.attributedText = titleAttributeText
         }
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    lazy var navBarSearchItem: UIButton = {
+        return self.makeNavBarRightIconItem(iconName: "city_search").then {
+            $0.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        }
+    }()
 }
 
 

@@ -37,6 +37,10 @@ class CommentArticleViewController: BaseViewController<CommentArticleViewModel>,
         }
     
         self.bindViewModel()
+        
+        self.view.backgroundColor = UIColor.white
+        
+        self.content.backgroundColor = UIColor.white
     }
     
     override func bindViewModel() {
@@ -49,7 +53,19 @@ class CommentArticleViewController: BaseViewController<CommentArticleViewModel>,
         navBarRightItem.reactive.isEnabled <~ viewModel.enableComment
         
         viewModel.commentAction.values.observeValues { [weak self] (data) in
-            self?.popViewController(animated: true)
+            if self!.viewModel.isReply {
+                self?.dismiss(animated: true, completion: nil)
+            } else {
+                self?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    override func handleClickCloseItem() {
+        if self.viewModel.isReply {
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            self.popViewController(animated: true)
         }
     }
 }

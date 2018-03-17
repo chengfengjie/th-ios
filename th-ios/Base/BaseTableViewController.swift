@@ -17,7 +17,11 @@ class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, 
     }
     
     required init(viewModel: Model) {
-        self.tableNode = ASTableNode.init(style: UITableViewStyle.grouped)
+        var style: UITableViewStyle = .grouped
+        if viewModel.tableStyle == .plain {
+            style = UITableViewStyle.plain
+        }
+        self.tableNode = ASTableNode.init(style: style)
         super.init(viewModel: viewModel)
     }
     

@@ -28,19 +28,20 @@ class SpecialTopicBannerCellNode: ASCellNode, NodeElementMaker {
     lazy var contentInset: UIEdgeInsets = {
         return UIEdgeInsetsMake(20, 20, 20, 20)
     }()
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        self.backgroundImageNode.url = URL.init(string: "http://g.hiphotos.baidu.com/image/h%3D300/sign=0a9f67bc16950a7b6a3548c43ad0625c/c8ea15ce36d3d539f09733493187e950342ab095.jpg")
+        self.backgroundImageNode.url = URL.init(string: dataJSON["cover"].stringValue)
         self.backgroundImageNode.style.preferredSize = self.imageSize
         
         self.maskingNode.backgroundColor = UIColor.init(white: 0, alpha: 0.4)
         
-        self.titleTextNode.setText(text: "东风没啊实打实大声道", style: self.layoutCss.bannerTitleStyle)
+        self.titleTextNode.setText(text: dataJSON["title"].stringValue, style: self.layoutCss.bannerTitleStyle)
         
-        self.descriptionTextNode.setText(text: "JA是全球最大的致力于青少年职业、创业和理财教育的非营利教育机构。 创立于1919年,JA在全球120多个国家开展公益教育课程及活动。中国经济走向全球,需要国际型", style: self.layoutCss.bannerDescriptionStyle)
+        self.descriptionTextNode.setText(text: dataJSON["summary"].stringValue,
+                                         style: self.layoutCss.bannerDescriptionStyle)
         
         self.style.height = ASDimension.init(unit: ASDimensionUnit.points, value: self.imageSize.height)
     }
@@ -68,8 +69,20 @@ class SpecialTopicBannerCellNode: ASCellNode, NodeElementMaker {
 
 class SpecialTopicArticleListCellNode: NoneContentArticleCellNodeImpl {
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
+        
+        self.categoryTextNode.setText(text: dataJSON["catename"].stringValue, style: self.layoutCss.cateNameTextStyle)
+        self.titleTextNode.setText(text: dataJSON["title"].stringValue, style: self.layoutCss.titleTextStyle)
+        self.imageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
+        self.imageNode.style.preferredSize = self.layoutCss.imageSize
+        
+        self.sourceIconImageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.sourceIconImageNode.style.preferredSize = self.layoutCss.sourceIconSize
+        
+        self.sourceTextNode.setText(text: dataJSON["author"].stringValue, style: self.layoutCss.sourceNameTextStyle)
+        
+        self.unlikeButtonNode.setTitleText(text: "", style: self.layoutCss.sourceNameTextStyle)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

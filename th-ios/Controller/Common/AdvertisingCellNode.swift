@@ -27,13 +27,13 @@ class AdvertisingCellNode: ASCellNode, NodeElementMaker {
     init(dataJSON: JSON) {
         super.init()
         
+        self.selectionStyle = .none
+        
         self.adImageCellNode.style.preferredSize = self.bannerSize
         
         self.adImageCellNode.url = URL.init(string: dataJSON["url"].stringValue)
         
         self.adImageCellNode.defaultImage = UIImage.defaultImage
-        
-        print(dataJSON["url"].stringValue)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

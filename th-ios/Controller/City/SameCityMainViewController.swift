@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
     BaseTabBarItemConfig,
-    MagicControllerContainerProtocol,
-    NavBarSearchItemProtocol {
+    MagicControllerContainerProtocol {
     
     lazy var vtMagicController: VTMagicController = {
         return self.createMagicController()
@@ -38,12 +38,20 @@ class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
     
     override func bindViewModel() {
         super.bindViewModel()
-        
-        viewModel.fetchDataAction.apply(0).start()
-        
+                
         viewModel.cateDataProperty.signal.observeValues { [weak self] (_) in
             self?.vtMagicController.magicView.reloadData()
         }
+        
+        viewModel.selectCityAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SelectCityViewController(viewModel: model))
+        }
+        
+        navBarSearchItem.reactive.pressed = CocoaAction(viewModel.searchAction)
+        viewModel.searchAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SearchViewController(viewModel: model))
+        }
+
     }
     
     private func setNavigationBarPositionItem() {
@@ -60,7 +68,7 @@ class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
         }
         
         let label: UILabel = UILabel().then { (l) in
-            l.text = "广州"
+            l.reactive.text <~ self.viewModel.currentUser.currentCityName
             l.font = UIFont.songTi(size: 16)
             contentBar.addSubview(l)
             l.snp.makeConstraints({ (make) in
@@ -93,7 +101,7 @@ class SameCityMainViewController: BaseViewController<SameCityMainViewModel>,
     }
     
     @objc func handleClickCityItem() {
-        //self.pushViewController(viewController: SelectCityViewController(style: .grouped))
+        viewModel.selectCityAction.apply(()).start()
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {

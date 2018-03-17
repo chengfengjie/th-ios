@@ -19,9 +19,20 @@ class HomeViewModel: BaseViewModel, ArticleApi {
             return SignalProducer.init(self.fetchSaveCateDatalist())
         })
     }()
+    
+    var searchAction: Action<(), SearchViewModel, NoError>!
             
     override init() {
         super.init()
+        
+        self.searchAction = Action<(), SearchViewModel, NoError>
+            .init(execute: { (_) -> SignalProducer<SearchViewModel, NoError> in
+                return SignalProducer.init(value: SearchViewModel())
+        })
+    }
+    
+    override func viewModelDidLoad() {
+        super.viewModelDidLoad()
         self.fetchCateDataAction.apply(0).start()
     }
     

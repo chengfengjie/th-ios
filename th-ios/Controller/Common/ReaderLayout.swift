@@ -104,7 +104,7 @@ extension ReaderLayout {
 }
 
 
-class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderContentElementAction {
+class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderContentElementAction, RootNavigationControllerProtocol {
     
     lazy var sourceContainer: SourceContainer = {
         return self.makeSourceContainer(dataJSON: self.dataJSON)
@@ -136,6 +136,8 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     }()
     
     var paragraphContentlist: [ReaderContentElement] = []
+    
+    var currentContentElement: ReaderContentElement? = nil
     
     let dataJSON: JSON
     
@@ -179,6 +181,10 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
             .withFont(Font.sys(size: 14))
             .withTextColor(Color.color9) + " 报错\n\n".withFont(Font.sys(size: 14)) + tipAttributeText
         
+        self.editMenu.noteButton?.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
+            self?.clickMenuEdit()
+        })
+        
         self.bindAction()
     }
     
@@ -193,12 +199,13 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     func readerContentDidLongPressNode(element: ReaderContentElement) {
         DispatchQueue.main.async {
             self.pressElement = element
-            element.node.backgroundColor = UIColor.hexColor(hex: "fceae9")
+            element.node.backgroundColor = UIColor.paraBgColor
             var editMenuCenter = self.editMenu.center
             let point = element.node.convert(CGPoint.zero, to: self)
             editMenuCenter.y = point.y - 50
             self.editMenu.center = editMenuCenter
             self.view.addSubview(self.editMenu)
+            self.currentContentElement = element
         }
     }
     
@@ -209,6 +216,11 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     func didScroll() {
         self.editMenu.removeFromSuperview()
         self.pressElement?.node.backgroundColor = UIColor.clear
+        self.currentContentElement = nil
+    }
+    
+    func clickMenuEdit() {
+        
     }
 }
 

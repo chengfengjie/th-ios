@@ -160,4 +160,82 @@ extension ArticleApi {
         ]
         return request(method: ThMethod.getArticleCommentlist, data: params)
     }
+    
+    /// 回复文章评论
+    ///
+    /// - Parameters:
+    ///   - articleID: 文章ID
+    ///   - commentID: 评论ID
+    ///   - message: 消息
+    /// - Returns: Signal
+    func requestReplyArticleComment(articleID: String, commentID: String, message: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleID,
+            "message": message,
+            "pcid": commentID
+        ]
+        return request(method: ThMethod.replayArticleComment, data: params)
+    }
+    
+    /// 获取专题文章列表
+    ///
+    /// - Parameters:
+    ///   - specialId: 专题ID
+    ///   - page: 分页
+    /// - Returns: Siganl
+    func requestSpecialArticlelist(specialId: String, page: Int) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "spid": specialId,
+            "page": page.description
+        ]
+        return request(method: ThMethod.getSpecialArticlelist, data: params)
+        
+    }
+    
+    /// 关注作者
+    ///
+    /// - Parameter authorId: 作者ID
+    /// - Returns: Signal
+    func requestFlowAuthor(authorId: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "auid": authorId
+        ]
+        return request(method: ThMethod.flowAuthor, data: params)
+    }
+    
+    /// 设置是否喜欢文章
+    ///
+    /// - Parameters:
+    ///   - isLike: 是否喜欢
+    ///   - articleId: 文章ID
+    /// - Returns: Signal
+    func requestSetArticleLikeState(isLike: Bool, articleId: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleId,
+            "like": isLike ? "4" : "5"
+        ]
+        return request(method: ThMethod.likeArticleState, data: params)
+    }
+    
+    /// 点赞文章评论
+    ///
+    /// - Parameter cid: 评论id
+    /// - Returns: Signal
+    func requestLikeArticleComment(cid: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "cid": cid
+        ]
+        return request(method: ThMethod.likeArticleComment, data: params)
+    }
+    
+    /// 取消关注作者
+    ///
+    /// - Parameter authorId: 作者ID
+    /// - Returns: 描述
+    func requestCancelFllowAuthor(authorId: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "auid": authorId
+        ]
+        return request(method: ThMethod.cancelFollowAuthor, data: params)
+    }
 }

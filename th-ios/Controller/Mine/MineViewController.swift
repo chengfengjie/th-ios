@@ -156,6 +156,7 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
         default:
             break
         }
+        self.tableNode.reloadData()
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {

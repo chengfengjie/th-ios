@@ -11,8 +11,7 @@ import UIKit
 class HomeViewController: BaseViewController<HomeViewModel>,
     BaseTabBarItemConfig,
     MagicControllerContainerProtocol,
-    HomeViewControllerLayout,
-    NavBarSearchItemProtocol {
+    HomeViewControllerLayout {
     
     private let headlineIdentifer = "headlineIdentifer"
     private let categoryIdentifer = "categoryIdentifer"
@@ -42,13 +41,15 @@ class HomeViewController: BaseViewController<HomeViewModel>,
     override func bindViewModel() {
         super.bindViewModel()
         
-        self.viewModel.cateDataProperty.signal.observeValues { [weak self] (_) in
+        viewModel.cateDataProperty.signal.observeValues { [weak self] (_) in
             self?.vtMagicController.magicView.reloadData()
         }
-    }
-    
-    func bind() {
-
+        
+        navBarSearchItem.reactive.pressed = CocoaAction(viewModel.searchAction)
+        viewModel.searchAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: SearchViewController(viewModel: model))
+        }
+        
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {

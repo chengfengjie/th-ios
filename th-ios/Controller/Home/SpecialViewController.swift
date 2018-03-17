@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpecialTopicViewController: BaseTableViewController<BaseViewModel> {
+class SpecialViewController: BaseTableViewController<SpecialViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +16,18 @@ class SpecialTopicViewController: BaseTableViewController<BaseViewModel> {
         self.setNavigationBarCloseItem(isHidden: false)
         
         self.setNavigationBarTitle(title: "专题")
+        
+        self.tableNode.view.separatorStyle = .none
+        
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        viewModel.articlelist.signal.observeValues { [weak self] (_) in
+            self?.tableNode.reloadData()
+        }
         
     }
     
@@ -27,19 +39,17 @@ class SpecialTopicViewController: BaseTableViewController<BaseViewModel> {
         if section == 0 {
             return 1
         } else {
-            return 10
+            return self.viewModel.articlelist.value.count
         }
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if indexPath.section == 0 {
-            return {
-                return SpecialTopicBannerCellNode()
-            }
+            return ASCellNode.createBlock(cellNode: SpecialTopicBannerCellNode(dataJSON: self.viewModel.specialInfo))
         } else {
-            return {
-                return SpecialTopicArticleListCellNode()
-            }
+            let data = viewModel.articlelist.value[indexPath.row]
+            let cellNode = SpecialTopicArticleListCellNode(dataJSON: data)
+            return ASCellNode.createBlock(cellNode: cellNode)
         }
     }
 }

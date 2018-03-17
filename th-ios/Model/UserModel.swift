@@ -20,6 +20,9 @@ class UserModel: NSObject, NSCoding {
     var userID: MutableProperty<String>!
     var userName: MutableProperty<String>!
     
+    var currentCityName: MutableProperty<String> = MutableProperty("广州")
+    var currentCityId: MutableProperty<String> = MutableProperty("25")
+    
     override init() {
         super.init()
         self.isLogin = MutableProperty(false)

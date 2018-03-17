@@ -41,6 +41,10 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
         viewModel.articlelist.signal.observeValues { [weak self] (_) in
             self?.tableNode.reloadSections(IndexSet.init(integer: 1), with: .automatic)
         }
+        
+        viewModel.articleDetailAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: ArticleDetailViewController(viewModel: model))
+        }
     }
 
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -92,6 +96,8 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 1 {
             //self.pushViewController(viewController: UserListController(style: .grouped))
+        } else if indexPath.section == 1 {
+            viewModel.articleDetailAction.apply(indexPath).start()
         }
     }
 }

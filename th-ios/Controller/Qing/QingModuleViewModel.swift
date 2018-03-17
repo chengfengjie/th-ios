@@ -71,11 +71,15 @@ class QingModuleViewModel: BaseViewModel, QingApi {
         
         self.publishTopicAction = Action<(), PublishTopicViewModel, RequestError>
             .init(execute: { (_) -> SignalProducer<PublishTopicViewModel, RequestError> in
-            if self.currentUser.isLogin.value {
-                return SignalProducer.init(value: PublishTopicViewModel())
-            } else {
-                return SignalProducer.init(error: RequestError.forbidden)
-            }
+                if self.catelist.value.isEmpty {
+                    return SignalProducer.init(error: RequestError.warning(message: "分类为空"))
+                }
+                if self.currentUser.isLogin.value {
+                    return SignalProducer.init(value: PublishTopicViewModel(fid: self.fid, catelist: self.catelist.value))
+                } else {
+                    self.requestError.value = RequestError.forbidden
+                    return SignalProducer.empty
+                }
         })
     }
     

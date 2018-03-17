@@ -8,7 +8,7 @@
 
 import UIKit
 
-class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItemConfig, QingViewLayout, NavBarSearchItemProtocol, InterestGropusCellNodeAction {
+class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItemConfig, QingViewLayout, InterestGropusCellNodeAction {
     
     lazy var tableNodeMneuBarHeader: QingViewTableNodeMenuBarHeader = {
         return self.makeTopMenuBarHeader()
@@ -96,29 +96,24 @@ class QingViewController: BaseTableViewController<QingViewModel>, BaseTabBarItem
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         switch indexPath.row {
         case 0:
-            return {
-                return InterestGropusCellNode(action: self, dataJSON: self.viewModel.interestlist)
-            }
+            let cellNode = InterestGropusCellNode(action: self, dataJSON: self.viewModel.interestlist)
+            return ASCellNode.createBlock(cellNode: cellNode)
         case 1:
-            return {
-                if self.viewModel.hotlist.isEmpty {
-                    return ASCellNode().then {
-                        $0.style.preferredSize = CGSize.init(width: 1, height: 0)
-                    }
-                } else {
-                    return QingHotTodayCellNode(dataJSON: self.viewModel.hotlist.first)
-                }
+            if viewModel.hotlist.isEmpty {
+                let cellNode = ASCellNode()
+                cellNode.style.preferredSize = CGSize.init(width: 1, height: 0)
+                return ASCellNode.createBlock(cellNode: cellNode)
+            } else {
+                let cellNode = QingHotTodayCellNode(dataJSON: viewModel.hotlist.first)
+                return ASCellNode.createBlock(cellNode: cellNode)
             }
         case 2:
-            return {
-                return QingCityCommunityCellNode(dataJSON: self.viewModel.citylist).then {
-                    $0.clickAction = self.viewModel.topicModuleAction
-                }
-            }
+            let cellNode = QingCityCommunityCellNode(dataJSON: self.viewModel.citylist)
+            cellNode.clickAction = viewModel.topicModuleAction
+            return ASCellNode.createBlock(cellNode: cellNode)
         default:
-            return {
-                return ASTextCellNode()
-            }
+            return ASCellNode.createBlock(cellNode: ASCellNode())
+       
         }
     }
     

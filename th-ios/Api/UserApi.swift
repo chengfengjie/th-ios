@@ -142,4 +142,21 @@ extension UserApi {
         ]
         return request(method: ThMethod.getSystemMessageInfo, data: params)
     }
+    
+    /// 反馈
+    ///
+    /// - Parameters:
+    ///   - text: 文本反馈
+    ///   - image: 图片反馈
+    /// - Returns: Signal
+    func requestFeedback(text: String?, image: UIImage?) -> Signal<JSON, RequestError> {
+        var params: [String: String] = [:]
+        if text != nil {
+            params["text"] = text!
+        }
+        if image != nil {
+            params["image"] = self.encodeImage(image: image!)
+        }
+        return request(method: ThMethod.feedback, data: params)
+    }
 }

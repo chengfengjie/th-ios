@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 import DateTools
 
+extension ASCellNode {
+    
+    class func createBlock(cellNode: ASCellNode) -> ASCellNodeBlock {
+        return {
+            return cellNode
+        }
+    }
+    
+}
+
 extension UIDevice {
     
     var is_iPhoneX: Bool {

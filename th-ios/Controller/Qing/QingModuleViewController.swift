@@ -8,8 +8,7 @@
 
 import UIKit
 
-class QingModuleViewController: BaseTableViewController<QingModuleViewModel>,
-NavBarSearchItemProtocol, QingModuleViewLayout, HorizontalScrollMenuAction {
+class QingModuleViewController: BaseTableViewController<QingModuleViewModel>, QingModuleViewLayout, HorizontalScrollMenuAction {
     
     lazy var menuHeader: (background: UIView, scrollMenu: HorizontalScrollMenu) = {
         return self.makeMenuHeader()
@@ -36,6 +35,8 @@ NavBarSearchItemProtocol, QingModuleViewLayout, HorizontalScrollMenuAction {
     }
     
     override func bindViewModel() {
+        
+        super.bindViewModel()
         
         self.menuHeader.scrollMenu.delegate = self
         

@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import ReactiveSwift
+import ReactiveCocoa
 
-class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewControllerLayout {
+class SearchViewController: BaseTableViewController<SearchViewModel>, SearchViewControllerLayout,
+UITextFieldDelegate, TopicArticleSwitchHeaderAction {
     
     lazy var searchControl: SearchControl = {
         return self.makeSearchControl()
+    }()
+    
+    lazy var switchHeader: TopicArticleSwitchHeader = {
+        return TopicArticleSwitchHeader()
     }()
     
     override func viewDidLoad() {
@@ -20,6 +27,37 @@ class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewCo
         self.makeNavBarRightCancelButton()
         
         self.searchControl.backgroundColor = UIColor.hexColor(hex: "fafafa")
+        
+        self.switchHeader.action = self
+        
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        searchControl.textField.delegate = self
+        
+        viewModel.keyWord <~ searchControl.textField.reactive.continuousTextValues.skipNil()
+        
+        searchControl.textField.enablesReturnKeyAutomatically = true
+        
+        viewModel.articlelist.signal.observeValues { [weak self] (val) in
+            self?.tableNode.reloadData()
+        }
+        
+        viewModel.articleDetailAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: ArticleDetailViewController(viewModel: model))
+        }
+    }
+    
+    func switchDidChange(buttonIndex: Int, header: TopicArticleSwitchHeader) {
+        self.viewModel.currentTab.value = buttonIndex.description
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        viewModel.searchAction.apply(()).start()
+        return true
     }
     
     @objc func handleClickCancelItem() {
@@ -31,13 +69,11 @@ class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewCo
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.articlelist.value.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        return {
-            return SearchResultCellNode()
-        }
+        return ASCellNode.createBlock(cellNode: SearchResultCellNode(dataJSON: self.viewModel.articlelist.value[indexPath.row]))
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -45,7 +81,15 @@ class SearchViewController: BaseTableViewController<BaseViewModel>, SearchViewCo
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+        return self.switchHeader
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        if self.viewModel.currentTab.value == "1" {
+            self.viewModel.articleDetailAction.apply(indexPath).start()
+        } else {
+            
+        }
     }
 }
 

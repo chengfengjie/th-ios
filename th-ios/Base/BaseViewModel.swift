@@ -10,6 +10,13 @@ import UIKit
 
 class BaseViewModel: NSObject {
     
+    enum TableStyle: Int {
+        case grouped
+        case plain
+    }
+    
+    var tableStyle: TableStyle = .grouped
+    
     var isRequest: MutableProperty<Bool>!
     var requestError: MutableProperty<RequestError?>!
     var okMessage: MutableProperty<String>!

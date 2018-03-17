@@ -22,9 +22,10 @@ extension SearchViewControllerLayout where Self: SearchViewController {
             $0.titleLabel?.font = UIFont.songTi(size: 15)
             $0.setTitleColor(UIColor.color3, for: UIControlState.normal)
             $0.snp.makeConstraints({ (make) in
-                make.top.bottom.equalTo(0)
+                make.top.equalTo(20)
                 make.right.equalTo(-15)
-                make.width.equalTo(barContent.snp.height)
+                make.height.equalTo(32)
+                make.width.equalTo(45)
             })
             $0.addTarget(self, action: #selector(self.handleClickCancelItem),
                          for: UIControlEvents.touchUpInside)
@@ -40,7 +41,7 @@ extension SearchViewControllerLayout where Self: SearchViewController {
             $0.snp.makeConstraints({ (make) in
                 make.left.equalTo(20)
                 make.right.equalTo(-80)
-                make.centerY.equalTo(barContent.snp.centerY)
+                make.top.equalTo(20)
                 make.height.equalTo(32)
             })
         }
@@ -73,6 +74,7 @@ class SearchControl: BaseView {
         }
         
         self.textField.placeholder = "搜索"
+        self.textField.returnKeyType = .search
         self.textField.font = UIFont.systemFont(ofSize: 14)
         self.textField.snp.makeConstraints { (make) in
             make.left.equalTo(40)
@@ -108,30 +110,30 @@ class SearchResultCellNode: ASCellNode, SearchResultCellNodeLayout {
         return self.makeAndAddTextNode()
     }()
     
-    override init() {
+    init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        self.cateNameTextNode.attributedText = "辣妈生活"
+        self.cateNameTextNode.attributedText = dataJSON["catname"].stringValue
             .withTextColor(Color.pink)
             .withFont(Font.systemFont(ofSize: 11))
         
-        self.titleTextNode.attributedText = "在南京的雪中,走到白头"
+        self.titleTextNode.attributedText = dataJSON["title"].stringValue
             .withFont(Font.systemFont(ofSize: 18))
             .withTextColor(Color.color3)
             .withParagraphStyle(ParaStyle.create(lineSpacing: 3))
         
         self.sourceAvatarImageNode.cornerRadius = self.sourceAvatarSize.width / 2.0
-        self.sourceAvatarImageNode.url = URL.init(string: "https://himg.bdimg.com/sys/portrait/item/38b8e69184e5bdb1e5b888e69db0e5a4ab87b1.jpg")
+        self.sourceAvatarImageNode.url = URL.init(string: dataJSON["aimg"].stringValue)
         
-        self.sourceNameTextNode.attributedText = "初恋战线"
+        self.sourceNameTextNode.attributedText = dataJSON["author"].stringValue
             .withFont(Font.systemFont(ofSize: 11))
             .withTextColor(Color.color3)
         
         self.viewCountIconImageNode.image = UIImage.init(named: "search_eye")
         
-        self.viewCountTextNode.attributedText = "11112"
+        self.viewCountTextNode.attributedText = dataJSON["viewnum"].stringValue
             .withFont(Font.systemFont(ofSize: 11))
             .withTextColor(Color.color3)
     }
