@@ -95,6 +95,8 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
             cellNode.cancelFollowAction = self.viewModel.cancelFollowAuthorAction
             cellNode.authorAction = self.viewModel.authorInfoAction
             cellNode.feedbackAction = self.viewModel.feedbackAction
+            cellNode.articleID = self.viewModel.articleID
+            cellNode.model = self.viewModel
             return ASCellNode.createBlock(cellNode: cellNode)
         } else if indexPath.section == 1 {
             let cellNode = AdvertisingCellNode(dataJSON: self.viewModel.adData.value)

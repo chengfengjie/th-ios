@@ -91,6 +91,7 @@ extension ThApi {
             } else if dataJSON["errCode"].intValue == 0 {
                 observer.send(value: dataJSON["info"])
             } else {
+                print(dataJSON)
                 observer.send(error: RequestError.warning(message: dataJSON["errMessage"].stringValue))
             }
         } else {

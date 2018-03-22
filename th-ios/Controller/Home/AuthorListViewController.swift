@@ -37,7 +37,7 @@ class AuthorListViewController: BaseViewController<AuthorListViewModel>, AuthorL
         
         self.bindViewModel()
     }
-    
+        
     override func bindViewModel() {
         super.bindViewModel()
         

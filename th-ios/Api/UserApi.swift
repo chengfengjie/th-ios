@@ -159,4 +159,29 @@ extension UserApi {
         }
         return request(method: ThMethod.feedback, data: params)
     }
+    
+    /// 获取私信详细列表
+    ///
+    /// - Parameters:
+    ///   - touid: 用户id
+    ///   - page: 分页
+    /// - Returns: signal
+    func requestUserMessageDetaillist(touid: String, page: Int) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "touid": touid,
+            "page": page.description
+        ]
+        return request(method: ThMethod.getUserMessageDetaillist, data: params)
+    }
+    
+    /// 取消关注用户
+    ///
+    /// - Parameter userId: 用户id
+    /// - Returns: Siganl
+    func requestCancelFollowUser(userId: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "fuid": userId
+        ]
+        return request(method: ThMethod.cancelFollowUser, data: params)
+    }
 }

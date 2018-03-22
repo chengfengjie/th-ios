@@ -297,6 +297,12 @@
 		5CBE549720196B3F00594B9E /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE549620196B3F00594B9E /* Style.swift */; };
 		5CBE54A8201973C700594B9E /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE54A7201973C700594B9E /* Style.swift */; };
 		5CBE54AA2019780A00594B9E /* style.json in Resources */ = {isa = PBXBuildFile; fileRef = 5CBE54A92019780A00594B9E /* style.json */; };
+		5CBEB2F220628726005BE7A0 /* CommentTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F120628726005BE7A0 /* CommentTopicViewController.swift */; };
+		5CBEB2F320628726005BE7A0 /* CommentTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F120628726005BE7A0 /* CommentTopicViewController.swift */; };
+		5CBEB2F52062874D005BE7A0 /* CommentTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F42062874D005BE7A0 /* CommentTopicViewModel.swift */; };
+		5CBEB2F62062874D005BE7A0 /* CommentTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F42062874D005BE7A0 /* CommentTopicViewModel.swift */; };
+		5CBEB2F820628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F720628A86005BE7A0 /* CommentTopicViewLayout.swift */; };
+		5CBEB2F920628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBEB2F720628A86005BE7A0 /* CommentTopicViewLayout.swift */; };
 		5CDC3BA1203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */; };
 		5CDC3BA2203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */; };
 		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
@@ -482,6 +488,9 @@
 		5CBE549620196B3F00594B9E /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5CBE54A7201973C700594B9E /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 		5CBE54A92019780A00594B9E /* style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = style.json; sourceTree = "<group>"; };
+		5CBEB2F120628726005BE7A0 /* CommentTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTopicViewController.swift; sourceTree = "<group>"; };
+		5CBEB2F42062874D005BE7A0 /* CommentTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTopicViewModel.swift; sourceTree = "<group>"; };
+		5CBEB2F720628A86005BE7A0 /* CommentTopicViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTopicViewLayout.swift; sourceTree = "<group>"; };
 		5CDC3BA0203FEF0B0010A47F /* QingTopicListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingTopicListViewModel.swift; sourceTree = "<group>"; };
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
@@ -729,6 +738,9 @@
 				5C6D391A202C902C00696E16 /* TopicDetailViewController.swift */,
 				5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */,
 				5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */,
+				5CBEB2F120628726005BE7A0 /* CommentTopicViewController.swift */,
+				5CBEB2F42062874D005BE7A0 /* CommentTopicViewModel.swift */,
+				5CBEB2F720628A86005BE7A0 /* CommentTopicViewLayout.swift */,
 				5CFD61F9203043C60099C104 /* SignViewController.swift */,
 				5C28E1CA20347CED00475727 /* SignViewLayout.swift */,
 				5C28E1CD203485E400475727 /* SignViewModel.swift */,
@@ -1353,6 +1365,7 @@
 				5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
+				5CBEB2F820628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
 				5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */,
 				5C94C36B202047330043D01F /* SettingViewLayout.swift in Sources */,
@@ -1395,6 +1408,7 @@
 				5CA1E339204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
 				5CAA28AE203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
+				5CBEB2F220628726005BE7A0 /* CommentTopicViewController.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
 				5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
@@ -1432,6 +1446,7 @@
 				5CA1E32D20497FFA004CD95D /* SearchViewModel.swift in Sources */,
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA2899203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
+				5CBEB2F52062874D005BE7A0 /* CommentTopicViewModel.swift in Sources */,
 				5C6408CE2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C45E54E204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */,
 				5C45E5542042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */,
@@ -1499,6 +1514,7 @@
 				5C55B4B3202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23120235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */,
+				5CBEB2F920628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */,
 				5C1E167420216F5900C23B77 /* QingViewController.swift in Sources */,
 				5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */,
 				5C1E167620216F5900C23B77 /* SettingViewLayout.swift in Sources */,
@@ -1541,6 +1557,7 @@
 				5CA1E33A204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */,
 				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
 				5CAA28AF203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
+				5CBEB2F320628726005BE7A0 /* CommentTopicViewController.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
 				5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
@@ -1578,6 +1595,7 @@
 				5CA1E32E20497FFA004CD95D /* SearchViewModel.swift in Sources */,
 				5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA289A203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
+				5CBEB2F62062874D005BE7A0 /* CommentTopicViewModel.swift in Sources */,
 				5C6408CF2028A11300F95BE1 /* AuthorizeInputCodeViewController.swift in Sources */,
 				5C45E54F204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */,
 				5C45E5552042B9C90026FAB8 /* EditUserInfoViewController.swift in Sources */,

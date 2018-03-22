@@ -10,7 +10,7 @@ import UIKit
 import ReactiveSwift
 
 class AddEditNoteViewController: BaseViewController<AddEditNoteViewModel>, AddEditNoteViewLayout {
-    
+
     lazy var element: AddEditNoteViewElement = {
         return self.layoutElement(data: self.viewModel.paraContent)
     }()
@@ -36,7 +36,16 @@ class AddEditNoteViewController: BaseViewController<AddEditNoteViewModel>, AddEd
         
         element.paraText.backgroundColor = UIColor.clear
         
+        element.textView.text = viewModel.noteText.value
+        
         viewModel.noteText <~ self.element.textView.reactive.continuousTextValues.skipNil()
+        
+        saveItem.reactive.pressed = CocoaAction(viewModel.saveNoteAction)
+        
+        viewModel.saveNoteAction.values.observeValues { [weak self] (val) in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     override func handleClickCloseItem() {

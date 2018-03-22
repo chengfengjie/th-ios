@@ -65,13 +65,12 @@ class AuthorViewController: BaseTableViewController<AuthorViewModel>, AuthorView
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                return {
-                    return AuthorTopBasicInfo(dataJSON: self.viewModel.authorInfo.value)
-                }
+                let cellNode = AuthorTopBasicInfo(dataJSON: self.viewModel.authorInfo.value)
+                cellNode.model = self.viewModel
+                return ASCellNode.createBlock(cellNode: cellNode)
             } else if indexPath.row == 1 {
-                return {
-                    return AttentionAuthorCellNode()
-                }
+                let cellNode = AttentionAuthorCellNode(authorInfo: self.viewModel.authorInfo.value)
+                return ASCellNode.createBlock(cellNode: cellNode)
             }
         }
         return {

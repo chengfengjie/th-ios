@@ -8,7 +8,11 @@
 
 import UIKit
 
-class PrivateMessageViewController: BaseViewController<PrivateMessageViewModel> {
+class PrivateMessageViewController: BaseViewController<PrivateMessageViewModel>, PrivateMessageViewLayout {
+    
+    lazy var element: PrivateMessageViewElement = {
+        return self.layoutSubviews()
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +20,14 @@ class PrivateMessageViewController: BaseViewController<PrivateMessageViewModel> 
         self.setNavigationBarTitle(title: "私信")
         
         self.setNavigationBarCloseItem(isHidden: false)
+        
+        self.bindViewModel()
+    }
+    
+    override func bindViewModel() {
+        super.bindViewModel()
+        
+        self.element.inputBar.backgroundColor = UIColor.white
     }
 
 }

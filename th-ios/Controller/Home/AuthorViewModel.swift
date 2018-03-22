@@ -18,6 +18,9 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
     
     var articleDetailAction: Action<IndexPath, ArticleDetailViewModel, RequestError>!
     
+    var flowUserAction: Action<(), JSON, RequestError>!
+    var cancelFlowAuthorAction: Action<(), JSON, RequestError>!
+    
     let authorID: String
     init(authorID: String) {
         self.authorID = authorID
@@ -43,6 +46,15 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
                 return SignalProducer.init(value: model)
         })
         
+        self.flowUserAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+                return self.createFllowUserSignalProducer()
+        })
+        
+        self.cancelFlowAuthorAction = Action<(), JSON, RequestError>
+            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+                return self.createCancelFlowAuthorSignalProducer()
+        })
     }
     
     override func viewModelDidLoad() {
@@ -88,6 +100,45 @@ class AuthorViewModel: BaseViewModel, ArticleApi {
             case let .failure(err):
                 self.requestError.value = err
                 observer.send(error: err)
+            }
+        }
+        return SignalProducer.init(signal)
+    }
+    
+    private func createFllowUserSignalProducer() -> SignalProducer<JSON, RequestError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        requestFlowAuthor(authorId: self.authorID).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(data):
+                print(data)
+                observer.send(value: data)
+                observer.sendCompleted()
+                self.okMessage.value = "关注成功"
+            case let .failure(error):
+                observer.send(error: error)
+                self.requestError.value = error
+            }
+            
+        }
+        return SignalProducer.init(signal)
+    }
+    
+    private func createCancelFlowAuthorSignalProducer() -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.isRequest.value = true
+        requestCancelFllowAuthor(authorId: self.authorID).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(value):
+                print(value)
+                observer.send(value: value)
+                observer.sendCompleted()
+            case let .failure(error):
+                print(error)
+                self.requestError.value = error
+                observer.send(error: error)
             }
         }
         return SignalProducer.init(signal)

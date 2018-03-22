@@ -170,7 +170,7 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
         self.paragraphContentlist = self.createParagraphContent(datalist: dataJSON["sContent"].arrayValue)
         
         self.sourceContainer.borderColor = UIColor.lineColor.cgColor
-        self.sourceContainer.borderWidth = 1.0 / UIScreen.main.scale
+        self.sourceContainer.borderWidth = CGFloat.pix1
         
         let tipAttributeText = ("本页面由童伙妈妈应用采用内搜索技术自动抓取，在未编辑原始内容的情况下对板式做了优化提升阅读体验·"
             .withTextColor(Color.color9)
@@ -183,6 +183,14 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
         
         self.editMenu.noteButton?.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
             self?.clickMenuEdit()
+        })
+        
+        self.editMenu.deleteButton?.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
+            self?.clickMenuDelete()
+        })
+        
+        self.editMenu.copyButton?.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
+            self?.clickMenuCopy()
         })
         
         self.bindAction()
@@ -206,7 +214,15 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
             self.editMenu.center = editMenuCenter
             self.view.addSubview(self.editMenu)
             self.currentContentElement = element
+            self.editMenuDidShow()
+            if let textNode = element.node as? ASTextNode {
+                textNode.textContainerInset = UIEdgeInsetsMake(5, 5, 5, 5)
+            }
         }
+    }
+    
+    func editMenuDidShow() {
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -215,12 +231,27 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     
     func didScroll() {
         self.editMenu.removeFromSuperview()
-        self.pressElement?.node.backgroundColor = UIColor.clear
         self.currentContentElement = nil
     }
     
     func clickMenuEdit() {
         
+    }
+    
+    func clickMenuDelete() {
+        
+    }
+    
+    func deleteNoteSuccess(element: ReaderContentElement) {
+        self.editMenu.removeFromSuperview()
+        element.deleteNoteComplete()
+    }
+    
+    func clickMenuCopy() {
+    }
+    
+    func hideMenu() {
+        self.editMenu.removeFromSuperview()
     }
 }
 
@@ -275,10 +306,7 @@ class ReaderContentElement: NSObject {
     }
     
     @objc func handleClickNode() {
-        print("1234")
-//        self.noteNode.style.preferredSize = self.noteNode.contentSize
-//        self.noteNode.supernode?.transitionLayout(withAnimation: true, shouldMeasureAsync: true, measurementCompletion: nil)
-//        self.noteNode.supernode?.setNeedsLayout()
+
     }
     
     var noteNodeSize: CGSize = CGSize.zero
@@ -288,9 +316,51 @@ class ReaderContentElement: NSObject {
             
         })
     }
+    
+    func addOrUpdateNoteText(text: String) {
+        var dataDict = self.data.dictionaryObject
+        dataDict!["sNoteContent"] = text
+        dataDict!["markups"] = "1"
+        self.data = JSON.init(dataDict!)
+        self.noteText = text
+        self.noteNode.setNoteText(noteText: text)
+        self.noteNode.supernode?.transitionLayout(
+            withAnimation: true,
+            shouldMeasureAsync: true,
+            measurementCompletion: nil)
+        self.noteNode.supernode?.setNeedsLayout()
+    }
+    
+    func deleteNoteComplete() {
+        var dataDict = self.data.dictionaryObject
+        dataDict!["sNoteContent"] = ""
+        dataDict!["markups"] = "0"
+        self.data = JSON.init(dataDict!)
+        self.noteNode.setNoteText(noteText: "")
+        self.noteNode.supernode?.transitionLayout(
+            withAnimation: true,
+            shouldMeasureAsync: true,
+            measurementCompletion: nil)
+        self.noteNode.supernode?.setNeedsLayout()
+        self.node.backgroundColor = UIColor.clear
+        if let textNode = self.node as? ASTextNode {
+            textNode.textContainerInset = UIEdgeInsets.zero
+        }
+    }
+    
+    func addEmptyNoteComplete() {
+        var dataDict = self.data.dictionaryObject
+        dataDict!["sNoteContent"] = ""
+        dataDict!["markups"] = "1"
+        self.data = JSON.init(dataDict!)
+    }
 }
 
 fileprivate class NoteNode: ASDisplayNode, NodeElementMaker {
+    
+    lazy var background: ASImageNode = {
+        return self.makeAndAddImageNode()
+    }()
     
     lazy var userAvatar: ASNetworkImageNode = {
         return self.makeAndAddNetworkImageNode()
@@ -309,18 +379,18 @@ fileprivate class NoteNode: ASDisplayNode, NodeElementMaker {
     }()
     
     lazy var textNodeMaxWidth: CGFloat = {
-        return UIScreen.main.bounds.width - self.elementSpacing - self.contentInset.left - self.contentInset.right
+        return UIScreen.main.bounds.width - self.elementSpacing - self.contentInset.left - self.contentInset.right - 40
     }()
     
-    var contentSize: CGSize!
+    var contentSize: CGSize = CGSize.init(width: UIScreen.main.bounds.width, height: 0)
     
     init(data: JSON) {
         super.init()
         
-        self.backgroundColor = UIColor.hexColor(hex: "fdf0f1")
+        self.background.image = UIImage.init(named: "note_background")
+        self.background.contentMode = .scaleToFill
         
-        self.contentSize = CGSize.init(width: UIScreen.main.bounds.width, height: 0)
-        self.style.preferredSize = self.contentSize
+        self.resetContentSize(noteText: data["sNoteContent"].stringValue)
         
         self.userAvatar.url = UserModel.current.avatar.value
         self.userAvatar.style.preferredSize = CGSize.init(width: 40, height: 40)
@@ -333,24 +403,46 @@ fileprivate class NoteNode: ASDisplayNode, NodeElementMaker {
         
         self.textNode.style.maxWidth = ASDimension.init(unit: ASDimensionUnit.points, value: self.textNodeMaxWidth)
         
-        let attributes: [NSAttributedStringKey: Any] = [
-            NSAttributedStringKey.font: UIFont.sys(size: 15)
-        ]
-        self.contentSize.height = data["sNoteContent"].stringValue
-            .heightWithStringAttributes(attributes: attributes, fixedWidth: self.textNodeMaxWidth) + 30
-        if self.contentSize.height < 70 {
-            self.contentSize.height = 70
-        }
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let back = ASInsetLayoutSpec.init(insets: UIEdgeInsets.zero, child: self.background)
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
                                               spacing: 15,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.center,
                                               children: [self.userAvatar, self.textNode])
-        return ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 10, left: 20, bottom: 10, right: 20),
+        let mainInsetSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 25, left: 20, bottom: 10, right: 20),
                                       child: mainSpec)
+        return ASBackgroundLayoutSpec.init(child: mainInsetSpec, background: back)
+    }
+    
+    func setNoteText(noteText: String) {
+        if noteText.isEmpty {
+            self.textNode.attributedText = "".attributedString
+        } else {
+            self.textNode.attributedText = noteText.withTextColor(Color.color6).withFont(Font.sys(size: 15))
+        }
+        self.resetContentSize(noteText: noteText)
+    }
+    
+    @discardableResult
+    func resetContentSize(noteText: String) -> CGSize {
+        if noteText.isEmpty {
+            self.contentSize.height = 0
+        } else {
+            let attributes: [NSAttributedStringKey: Any] = [
+                NSAttributedStringKey.font: UIFont.sys(size: 15)
+            ]
+            self.contentSize.height = noteText.heightWithStringAttributes(
+                attributes: attributes,
+                fixedWidth: self.textNodeMaxWidth) + 35
+            if self.contentSize.height < 85 {
+                self.contentSize.height = 85
+            }
+        }
+        self.style.preferredSize = self.contentSize
+        return self.contentSize
     }
 
 }
@@ -400,9 +492,13 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
                 .withTextColor(Color.color3).withFont(Font.thin(size: 16))
                 .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: .justified))
         }
+        if data["markups"].stringValue == "1" {
+            textNode.textContainerInset = UIEdgeInsets.init(top: 5, left: 5, bottom: 5, right: 5)
+            textNode.backgroundColor = UIColor.paraBgColor
+        }
         return ReaderContentElement.init(type: .text, data: data, node: textNode).then {
-            $0.noteNode.style.preferredSize = CGSize.init(width: 200, height: 0)
             self.addSubnode($0.noteNode)
+            $0.noteNode.setNoteText(noteText: data["sNoteContent"].stringValue)
         }
     }
     
@@ -414,6 +510,7 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
         }
         return ReaderContentElement.init(type: .image, data: data, node: imageNode).then {
             self.addSubnode($0.noteNode)
+            $0.noteNode.setNoteText(noteText: data["sNoteContent"].stringValue)
         }
     }
     
@@ -429,11 +526,14 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
         
         let titleSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(20, 20, 0, 20), child: self.titleTextNode)
         
-        let authorSpec: ASLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
+        var authorSpec: ASLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
                                                 spacing: 5,
                                                 justifyContent: ASStackLayoutJustifyContent.start,
                                                 alignItems: ASStackLayoutAlignItems.center,
                                                 children: [self.authorAvatarImageNode, self.authorTextNode])
+        
+        authorSpec = ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 15, left: 0, bottom: 15, right: 0),
+                                            child: authorSpec)
         
         var authorInfoBarSpec: ASLayoutSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
                                                        spacing: 0,
@@ -446,7 +546,8 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
         var contentlist: [ASLayoutElement] = []
         self.paragraphContentlist.forEach { (element) in
             contentlist.append(self.makeInsetSpec(spec: element.node))
-            contentlist.append(element.noteNode)
+            contentlist.append(ASInsetLayoutSpec.init(insets: UIEdgeInsets.init(top: 0, left: 0, bottom: 10, right: 0),
+                                                      child: element.noteNode))
         }
         
         var children: [ASLayoutElement] = [titleSpec, authorInfoBarSpec] + contentlist
@@ -454,7 +555,7 @@ extension ReaderContentCellNodeLayout where Self: ASCellNode {
         children.append(ASInsetLayoutSpec.init(insets: UIEdgeInsetsMake(0, 20, 20, 20), child: self.feedbackTextNode))
         
         let mainSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.vertical,
-                                              spacing: 20,
+                                              spacing: 10,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.stretch,
                                               children: children)

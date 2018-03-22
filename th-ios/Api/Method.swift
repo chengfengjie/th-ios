@@ -35,6 +35,8 @@ enum ThMethod: String {
     case getArticleCommentlist = "getPortalComment"
     /// 关注用户
     case followUser = "addFollowOne"
+    /// 取消关注用户
+    case cancelFollowUser = "delFollowOne"
     
     /// 获取轻聊首页数据
     case getQingHomeData = "getForum"
@@ -96,4 +98,14 @@ enum ThMethod: String {
     case cancelFollowAuthor = "delAuthorFollow"
     /// 反馈建议
     case feedback = "putfeedback"
+    /// 添加文章笔记
+    case addArticleNote = "addArticleNote"
+    /// 获取私信详情
+    case getUserMessageDetaillist = "getLetter"
+    /// 修改笔记
+    case updateArticleNote = "modArticleNote"
+    /// 删除笔记
+    case deleteArticleNote = "delArticleNote"
+    /// 评论话题
+    case commentTopic = "putThread"
 }

@@ -238,4 +238,50 @@ extension ArticleApi {
         ]
         return request(method: ThMethod.cancelFollowAuthor, data: params)
     }
+    
+    /// 给文章段落添加笔记
+    ///
+    /// - Parameters:
+    ///   - articleID: 文章id
+    ///   - pid: 段落id
+    ///   - content: 笔记内容
+    /// - Returns: Signal
+    func requestAddArticleNote(articleID: String, pid: String, content: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleID,
+            "pid": pid,
+            "content": content
+        ]
+        return request(method: ThMethod.addArticleNote, data: params)
+    }
+    
+    /// 编辑文章笔记
+    ///
+    /// - Parameters:
+    ///   - articleId: 文章id
+    ///   - pid: 段落id
+    ///   - content: 笔记内容
+    /// - Returns: Signal
+    func requestUpdateArticleNote(articleId: String, pid: String, content: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleId,
+            "pid": pid,
+            "content": content
+        ]
+        return request(method: ThMethod.updateArticleNote, data: params)
+    }
+    
+    /// 删除文章笔记
+    ///
+    /// - Parameters:
+    ///   - articleId: 文章id
+    ///   - pid: 段落id
+    /// - Returns: Signal
+    func requestDeleteArticleNote(articleId: String, pid: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "aid": articleId,
+            "pid": pid
+        ]
+        return request(method: ThMethod.deleteArticleNote, data: params)
+    }
 }

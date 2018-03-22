@@ -32,8 +32,6 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel.viewModelDidLoad()
-        
         self.view.addSubview(self.content)
         self.content.frame = self.view.bounds
         
@@ -46,6 +44,8 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
         self.view.addSubview(errorHUD)
         
         self.setNavigationBarHidden(isHidden: false)
+        
+        self.viewModel.viewModelDidLoad()
     }
     
     func bindViewModel() {

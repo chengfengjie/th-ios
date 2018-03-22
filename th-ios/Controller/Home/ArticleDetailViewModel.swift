@@ -35,6 +35,10 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
     var feedbackAction: Action<(), FeedbackViewModel, NoError>!
     
+    var deleteArticleNoteAction: Action<String, JSON, RequestError>!
+    
+    var addEmptyNoteAction: Action<String, JSON, RequestError>!
+    
     var islike: MutableProperty<Bool>!
     
     let articleID: String
@@ -111,6 +115,21 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
         self.feedbackAction = Action<(), FeedbackViewModel, NoError>
             .init(execute: { (_) -> SignalProducer<FeedbackViewModel, NoError> in
                 return SignalProducer.init(value: FeedbackViewModel())
+        })
+        
+        self.deleteArticleNoteAction = Action<String, JSON, RequestError>
+            .init(execute: { (pid) -> SignalProducer<JSON, RequestError> in
+                return self.createDeleteArticleNote(pid: pid)
+        })
+        
+        self.addEmptyNoteAction = Action<String, JSON, RequestError>
+            .init(execute: { (pid) -> SignalProducer<JSON, RequestError> in
+                if self.currentUser.isLogin.value {
+                    return self.createAddEmptyNoteSignalProducer(pid: pid)
+                } else {
+                    self.requestError.value = RequestError.forbidden
+                    return SignalProducer.empty
+                }
         })
     }
     
@@ -203,6 +222,39 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     func createCancelAuthorSignalProducer() -> SignalProducer<JSON, RequestError> {
         let (signal, observer) = Signal<JSON, RequestError>.pipe()
         requestCancelFllowAuthor(authorId: self.articleData.value["sAuthorid"].stringValue).observeResult { (result) in
+            switch result {
+            case let .success(value):
+                print(value)
+                observer.send(value: value)
+                observer.sendCompleted()
+            case let .failure(error):
+                observer.send(error: error)
+            }
+        }
+        return SignalProducer.init(signal)
+    }
+    
+    func createDeleteArticleNote(pid: String) -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        self.isRequest.value = true
+        requestDeleteArticleNote(articleId: self.articleID, pid: pid).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(value):
+                print(value)
+                observer.send(value: value)
+                observer.sendCompleted()
+            case let .failure(error):
+                self.requestError.value = error
+                observer.send(error: error)
+            }
+        }
+        return SignalProducer.init(signal)
+    }
+    
+    func createAddEmptyNoteSignalProducer(pid: String) -> SignalProducer<JSON, RequestError> {
+        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+        requestAddArticleNote(articleID: self.articleID, pid: pid, content: "").observeResult { (result) in
             switch result {
             case let .success(value):
                 print(value)

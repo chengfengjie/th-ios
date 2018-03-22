@@ -134,4 +134,20 @@ extension QingApi {
         return request(method: ThMethod.publishTopic, data: params)
         
     }
+    
+    /// 评论话题
+    ///
+    /// - Parameters:
+    ///   - moduleID: 模块id
+    ///   - topicId: 话题id
+    ///   - message: 评论内容
+    /// - Returns: Signal
+    func requestCommentTopic(moduleID: String, topicId: String, message: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "fid": moduleID,
+            "tid": topicId,
+            "message": message
+        ]
+        return request(method: ThMethod.commentTopic, data: params)
+    }
 }

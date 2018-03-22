@@ -25,21 +25,30 @@ class TopicDetailViewController: BaseTableViewController<TopicDetailViewModel>, 
         
         self.tableNode.view.separatorStyle = .none
         
+        self.tableNode.contentInset = UIEdgeInsets.init(top: 10, left: 0, bottom: 50, right: 0)
+        
         self.bindViewModel()
     }
 
     override func bindViewModel() {
         super.bindViewModel()
         
+        viewModel.fetchTopicDetailAction.apply(()).start()
+        
         viewModel.topicData.signal.observeValues { [weak self] (data) in
-            self?.tableNode.reloadSections(IndexSet.init(integer: 0), with: .automatic)
+            self?.tableNode.reloadData()
         }
         
         viewModel.adData.signal.observeValues { [weak self] (data) in
-            self?.tableNode.reloadSections(IndexSet.init(integer: 1), with: .automatic)
+            self?.tableNode.reloadData()
         }
         
         self.bottomBar.goodItem.backgroundColor = UIColor.white
+        
+        bottomBar.commentItem.reactive.pressed = CocoaAction(viewModel.commentTopicAction)
+        viewModel.commentTopicAction.values.observeValues { [weak self] (model) in
+            self?.pushViewController(viewController: CommentTopicViewController(viewModel: model))
+        }
     }
     
     override func numberOfSections(in tableNode: ASTableNode) -> Int {
@@ -49,11 +58,11 @@ class TopicDetailViewController: BaseTableViewController<TopicDetailViewModel>, 
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 1
+            return self.viewModel.topicData.value.isEmpty ? 0 : 1
         case 1:
             return self.viewModel.adData.value.isEmpty ? 0 : 1
         case 2:
-            return 10
+            return self.viewModel.topicCommentlist.value.count
         default:
             return 0
         }
@@ -62,17 +71,15 @@ class TopicDetailViewController: BaseTableViewController<TopicDetailViewModel>, 
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         switch indexPath.section {
         case 0:
-            return {
-                return TopicContentCellNode(dataJSON: self.viewModel.topicData.value)
-            }
+            let cellNode = TopicContentCellNode(dataJSON: self.viewModel.topicData.value)
+            cellNode.followAction = viewModel.followUserAction
+            return ASCellNode.createBlock(cellNode: cellNode)
         case 1:
-            return {
-                return AdvertisingCellNode(dataJSON: self.viewModel.adData.value)
-            }
+            let cellNode = AdvertisingCellNode(dataJSON: self.viewModel.adData.value)
+            return ASCellNode.createBlock(cellNode: cellNode)
         case 2:
-            return {
-                return TopicCommentCellNode()
-            }
+            let cellNode = TopicCommentCellNode(dataJSON: self.viewModel.topicCommentlist.value[indexPath.row])
+            return ASCellNode.createBlock(cellNode: cellNode)
         default:
             return {
                 return ASCellNode()

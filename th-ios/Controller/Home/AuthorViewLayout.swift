@@ -39,7 +39,10 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker, NodeBottomlineMaker {
         return self.makeBottomlineNode()
     }()
     
+    var model: AuthorViewModel? = nil
+    var dataJSON: JSON
     init(dataJSON: JSON) {
+        self.dataJSON = dataJSON
         super.init()
         
         self.selectionStyle = .none
@@ -62,22 +65,45 @@ class AuthorTopBasicInfo: ASCellNode, NodeElementMaker, NodeBottomlineMaker {
             .withTextColor(Color.color6)
             .withFont(Font.systemFont(ofSize: 11))
         
-        if dataJSON["follow"].stringValue == "0" {
-            self.attentionButtonNode.setAttributedTitle("+ 关注"
-                .withTextColor(Color.white), for: UIControlState.normal)
-            self.attentionButtonNode.backgroundColor = UIColor.pink
-        } else {
+        if dataJSON["userfollow"].stringValue == "1" {
             self.attentionButtonNode.setAttributedTitle("取消关注"
                 .withTextColor(Color.white), for: UIControlState.normal)
             self.attentionButtonNode.backgroundColor = UIColor.lightGray
+        } else {
+            self.attentionButtonNode.setAttributedTitle("+ 关注"
+                .withTextColor(Color.white), for: UIControlState.normal)
+            self.attentionButtonNode.backgroundColor = UIColor.pink
         }
         
-        
-        self.attentionButtonNode.backgroundColor = UIColor.pink
+        self.attentionButtonNode.addTarget(
+            self, action: #selector(self.handleClickFlow),
+            forControlEvents: ASControlNodeEvent.touchUpInside)
         
         self.attentionButtonNode.style.preferredSize = CGSize.init(width: UIScreen.main.bounds.width - 30, height: 40)
         
         self.attentionButtonNode.cornerRadius = 3
+    }
+    
+    @objc func handleClickFlow() {
+        var dataDict = self.dataJSON.dictionaryObject
+        if self.dataJSON["userfollow"].stringValue == "1" {
+            self.model?.cancelFlowAuthorAction.apply(()).start()
+            dataDict!["userfollow"] = "0"
+            self.attentionButtonNode.backgroundColor = UIColor.pink
+            self.attentionButtonNode.setAttributedTitle("+ 关注"
+                .withTextColor(Color.white), for: UIControlState.normal)
+        } else {
+            self.model?.flowUserAction.apply(()).start()
+            dataDict!["userfollow"] = "1"
+            self.attentionButtonNode.backgroundColor = UIColor.lightGray
+            self.attentionButtonNode.setAttributedTitle("取消关注"
+                .withTextColor(Color.white), for: UIControlState.normal)
+        }
+        self.dataJSON = JSON.init(dataDict!)
+    }
+    
+    func cancelFollowUser() {
+        
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -126,25 +152,34 @@ class AttentionAuthorCellNode: ASCellNode, NodeElementMaker, NodeBottomlineMaker
     }()
     
     var avatarImageNodeArray: [ASNetworkImageNode] = []
-    override init() {
+    init(authorInfo: JSON) {
         super.init()
         
         self.bottomline.backgroundColor = UIColor.lineColor
         
         self.selectionStyle = .none
         
-        self.avatarUrls = [
-            URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")!,
-            URL.init(string: "http://c.hiphotos.baidu.com/image/h%3D300/sign=6d0bf83bda00baa1a52c41bb7711b9b1/0b55b319ebc4b745b19f82c1c4fc1e178b8215d9.jpg")!]
+        for (index, user) in authorInfo["aFollow"].arrayValue.enumerated() {
+            self.avatarImageNodeArray.append(ASNetworkImageNode().then {
+                $0.url = URL.init(string: user["avatar"].stringValue)
+                self.addSubnode($0)
+                $0.style.preferredSize = CGSize.init(width: 40, height: 40)
+                $0.cornerRadius = 20
+                $0.borderColor = UIColor.white.cgColor
+                $0.borderWidth = 3
+            })
+            if index > 4 {
+                break
+            }
+        }
         
-        self.avatarImageNodeArray.append(ASNetworkImageNode().then {
-            $0.url = self.avatarUrls[0]
-            self.addSubnode($0)
-            $0.style.preferredSize = CGSize.init(width: 40, height: 40)
-            $0.cornerRadius = 20
-        })
+        self.avatarImageNodeArray.reversed().forEach { (node) in
+            DispatchQueue.main.async {
+                self.view.bringSubview(toFront: node.view)
+            }
+        }
         
-        self.textNode.attributedText = "等1233人关注TA".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 9))
+        self.textNode.attributedText = "\(authorInfo["aFollownum"].stringValue)人关注TA".withTextColor(Color.color9).withFont(Font.systemFont(ofSize: 12))
         self.indicator.image = UIImage.init(named: "home_right_indicator")
         self.indicator.style.preferredSize = CGSize.init(width: 20, height: 20)
     
@@ -157,7 +192,7 @@ class AttentionAuthorCellNode: ASCellNode, NodeElementMaker, NodeBottomlineMaker
                                                alignItems: ASStackLayoutAlignItems.center,
                                                children: [self.textNode, self.indicator])
         let leftSpec = ASStackLayoutSpec.init(direction: ASStackLayoutDirection.horizontal,
-                                              spacing: 5,
+                                              spacing: -20,
                                               justifyContent: ASStackLayoutJustifyContent.start,
                                               alignItems: ASStackLayoutAlignItems.center,
                                               children:self.avatarImageNodeArray)

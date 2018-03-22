@@ -77,6 +77,12 @@ class AuthorListViewModel: BaseViewModel, ArticleApi, UserApi {
             .init(execute: { (indexPath) -> SignalProducer<AuthorViewModel, NoError> in
                 let id: String = self.authorlist.value[indexPath.row]["id"].stringValue
                 let model: AuthorViewModel = AuthorViewModel(authorID: id)
+                model.flowUserAction.values.observeValues { (_) in
+                    self.fetchAuthorlistAction.apply("").start()
+                }
+                model.cancelFlowAuthorAction.values.observeValues { (_) in
+                    self.fetchAuthorlistAction.apply("").start()
+                }
                 return SignalProducer.init(value: model)
         })
         

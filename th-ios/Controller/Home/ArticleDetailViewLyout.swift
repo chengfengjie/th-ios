@@ -13,7 +13,7 @@ protocol ArticleDetailViewLayout: ReaderLayout {
 }
 
 class ArticleContentCellNode: ReaderContentCellNode {
-    
+
     var followAction: Action<(), JSON, RequestError>?
     
     var cancelFollowAction: Action<(), JSON, RequestError>?
@@ -23,6 +23,10 @@ class ArticleContentCellNode: ReaderContentCellNode {
     var feedbackAction: Action<(), FeedbackViewModel, NoError>?
     
     var isFollow: Bool = false
+    
+    var articleID: String = ""
+    
+    var model: ArticleDetailViewModel? = nil
     
     override init(dataJSON: JSON) {
         super.init(dataJSON: dataJSON)
@@ -85,8 +89,43 @@ class ArticleContentCellNode: ReaderContentCellNode {
     
     override func clickMenuEdit() {
         if let element = self.currentContentElement {
-            let model = AddEditNoteViewModel(paraContent: element.data)
-            self.rootPresent(viewController: AddEditNoteViewController(viewModel: model), animated: true)
+            if UserModel.current.isLogin.value {
+                let model = AddEditNoteViewModel(paraContent: element.data, aid: self.articleID)
+                self.rootPresent(viewController: AddEditNoteViewController(viewModel: model), animated: true)
+                model.callBackSignal.observeValues({ (text) in
+                    element.addOrUpdateNoteText(text: text)
+                })
+            } else {
+                self.rootPresentLoginController()
+            }
+        }
+    }
+    
+    override func clickMenuDelete() {
+        if let element = self.currentContentElement {
+            self.model?.deleteArticleNoteAction.apply(element.data["id"].stringValue).start()
+            self.model?.deleteArticleNoteAction.values.observeValues({ [weak self] (data) in
+                self?.deleteNoteSuccess(element: element)
+            })
+        }
+    }
+    
+    override func clickMenuCopy() {
+        if let element = self.currentContentElement {
+            UIPasteboard.general.string = element.data["text"]["text"].stringValue
+            self.model?.okMessage.value = "复制成功"
+        }
+        self.hideMenu()
+    }
+    
+    override func editMenuDidShow() {
+        if let element = self.currentContentElement {
+            if element.data["markups"].stringValue == "0" {
+                self.model?.addEmptyNoteAction.apply(element.data["id"].stringValue).start()
+                self.model?.addEmptyNoteAction.values.observeValues({ (val) in
+                    element.addEmptyNoteComplete()
+                })
+            }
         }
     }
 }
