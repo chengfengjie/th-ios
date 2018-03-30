@@ -184,4 +184,19 @@ extension UserApi {
         ]
         return request(method: ThMethod.cancelFollowUser, data: params)
     }
+    
+    /// 发送私信
+    ///
+    /// - Parameters:
+    ///   - toUserId: 发送给用户id
+    ///   - message: 消息内容
+    /// - Returns: Signal
+    func requestSendPrivateMessage(toUserId: String, message: String) -> Signal<JSON, RequestError> {
+        let params: [String: String] = [
+            "toid": toUserId,
+            "message": message,
+            "subject": ""
+        ]
+        return request(method: ThMethod.sendPrivateMessage, data: params)
+    }
 }

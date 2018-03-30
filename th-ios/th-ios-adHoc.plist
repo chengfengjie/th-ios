@@ -18,10 +18,63 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>cn.thclub.app.ios</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>QQ41CDCC78</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>cn.thclub.app.ios</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx1732c086a4a8f92d</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>baidumap</string>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqzone</string>
+		<string>sinaweibo</string>
+		<string>alipayauth</string>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>mqq</string>
+		<string>mqqapi</string>
+		<string>mqqopensdkapiV3</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqapiwallet</string>
+		<string>mqqwpa</string>
+		<string>mqqbrowser</string>
+		<string>wtloginmqq2</string>
+		<string>renrenapi</string>
+		<string>renrenios</string>
+		<string>renren</string>
+		<string>renreniphone</string>
+		<string>rm179018com.qiaobutang.ios</string>
+		<string>sinaweibosso</string>
+		<string>sinaweibohdsso</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MOBAppKey</key>
+	<string>1da43f5af200e</string>
+	<key>MOBAppSecret</key>
+	<string>b063aaed9ae3f6d2b6d3b64d88228206</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

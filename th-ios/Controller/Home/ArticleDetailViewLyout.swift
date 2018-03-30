@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MBProgressHUD
 
 protocol ArticleDetailViewLayout: ReaderLayout {
     
@@ -22,6 +23,8 @@ class ArticleContentCellNode: ReaderContentCellNode {
     
     var feedbackAction: Action<(), FeedbackViewModel, NoError>?
     
+    var shareParaImageAction: Action<UIImage, UIImage, NoError>!
+    
     var isFollow: Bool = false
     
     var articleID: String = ""
@@ -30,6 +33,11 @@ class ArticleContentCellNode: ReaderContentCellNode {
     
     override init(dataJSON: JSON) {
         super.init(dataJSON: dataJSON)
+        
+        self.shareParaImageAction = Action<UIImage, UIImage, NoError>
+            .init(execute: { (image) -> SignalProducer<UIImage, NoError> in
+            return SignalProducer.init(value: image)
+        })
         
         self.attendButtonNode.addTarget(
             self, action: #selector(self.handleFollowAuthor),
@@ -126,6 +134,17 @@ class ArticleContentCellNode: ReaderContentCellNode {
                     element.addEmptyNoteComplete()
                 })
             }
+        }
+    }
+    
+    override func clickMenuShare() {
+        if let element = self.currentContentElement {
+            let view = ParaShareImageView.crete(articleInfo: self.dataJSON, paraInfo: element.data)
+            self.model?.isRequest.value = true
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1, execute: {
+                self.model?.isRequest.value = false
+                self.shareParaImageAction.apply(view.buildImage()!).start()
+            })
         }
     }
 }

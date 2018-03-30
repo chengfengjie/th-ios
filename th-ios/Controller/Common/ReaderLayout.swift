@@ -193,6 +193,10 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
             self?.clickMenuCopy()
         })
         
+        self.editMenu.shareButton?.reactive.controlEvents(.touchUpInside).observeValues({ [weak self] (sender) in
+            self?.clickMenuShare()
+        })
+        
         self.bindAction()
     }
     
@@ -248,6 +252,11 @@ class ReaderContentCellNode: ASCellNode, ReaderContentCellNodeLayout, ReaderCont
     }
     
     func clickMenuCopy() {
+    
+    }
+    
+    func clickMenuShare() {
+        
     }
     
     func hideMenu() {

@@ -193,7 +193,7 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9)
         
-        self.unlikeButtonNode.setAttributedTitle("不喜欢"
+        self.unlikeButtonNode.setAttributedTitle(""
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9), for: UIControlState.normal)
         

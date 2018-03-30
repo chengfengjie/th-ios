@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SVProgressHUD.setContainerView(rootNavigationController!.view)
         
+        ShareUtil.registerShareInfo()
+        
         return true
     }
     

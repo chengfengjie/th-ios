@@ -45,7 +45,9 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
         
         self.setNavigationBarHidden(isHidden: false)
         
-        self.viewModel.viewModelDidLoad()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.viewModel.viewModelDidLoad()
+        }
     }
     
     func bindViewModel() {
@@ -66,9 +68,11 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
             case .forbidden:
                 self?.rootPresentLoginController()
             default:
-                self?.errorHUD.label.text = err.localizedDescription
-                self?.errorHUD.show(animated: true)
-                self?.errorHUD.hide(animated: true, afterDelay: 1.0)
+                if !err.localizedDescription.isEmpty {
+                    self?.errorHUD.label.text = err.localizedDescription
+                    self?.errorHUD.show(animated: true)
+                    self?.errorHUD.hide(animated: true, afterDelay: 1.0)
+                }
             }
         }
         

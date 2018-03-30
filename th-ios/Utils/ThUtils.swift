@@ -17,7 +17,16 @@ extension ASCellNode {
             return cellNode
         }
     }
-    
+}
+
+extension UIView {
+    func buildImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
 extension UIDevice {
@@ -69,6 +78,17 @@ extension ParaStyle {
 extension UIImage {
     
     static let defaultImage: UIImage = UIImage.init(named: "default_image")!
+    
+    class func createQRImage(text: String) -> UIImage? {
+        let filter = CIFilter.init(name: "CIQRCodeGenerator")
+        filter?.setDefaults()
+        let data = text.data(using: String.Encoding.utf8)
+        filter?.setValue(data, forKey: "inputMessage")
+        if let img = filter?.outputImage {
+            return UIImage.init(ciImage: img, scale: 1, orientation: .up)
+        }
+        return nil
+    }
     
 }
 

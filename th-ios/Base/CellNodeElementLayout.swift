@@ -35,6 +35,11 @@ extension NodeElementMaker where Self: ASDisplayNode {
             self.addSubnode($0)
         }
     }
+    func makeAndAddDisplayNode() -> ASDisplayNode {
+        return ASDisplayNode().then({ (node) in
+            self.addSubnode(node)
+        })
+    }
 }
 
 protocol NodeBottomlineMaker {

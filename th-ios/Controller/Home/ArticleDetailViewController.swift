@@ -97,6 +97,9 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
             cellNode.feedbackAction = self.viewModel.feedbackAction
             cellNode.articleID = self.viewModel.articleID
             cellNode.model = self.viewModel
+            cellNode.shareParaImageAction.values.observeValues({ [weak self] (image) in
+                self?.shareParaImage(image: image)
+            })
             return ASCellNode.createBlock(cellNode: cellNode)
         } else if indexPath.section == 1 {
             let cellNode = AdvertisingCellNode(dataJSON: self.viewModel.adData.value)
@@ -125,5 +128,29 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.articleContentCellNode?.didScroll()
+    }
+    
+    func shareParaImage(image: UIImage) {
+        let shareModel: ShareViewModel = ShareViewModel()
+        let shareVC: ShareViewController = ShareViewController.create(viewModel: shareModel)
+        self.rootPresent(viewController: shareVC, animated: true)
+        shareModel.shareAction.values.observeValues { (type) in
+            switch type {
+            case .qqFriend:
+                ShareUtil.shareToQQFriendImage(image: image)
+                break
+            case .copy:
+                break
+            case .wxFriend:
+                ShareUtil.shareToWxFriendImage(image: image)
+                break
+            case .wxTimeline:
+                ShareUtil.shareToWxTimelineImage(image: image)
+                break
+            case .more:
+                ShareUtil.shareToSystemMore()
+                break
+            }
+        }
     }
 }

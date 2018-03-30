@@ -25,8 +25,17 @@ def share_pods
   pod 'Alamofire', '~> 4.6.0'
 end
 
+def shareSDK_pods
+    pod 'mob_sharesdk'
+    # 平台SDK模块(对照一下平台，需要的加上。如果只需要QQ、微信、新浪微博，只需要以下3行)
+    pod 'mob_sharesdk/ShareSDKPlatforms/QQ'
+    pod 'mob_sharesdk/ShareSDKPlatforms/SinaWeibo'
+    pod 'mob_sharesdk/ShareSDKPlatforms/WeChat'
+end
+
 target 'th-ios' do
   share_pods
+  shareSDK_pods
 end
 target 'th-demo' do
     pod 'WeexSDK', '~> 0.17.0'

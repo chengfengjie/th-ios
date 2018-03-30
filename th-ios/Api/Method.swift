@@ -108,4 +108,6 @@ enum ThMethod: String {
     case deleteArticleNote = "delArticleNote"
     /// 评论话题
     case commentTopic = "putThread"
+    /// 发送私信
+    case sendPrivateMessage = "sendLetter"
 }

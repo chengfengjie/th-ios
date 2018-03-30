@@ -111,6 +111,8 @@
 		5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
 		5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
 		5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
+		5C1EDB8C206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */; };
+		5C1EDB8D206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */; };
 		5C28E1CB20347CED00475727 /* SignViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C28E1CA20347CED00475727 /* SignViewLayout.swift */; };
 		5C28E1CC20347CED00475727 /* SignViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C28E1CA20347CED00475727 /* SignViewLayout.swift */; };
 		5C28E1CE203485E400475727 /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C28E1CD203485E400475727 /* SignViewModel.swift */; };
@@ -118,6 +120,10 @@
 		5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7121200E1ABE005CE83F /* QingViewController.swift */; };
 		5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */; };
 		5C2B7126200E2676005CE83F /* HeadlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B7125200E2676005CE83F /* HeadlineViewController.swift */; };
+		5C2CC241206A6A55000B4CFF /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2CC240206A6A55000B4CFF /* Constant.swift */; };
+		5C2CC242206A6A55000B4CFF /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2CC240206A6A55000B4CFF /* Constant.swift */; };
+		5C2CC244206A6B1F000B4CFF /* ShareUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2CC243206A6B1F000B4CFF /* ShareUtil.swift */; };
+		5C2CC245206A6B1F000B4CFF /* ShareUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C2CC243206A6B1F000B4CFF /* ShareUtil.swift */; };
 		5C397A9C201AB5DB00C0B898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397A9B201AB5DB00C0B898 /* main.swift */; };
 		5C397AA1201AC17A00C0B898 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AA0201AC17A00C0B898 /* SettingViewController.swift */; };
 		5C397AAC201ACD0B00C0B898 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AAB201ACD0B00C0B898 /* NextViewController.swift */; };
@@ -126,6 +132,10 @@
 		5C397AB2201B64A500C0B898 /* AuthorListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */; };
 		5C397AB4201C3F9D00C0B898 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */; };
 		5C397AB6201C417300C0B898 /* AuthorViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */; };
+		5C3F500C20691B14000AE49D /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500A20691B13000AE49D /* ShareViewController.swift */; };
+		5C3F500D20691B14000AE49D /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500B20691B14000AE49D /* ShareViewModel.swift */; };
+		5C3F500F20691CB0000AE49D /* ShareViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500E20691CB0000AE49D /* ShareViewLayout.swift */; };
+		5C3F501020691CB0000AE49D /* ShareViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500E20691CB0000AE49D /* ShareViewLayout.swift */; };
 		5C45E54E204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */; };
 		5C45E54F204194D70026FAB8 /* TopicDetailViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */; };
 		5C45E551204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */; };
@@ -196,6 +206,8 @@
 		5C79CF852046E8F500A72BE7 /* SystemMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79CF832046E8F500A72BE7 /* SystemMessageViewModel.swift */; };
 		5C79CF872046EAE100A72BE7 /* PrivateMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79CF862046EAE100A72BE7 /* PrivateMessageViewModel.swift */; };
 		5C79CF882046EAE100A72BE7 /* PrivateMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79CF862046EAE100A72BE7 /* PrivateMessageViewModel.swift */; };
+		5C8281B7206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8281B6206A281A0016EA40 /* PrivateMessageCellNode.swift */; };
+		5C8281B8206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8281B6206A281A0016EA40 /* PrivateMessageCellNode.swift */; };
 		5C8DD169205804BA00ACCBF7 /* PickImageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DD168205804BA00ACCBF7 /* PickImageProtocol.swift */; };
 		5C8DD16A205804BA00ACCBF7 /* PickImageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8DD168205804BA00ACCBF7 /* PickImageProtocol.swift */; };
 		5C927067200E3A7B00838C1D /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C927066200E3A7B00838C1D /* ColorUtils.swift */; };
@@ -232,6 +244,8 @@
 		5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C37220205D5A0043D01F /* TableChangeHeader.swift */; };
 		5C94C3752020B14C0043D01F /* SelectCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3742020B14C0043D01F /* SelectCityViewController.swift */; };
 		5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */; };
+		5C971FEE2069EFE1009FBA4F /* SignShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C971FED2069EFE1009FBA4F /* SignShareImageView.swift */; };
+		5C971FEF2069EFE1009FBA4F /* SignShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C971FED2069EFE1009FBA4F /* SignShareImageView.swift */; };
 		5C9853B6202DC34300421C79 /* AdvertisingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */; };
 		5C9853B7202DC34300421C79 /* AdvertisingCellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */; };
 		5CA1E32A204828F5004CD95D /* PublishTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1E329204828F5004CD95D /* PublishTopicViewModel.swift */; };
@@ -358,11 +372,14 @@
 		5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewLayout.swift; sourceTree = "<group>"; };
 		5C1E16D42022BC5500C23B77 /* ThApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThApi.swift; sourceTree = "<group>"; };
 		5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaShareImageView.swift; sourceTree = "<group>"; };
 		5C28E1CA20347CED00475727 /* SignViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewLayout.swift; sourceTree = "<group>"; };
 		5C28E1CD203485E400475727 /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		5C2B7121200E1ABE005CE83F /* QingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewController.swift; sourceTree = "<group>"; };
 		5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		5C2B7125200E2676005CE83F /* HeadlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineViewController.swift; sourceTree = "<group>"; };
+		5C2CC240206A6A55000B4CFF /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		5C2CC243206A6B1F000B4CFF /* ShareUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUtil.swift; sourceTree = "<group>"; };
 		5C397A99201AB5DB00C0B898 /* th-swift-demo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "th-swift-demo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C397A9B201AB5DB00C0B898 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5C397AA0201AC17A00C0B898 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +390,9 @@
 		5C397AB1201B64A500C0B898 /* AuthorListViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorListViewLayout.swift; sourceTree = "<group>"; };
 		5C397AB3201C3F9D00C0B898 /* AuthorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 		5C397AB5201C417300C0B898 /* AuthorViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorViewLayout.swift; sourceTree = "<group>"; };
+		5C3F500A20691B13000AE49D /* ShareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		5C3F500B20691B14000AE49D /* ShareViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareViewModel.swift; sourceTree = "<group>"; };
+		5C3F500E20691CB0000AE49D /* ShareViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewLayout.swift; sourceTree = "<group>"; };
 		5C45E54D204194D70026FAB8 /* TopicDetailViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewLayout.swift; sourceTree = "<group>"; };
 		5C45E550204194EB0026FAB8 /* TopicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewModel.swift; sourceTree = "<group>"; };
 		5C45E5532042B9C90026FAB8 /* EditUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewController.swift; sourceTree = "<group>"; };
@@ -412,6 +432,7 @@
 		5C6D391A202C902C00696E16 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		5C79CF832046E8F500A72BE7 /* SystemMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewModel.swift; sourceTree = "<group>"; };
 		5C79CF862046EAE100A72BE7 /* PrivateMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewModel.swift; sourceTree = "<group>"; };
+		5C8281B6206A281A0016EA40 /* PrivateMessageCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageCellNode.swift; sourceTree = "<group>"; };
 		5C8DD168205804BA00ACCBF7 /* PickImageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickImageProtocol.swift; sourceTree = "<group>"; };
 		5C927066200E3A7B00838C1D /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		5C927068200F78C400838C1D /* HomeCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryViewController.swift; sourceTree = "<group>"; };
@@ -447,6 +468,7 @@
 		5C94C37220205D5A0043D01F /* TableChangeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableChangeHeader.swift; sourceTree = "<group>"; };
 		5C94C3742020B14C0043D01F /* SelectCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewController.swift; sourceTree = "<group>"; };
 		5C94C3762020B15D0043D01F /* SelectCityViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewLayout.swift; sourceTree = "<group>"; };
+		5C971FED2069EFE1009FBA4F /* SignShareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignShareImageView.swift; sourceTree = "<group>"; };
 		5C9853B5202DC34300421C79 /* AdvertisingCellNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisingCellNode.swift; sourceTree = "<group>"; };
 		5CA1E329204828F5004CD95D /* PublishTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTopicViewModel.swift; sourceTree = "<group>"; };
 		5CA1E32C20497FF9004CD95D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -579,6 +601,7 @@
 		5C0675BE200C88930019A24D /* th-ios */ = {
 			isa = PBXGroup;
 			children = (
+				5C2CC23F206A6A55000B4CFF /* Common */,
 				5C1E16DD2022BE5F00C23B77 /* Model */,
 				5CBE549820196C0A00594B9E /* Style */,
 				5C5F0B4020122028009BE6D4 /* Resource */,
@@ -688,6 +711,7 @@
 				5C2B7123200E1B0B005CE83F /* ArticleDetailViewController.swift */,
 				5C65415A2026F49C009EDDC2 /* ArticleDetailViewLyout.swift */,
 				5C65415D2026F4A9009EDDC2 /* ArticleDetailViewModel.swift */,
+				5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */,
 				5CAA28AA203DA53F0059DCEA /* ArticleCommentListViewController.swift */,
 				5CAA28AD203DA6450059DCEA /* ArticleCommentListViewModel.swift */,
 				5CAA28B0203DAAF50059DCEA /* ArticleCommentListViewLayout.swift */,
@@ -744,6 +768,7 @@
 				5CFD61F9203043C60099C104 /* SignViewController.swift */,
 				5C28E1CA20347CED00475727 /* SignViewLayout.swift */,
 				5C28E1CD203485E400475727 /* SignViewModel.swift */,
+				5C971FED2069EFE1009FBA4F /* SignShareImageView.swift */,
 			);
 			path = Qing;
 			sourceTree = "<group>";
@@ -772,6 +797,7 @@
 				5C79CF832046E8F500A72BE7 /* SystemMessageViewModel.swift */,
 				5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */,
 				5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */,
+				5C8281B6206A281A0016EA40 /* PrivateMessageCellNode.swift */,
 				5C79CF862046EAE100A72BE7 /* PrivateMessageViewModel.swift */,
 				5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */,
 				5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */,
@@ -806,6 +832,18 @@
 				5CAA28A7203AA1CC0059DCEA /* InputCodeView.swift */,
 				5CAA28B9203E4D8E0059DCEA /* CommentLayout.swift */,
 				5C8DD168205804BA00ACCBF7 /* PickImageProtocol.swift */,
+				5C3F500A20691B13000AE49D /* ShareViewController.swift */,
+				5C3F500E20691CB0000AE49D /* ShareViewLayout.swift */,
+				5C3F500B20691B14000AE49D /* ShareViewModel.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		5C2CC23F206A6A55000B4CFF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5C2CC240206A6A55000B4CFF /* Constant.swift */,
+				5C2CC243206A6B1F000B4CFF /* ShareUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1084,9 +1122,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios/Pods-th-ios-resources.sh",
+				"${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Required/ShareSDK.bundle",
+				"${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ShareSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1353,6 +1396,7 @@
 			files = (
 				5C59617A2018CE2300ECD88B /* MineViewHistoryCellNodeLayout.swift in Sources */,
 				5C0675D6200C89760019A24D /* BaseTabBarController.swift in Sources */,
+				5C2CC244206A6B1F000B4CFF /* ShareUtil.swift in Sources */,
 				5C6408B32027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */,
 				5C5C1F482056B975000603C8 /* FeedbackViewController.swift in Sources */,
 				5C6408BF2028022700F95BE1 /* QingApi.swift in Sources */,
@@ -1362,8 +1406,10 @@
 				5C944599201D91AB00CCF082 /* SpecialListLayout.swift in Sources */,
 				5CAA28BD203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */,
 				5C0F911020295C49000DF20E /* AuthorListViewModel.swift in Sources */,
+				5C971FEE2069EFE1009FBA4F /* SignShareImageView.swift in Sources */,
 				5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
+				5C3F500F20691CB0000AE49D /* ShareViewLayout.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
 				5CBEB2F820628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */,
 				5C2B7122200E1ABE005CE83F /* QingViewController.swift in Sources */,
@@ -1407,9 +1453,11 @@
 				5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5CA1E339204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */,
 				5C94633C2012E43500F185BA /* SearchViewController.swift in Sources */,
+				5C3F500C20691B14000AE49D /* ShareViewController.swift in Sources */,
 				5CAA28AE203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
 				5CBEB2F220628726005BE7A0 /* CommentTopicViewController.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
+				5C8281B7206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */,
 				5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
@@ -1426,8 +1474,10 @@
 				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
 				5C944595201D7C6900CCF082 /* SpecialViewLayout.swift in Sources */,
 				5C79CF872046EAE100A72BE7 /* PrivateMessageViewModel.swift in Sources */,
+				5C2CC241206A6A55000B4CFF /* Constant.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
 				5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */,
+				5C3F500D20691B14000AE49D /* ShareViewModel.swift in Sources */,
 				5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */,
 				5CAA28902035C28C0059DCEA /* UserApi.swift in Sources */,
 				5C5C1F4E2056CD56000603C8 /* FeedbackViewLayout.swift in Sources */,
@@ -1442,6 +1492,7 @@
 				5CACA058201CC0D9003E3901 /* UserListViewLayout.swift in Sources */,
 				5CAA28B4203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */,
 				5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */,
+				5C1EDB8C206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */,
 				5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */,
 				5CA1E32D20497FFA004CD95D /* SearchViewModel.swift in Sources */,
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
@@ -1537,17 +1588,22 @@
 				5C28E1CC20347CED00475727 /* SignViewLayout.swift in Sources */,
 				5C4ECE5D203EA24900C2D27F /* HUDUtils.swift in Sources */,
 				5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */,
+				5C971FEF2069EFE1009FBA4F /* SignShareImageView.swift in Sources */,
 				5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C6541592026F36E009EDDC2 /* SpecialListViewModel.swift in Sources */,
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
+				5C2CC242206A6A55000B4CFF /* Constant.swift in Sources */,
 				5C45E55E2044564F0026FAB8 /* MessageListViewModel.swift in Sources */,
 				5CAA28B8203E4CEF0059DCEA /* CommentArticleViewModel.swift in Sources */,
 				5CAA28BB203E4D8E0059DCEA /* CommentLayout.swift in Sources */,
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */,
+				5C8281B8206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */,
+				5C2CC245206A6B1F000B4CFF /* ShareUtil.swift in Sources */,
 				5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */,
 				5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */,
 				5C1E168420216F5900C23B77 /* HorizontalScrollMenu.swift in Sources */,
+				5C3F501020691CB0000AE49D /* ShareViewLayout.swift in Sources */,
 				5C1E168520216F5900C23B77 /* TreeHoleListViewController.swift in Sources */,
 				5CAA28942035C3A80059DCEA /* UserModel.swift in Sources */,
 				5C1E168620216F5900C23B77 /* HeadlineViewLayout.swift in Sources */,
@@ -1571,6 +1627,7 @@
 				5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */,
+				5C1EDB8D206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */,
 				5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */,
 				5C1E168F20216F5900C23B77 /* TopicListCellNodeLayout.swift in Sources */,
 				5C1E169020216F5900C23B77 /* SpecialViewLayout.swift in Sources */,

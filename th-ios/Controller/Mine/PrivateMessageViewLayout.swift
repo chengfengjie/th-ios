@@ -14,6 +14,7 @@ struct PrivateMessageViewElement {
 }
 
 protocol PrivateMessageViewLayout {
+    var element: PrivateMessageViewElement { get }
     var content: UIView { get }
 }
 extension PrivateMessageViewLayout where Self: UIViewController {
@@ -45,6 +46,8 @@ extension PrivateMessageViewLayout where Self: UIViewController {
         
         e.inputTextField = UITextField().then({ (field) in
             
+            field.returnKeyType = .send
+            
             let borderBox: UIView = UIView().then({ (border) in
                 e.inputBar.addSubview(border)
                 border.layer.borderColor = UIColor.lineColor.cgColor
@@ -71,4 +74,21 @@ extension PrivateMessageViewLayout where Self: UIViewController {
         return e
     }
     
+    func keyboardShow(keyBoardFrame: CGRect) {
+        var initFrame = self.inputBarInitFrame
+        initFrame.origin.y = UIScreen.main.bounds.height - keyBoardFrame.height - initFrame.height
+        self.element.inputBar.frame = initFrame
+    }
+    
+    func keyboardHide() {
+        self.element.inputBar.frame = self.inputBarInitFrame
+    }
+    
+    func keyboardFrameChange(frame: CGRect) {
+        var initFrame = self.inputBarInitFrame
+        initFrame.origin.y = UIScreen.main.bounds.height - frame.height - initFrame.height
+        self.element.inputBar.frame = initFrame
+    }
+    
 }
+

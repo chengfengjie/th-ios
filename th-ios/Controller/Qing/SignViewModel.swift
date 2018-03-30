@@ -10,6 +10,8 @@ import UIKit
 
 class SignViewModel: BaseViewModel {
     
+    let shareViewModel: ShareViewModel = ShareViewModel()
+    
     let signInfo: JSON
     init(signInfo: JSON) {
         self.signInfo = signInfo
