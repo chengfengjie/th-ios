@@ -37,12 +37,9 @@ target 'th-ios' do
   share_pods
   shareSDK_pods
 end
-target 'th-demo' do
-    pod 'WeexSDK', '~> 0.17.0'
-    share_pods
-end
 target 'th-ios-pro' do
-    share_pods
+  share_pods
+  shareSDK_pods
 end
 
 post_install do |installer|
