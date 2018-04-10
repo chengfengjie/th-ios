@@ -96,4 +96,37 @@ class ShareUtil {
         AppDelegate.rootNavgationController?.present(vc, animated: true, completion: nil)
     }
     
+    class func buildShareWebPageParams(
+        title: String,
+        text: String,
+        url: String,
+        type: SSDKPlatformType) -> NSMutableDictionary {
+        let params: NSMutableDictionary = NSMutableDictionary()
+        params.ssdkSetupShareParams(byText: text,
+                                    images: UIImage.init(named: "app_icon")!,
+                                    url: URL.init(string: url)!,
+                                    title: title,
+                                    type: SSDKContentType.webPage)
+        return params
+    }
+    
+    class func shareToWxFriendToTextInfo(title: String, text: String, url: String) {
+        let hanlder = buildShareCallBackHandler(type: SSDKPlatformType.subTypeWechatSession)
+        let params = buildShareWebPageParams(title: title, text: text, url: url, type: .subTypeWechatSession)
+        ShareSDK.share(SSDKPlatformType.subTypeWechatSession,
+                       parameters: params,
+                       onStateChanged: hanlder)
+    }
+    
+    class func shareToWxTimelineTextInfo(title: String, text: String, url: String) {
+        let hanlder = buildShareCallBackHandler(type: SSDKPlatformType.subTypeWechatTimeline)
+        let params = buildShareWebPageParams(title: title, text: text, url: url, type: .subTypeWechatTimeline)
+        ShareSDK.share(SSDKPlatformType.subTypeWechatTimeline, parameters: params, onStateChanged: hanlder)
+    }
+    
+    class func shareToQQFriendTextInfo(title: String, text: String, url: String) {
+        let hanlder = buildShareCallBackHandler(type: SSDKPlatformType.subTypeQQFriend)
+        let params = buildShareWebPageParams(title: title, text: text, url: url, type: .subTypeQQFriend)
+        ShareSDK.share(SSDKPlatformType.subTypeQQFriend, parameters: params, onStateChanged: hanlder)
+    }
 }

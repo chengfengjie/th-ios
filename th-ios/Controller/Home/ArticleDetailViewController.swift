@@ -140,6 +140,8 @@ class ArticleDetailViewController: BaseTableViewController<ArticleDetailViewMode
                 ShareUtil.shareToQQFriendImage(image: image)
                 break
             case .copy:
+                UIPasteboard.general.string = ShareInfo.appstoreUrl
+                self.viewModel.okMessage.value = "复制成功"
                 break
             case .wxFriend:
                 ShareUtil.shareToWxFriendImage(image: image)

@@ -120,6 +120,15 @@ class MineViewModel: BaseViewModel, UserApi {
     
     override func viewModelDidLoad() {
         super.viewModelDidLoad()
+        self.fetchData()
+        self.currentUser.isLogin.signal.observeValues { (isLogin) in
+            if isLogin {
+                self.fetchData()
+            }
+        }
+    }
+    
+    private func fetchData() {
         fetchUserInfoAction.apply(()).start()
         fetchUserTopicAction.apply(()).start()
         

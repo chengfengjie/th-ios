@@ -68,6 +68,13 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
         self.bindViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !UserModel.current.isLogin.value {
+            self.rootPresentLoginController()
+        }
+    }
+    
     override func bindViewModel() {
         super.bindViewModel()
         
@@ -198,9 +205,11 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         switch self.tableNodeHeader.selectItemType {
         case .topic:
-            return {
-                return MineViewTopicCellNode(dataJSON: self.viewModel.userTopiclist.value[indexPath.row])
-            }
+            let cellNode = MineViewTopicCellNode(dataJSON: self.viewModel.userTopiclist.value[indexPath.row])
+            cellNode.shareAction.values.observeValues({ (data) in
+                self.shareTopicInfo(data: data)
+            })
+            return ASCellNode.createBlock(cellNode: cellNode)
         case .collect:
             return {
                 switch self.viewModel.currentFavoriteType.value {
@@ -246,6 +255,56 @@ MineViewTableNodeHeaderLayout, TopicArticleSwitchHeaderAction {
             return section == 0 ? self.tableNodeHeader.containerBox : self.commentSwitchHeader
         case .viewhistory:
             return section == 0 ? self.tableNodeHeader.containerBox : self.historySwitchHeader
+        }
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
+        switch self.tableNodeHeader.selectItemType {
+        case .topic:
+            let topidId: String = viewModel.userTopiclist.value[indexPath.row]["tid"].stringValue
+            let model: TopicDetailViewModel = TopicDetailViewModel(topicID: topidId)
+            self.pushViewController(viewController: TopicDetailViewController(viewModel: model))
+        case .collect:
+            switch viewModel.currentFavoriteType.value {
+            case .article:
+                let data: JSON = viewModel.userFavoriteArticlelist.value[indexPath.row]
+                print(data)
+                break
+            case .topic:
+                let data: JSON = viewModel.userFavoriteTopiclist.value[indexPath.row]
+                print(data)
+                break
+            }
+        default:
+            break
+        }
+    }
+    
+    private func shareTopicInfo(data: JSON) {
+        let shareModel: ShareViewModel = ShareViewModel()
+        let shareController: ShareViewController = ShareViewController.create(viewModel: shareModel)
+        self.rootPresent(viewController: shareController, animated: true)
+        let shareTitle: String = data["subject"].stringValue
+        let text: String = data["message"].stringValue
+        shareModel.shareAction.values.observeValues { (type) in
+            switch type {
+            case .copy:
+                UIPasteboard.general.string = ShareInfo.recommendUrl
+                self.viewModel.okMessage.value = "复制成功"
+                break
+            case .more:
+                ShareUtil.shareToSystemMore()
+                break
+            case .qqFriend:
+                ShareUtil.shareToQQFriendTextInfo(title: shareTitle, text: text, url: ShareInfo.recommendUrl)
+                break
+            case .wxFriend:
+                ShareUtil.shareToWxFriendToTextInfo(title: shareTitle, text: text, url: ShareInfo.recommendUrl)
+                break
+            case .wxTimeline:
+                ShareUtil.shareToWxTimelineTextInfo(title: shareTitle, text: text, url: ShareInfo.recommendUrl)
+                break
+            }
         }
     }
 }

@@ -8,6 +8,8 @@
 
 class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
     
+    var shareAction: Action<(), JSON, NoError>!
+    
     lazy var bottomline: ASDisplayNode = {
         return self.makeBottomline()
     }()
@@ -37,6 +39,11 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
     init(dataJSON: JSON) {
         super.init()
         
+        self.shareAction = Action<(), JSON, NoError>
+            .init(execute: { (_) -> SignalProducer<JSON, NoError> in
+                return SignalProducer.init(value: dataJSON)
+        })
+        
         self.bottomline.backgroundColor = UIColor.lineColor
         
         self.selectionStyle = .none
@@ -53,6 +60,13 @@ class MineViewTopicCellNode: ASCellNode, TopicListCellNodeLayout {
         }
         
         self.imageNodeArray = self.makeImageNodes(imageUrlArray: picUrls)
+        
+        self.shareIconNode.addTarget(self, action: #selector(self.handleShareAction), forControlEvents: .touchUpInside)
+        self.shareTextNode.addTarget(self, action: #selector(self.handleShareAction), forControlEvents: .touchUpInside)
+    }
+    
+    @objc func handleShareAction() {
+        self.shareAction.apply(()).start()
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

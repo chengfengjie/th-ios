@@ -90,6 +90,9 @@ extension ThApi {
                 observer.send(error: RequestError.server)
             } else if dataJSON["errCode"].intValue == 0 {
                 observer.send(value: dataJSON["info"])
+            } else if dataJSON["errCode"].stringValue == "-1" {
+                UserModel.current.isLogin.value = false
+                observer.send(error: RequestError.forbidden)
             } else {
                 print(dataJSON)
                 observer.send(error: RequestError.warning(message: dataJSON["errMessage"].stringValue))
