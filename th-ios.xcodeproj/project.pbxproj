@@ -297,6 +297,8 @@
 		5CACA054201CB35F003E3901 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA053201CB35F003E3901 /* Home.swift */; };
 		5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA055201CBFCA003E3901 /* UserListController.swift */; };
 		5CACA058201CC0D9003E3901 /* UserListViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CACA057201CC0D9003E3901 /* UserListViewLayout.swift */; };
+		5CB6DC0520877740007CB157 /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500B20691B14000AE49D /* ShareViewModel.swift */; };
+		5CB6DC0620877752007CB157 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3F500A20691B13000AE49D /* ShareViewController.swift */; };
 		5CB75FF32052AED200DD4DFC /* SpecialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB75FF22052AED200DD4DFC /* SpecialViewModel.swift */; };
 		5CB75FF42052AED200DD4DFC /* SpecialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB75FF22052AED200DD4DFC /* SpecialViewModel.swift */; };
 		5CBE54A8201973C700594B9E /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE54A7201973C700594B9E /* Style.swift */; };
@@ -1048,9 +1050,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-th-ios-pro/Pods-th-ios-pro-resources.sh",
+				"${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Required/ShareSDK.bundle",
+				"${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/PlatformSDK/SinaWeiboSDK/WeiboSDK.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ShareSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WeiboSDK.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1324,6 +1331,7 @@
 				5C1E167520216F5900C23B77 /* TableCellNodeLayout.swift in Sources */,
 				5C1E167620216F5900C23B77 /* SettingViewLayout.swift in Sources */,
 				5C79CF852046E8F500A72BE7 /* SystemMessageViewModel.swift in Sources */,
+				5CB6DC0520877740007CB157 /* ShareViewModel.swift in Sources */,
 				5C1E167720216F5900C23B77 /* TreeHoleViewController.swift in Sources */,
 				5CAA28A32036E4CA0059DCEA /* MineViewModel.swift in Sources */,
 				5C5C1F4C2056B98B000603C8 /* FeedbackViewModel.swift in Sources */,
@@ -1376,6 +1384,7 @@
 				5CAA28AC203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */,
 				5C1E168C20216F5900C23B77 /* SelectCityViewController.swift in Sources */,
 				5C6D391C202C902C00696E16 /* TopicDetailViewController.swift in Sources */,
+				5CB6DC0620877752007CB157 /* ShareViewController.swift in Sources */,
 				5C0F911420299600000DF20E /* AuthorViewModel.swift in Sources */,
 				5CFD61FB203043C60099C104 /* SignViewController.swift in Sources */,
 				5C1E168D20216F5900C23B77 /* MineViewCollectCellNodeLayout.swift in Sources */,
