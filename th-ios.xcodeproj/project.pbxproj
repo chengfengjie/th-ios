@@ -106,10 +106,8 @@
 		5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */; };
 		5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */; };
 		5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */; };
-		5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
 		5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
 		5C1E16DC2022BDFD00C23B77 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */; };
-		5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1E16D42022BC5500C23B77 /* ThApi.swift */; };
 		5C1EDB8C206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */; };
 		5C1EDB8D206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */; };
 		5C28E1CB20347CED00475727 /* SignViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C28E1CA20347CED00475727 /* SignViewLayout.swift */; };
@@ -153,8 +151,6 @@
 		5C54B7FE205CBCDC00BE73B5 /* AddEditNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54B7FC205CBCDC00BE73B5 /* AddEditNoteViewModel.swift */; };
 		5C54B800205CBEDA00BE73B5 /* AddEditNoteViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54B7FF205CBEDA00BE73B5 /* AddEditNoteViewLayout.swift */; };
 		5C54B801205CBEDA00BE73B5 /* AddEditNoteViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54B7FF205CBEDA00BE73B5 /* AddEditNoteViewLayout.swift */; };
-		5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C55B4B1202D975A00B8DC39 /* CommonApi.swift */; };
-		5C55B4B3202D975A00B8DC39 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C55B4B1202D975A00B8DC39 /* CommonApi.swift */; };
 		5C5961702016E28800ECD88B /* MineViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C59616F2016E28800ECD88B /* MineViewLayout.swift */; };
 		5C596172201729D000ECD88B /* MineViewTopicCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */; };
 		5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */; };
@@ -173,12 +169,8 @@
 		5C6408B42027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */; };
 		5C6408B62027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */; };
 		5C6408B72027F39D00F95BE1 /* SelectCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */; };
-		5C6408B92027F42400F95BE1 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B82027F42400F95BE1 /* CityApi.swift */; };
-		5C6408BA2027F42400F95BE1 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408B82027F42400F95BE1 /* CityApi.swift */; };
 		5C6408BC2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */; };
 		5C6408BD2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */; };
-		5C6408BF2028022700F95BE1 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BE2028022700F95BE1 /* QingApi.swift */; };
-		5C6408C02028022700F95BE1 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408BE2028022700F95BE1 /* QingApi.swift */; };
 		5C6408C2202802BA00F95BE1 /* QingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C1202802BA00F95BE1 /* QingViewModel.swift */; };
 		5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C1202802BA00F95BE1 /* QingViewModel.swift */; };
 		5C6408C820287FE200F95BE1 /* AuthorizeInputCellphoneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */; };
@@ -255,14 +247,8 @@
 		5CA1E337204ED730004CD95D /* SelectTopicCateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1E335204ED730004CD95D /* SelectTopicCateViewController.swift */; };
 		5CA1E339204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1E338204ED750004CD95D /* SelectTopicCateViewModel.swift */; };
 		5CA1E33A204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA1E338204ED750004CD95D /* SelectTopicCateViewModel.swift */; };
-		5CA7E227202337B9002ECFB9 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* ArticleApi.swift */; };
-		5CA7E228202337B9002ECFB9 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E226202337B9002ECFB9 /* ArticleApi.swift */; };
-		5CA7E22A202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
-		5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E229202337F6002ECFB9 /* Method.swift */; };
 		5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E22F20235E60002ECFB9 /* HomeArticleViewModel.swift */; };
 		5CA7E23120235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA7E22F20235E60002ECFB9 /* HomeArticleViewModel.swift */; };
-		5CAA28902035C28C0059DCEA /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA288F2035C28C0059DCEA /* UserApi.swift */; };
-		5CAA28912035C28C0059DCEA /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA288F2035C28C0059DCEA /* UserApi.swift */; };
 		5CAA28932035C3A80059DCEA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28922035C3A80059DCEA /* UserModel.swift */; };
 		5CAA28942035C3A80059DCEA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28922035C3A80059DCEA /* UserModel.swift */; };
 		5CAA28962035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAA28952035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift */; };
@@ -314,6 +300,26 @@
 		5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */; };
 		5CDF461A2015774C002F7D8B /* QingViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF46192015774C002F7D8B /* QingViewLayout.swift */; };
 		5CDF461C20157B40002F7D8B /* STZHONGS.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF461B20157B40002F7D8B /* STZHONGS.ttf */; };
+		5CF746C420C92F08005CA014 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BD20C92F08005CA014 /* UserApi.swift */; };
+		5CF746C520C92F08005CA014 /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BD20C92F08005CA014 /* UserApi.swift */; };
+		5CF746C620C92F08005CA014 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BE20C92F08005CA014 /* QingApi.swift */; };
+		5CF746C720C92F08005CA014 /* QingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BE20C92F08005CA014 /* QingApi.swift */; };
+		5CF746C820C92F08005CA014 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BF20C92F08005CA014 /* ThApi.swift */; };
+		5CF746C920C92F08005CA014 /* ThApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746BF20C92F08005CA014 /* ThApi.swift */; };
+		5CF746CA20C92F08005CA014 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C020C92F08005CA014 /* CityApi.swift */; };
+		5CF746CB20C92F08005CA014 /* CityApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C020C92F08005CA014 /* CityApi.swift */; };
+		5CF746CC20C92F08005CA014 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C120C92F08005CA014 /* Method.swift */; };
+		5CF746CD20C92F08005CA014 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C120C92F08005CA014 /* Method.swift */; };
+		5CF746CE20C92F08005CA014 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C220C92F08005CA014 /* CommonApi.swift */; };
+		5CF746CF20C92F08005CA014 /* CommonApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C220C92F08005CA014 /* CommonApi.swift */; };
+		5CF746D020C92F08005CA014 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C320C92F08005CA014 /* ArticleApi.swift */; };
+		5CF746D120C92F08005CA014 /* ArticleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746C320C92F08005CA014 /* ArticleApi.swift */; };
+		5CF746D320C92F1D005CA014 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D220C92F1D005CA014 /* RestClient.swift */; };
+		5CF746D420C92F1D005CA014 /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D220C92F1D005CA014 /* RestClient.swift */; };
+		5CF746D620C92F94005CA014 /* RequestURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D520C92F94005CA014 /* RequestURI.swift */; };
+		5CF746D720C92F94005CA014 /* RequestURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D520C92F94005CA014 /* RequestURI.swift */; };
+		5CF746D920C93618005CA014 /* ArticleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D820C93618005CA014 /* ArticleClient.swift */; };
+		5CF746DA20C93618005CA014 /* ArticleClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF746D820C93618005CA014 /* ArticleClient.swift */; };
 		5CF96F102040F3500085E828 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF96F0F2040F3500085E828 /* SettingViewModel.swift */; };
 		5CF96F112040F3500085E828 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF96F0F2040F3500085E828 /* SettingViewModel.swift */; };
 		5CFD61F72030191C0099C104 /* ReaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFD61F62030191C0099C104 /* ReaderLayout.swift */; };
@@ -350,7 +356,6 @@
 		5C1E16C72021FD2500C23B77 /* SystemMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMessageViewLayout.swift; sourceTree = "<group>"; };
 		5C1E16CA2021FDFB00C23B77 /* PrivateMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewController.swift; sourceTree = "<group>"; };
 		5C1E16CC2021FE0900C23B77 /* PrivateMessageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateMessageViewLayout.swift; sourceTree = "<group>"; };
-		5C1E16D42022BC5500C23B77 /* ThApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThApi.swift; sourceTree = "<group>"; };
 		5C1E16DA2022BDF900C23B77 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		5C1EDB8B206D199F00D6EFC5 /* ParaShareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaShareImageView.swift; sourceTree = "<group>"; };
 		5C28E1CA20347CED00475727 /* SignViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewLayout.swift; sourceTree = "<group>"; };
@@ -379,7 +384,6 @@
 		5C54B7F9205CBCC600BE73B5 /* AddEditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditNoteViewController.swift; sourceTree = "<group>"; };
 		5C54B7FC205CBCDC00BE73B5 /* AddEditNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditNoteViewModel.swift; sourceTree = "<group>"; };
 		5C54B7FF205CBEDA00BE73B5 /* AddEditNoteViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditNoteViewLayout.swift; sourceTree = "<group>"; };
-		5C55B4B1202D975A00B8DC39 /* CommonApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonApi.swift; sourceTree = "<group>"; };
 		5C59616F2016E28800ECD88B /* MineViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewLayout.swift; sourceTree = "<group>"; };
 		5C596171201729D000ECD88B /* MineViewTopicCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewTopicCellNodeLayout.swift; sourceTree = "<group>"; };
 		5C5961732017670B00ECD88B /* MineViewCollectCellNodeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewCollectCellNodeLayout.swift; sourceTree = "<group>"; };
@@ -393,9 +397,7 @@
 		5C5F0B4720122EA0009BE6D4 /* NavigationBarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProtocol.swift; sourceTree = "<group>"; };
 		5C6408B22027F36500F95BE1 /* SameCityMainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityMainViewModel.swift; sourceTree = "<group>"; };
 		5C6408B52027F39D00F95BE1 /* SelectCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCityViewModel.swift; sourceTree = "<group>"; };
-		5C6408B82027F42400F95BE1 /* CityApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityApi.swift; sourceTree = "<group>"; };
 		5C6408BB2027FD6300F95BE1 /* SameCityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SameCityViewModel.swift; sourceTree = "<group>"; };
-		5C6408BE2028022700F95BE1 /* QingApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingApi.swift; sourceTree = "<group>"; };
 		5C6408C1202802BA00F95BE1 /* QingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewModel.swift; sourceTree = "<group>"; };
 		5C6408C720287FE200F95BE1 /* AuthorizeInputCellphoneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCellphoneController.swift; sourceTree = "<group>"; };
 		5C6408CA2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCellphoneLayout.swift; sourceTree = "<group>"; };
@@ -451,10 +453,7 @@
 		5CA1E332204C16C3004CD95D /* PublishTopicViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishTopicViewLayout.swift; sourceTree = "<group>"; };
 		5CA1E335204ED730004CD95D /* SelectTopicCateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTopicCateViewController.swift; sourceTree = "<group>"; };
 		5CA1E338204ED750004CD95D /* SelectTopicCateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTopicCateViewModel.swift; sourceTree = "<group>"; };
-		5CA7E226202337B9002ECFB9 /* ArticleApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleApi.swift; sourceTree = "<group>"; };
-		5CA7E229202337F6002ECFB9 /* Method.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
 		5CA7E22F20235E60002ECFB9 /* HomeArticleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArticleViewModel.swift; sourceTree = "<group>"; };
-		5CAA288F2035C28C0059DCEA /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
 		5CAA28922035C3A80059DCEA /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CAA28952035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCellPhoneViewModel.swift; sourceTree = "<group>"; };
 		5CAA2898203681360059DCEA /* AuthorizeInputCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizeInputCodeViewModel.swift; sourceTree = "<group>"; };
@@ -484,6 +483,16 @@
 		5CDF46172014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselTableHeaderProtocol.swift; sourceTree = "<group>"; };
 		5CDF46192015774C002F7D8B /* QingViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QingViewLayout.swift; sourceTree = "<group>"; };
 		5CDF461B20157B40002F7D8B /* STZHONGS.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = STZHONGS.ttf; sourceTree = "<group>"; };
+		5CF746BD20C92F08005CA014 /* UserApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		5CF746BE20C92F08005CA014 /* QingApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QingApi.swift; sourceTree = "<group>"; };
+		5CF746BF20C92F08005CA014 /* ThApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThApi.swift; sourceTree = "<group>"; };
+		5CF746C020C92F08005CA014 /* CityApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityApi.swift; sourceTree = "<group>"; };
+		5CF746C120C92F08005CA014 /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		5CF746C220C92F08005CA014 /* CommonApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonApi.swift; sourceTree = "<group>"; };
+		5CF746C320C92F08005CA014 /* ArticleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleApi.swift; sourceTree = "<group>"; };
+		5CF746D220C92F1D005CA014 /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
+		5CF746D520C92F94005CA014 /* RequestURI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestURI.swift; sourceTree = "<group>"; };
+		5CF746D820C93618005CA014 /* ArticleClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleClient.swift; sourceTree = "<group>"; };
 		5CF96F0F2040F3500085E828 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5CFD61F62030191C0099C104 /* ReaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderLayout.swift; sourceTree = "<group>"; };
 		5CFD61F9203043C60099C104 /* SignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewController.swift; sourceTree = "<group>"; };
@@ -570,13 +579,8 @@
 		5C0675D1200C890D0019A24D /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				5CA7E229202337F6002ECFB9 /* Method.swift */,
-				5C1E16D42022BC5500C23B77 /* ThApi.swift */,
-				5CA7E226202337B9002ECFB9 /* ArticleApi.swift */,
-				5C6408B82027F42400F95BE1 /* CityApi.swift */,
-				5C6408BE2028022700F95BE1 /* QingApi.swift */,
-				5C55B4B1202D975A00B8DC39 /* CommonApi.swift */,
-				5CAA288F2035C28C0059DCEA /* UserApi.swift */,
+				5CF746BC20C92F08005CA014 /* v1 */,
+				5CF7469F20C92E1C005CA014 /* v2 */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -813,6 +817,30 @@
 				5CACA053201CB35F003E3901 /* Home.swift */,
 			);
 			path = Style;
+			sourceTree = "<group>";
+		};
+		5CF7469F20C92E1C005CA014 /* v2 */ = {
+			isa = PBXGroup;
+			children = (
+				5CF746D220C92F1D005CA014 /* RestClient.swift */,
+				5CF746D520C92F94005CA014 /* RequestURI.swift */,
+				5CF746D820C93618005CA014 /* ArticleClient.swift */,
+			);
+			path = v2;
+			sourceTree = "<group>";
+		};
+		5CF746BC20C92F08005CA014 /* v1 */ = {
+			isa = PBXGroup;
+			children = (
+				5CF746BD20C92F08005CA014 /* UserApi.swift */,
+				5CF746BE20C92F08005CA014 /* QingApi.swift */,
+				5CF746BF20C92F08005CA014 /* ThApi.swift */,
+				5CF746C020C92F08005CA014 /* CityApi.swift */,
+				5CF746C120C92F08005CA014 /* Method.swift */,
+				5CF746C220C92F08005CA014 /* CommonApi.swift */,
+				5CF746C320C92F08005CA014 /* ArticleApi.swift */,
+			);
+			path = v1;
 			sourceTree = "<group>";
 		};
 		B67D22AC4FBF41B2EF70F7BE /* Pods */ = {
@@ -1160,7 +1188,6 @@
 				5C2CC244206A6B1F000B4CFF /* ShareUtil.swift in Sources */,
 				5C6408B32027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */,
 				5C5C1F482056B975000603C8 /* FeedbackViewController.swift in Sources */,
-				5C6408BF2028022700F95BE1 /* QingApi.swift in Sources */,
 				5C6408CB2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C8DD169205804BA00ACCBF7 /* PickImageProtocol.swift in Sources */,
 				5C94C371202059E70043D01F /* MessageListViewLayout.swift in Sources */,
@@ -1168,7 +1195,6 @@
 				5CAA28BD203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */,
 				5C0F911020295C49000DF20E /* AuthorListViewModel.swift in Sources */,
 				5C971FEE2069EFE1009FBA4F /* SignShareImageView.swift in Sources */,
-				5C55B4B2202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23020235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C3F500F20691CB0000AE49D /* ShareViewLayout.swift in Sources */,
 				5C94C357201ECC900043D01F /* SearchViewLayout.swift in Sources */,
@@ -1177,6 +1203,7 @@
 				5C94C36D20204A1A0043D01F /* TableCellNodeLayout.swift in Sources */,
 				5C94C36B202047330043D01F /* SettingViewLayout.swift in Sources */,
 				5C79CF842046E8F500A72BE7 /* SystemMessageViewModel.swift in Sources */,
+				5CF746D620C92F94005CA014 /* RequestURI.swift in Sources */,
 				5C92707120107C4A00838C1D /* TreeHoleViewController.swift in Sources */,
 				5CAA28A22036E4CA0059DCEA /* MineViewModel.swift in Sources */,
 				5C5C1F4B2056B98B000603C8 /* FeedbackViewModel.swift in Sources */,
@@ -1190,10 +1217,13 @@
 				5C944597201D917600CCF082 /* SpecialListController.swift in Sources */,
 				5C28E1CE203485E400475727 /* SignViewModel.swift in Sources */,
 				5C54B7FD205CBCDC00BE73B5 /* AddEditNoteViewModel.swift in Sources */,
+				5CF746C420C92F08005CA014 /* UserApi.swift in Sources */,
 				5CACA056201CBFCA003E3901 /* UserListController.swift in Sources */,
 				5CFD61F72030191C0099C104 /* ReaderLayout.swift in Sources */,
 				5C28E1CB20347CED00475727 /* SignViewLayout.swift in Sources */,
+				5CF746D320C92F1D005CA014 /* RestClient.swift in Sources */,
 				5C4ECE5C203EA24900C2D27F /* HUDUtils.swift in Sources */,
+				5CF746CA20C92F08005CA014 /* CityApi.swift in Sources */,
 				5C0675E0200C915D0019A24D /* ThUtils.swift in Sources */,
 				5C0675ED200CA2470019A24D /* HomeViewController.swift in Sources */,
 				5C6541582026F36E009EDDC2 /* SpecialListViewModel.swift in Sources */,
@@ -1204,7 +1234,9 @@
 				5C94C359201EFA3D0043D01F /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C62021FD1300C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C94C369202046640043D01F /* PublishTopicViewController.swift in Sources */,
+				5CF746C820C92F08005CA014 /* ThApi.swift in Sources */,
 				5C397AAE201B1F4700C0B898 /* LeaderboardsViewLayout.swift in Sources */,
+				5CF746D020C92F08005CA014 /* ArticleApi.swift in Sources */,
 				5C94C35F201F1FED0043D01F /* HorizontalScrollMenu.swift in Sources */,
 				5C94C353201EBB680043D01F /* TreeHoleListViewController.swift in Sources */,
 				5CAA28932035C3A80059DCEA /* UserModel.swift in Sources */,
@@ -1217,10 +1249,12 @@
 				5C3F500C20691B14000AE49D /* ShareViewController.swift in Sources */,
 				5CAA28AE203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
 				5CBEB2F220628726005BE7A0 /* CommentTopicViewController.swift in Sources */,
+				5CF746C620C92F08005CA014 /* QingApi.swift in Sources */,
 				5C1E16DB2022BDF900C23B77 /* HomeViewModel.swift in Sources */,
 				5C8281B7206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */,
 				5CAA28A8203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
 				5C92707720108DB600838C1D /* SameCityMainViewController.swift in Sources */,
+				5CF746D920C93618005CA014 /* ArticleClient.swift in Sources */,
 				5C0675E8200C94090019A24D /* BaseView.swift in Sources */,
 				5C94C37320205D5A0043D01F /* TableChangeHeader.swift in Sources */,
 				5CAA28AB203DA53F0059DCEA /* ArticleCommentListViewController.swift in Sources */,
@@ -1231,16 +1265,13 @@
 				5C5961742017670B00ECD88B /* MineViewCollectCellNodeLayout.swift in Sources */,
 				5C1E16CB2021FDFB00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C397AB0201B203E00C0B898 /* CellNodeElementLayout.swift in Sources */,
-				5CA7E22A202337F6002ECFB9 /* Method.swift in Sources */,
 				5C94C3612020053E0043D01F /* TopicListCellNodeLayout.swift in Sources */,
 				5C944595201D7C6900CCF082 /* SpecialViewLayout.swift in Sources */,
 				5C79CF872046EAE100A72BE7 /* PrivateMessageViewModel.swift in Sources */,
 				5C2CC241206A6A55000B4CFF /* Constant.swift in Sources */,
 				5C92706D20107B2D00838C1D /* AuthorListViewController.swift in Sources */,
-				5C1E16D52022BC5500C23B77 /* ThApi.swift in Sources */,
 				5C3F500D20691B14000AE49D /* ShareViewModel.swift in Sources */,
 				5C92707520108D9100838C1D /* SameCityViewController.swift in Sources */,
-				5CAA28902035C28C0059DCEA /* UserApi.swift in Sources */,
 				5C5C1F4E2056CD56000603C8 /* FeedbackViewLayout.swift in Sources */,
 				5C94C35D201F0E2F0043D01F /* QingModuleViewLayout.swift in Sources */,
 				5CACA052201CB0F9003E3901 /* NoneContentArticleCellNode.swift in Sources */,
@@ -1256,6 +1287,7 @@
 				5C1EDB8C206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */,
 				5C94C3772020B15D0043D01F /* SelectCityViewLayout.swift in Sources */,
 				5CA1E32D20497FFA004CD95D /* SearchViewModel.swift in Sources */,
+				5CF746CE20C92F08005CA014 /* CommonApi.swift in Sources */,
 				5C6541552026E177009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA2899203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
 				5CBEB2F52062874D005BE7A0 /* CommentTopicViewModel.swift in Sources */,
@@ -1280,7 +1312,6 @@
 				5CAA28962035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift in Sources */,
 				5CAA28B1203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */,
 				5C94C36F202059940043D01F /* MessageListViewController.swift in Sources */,
-				5C6408B92027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16CD2021FE0900C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C94C3632020168C0043D01F /* QingTopicListViewController.swift in Sources */,
 				5C2B7124200E1B0B005CE83F /* ArticleDetailViewController.swift in Sources */,
@@ -1289,6 +1320,7 @@
 				5C9853B6202DC34300421C79 /* AdvertisingCellNode.swift in Sources */,
 				5C0675D8200C89A30019A24D /* RootViewController.swift in Sources */,
 				5C92706F20107BCC00838C1D /* SpecialViewController.swift in Sources */,
+				5CF746CC20C92F08005CA014 /* Method.swift in Sources */,
 				5C0675F4200CB28E0019A24D /* MineViewController.swift in Sources */,
 				5C92707320107E3D00838C1D /* MagicControllerProtocol.swift in Sources */,
 				5C5F0B4820122EA0009BE6D4 /* NavigationBarProtocol.swift in Sources */,
@@ -1297,7 +1329,6 @@
 				5C5F0B4420122071009BE6D4 /* FontUtils.swift in Sources */,
 				5C92706B20107A4F00838C1D /* LeaderboardsViewController.swift in Sources */,
 				5CDF46182014ABE7002F7D8B /* CarouselTableHeaderProtocol.swift in Sources */,
-				5CA7E227202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C94459B201DC92B00CCF082 /* TreeHoleViewLayout.swift in Sources */,
 				5CF96F102040F3500085E828 /* SettingViewModel.swift in Sources */,
 				5C45E551204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */,
@@ -1316,14 +1347,12 @@
 				5C1E167020216F5900C23B77 /* BaseTabBarController.swift in Sources */,
 				5C6408B42027F36500F95BE1 /* SameCityMainViewModel.swift in Sources */,
 				5C5C1F492056B975000603C8 /* FeedbackViewController.swift in Sources */,
-				5C6408C02028022700F95BE1 /* QingApi.swift in Sources */,
 				5C6408CC2028803E00F95BE1 /* AuthorizeInputCellphoneLayout.swift in Sources */,
 				5C8DD16A205804BA00ACCBF7 /* PickImageProtocol.swift in Sources */,
 				5C1E167120216F5900C23B77 /* MessageListViewLayout.swift in Sources */,
 				5C1E167220216F5900C23B77 /* SpecialListLayout.swift in Sources */,
 				5CAA28BE203E4EFF0059DCEA /* CommentArticleViewLayout.swift in Sources */,
 				5C0F911120295C49000DF20E /* AuthorListViewModel.swift in Sources */,
-				5C55B4B3202D975A00B8DC39 /* CommonApi.swift in Sources */,
 				5CA7E23120235E60002ECFB9 /* HomeArticleViewModel.swift in Sources */,
 				5C1E167320216F5900C23B77 /* SearchViewLayout.swift in Sources */,
 				5CBEB2F920628A86005BE7A0 /* CommentTopicViewLayout.swift in Sources */,
@@ -1334,6 +1363,7 @@
 				5CB6DC0520877740007CB157 /* ShareViewModel.swift in Sources */,
 				5C1E167720216F5900C23B77 /* TreeHoleViewController.swift in Sources */,
 				5CAA28A32036E4CA0059DCEA /* MineViewModel.swift in Sources */,
+				5CF746D720C92F94005CA014 /* RequestURI.swift in Sources */,
 				5C5C1F4C2056B98B000603C8 /* FeedbackViewModel.swift in Sources */,
 				5C54B7FB205CBCC600BE73B5 /* AddEditNoteViewController.swift in Sources */,
 				5C6408BD2027FD6300F95BE1 /* SameCityViewModel.swift in Sources */,
@@ -1347,10 +1377,13 @@
 				5C54B7FE205CBCDC00BE73B5 /* AddEditNoteViewModel.swift in Sources */,
 				5C1E167D20216F5900C23B77 /* ThUtils.swift in Sources */,
 				5CFD61F82030191C0099C104 /* ReaderLayout.swift in Sources */,
+				5CF746C520C92F08005CA014 /* UserApi.swift in Sources */,
 				5C28E1CC20347CED00475727 /* SignViewLayout.swift in Sources */,
 				5C4ECE5D203EA24900C2D27F /* HUDUtils.swift in Sources */,
 				5C1E167E20216F5900C23B77 /* HomeViewController.swift in Sources */,
+				5CF746D420C92F1D005CA014 /* RestClient.swift in Sources */,
 				5C971FEF2069EFE1009FBA4F /* SignShareImageView.swift in Sources */,
+				5CF746CB20C92F08005CA014 /* CityApi.swift in Sources */,
 				5C1E16CE2021FE2A00C23B77 /* PrivateMessageViewLayout.swift in Sources */,
 				5C6541592026F36E009EDDC2 /* SpecialListViewModel.swift in Sources */,
 				5C1E167F20216F5900C23B77 /* MineViewCommentCellNodeLayout.swift in Sources */,
@@ -1361,7 +1394,9 @@
 				5C1E168020216F5900C23B77 /* TopicArticleSwitchHeader.swift in Sources */,
 				5C1E16C92021FDBB00C23B77 /* SystemMessageViewController.swift in Sources */,
 				5C8281B8206A281A0016EA40 /* PrivateMessageCellNode.swift in Sources */,
+				5CF746C920C92F08005CA014 /* ThApi.swift in Sources */,
 				5C2CC245206A6B1F000B4CFF /* ShareUtil.swift in Sources */,
+				5CF746D120C92F08005CA014 /* ArticleApi.swift in Sources */,
 				5C1E168220216F5900C23B77 /* PublishTopicViewController.swift in Sources */,
 				5C1E168320216F5900C23B77 /* LeaderboardsViewLayout.swift in Sources */,
 				5C1E168420216F5900C23B77 /* HorizontalScrollMenu.swift in Sources */,
@@ -1374,10 +1409,12 @@
 				5C6408C3202802BA00F95BE1 /* QingViewModel.swift in Sources */,
 				5CA1E33A204ED750004CD95D /* SelectTopicCateViewModel.swift in Sources */,
 				5C1E16D02022015500C23B77 /* SystemMessageViewLayout.swift in Sources */,
+				5CF746C720C92F08005CA014 /* QingApi.swift in Sources */,
 				5CAA28AF203DA6450059DCEA /* ArticleCommentListViewModel.swift in Sources */,
 				5CBEB2F320628726005BE7A0 /* CommentTopicViewController.swift in Sources */,
 				5C1E168820216F5900C23B77 /* SearchViewController.swift in Sources */,
 				5CAA28A9203AA1CC0059DCEA /* InputCodeView.swift in Sources */,
+				5CF746DA20C93618005CA014 /* ArticleClient.swift in Sources */,
 				5C1E168920216F5900C23B77 /* SameCityMainViewController.swift in Sources */,
 				5C1E168A20216F5900C23B77 /* BaseView.swift in Sources */,
 				5C1E168B20216F5900C23B77 /* TableChangeHeader.swift in Sources */,
@@ -1391,14 +1428,12 @@
 				5C1E16CF2021FE2D00C23B77 /* PrivateMessageViewController.swift in Sources */,
 				5C1E168E20216F5900C23B77 /* CellNodeElementLayout.swift in Sources */,
 				5C1EDB8D206D199F00D6EFC5 /* ParaShareImageView.swift in Sources */,
-				5CA7E22B202337F6002ECFB9 /* Method.swift in Sources */,
 				5C1E168F20216F5900C23B77 /* TopicListCellNodeLayout.swift in Sources */,
 				5C1E169020216F5900C23B77 /* SpecialViewLayout.swift in Sources */,
 				5C79CF882046EAE100A72BE7 /* PrivateMessageViewModel.swift in Sources */,
 				5C1E169120216F5900C23B77 /* AuthorListViewController.swift in Sources */,
 				5C1E169220216F5900C23B77 /* SameCityViewController.swift in Sources */,
 				5C1E169320216F5900C23B77 /* QingModuleViewLayout.swift in Sources */,
-				5CAA28912035C28C0059DCEA /* UserApi.swift in Sources */,
 				5C5C1F4F2056CD56000603C8 /* FeedbackViewLayout.swift in Sources */,
 				5C1E169420216F5900C23B77 /* NoneContentArticleCellNode.swift in Sources */,
 				5C1E169520216F5900C23B77 /* ColorUtils.swift in Sources */,
@@ -1412,6 +1447,7 @@
 				5CAA28B5203E4CCC0059DCEA /* CommentArticleViewController.swift in Sources */,
 				5C1E169B20216F5900C23B77 /* MineViewTopicCellNodeLayout.swift in Sources */,
 				5C1E169C20216F5900C23B77 /* SelectCityViewLayout.swift in Sources */,
+				5CF746CF20C92F08005CA014 /* CommonApi.swift in Sources */,
 				5CA1E32E20497FFA004CD95D /* SearchViewModel.swift in Sources */,
 				5C6541562026E17E009EDDC2 /* LeaderboardsViewModel.swift in Sources */,
 				5CAA289A203681360059DCEA /* AuthorizeInputCodeViewModel.swift in Sources */,
@@ -1430,14 +1466,12 @@
 				5C65415F2026F4A9009EDDC2 /* ArticleDetailViewModel.swift in Sources */,
 				5C1E16A320216F5900C23B77 /* MineViewLayout.swift in Sources */,
 				5C1E16A420216F5900C23B77 /* AuthorListViewLayout.swift in Sources */,
-				5C1E16DE2022C4C300C23B77 /* ThApi.swift in Sources */,
 				5CDC3BA2203FEF0B0010A47F /* QingTopicListViewModel.swift in Sources */,
 				5C65415C2026F49C009EDDC2 /* ArticleDetailViewLyout.swift in Sources */,
 				5CAA289D203686F10059DCEA /* BaseViewModel.swift in Sources */,
 				5CAA28972035C5E70059DCEA /* AuthorizeInputCellPhoneViewModel.swift in Sources */,
 				5CAA28B2203DAAF50059DCEA /* ArticleCommentListViewLayout.swift in Sources */,
 				5C1E16A520216F5900C23B77 /* BaseViewController.swift in Sources */,
-				5C6408BA2027F42400F95BE1 /* CityApi.swift in Sources */,
 				5C1E16A620216F5900C23B77 /* MessageListViewController.swift in Sources */,
 				5C1E16A720216F5900C23B77 /* QingTopicListViewController.swift in Sources */,
 				5C1E16A820216F5900C23B77 /* ArticleDetailViewController.swift in Sources */,
@@ -1446,6 +1480,7 @@
 				5C9853B7202DC34300421C79 /* AdvertisingCellNode.swift in Sources */,
 				5C1E16A920216F5900C23B77 /* RootViewController.swift in Sources */,
 				5C1E16AA20216F5900C23B77 /* SpecialViewController.swift in Sources */,
+				5CF746CD20C92F08005CA014 /* Method.swift in Sources */,
 				5C1E16AB20216F5900C23B77 /* MineViewController.swift in Sources */,
 				5C1E16AC20216F5900C23B77 /* MagicControllerProtocol.swift in Sources */,
 				5C1E16AD20216F5900C23B77 /* NavigationBarProtocol.swift in Sources */,
@@ -1454,7 +1489,6 @@
 				5C1E16AE20216F5900C23B77 /* FontUtils.swift in Sources */,
 				5C1E16AF20216F5900C23B77 /* LeaderboardsViewController.swift in Sources */,
 				5C1E16B020216F5900C23B77 /* CarouselTableHeaderProtocol.swift in Sources */,
-				5CA7E228202337B9002ECFB9 /* ArticleApi.swift in Sources */,
 				5C1E16B120216F5900C23B77 /* TreeHoleViewLayout.swift in Sources */,
 				5CF96F112040F3500085E828 /* SettingViewModel.swift in Sources */,
 				5C45E552204194EB0026FAB8 /* TopicDetailViewModel.swift in Sources */,

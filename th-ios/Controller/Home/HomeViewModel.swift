@@ -8,14 +8,14 @@
 
 import Foundation
 
-class HomeViewModel: BaseViewModel, ArticleApi {
+class HomeViewModel: BaseViewModel, ArticleApi, ArticleClient {
     
     lazy var cateDataProperty: MutableProperty<[JSON]> = {
         return MutableProperty.init([])
     }()
-    lazy var fetchCateDataAction: Action<Int, [JSON], RequestError> = {
-        return Action<Int, [JSON], RequestError>.init(execute: { (input) ->
-            SignalProducer<[JSON], RequestError> in
+    lazy var fetchCateDataAction: Action<Int, [JSON], HttpError> = {
+        return Action<Int, [JSON], HttpError>.init(execute: { (input) ->
+            SignalProducer<[JSON], HttpError> in
             return SignalProducer.init(self.fetchSaveCateDatalist())
         })
     }()
@@ -36,18 +36,21 @@ class HomeViewModel: BaseViewModel, ArticleApi {
         self.fetchCateDataAction.apply(0).start()
     }
     
-    private func fetchSaveCateDatalist() -> Signal<[JSON], RequestError> {
+    private func fetchSaveCateDatalist() -> Signal<[JSON], HttpError> {
         self.isRequest.value = true
-        return self.requestCate().map({ (data) -> [JSON] in
+        return self.getHomeLabelList().map({ (data) -> [JSON] in
             self.isRequest.value = false
-            let result: [JSON] = data["data"]["catelist"].arrayValue
-            self.cateDataProperty.value = result
-            return result
+            self.cateDataProperty.value = data.arrayValue
+            return []
         })
     }
     
     func createHomeArticleViewModel(cateIndex: Int) -> HomeArticleViewModel {
-        let cateData: JSON = self.cateDataProperty.value[cateIndex]
-        return HomeArticleViewModel.init(cateInfo: cateData)
+        if cateIndex == 0 {
+            return HomeArticleViewModel.init(cateInfo: JSON.empty)
+        } else {
+            let cateData: JSON = self.cateDataProperty.value[cateIndex - 1]
+            return HomeArticleViewModel.init(cateInfo: cateData)
+        }
     }
 }

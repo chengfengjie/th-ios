@@ -53,7 +53,7 @@ class HomeViewController: BaseViewController<HomeViewModel>,
     }
     
     func menuTitles(for magicView: VTMagicView) -> [String] {
-        return self.viewModel.cateDataProperty.value.map { $0["catname"].stringValue }
+        return ["推荐"] + self.viewModel.cateDataProperty.value.map { $0["labelName"].stringValue }
     }
     
     func magicView(_ magicView: VTMagicView, menuItemAt itemIndex: UInt) -> UIButton {
@@ -61,9 +61,8 @@ class HomeViewController: BaseViewController<HomeViewModel>,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-        let dataJSON: JSON = self.viewModel.cateDataProperty.value[pageIndex.int]
 
-        if dataJSON["catid"].intValue == 0 {
+        if pageIndex == 0 {
             var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: headlineIdentifer)
             if controller == nil {
                 let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
