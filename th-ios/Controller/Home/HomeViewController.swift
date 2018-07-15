@@ -61,22 +61,19 @@ class HomeViewController: BaseViewController<HomeViewModel>,
     }
     
     func magicView(_ magicView: VTMagicView, viewControllerAtPage pageIndex: UInt) -> UIViewController {
-
-        if pageIndex == 0 {
-            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: headlineIdentifer)
-            if controller == nil {
-                let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
-                controller = HeadlineViewController(viewModel: model)
-            }
-            return controller!
-        } else {
-            var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: categoryIdentifer)
-            if controller == nil {
-                let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
-                controller = HomeCategoryViewController(viewModel: model)
-            }
-            return controller!
+        let model = self.viewModel.createHomeArticleViewModel(cateIndex: pageIndex.int)
+        var controller: UIViewController? = magicView.dequeueReusablePage(withIdentifier: headlineIdentifer + pageIndex.description)
+        if controller == nil {
+            controller = HeadlineViewController(viewModel: model)
         }
+        return controller!
+    }
+    
+    func magicView(_ magicView: VTMagicView, itemWidthAt itemIndex: UInt) -> CGFloat {
+        let titles = self.menuTitles(for: self.vtMagicController.magicView)
+        let text: NSString = titles[itemIndex.int] as NSString
+        let width = text.size(withAttributes: [NSAttributedStringKey.font : UIFont.sys(size: 16)]).width + 20
+        return width + 10
     }
 }
 

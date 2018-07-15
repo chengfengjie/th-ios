@@ -157,7 +157,10 @@ extension Date {
         if let time: Double = Double.init(text) {
             return Date.init(timeIntervalSince1970: time)
         }
-        return nil
+        var dateText = (text as NSString).substring(with: NSRange.init(location: 0, length: 19))
+        dateText = dateText.replacingOccurrences(of: "T", with: " ")
+        let date = NSDate.init(string: dateText, formatString: "YYYY-MM-dd HH:mm:ss", timeZone: TimeZone.current)
+        return date as Date?
     }
     
     static func format(type: DateFormatType, date: Date?) -> String {

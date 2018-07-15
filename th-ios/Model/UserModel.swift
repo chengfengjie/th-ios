@@ -14,11 +14,14 @@ extension UserModel {
 
 class UserModel: NSObject, NSCoding {
     
+    var token: MutableProperty<String>!
+    
     var isLogin: MutableProperty<Bool>!
     var avatar: MutableProperty<URL?>!
     var sid: MutableProperty<String>!
     var userID: MutableProperty<String>!
     var userName: MutableProperty<String>!
+    var email: MutableProperty<String>!
     
     var currentCityName: MutableProperty<String> = MutableProperty("广州")
     var currentCityId: MutableProperty<String> = MutableProperty("25")
@@ -30,6 +33,8 @@ class UserModel: NSObject, NSCoding {
         self.sid = MutableProperty<String>("")
         self.userID = MutableProperty<String>("")
         self.userName = MutableProperty<String>("")
+        self.email = MutableProperty<String>("")
+        self.token = MutableProperty<String>("")
         self.bindKeyPath()
     }
     
@@ -39,6 +44,8 @@ class UserModel: NSObject, NSCoding {
         aCoder.encode(self.sid.value, forKey: "sid")
         aCoder.encode(self.userID.value, forKey: "userID")
         aCoder.encode(self.userName.value, forKey: "userName")
+        aCoder.encode(self.email.value, forKey: "email")
+        aCoder.encode(self.token.value, forKey: "token")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +59,8 @@ class UserModel: NSObject, NSCoding {
         self.sid = self.property(val: aDecoder.decodeObject(forKey: "sid") as! String)
         self.userID = self.property(val: aDecoder.decodeObject(forKey: "userID") as! String)
         self.userName = self.property(val: aDecoder.decodeObject(forKey: "userName") as! String)
+        self.email = self.property(val: aDecoder.decodeObject(forKey: "email") as! String)
+        self.token = self.property(val: aDecoder.decodeObject(forKey: "token") as! String)
         self.bindKeyPath()
     }
     
@@ -64,7 +73,9 @@ class UserModel: NSObject, NSCoding {
                              self.avatar.signal,
                              self.sid.signal,
                              self.userID.signal,
-                             self.userName.signal)
+                             self.userName.signal,
+                             self.email.signal,
+                             self.token.signal)
             .observeValues { (tulp) in
                 UserModel.saveCurrentUser()
         }
@@ -76,6 +87,7 @@ class UserModel: NSObject, NSCoding {
         self.sid.value = ""
         self.userID.value = ""
         self.userName.value = ""
+        self.email.value = ""
     }
 
 }

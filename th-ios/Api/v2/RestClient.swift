@@ -9,7 +9,7 @@
 import Foundation
 
 struct HttpServer {
-    static let host_url_string: String = "http://localhost:10005"
+    static let host_url_string: String = "http://39.104.103.165:10005"
     static func buildUrl(uri: RequestURI) -> URL {
         return URL.init(string: host_url_string + uri.rawValue)!
     }
@@ -48,14 +48,35 @@ protocol RestClient {}
 
 extension RestClient {
     
+    private static func toJSONString(object: Any) -> String {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: object, options: .prettyPrinted)
+            if let json = String.init(data: data, encoding: String.Encoding.utf8) {
+                return json
+            } else {
+                return ""
+            }
+        } catch {
+            return ""
+        }
+    }
+    
     @discardableResult
     public func request(requestURI: RequestURI, parameters: [String: Any] = [:], method: HTTPMethod) -> Signal<JSON, HttpError> {
+        
+        var headers: [String: String] = [
+            "Content-Type": "application/json"
+        ]
+        if UserModel.current.isLogin.value {
+            headers["token"] = UserModel.current.token.value
+        }
+        
         return Signal.init({ (observer, time) in
             let dataRequest = Alamofire.request(HttpServer.buildUrl(uri: requestURI),
                                                 method: method,
                                                 parameters: parameters,
-                                                encoding: URLEncoding.httpBody,
-                                                headers: nil)
+                                                encoding: method == HTTPMethod.get ? URLEncoding.queryString : JSONEncoding.default,
+                                                headers: headers)
             dataRequest.responseData { (res) in
                 if res.response != nil {
                     self.parseResponseData(res: res, observer: observer, debugInfo: requestURI.rawValue)
@@ -79,7 +100,8 @@ extension RestClient {
                 observer.send(error: HttpError.server)
             } else if dataJSON["code"].intValue == 0 {
                 observer.send(value: dataJSON["data"])
-            } else if dataJSON["code"].stringValue == "2" {
+            } else if dataJSON["code"].stringValue == "10" {
+                print(dataJSON)
                 UserModel.current.isLogin.value = false
                 observer.send(error: HttpError.forbidden)
             } else {

@@ -25,9 +25,13 @@ class CommentArticleViewController: BaseViewController<CommentArticleViewModel>,
         
         self.setNavigationBarTitle(title: "评论")
         
-        self.textView.font = UIFont.sys(size: 17)
+        self.textView.font = UIFont.sys(size: 14)
         
         self.textView.placeholder = "请输入评论内容"
+        
+        if viewModel.isReply {
+            self.textView.placeholder = "回复 " + viewModel.replyUser
+        }
         
         self.textView.becomeFirstResponder()
 
@@ -35,6 +39,8 @@ class CommentArticleViewController: BaseViewController<CommentArticleViewModel>,
             $0.setTitleColor(UIColor.pink, for: UIControlState.normal)
             $0.setTitleColor(UIColor.color6, for: UIControlState.disabled)
         }
+        
+        self.textView.becomeFirstResponder()
     
         self.bindViewModel()
         

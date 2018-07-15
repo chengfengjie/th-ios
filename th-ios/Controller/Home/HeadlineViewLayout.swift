@@ -112,6 +112,15 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
             })
         }
         
+        UIView.init().do { (line) in
+            menuBar.addSubview(line)
+            line.backgroundColor = UIColor.lineColor
+            line.snp.makeConstraints({ (make) in
+                make.left.right.bottom.equalTo(0)
+                make.height.equalTo(CGFloat.pix1)
+            })
+        }
+        
         return HeadlineTopMenuBarHeader.init(container: menuBar,
                                             item1: leaderboardsButton,
                                             item2: authorButton,
@@ -138,7 +147,7 @@ extension HeadlineViewControllerLayout where Self: HeadlineViewController {
 }
 
 
-class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
+class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout, NodeBottomlineMaker {
     
     lazy var classificationTextNode: ASTextNode = {
         return self.makeAndAddTextNode()
@@ -164,12 +173,16 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
         return self.makeAndAddButtonNode()
     }()
     
+    lazy var bottomline: ASDisplayNode = {
+        self.makeBottomlineNode()
+    }()
+    
     init(dataJSON: JSON) {
         super.init()
         
         self.selectionStyle = .none
         
-        self.classificationTextNode.attributedText = dataJSON["catname"].stringValue
+        self.classificationTextNode.attributedText = dataJSON["labelName"].stringValue
             .withFont(Font.songTi(size: 12))
             .withTextColor(Color.color9)
         
@@ -180,22 +193,24 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
             .withTextColor(Color.color3)
             .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: .justified))
         
-        self.contentTextNode.attributedText = dataJSON["summary"].stringValue
+        self.contentTextNode.attributedText = dataJSON["description"].stringValue
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9)
             .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: .justified))
         
-        self.authorIconNode.url = URL.init(string: dataJSON["aimg"].stringValue)
+        self.authorIconNode.url = URL.init(string: dataJSON["userAvatar"].stringValue)
         self.authorIconNode.defaultImage = UIImage.defaultImage
         self.authorIconNode.style.preferredSize = CGSize.init(width: 18, height: 18)
         
-        self.authorTextNode.attributedText = dataJSON["author"].stringValue
+        self.authorTextNode.attributedText = dataJSON["userName"].stringValue
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9)
         
         self.unlikeButtonNode.setAttributedTitle(""
             .withFont(Font.systemFont(ofSize: 12))
             .withTextColor(Color.color9), for: UIControlState.normal)
+        
+        self.bottomline.backgroundColor = UIColor.lineColor
         
     }
     
@@ -225,7 +240,9 @@ class ArticleListCellNode: ASCellNode, ArticleListCellNodeLayout {
         
         let insetSpec = ASInsetLayoutSpec.init(insets: self.cellNodeContentInset, child: spec)
         
-        return ASWrapperLayoutSpec.init(layoutElements: [insetSpec])
+        let resultSpec = ASWrapperLayoutSpec.init(layoutElements: [insetSpec])
+        
+        return self.makeBottomlineWraperSpec(mainSpec: resultSpec)
         
     }
 }
@@ -237,7 +254,7 @@ class ArticleListImageCellNode: ArticleListCellNode, ArticleListImageCellNodeLay
     
     override init(dataJSON: JSON) {
         super.init(dataJSON: dataJSON)
-        self.imageNode.url = URL.init(string: dataJSON["pic"].stringValue)
+        self.imageNode.url = URL.init(string: dataJSON["coverImage"].stringValue)
         self.imageNode.defaultImage = UIImage.defaultImage
         self.imageNode.style.preferredSize = self.articleImageSize
         self.titleTextNode.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: self.titleNodeMaxWidth)
@@ -275,7 +292,7 @@ class ArticleListImageCellNode: ArticleListCellNode, ArticleListImageCellNodeLay
         
         let insetSpec = ASInsetLayoutSpec.init(insets: self.cellNodeContentInset,child: spec)
         
-        return ASWrapperLayoutSpec.init(layoutElements: [insetSpec])
+        return self.makeBottomlineWraperSpec(mainSpec: ASWrapperLayoutSpec.init(layoutElements: [insetSpec]))
         
     }
 }

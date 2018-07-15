@@ -20,6 +20,7 @@ class BaseViewModel: NSObject {
     var isRequest: MutableProperty<Bool>!
     var requestError: MutableProperty<RequestError?>!
     var okMessage: MutableProperty<String>!
+    var httpError: MutableProperty<HttpError?>!
     
     override init() {
         super.init()
@@ -27,6 +28,7 @@ class BaseViewModel: NSObject {
         self.isRequest = MutableProperty(false)
         self.requestError = MutableProperty(RequestError.noError)
         self.okMessage = MutableProperty("")
+        self.httpError = MutableProperty(HttpError.noError)
 
     }
     

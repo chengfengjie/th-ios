@@ -8,15 +8,17 @@
 
 import UIKit
 
-class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
+class ArticleCommentListViewModel: BaseViewModel, ArticleClient {
 
     var commentlist: MutableProperty<[JSON]>!
     
-    var fetchCommentlistAction: Action<(), [JSON], RequestError>!
+    var fetchCommentlistAction: Action<(), [JSON], HttpError>!
     
-    var replayCommentAction: Action<JSON, CommentArticleViewModel, RequestError>!
+    var replayCommentAction: Action<JSON, CommentArticleViewModel, NoError>!
     
-    var likeCommentAction: Action<JSON, JSON, RequestError>!
+    var likeCommentAction: Action<JSON, JSON, HttpError>!
+    
+    var commentTotal: MutableProperty<Int>!
     
     let articleID: String
     init(articleID: String) {
@@ -25,17 +27,23 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
         
         self.commentlist = MutableProperty<[JSON]>([])
         
-        self.fetchCommentlistAction = Action<(), [JSON], RequestError>
-            .init(execute: { (arg0) -> SignalProducer<[JSON], RequestError> in
+        self.commentTotal = MutableProperty(0)
+        
+        self.fetchCommentlistAction = Action<(), [JSON], HttpError>
+            .init(execute: { (arg0) -> SignalProducer<[JSON], HttpError> in
                 return self.createFetchCommentlistSignalProducer()
         })
         
-        self.replayCommentAction = Action<JSON, CommentArticleViewModel, RequestError>
-            .init(execute: { (comment) -> SignalProducer<CommentArticleViewModel, RequestError> in
+        self.replayCommentAction = Action<JSON, CommentArticleViewModel, NoError>
+            .init(execute: { (comment) -> SignalProducer<CommentArticleViewModel, NoError> in
                 if self.currentUser.isLogin.value {
                     let model = CommentArticleViewModel(articleID: articleID)
                     model.isReply = true
-                    model.commentId = comment["cid"].stringValue
+                    model.commentId = comment["commentId"].stringValue
+                    model.replyUser = comment["userName"].stringValue
+                    model.commentAction.values.observeValues({ (data) in
+                        self.fetchCommentlistAction.apply(()).start()
+                    })
                     return SignalProducer.init(value: model)
                 } else {
                     self.requestError.value = RequestError.forbidden
@@ -43,12 +51,12 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
                 }
         })
         
-        self.likeCommentAction = Action<JSON, JSON, RequestError>
-            .init(execute: { (comment) -> SignalProducer<JSON, RequestError> in
+        self.likeCommentAction = Action<JSON, JSON, HttpError>
+            .init(execute: { (comment) -> SignalProducer<JSON, HttpError> in
                 if self.currentUser.isLogin.value {
                     return self.createLikeCommmentSignalProducer(comment: comment)
                 } else {
-                    self.requestError.value = RequestError.forbidden
+                    self.httpError.value = HttpError.forbidden
                     return SignalProducer.empty
                 }
         })
@@ -60,37 +68,56 @@ class ArticleCommentListViewModel: BaseViewModel, ArticleApi {
         self.fetchCommentlistAction.apply(()).start()
     }
     
-    private func createFetchCommentlistSignalProducer() -> SignalProducer<[JSON], RequestError> {
-        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
-        
-        requestArticleCommentlist(articleID: self.articleID).observeResult { (result) in
+    private func createFetchCommentlistSignalProducer() -> SignalProducer<[JSON], HttpError> {
+        let (signal, observer) = Signal<[JSON], HttpError>.pipe()
+        self.getArticleCommentList(articleId: self.articleID, pageNum: 1).observeResult { (result) in
             switch result {
             case let .success(data):
                 print(data)
-                let list = data["data"]["commentlist"].arrayValue
-                self.commentlist.value = list
-                observer.send(value: list)
+                self.commentlist.value = data["list"].arrayValue
+                observer.send(value: self.commentlist.value)
                 observer.sendCompleted()
             case let .failure(error):
+                self.httpError.value = error
                 observer.send(error: error)
-                self.requestError.value = error
             }
         }
         
         return SignalProducer.init(signal)
     }
     
-    private func createLikeCommmentSignalProducer(comment: JSON) -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+    private func createLikeCommmentSignalProducer(comment: JSON) -> SignalProducer<JSON, HttpError> {
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
         self.isRequest.value = true
-        requestLikeArticleComment(cid: comment["cid"].stringValue).observeResult { (result) in
-            self.isRequest.value = false
-            switch result {
-            case let .success(value):
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
+        if comment["isLike"].boolValue {
+            self.cancelLikeArticleComment(commentId: comment["commentId"].stringValue, userId: UserModel.current.userID.value).observeResult { (result) in
+                switch result {
+                case let .success(data):
+                    print(data)
+                    var commentDict = comment.dictionaryValue
+                    commentDict["isLike"] = false
+                    commentDict["likeTotal"] = JSON.init(comment["likeTotal"].intValue - 1)
+                    observer.send(value: JSON.init(commentDict))
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                    observer.send(error: error)
+                }
+            }
+        } else {
+            self.likeArticleComment(commentId: comment["commentId"].stringValue, userId: UserModel.current.userID.value).observeResult { (result) in
+                switch result {
+                case let .success(data):
+                    print(data)
+                    var commentDict = comment.dictionaryValue
+                    commentDict["isLike"] = true
+                    commentDict["likeTotal"] = JSON.init(comment["likeTotal"].intValue + 1)
+                    observer.send(value: JSON.init(commentDict))
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                    observer.send(error: error)
+                }
             }
         }
         return SignalProducer.init(signal)

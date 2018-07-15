@@ -8,9 +8,9 @@
 
 import Foundation
 
-class LeaderboardsViewModel: BaseViewModel, ArticleApi {
+class LeaderboardsViewModel: BaseViewModel, ArticleClient {
     
-    var type: HotToplistType = HotToplistType.day {
+    var type: LeaderBoardType = LeaderBoardType.day {
         didSet {
             self.fetchDataAction.apply(0).start()
         }
@@ -31,24 +31,26 @@ class LeaderboardsViewModel: BaseViewModel, ArticleApi {
     var weekToplistProperty: MutableProperty<[JSON]>!
     var monthToplistProperty: MutableProperty<[JSON]>!
     
-    var fetchDataAction: Action<Int, [JSON], RequestError>!
+    var fetchDataAction: Action<Int, [JSON], HttpError>!
     
     var clickAritlceAction: Action<IndexPath, ArticleDetailViewModel, NoError>!
     
     override init() {
         super.init()
         
+        self.tableStyle = .plain
+        
         self.dayToplistProperty = MutableProperty<[JSON]>([])
         self.weekToplistProperty = MutableProperty<[JSON]>([])
         self.monthToplistProperty = MutableProperty<[JSON]>([])
         
-        self.fetchDataAction = Action<Int, [JSON], RequestError>.init(execute: { (val) -> SignalProducer<[JSON], RequestError> in
+        self.fetchDataAction = Action<Int, [JSON], HttpError>.init(execute: { (val) -> SignalProducer<[JSON], HttpError> in
             return self.fetchDataProducer()
         })
         
         self.clickAritlceAction = Action<IndexPath, ArticleDetailViewModel, NoError>
             .init(execute: { (indexPath) -> SignalProducer<ArticleDetailViewModel, NoError> in
-                let articleID: String = self.currentData[indexPath.row]["aid"].stringValue
+                let articleID: String = self.currentData[indexPath.row]["articleId"].stringValue
                 let model: ArticleDetailViewModel = ArticleDetailViewModel(articleID: articleID)
                 return SignalProducer.init(value: model)
         })
@@ -59,29 +61,33 @@ class LeaderboardsViewModel: BaseViewModel, ArticleApi {
         self.type = .day
     }
     
-    func fetchDataProducer() -> SignalProducer<[JSON], RequestError> {
-        self.isRequest.value = true
-        let (signal, observer) = Signal<[JSON], RequestError>.pipe()
-        self.requestArtcleHotToplist(hotType: self.type).observeResult { (result) in
+    func fetchDataProducer() -> SignalProducer<[JSON], HttpError> {
+        if self.currentData.isEmpty {
+            self.isRequest.value = true
+        } else {
+            return SignalProducer.empty
+        }
+        let (signal, observer) = Signal<[JSON], HttpError>.pipe()
+        self.getArticleLeaderBoardList(type: self.type).observeResult { (result) in
             self.isRequest.value = false
             switch result {
             case let .success(val):
                 switch self.type {
                 case .day:
-                    self.dayToplistProperty.value = val["data"]["hotlist"].arrayValue
+                    self.dayToplistProperty.value = val.arrayValue
                 case .month:
-                    self.monthToplistProperty.value = val["data"]["hotlist"].arrayValue
+                    self.monthToplistProperty.value = val.arrayValue
                 case .week:
-                    self.weekToplistProperty.value = val["data"]["hotlist"].arrayValue
+                    self.weekToplistProperty.value = val.arrayValue
                 }
                 observer.send(value: self.currentData)
                 observer.sendCompleted()
             case let .failure(err):
                 observer.send(error: err)
-                self.requestError.value = err
+                self.httpError.value = err
             }
         }
-        return SignalProducer<[JSON], RequestError>.init(signal)
+        return SignalProducer<[JSON], HttpError>.init(signal)
     }
     
 }

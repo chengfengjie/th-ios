@@ -8,11 +8,11 @@
 
 import UIKit
 
-class AuthorizeInputCodeViewModel: BaseViewModel, UserApi {
+class AuthorizeInputCodeViewModel: BaseViewModel, UserClient {
     
     var inputCode: MutableProperty<String>!
     
-    var loginAction: Action<String, JSON, RequestError>!
+    var loginAction: Action<String, JSON, HttpError>!
     
     let cellPhone: String
     let code: String
@@ -25,8 +25,8 @@ class AuthorizeInputCodeViewModel: BaseViewModel, UserApi {
         
         self.inputCode = MutableProperty(code)
         
-        self.loginAction = Action<String, JSON, RequestError>
-            .init(execute: { (code) -> SignalProducer<JSON, RequestError> in
+        self.loginAction = Action<String, JSON, HttpError>
+            .init(execute: { (code) -> SignalProducer<JSON, HttpError> in
             return self.createLoginSignalProducer()
         })
         
@@ -36,26 +36,29 @@ class AuthorizeInputCodeViewModel: BaseViewModel, UserApi {
     
     }
     
-    private func createLoginSignalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+    private func createLoginSignalProducer() -> SignalProducer<JSON, HttpError> {
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
         self.isRequest.value = true
-        self.requestLogin(phone: self.cellPhone, code: self.inputCode.value).observeResult { (result) in
+        self.userLogin(phone: self.cellPhone, code: self.code).observeResult { (result) in
             self.isRequest.value = false
             switch result {
             case let .success(data):
-                let userJSON: JSON = data["data"]
-                UserModel.current.avatar.value = URL.init(string: userJSON["sAvator"].stringValue)
-                UserModel.current.sid.value = userJSON["sid"].stringValue
-                UserModel.current.userID.value = userJSON["sUserid"].stringValue
-                UserModel.current.userName.value = userJSON["sUsername"].stringValue
+                print(data)
                 UserModel.current.isLogin.value = true
+                if let url = URL.init(string: data["avatar"].stringValue) {
+                    UserModel.current.avatar.value = url
+                }
+                UserModel.current.userID.value = data["userId"].stringValue
+                UserModel.current.email.value = data["email"].stringValue
+                UserModel.current.userName.value = data["nickName"].stringValue
+                UserModel.current.token.value = data["token"].stringValue
+                UserModel.saveCurrentUser()
                 self.okMessage.value = "登录成功"
                 observer.send(value: data)
                 observer.sendCompleted()
             case let .failure(error):
                 print(error)
                 observer.send(error: error)
-                self.requestError.value = error
             }
         }
         return SignalProducer.init(signal)

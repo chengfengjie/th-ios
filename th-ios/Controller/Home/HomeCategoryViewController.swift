@@ -21,16 +21,18 @@ class HomeCategoryViewController: BaseTableViewController<HomeArticleViewModel>,
         
         self.setNavigationBarHidden(isHidden: true)
         
+        self.tableNode.view.separatorStyle = .none
+        
         self.bindViewModel()
     }
     
     override func bindViewModel() {
         
-        self.viewModel.adDataProperty.signal.observeValues { (_) in
+        self.viewModel.bannerList.signal.observeValues { (_) in
             self.tableNodeHeader.carouse.start(with: self.viewModel.advUrllist)
         }
         
-        self.viewModel.articleDataProperty.signal.observeValues { (data) in
+        self.viewModel.articleList.signal.observeValues { (data) in
             self.tableNode.reloadData()
         }
         
@@ -41,11 +43,11 @@ class HomeCategoryViewController: BaseTableViewController<HomeArticleViewModel>,
     }
     
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.articleDataProperty.value.count
+        return self.viewModel.articleList.value.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
-        let data: JSON = self.viewModel.articleDataProperty.value[indexPath.row]
+        let data: JSON = self.viewModel.articleList.value[indexPath.row]
         
         let imageUrl: String = data["pic"].stringValue
         
@@ -66,16 +68,27 @@ class HomeCategoryViewController: BaseTableViewController<HomeArticleViewModel>,
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return self.viewModel.adDataProperty.value.isEmpty ? 0.1 : self.carouseBounds.height
+        return self.viewModel.bannerList.value.isEmpty ? 0.1 : self.carouseBounds.height
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return self.viewModel.adDataProperty.value.isEmpty ? nil : self.tableNodeHeader.container
+        return self.viewModel.bannerList.value.isEmpty ? nil : self.tableNodeHeader.container
     }
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
         viewModel.clickArticleCellNodeAction.apply(indexPath).start()
     }
+    
+    override func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        print("willBeginBatchFetchWith")
+        context.beginBatchFetching()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 4) {
+            context.completeBatchFetching(true)
+        }
+    }
 
+    override func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        return true
+    }
 }
 

@@ -86,7 +86,7 @@ class ParaShareImageView: UIView {
         }
         
         var noteView: UIView!
-        if paraInfo["type"].stringValue == "0" {
+        if paraInfo["type"].stringValue == "1" {
            noteView = UILabel().then({ (label) in
                 self.addSubview(label)
                 label.attributedText = paraInfo["text"]["text"].stringValue
@@ -105,7 +105,7 @@ class ParaShareImageView: UIView {
                     }
                 })
             })
-        } else if paraInfo["type"].stringValue == "1" {
+        } else if paraInfo["type"].stringValue == "2" {
             
         }
         

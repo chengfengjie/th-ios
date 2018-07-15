@@ -37,10 +37,9 @@ class HomeViewModel: BaseViewModel, ArticleApi, ArticleClient {
     }
     
     private func fetchSaveCateDatalist() -> Signal<[JSON], HttpError> {
-        self.isRequest.value = true
         return self.getHomeLabelList().map({ (data) -> [JSON] in
-            self.isRequest.value = false
             self.cateDataProperty.value = data.arrayValue
+            print(data.arrayValue)
             return []
         })
     }

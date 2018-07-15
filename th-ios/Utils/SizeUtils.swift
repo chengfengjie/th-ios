@@ -26,7 +26,7 @@ extension SizeUtil {
     }
     
     var height_navBar: Float {
-        return UIDevice.current.is_iPhoneX ? 88.0 : 49.0
+        return UIDevice.current.is_iPhoneX ? 88.0 : 64.0
     }
     
     var window_width: CGFloat {

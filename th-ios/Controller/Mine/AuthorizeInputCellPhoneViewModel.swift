@@ -9,11 +9,11 @@
 import UIKit
 import ReactiveSwift
 
-class AuthorizeInputCellPhoneViewModel: BaseViewModel, UserApi {
+class AuthorizeInputCellPhoneViewModel: BaseViewModel, UserClient {
 
     var cellPhone: MutableProperty<String>!
     var canSendCode: MutableProperty<Bool>!
-    var sendCodeAction: Action<(), AuthorizeInputCodeViewModel, RequestError>!
+    var sendCodeAction: Action<(), AuthorizeInputCodeViewModel, HttpError>!
     
     override init() {
         
@@ -26,31 +26,32 @@ class AuthorizeInputCellPhoneViewModel: BaseViewModel, UserApi {
             return phone.isMobileNumber
         })
         
-        self.sendCodeAction = Action<(), AuthorizeInputCodeViewModel, RequestError>
+        self.sendCodeAction = Action<(), AuthorizeInputCodeViewModel, HttpError>
             .init(enabledIf: self.canSendCode,
-                  execute: { (phone) -> SignalProducer<AuthorizeInputCodeViewModel, RequestError> in
+                  execute: { (phone) -> SignalProducer<AuthorizeInputCodeViewModel, HttpError> in
                     return self.createSendCodeProducer()
         })
         
     }
     
-    private func createSendCodeProducer() -> SignalProducer<AuthorizeInputCodeViewModel, RequestError> {
+    private func createSendCodeProducer() -> SignalProducer<AuthorizeInputCodeViewModel, HttpError> {
         self.isRequest.value = true
-        let (signal, observer) = Signal<AuthorizeInputCodeViewModel, RequestError>.pipe()
-        self.requestMobileCode(phoneNumber: self.cellPhone.value).observeResult({ (result) in
+        let (signal, observer) = Signal<AuthorizeInputCodeViewModel, HttpError>.pipe()
+        self.codeSend(phone: self.cellPhone.value).observeResult { (result) in
             self.isRequest.value = false
             switch result {
             case let .success(data):
+                print(data)
                 let phone: String = self.cellPhone.value
-                let code: String = data["data"].stringValue
+                let code: String = data["code"].stringValue
                 let model: AuthorizeInputCodeViewModel = AuthorizeInputCodeViewModel(phone: phone, code: code)
                 observer.send(value: model)
                 observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-                self.requestError.value = error
+            case let .failure(err):
+                observer.send(error: err)
+                self.httpError.value = err
             }
-        })
-        return SignalProducer<AuthorizeInputCodeViewModel, RequestError>(signal)
+        }
+        return SignalProducer<AuthorizeInputCodeViewModel, HttpError>(signal)
     }
 }

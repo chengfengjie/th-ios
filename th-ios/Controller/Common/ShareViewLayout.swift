@@ -24,8 +24,7 @@ extension ShareViewLayout where Self: UIViewController {
             ["name": "微信", "icon": "share_menu_wechat"],
             ["name": "朋友圈", "icon": "share_menu_friend"],
             ["name": "QQ", "icon": "share_menu_qq"],
-            ["name": "复制", "icon": "share_menu_copy"],
-            ["name": "更多", "icon": "share_menu_more"]
+            ["name": "复制", "icon": "share_menu_copy"]
         ]
     }
     

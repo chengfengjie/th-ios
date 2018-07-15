@@ -17,7 +17,6 @@ class RootViewController: BaseTabBarController<RootViewModel> {
         
         self.setViewControllers([
             HomeViewController(viewModel: self.viewModel.homeViewModel),
-            SameCityMainViewController(viewModel: self.viewModel.sameCityMainViewModel),
             QingViewController(viewModel: self.viewModel.qingViewModel),
             MineViewController(viewModel: self.viewModel.mineViewModel)
             ], animated: false)

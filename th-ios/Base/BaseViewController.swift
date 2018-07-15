@@ -76,6 +76,22 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
             }
         }
         
+        viewModel.httpError.signal.observeValues { [weak self] (error) in
+            guard let err = error else {
+                return
+            }
+            switch err {
+            case .forbidden:
+                self?.rootPresentLoginController()
+            default:
+                if !err.localizedDescription.isEmpty {
+                    self?.errorHUD.label.text = err.localizedDescription
+                    self?.errorHUD.show(animated: true)
+                    self?.errorHUD.hide(animated: true, afterDelay: 1.0)
+                }
+            }
+        }
+        
         viewModel.okMessage.signal.observeValues { (successMsg) in
             if !successMsg.isEmpty {
                 MBProgressHUD.showSuccessHUD(text: successMsg)
@@ -125,7 +141,7 @@ class BaseViewController<ViewModel: BaseViewModel>: UIViewController, CustomNavi
     
     lazy var navBarSearchItem: UIButton = {
         return self.makeNavBarRightIconItem(iconName: "city_search").then {
-            $0.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+            $0.imageEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14)
         }
     }()
 }

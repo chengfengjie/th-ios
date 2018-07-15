@@ -19,6 +19,8 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
         return self.makeMenuBarHeader()
     }()
     
+    var shouldBatchFetch: Bool = false
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -29,25 +31,50 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
         
         self.tableNode.view.separatorColor = UIColor.lineColor
         
+        self.tableNode.view.separatorStyle = .none
+        
         self.bindViewModel()
     }
     
     override func bindViewModel() {
-        
-        viewModel.adDataProperty.signal.observeValues { [weak self] (data) in
-            self?.tableNodeHeader.carouse.start(with: self!.viewModel.advUrllist)
-            self?.tableNode.reloadData()
+        if self.viewModel.isRecommendation {
+            viewModel.getHomeBannerAction.apply(()).start()
+            viewModel.bannerList.signal.observeValues { [weak self] (data) in
+                self?.tableNodeHeader.carouse.start(with: self!.viewModel.advUrllist)
+                self?.fetchData(context: nil)
+            }
+        } else {
+            self.fetchData(context: nil)
         }
-        
-        viewModel.articleDataProperty.signal.observeValues { [weak self] (data) in
-            self?.tableNode.reloadData()
-        }
-        
+
         viewModel.clickArticleCellNodeAction.values.observeValues { [weak self] (model) in
             let controller = ArticleDetailViewController(viewModel: model)
             self?.pushViewController(viewController: controller)
         }
-        
+    }
+    
+    func fetchData(context: ASBatchContext?) {
+        context?.beginBatchFetching()
+        viewModel.fetchDataAction.apply(()).start()
+        viewModel.fetchDataAction.values.observeValues({ (data) in
+            var beginIndex = self.viewModel.articleList.value.count
+            var indexPaths: [IndexPath] = []
+            data.forEach({ (item) in
+                indexPaths.append(IndexPath.init(row: beginIndex, section: 1))
+                beginIndex = beginIndex + 1
+            })
+            self.viewModel.articleList.value.append(contentsOf: data)
+            if context == nil {
+                self.tableNode.reloadData()
+                self.shouldBatchFetch = true
+            } else {
+                self.tableNode.insertRows(at: indexPaths, with: UITableViewRowAnimation.automatic)
+            }
+            context?.completeBatchFetching(true)
+        })
+        viewModel.fetchDataAction.errors.observeValues { (error) in
+            context?.completeBatchFetching(true)
+        }
     }
     
     func handleClickTableNodeHeaderItem(type: HeadelineTableNodeHeaderItemType) {
@@ -63,7 +90,6 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
             self.pushViewController(viewController: controller)
         case .treehole:
             break
-//            self.pushViewController(viewController: TreeHoleListViewController(style: .plain))
         }
     }
     
@@ -72,7 +98,7 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     }
         
     override func tableNode(_ tableNode: ASTableNode, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 0 : self.viewModel.articleDataProperty.value.count
+        return section == 0 ? 0 : self.viewModel.articleList.value.count
     }
     
     override func tableNode(_ tableNode: ASTableNode, didSelectRowAt indexPath: IndexPath) {
@@ -83,9 +109,9 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         if indexPath.section == 1 {
-            let data: JSON = self.viewModel.articleDataProperty.value[indexPath.row]
+            let data: JSON = self.viewModel.articleList.value[indexPath.row]
             
-            let imageUrl: String = data["pic"].stringValue
+            let imageUrl: String = data["coverImage"].stringValue
             
             if imageUrl.isEmpty {
                 return {
@@ -105,23 +131,31 @@ MagicContentLayoutProtocol, HeadlineViewControllerLayout {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return self.viewModel.adDataProperty.value.isEmpty ? 0.1 : self.carouseBounds.height
+            return self.viewModel.bannerList.value.isEmpty ? 0.1 : self.carouseBounds.height
         } else {
-            return self.menuBarHeight
+            return self.viewModel.isRecommendation ? self.menuBarHeight : 0.1
         }
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            return  self.viewModel.adDataProperty.value.isEmpty ? nil : self.tableNodeHeader.container
+            return  self.viewModel.bannerList.value.isEmpty ? nil : self.tableNodeHeader.container
         } else {
-            return self.menuBarHeader.container
+            return self.viewModel.isRecommendation ? self.menuBarHeader.container : nil
         }
     }
     
     override func tableNode(_ tableNode: ASTableNode, constrainedSizeForRowAt indexPath: IndexPath) -> ASSizeRange {
         return ASSizeRange.init(min: CGSize.init(width: self.window_width, height: 120),
                                 max: CGSize.init(width: self.window_width, height: 500))
+    }
+    
+    override func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        self.fetchData(context: context)
+    }
+    
+    override func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        return self.shouldBatchFetch
     }
 
 }

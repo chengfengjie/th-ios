@@ -42,6 +42,11 @@ class ArticleCommentListViewController: BaseViewController<ArticleCommentListVie
     override func bindViewModel() {
         super.bindViewModel()
         
+        self.tableHeader.label.text = viewModel.commentTotal.value.description + "条评论"
+        viewModel.commentTotal.signal.observeValues { [weak self] (flag) in
+            self?.tableHeader.label.text = flag.description + "条评论"
+        }
+        
         viewModel.commentlist.signal.observeValues { [weak self] (data) in
             self?.tableNode.reloadData()
         }
@@ -51,9 +56,6 @@ class ArticleCommentListViewController: BaseViewController<ArticleCommentListVie
             self?.present(controller, animated: true, completion: nil)
         }
         
-        viewModel.likeCommentAction.values.observeValues { [weak self] (val) in
-            self?.viewModel.fetchCommentlistAction.apply(()).start()
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,11 +69,7 @@ class ArticleCommentListViewController: BaseViewController<ArticleCommentListVie
     
     func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         let cellNode = ArticleCommentListCellNode(dataJSON: self.viewModel.commentlist.value[indexPath.row])
-        cellNode.replayAction = Action<JSON, Any, RequestError>
-            .init(execute: { (comment) -> SignalProducer<Any, RequestError> in
-                self.viewModel.replayCommentAction.apply(comment).start()
-                return SignalProducer.empty
-        })
+        cellNode.replayAction = viewModel.replayCommentAction
         cellNode.likeAction = viewModel.likeCommentAction
         return ASCellNode.createBlock(cellNode: cellNode)
     }

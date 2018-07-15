@@ -20,13 +20,18 @@ class AddEditNoteViewController: BaseViewController<AddEditNoteViewModel>, AddEd
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setNavigationBarTitle(title: "添加笔记")
+        if self.viewModel.noteJSON == nil {
+            self.setNavigationBarTitle(title: "添加笔记")
+        } else {
+            self.setNavigationBarTitle(title: "编辑笔记")
+        }
         
         self.setNavigationBarCloseItem(isHidden: false)
         
         self.view.backgroundColor = UIColor.white
         
         self.saveItem = makeNavBarRightTextItem(text: "保存")
+        self.saveItem.setTitleColor(UIColor.pink, for: UIControlState.normal)
         
         self.bindViewModel()
     }
@@ -43,8 +48,13 @@ class AddEditNoteViewController: BaseViewController<AddEditNoteViewModel>, AddEd
         saveItem.reactive.pressed = CocoaAction(viewModel.saveNoteAction)
         
         viewModel.saveNoteAction.values.observeValues { [weak self] (val) in
-            self?.dismiss(animated: true, completion: nil)
+            self?.element.textView.endEditing(true)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+                self?.dismiss(animated: true, completion: nil)
+            })
         }
+        
+        element.textView.becomeFirstResponder()
         
     }
     

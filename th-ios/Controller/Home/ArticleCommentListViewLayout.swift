@@ -81,7 +81,7 @@ extension ArticleCommentListViewLayout where Self: ArticleCommentListViewControl
                 make.left.right.top.bottom.equalTo(0)
             })
             $0.textColor = UIColor.color3
-            $0.font = UIFont.sys(size: 13)
+            $0.font = UIFont.sys(size: 17)
             $0.textAlignment = .center
             $0.text = "3条评论"
         }
@@ -105,40 +105,43 @@ extension ArticleCommentListViewLayout where Self: ArticleCommentListViewControl
 
 class ArticleCommentListCellNode: CommentCellNode {
     
-    var replayAction: Action<JSON, Any, RequestError>?
+    var replayAction: Action<JSON, CommentArticleViewModel, NoError>?
     
-    var likeAction: Action<JSON, JSON, RequestError>?
+    var likeAction: Action<JSON, JSON, HttpError>? {
+        didSet {
+            if likeAction != nil {
+                likeAction?.values.observeValues({ (data) in
+                    if self.dataJSON["commentId"].stringValue == data["commentId"].stringValue {
+                        self.dataJSON = data
+                        self.updateStatus()
+                    }
+                })
+            }
+        }
+    }
     
-    let dataJSON: JSON
+    var dataJSON: JSON
     init(dataJSON: JSON) {
         self.dataJSON = dataJSON
         super.init()
         
-        self.avatar.url = URL.init(string: dataJSON["uimg"].stringValue)
+        self.avatar.url = URL.init(string: dataJSON["userAvatar"].stringValue)
         
-        let name: String = dataJSON["username"].stringValue.isEmpty ? "暂无昵称" : dataJSON["username"].stringValue
+        let name: String = dataJSON["userName"].stringValue.isEmpty ? "暂无昵称" : dataJSON["userName"].stringValue
         self.nameTextNode.attributedText = name
             .withFont(Font.sys(size: 14))
             .withTextColor(Color.pink)
         
-        self.dateTimeTextNode.attributedText = dataJSON["dateline"].stringValue
+        self.dateTimeTextNode.attributedText = dataJSON["inDate"].stringValue
             .dateFormat()
             .withTextColor(Color.color9)
-            .withFont(Font.sys(size: 12))
+            .withFont(Font.sys(size: 10))
         
-        if dataJSON["islike"].stringValue == "1" {
-            self.goodButtonNode.image = UIImage.init(named: "qing_like_color")
-        } else {
-            self.goodButtonNode.image = UIImage.init(named: "qing_like_dark_gray")
-        }
+        self.updateStatus()
         
-        self.goodTotalTextNode.attributedText = "0"
-            .withFont(.sys(size: 12))
-            .withTextColor(Color.color9)
-        
-        self.commentTextNode.attributedText = dataJSON["quote"].stringValue
-            .withTextColor(Color.color3).withFont(Font.sys(size: 16))
-            .withParagraphStyle(ParaStyle.create(lineSpacing: 5, alignment: NSTextAlignment.justified))
+        self.commentTextNode.attributedText = dataJSON["content"].stringValue
+            .withTextColor(Color.color3).withFont(Font.sys(size: 14))
+            .withParagraphStyle(ParaStyle.create(lineSpacing: 3, alignment: NSTextAlignment.justified))
         
         self.replyButtonNode.addTarget(self, action: #selector(self.handleReply), forControlEvents: .touchUpInside)
         
@@ -147,6 +150,51 @@ class ArticleCommentListCellNode: CommentCellNode {
         self.goodTotalTextNode.addTarget(self, action: #selector(self.handleLike), forControlEvents: .touchUpInside)
         
         self.reportButtonNode.isHidden = true
+        
+        let children: [JSON] = dataJSON["children"].arrayValue;
+        
+        children.forEach { (data) in
+            let replyNode: CommentReplyNode = CommentReplyNode()
+            
+            replyNode.line = ASDisplayNode().then({ (node) in
+                node.backgroundColor = UIColor.hexColor(hex: "eeeeee")
+                node.style.width = ASDimension.init(unit: ASDimensionUnit.points, value: 3)
+                self.addSubnode(node)
+            })
+            
+            
+            replyNode.nickName = ASTextNode().then({ (node) in
+                node.attributedText = data["userName"].stringValue.withFont(Font.sys(size: 10)).withTextColor(Color.pink)
+                self.addSubnode(node)
+            })
+            
+            replyNode.datetime = ASTextNode().then({ (node) in
+                node.attributedText = data["inDate"].stringValue.dateFormat().withTextColor(Color.color9).withFont(Font.sys(size: 10))
+                self.addSubnode(node)
+            })
+            
+            replyNode.content = ASTextNode().then({ (node) in
+                node.attributedText = data["content"].stringValue.withTextColor(Color.color6)
+                    .withFont(Font.sys(size: 12))
+                    .withParagraphStyle(ParaStyle.create(lineSpacing: 4, alignment: NSTextAlignment.justified))
+                node.style.maxWidth = ASDimension.init(unit: ASDimensionUnit.points, value: UIScreen.main.bounds.width - 110)
+                self.addSubnode(node)
+            })
+            
+            replyNodes.append(replyNode)
+        }
+    }
+    
+    private func updateStatus() {
+        if dataJSON["isLike"].boolValue {
+            self.goodButtonNode.image = UIImage.init(named: "qing_like_color")
+        } else {
+            self.goodButtonNode.image = UIImage.init(named: "qing_like_dark_gray")
+        }
+        
+        self.goodTotalTextNode.attributedText = dataJSON["likeTotal"].stringValue
+            .withFont(.sys(size: 10))
+            .withTextColor(Color.color9)
     }
     
     @objc func handleReply() {

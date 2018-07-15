@@ -8,18 +8,21 @@
 
 import UIKit
 import ReactiveSwift
+import DateTools
 
-class CommentArticleViewModel: BaseViewModel, ArticleApi {
+class CommentArticleViewModel: BaseViewModel, ArticleClient {
 
     var commentText: MutableProperty<String>!
     
     var enableComment: MutableProperty<Bool>!
     
-    var commentAction: Action<(), JSON, RequestError>!
+    var commentAction: Action<(), JSON, HttpError>!
     
     var isReply: Bool = false
     
     var commentId: String = ""
+    
+    var replyUser: String = ""
     
     let articleID: String
     init(articleID: String) {
@@ -36,9 +39,9 @@ class CommentArticleViewModel: BaseViewModel, ArticleApi {
             return !isReq && !text.isEmpty
         })
         
-        self.commentAction = Action<(), JSON, RequestError>.init(
+        self.commentAction = Action<(), JSON, HttpError>.init(
             enabledIf: self.enableComment,
-            execute: { (tulp) -> SignalProducer<JSON, RequestError> in
+            execute: { (tulp) -> SignalProducer<JSON, HttpError> in
                 if self.isReply {
                     return self.createReplyCommentSignalProducer()
                 } else {
@@ -47,41 +50,42 @@ class CommentArticleViewModel: BaseViewModel, ArticleApi {
         })
     }
     
-    private func createCommentSingalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+    private func createCommentSingalProducer() -> SignalProducer<JSON, HttpError> {
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
         self.isRequest.value = true
-        requestCommentArticle(articleID: self.articleID, commentText: self.commentText.value)
-            .observeResult { (result) in
-                self.isRequest.value = false
-                switch result {
-                case let .success(data):
-                    self.okMessage.value = "评论成功"
-                    observer.send(value: data["data"])
-                    observer.sendCompleted()
-                case let .failure(error):
-                    observer.send(error: error)
-                    self.requestError.value = error
-                }
+        self.commentArticle(articleId: self.articleID, content: self.commentText.value, userId: UserModel.current.userID.value).observeResult { (result) in
+            self.isRequest.value = false
+            switch result {
+            case let .success(data):
+                self.okMessage.value = "评论成功"
+                observer.send(value: data)
+                observer.sendCompleted()
+            case let .failure(error):
+                self.httpError.value = error
+                observer.send(error: error)
+            }
         }
         return SignalProducer.init(signal)
     }
     
-    private func createReplyCommentSignalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestReplyArticleComment(
-            articleID: self.articleID,
-            commentID: self.commentId,
-            message: self.commentText.value)
-            .observeResult { (result) in
-                switch result {
-                case let .success(value):
-                    print(value)
-                    observer.send(value: value)
-                    observer.sendCompleted()
-                case let .failure(error):
-                    self.requestError.value = error
-                    observer.send(error: error)
-                }
+    private func createReplyCommentSignalProducer() -> SignalProducer<JSON, HttpError> {
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        self.replyComment(articleId: self.articleID, content: self.commentText.value, userId: UserModel.current.userID.value, commentId: self.commentId).observeResult { (result) in
+            switch result {
+            case let .success(data):
+                print(data)
+                self.okMessage.value = "回复评论成功"
+                let replyDict: [String: String] = [
+                    "userId": UserModel.current.userID.value,
+                    "content": self.commentText.value,
+                    "inDate": Date().timeIntervalSince1970.description
+                ]
+                observer.send(value: JSON.init(replyDict))
+                observer.sendCompleted()
+            case let .failure(error):
+                self.httpError.value = error
+                observer.send(error: error)
+            }
         }
         return SignalProducer.init(signal)
     }

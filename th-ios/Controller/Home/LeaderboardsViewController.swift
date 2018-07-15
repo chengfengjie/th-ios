@@ -46,10 +46,9 @@ class LeaderboardsViewController: BaseTableViewController<LeaderboardsViewModel>
                     }
             })
         }
-                
-        viewModel.fetchDataAction.values
-            .observeValues { [weak self] (val) in
-                self?.tableNode.reloadData()
+        
+        viewModel.fetchDataAction.completed.observeValues { [weak self] in
+            self?.tableNode.reloadData()
         }
         
         viewModel.clickAritlceAction.values.observeValues { [weak self] (model) in
@@ -73,7 +72,13 @@ class LeaderboardsViewController: BaseTableViewController<LeaderboardsViewModel>
     
     override func tableNode(_ tableNode: ASTableNode, nodeBlockForRowAt indexPath: IndexPath) -> ASCellNodeBlock {
         return {
-            return LeaderboardsViewCellNode(dataJSON: self.viewModel.currentData[indexPath.row])
+            let data: JSON = self.viewModel.currentData[indexPath.row]
+            let imageUrl: String = data["coverImage"].stringValue
+            if imageUrl.isEmpty {
+                return ArticleListCellNode(dataJSON: data)
+            } else {
+                return ArticleListImageCellNode(dataJSON: data)
+            }
         }
     }
     

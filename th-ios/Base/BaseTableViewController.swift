@@ -98,5 +98,13 @@ class BaseTableViewController<Model: BaseViewModel>: BaseViewController<Model>, 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
+    
+    func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        
+    }
+    
+    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        return false
+    }
 }
 

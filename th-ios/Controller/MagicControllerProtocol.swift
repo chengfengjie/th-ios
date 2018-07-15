@@ -56,12 +56,14 @@ extension MagicControllerContainerProtocol where Self: UIViewController {
     func createMagicController() -> VTMagicController {
         return VTMagicController.init().then({
             $0.magicView.navigationColor = UIColor.white
-            $0.magicView.sliderColor = UIColor.red
+            $0.magicView.sliderColor = UIColor.pink
             $0.magicView.layoutStyle = VTLayoutStyle.default
             $0.magicView.switchStyle = VTSwitchStyle.default
             $0.magicView.dataSource = self
             $0.magicView.delegate = self
-            $0.magicView.navigationInset = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+            $0.magicView.navigationHeight = 40
+            $0.magicView.sliderExtension = 0
+            $0.magicView.navigationInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 20, right: 0)
         })
     }
     
@@ -93,7 +95,7 @@ extension MagicControllerContainerProtocol where Self: UIViewController {
             menuItem = MagicViewItem.init(type: .custom)
             menuItem?.setTitleColor(UIColor.color9, for: UIControlState.normal)
             menuItem?.setTitleColor(UIColor.pink, for: UIControlState.selected)
-            menuItem?.titleLabel?.font = self.css.home_top_bar_text_style.font
+            menuItem?.titleLabel?.font = UIFont.sys(size: 17)
             menuItem?.backgroundColor = UIColor.white
         }
         return menuItem!
@@ -105,9 +107,9 @@ fileprivate class MagicViewItem: UIButton {
     override var isSelected: Bool {
         didSet {
             if isSelected {
-                self.titleLabel?.font = UIFont.sys(size: 18)
+                self.titleLabel?.font = UIFont.sys(size: 16)
             } else {
-                self.titleLabel?.font = UIFont.sys(size: 14)
+                self.titleLabel?.font = UIFont.sys(size: 16)
             }
         }
     }

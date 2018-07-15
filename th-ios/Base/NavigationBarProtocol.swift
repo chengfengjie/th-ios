@@ -84,8 +84,9 @@ extension CustomNavigationBarProtocol where Self: UIViewController {
             item.setImage(UIImage.init(named: iconName), for: .normal)
             item.imageEdgeInsets = UIEdgeInsets.init(top: 10, left: 10, bottom: 10, right: 10)
             item.snp.makeConstraints({ (make) in
-                make.right.top.bottom.equalTo(0)
-                make.width.equalTo(navBarContent.snp.height)
+                make.right.equalTo(-5)
+                make.centerY.equalTo(navBarContent.snp.centerY)
+                make.width.height.equalTo(50)
             })
         })
     }

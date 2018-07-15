@@ -8,14 +8,22 @@
 
 import UIKit
 
-class AddEditNoteViewModel: BaseViewModel, ArticleApi {
+class AddEditNoteViewModel: BaseViewModel, ArticleClient {
     
     var noteText: MutableProperty<String>!
     
-    var saveNoteAction: Action<(), JSON, RequestError>!
+    var saveNoteAction: Action<(), JSON, HttpError>!
     
     var callBackSignal: Signal<String, NoError>!
     private var observer: Signal<String, NoError>.Observer!
+    
+    var noteJSON: JSON? {
+        didSet {
+            if self.noteJSON != nil {
+                self.noteText.value = self.noteJSON!["content"].stringValue
+            }
+        }
+    }
     
     let paraContent: JSON
     let articleID: String
@@ -24,15 +32,11 @@ class AddEditNoteViewModel: BaseViewModel, ArticleApi {
         self.articleID = aid
         super.init()
         
-        self.noteText = MutableProperty(paraContent["sNoteContent"].stringValue)
+        self.noteText = MutableProperty("")
         
-        self.saveNoteAction = Action<(), JSON, RequestError>
-            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
-                if self.paraContent["markups"].stringValue == "0" {
-                    return self.createSaveNoteSiganlProducer()
-                } else {
-                    return self.createUpdateNoteSignalProducer()
-                }
+        self.saveNoteAction = Action<(), JSON, HttpError>
+            .init(execute: { (_) -> SignalProducer<JSON, HttpError> in
+                return self.createSaveNoteSiganlProducer()
         })
         
         let (signal, observer) = Signal<String, NoError>.pipe()
@@ -40,46 +44,46 @@ class AddEditNoteViewModel: BaseViewModel, ArticleApi {
         self.observer = observer
     }
     
-    private func createSaveNoteSiganlProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestAddArticleNote(articleID: self.articleID,
-                              pid: self.paraContent["id"].stringValue,
-                              content: self.noteText.value)
-            .observeResult { (result) in
+    private func createSaveNoteSiganlProducer() -> SignalProducer<JSON, HttpError> {
+        if self.noteText.value.isEmpty {
+            return SignalProducer.init(error: HttpError.warning(message: "笔记内容不能为空"))
+        }
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        if self.noteJSON == nil {
+            self.articleAddNote(articleId: self.articleID,
+                                content: self.noteText.value,
+                                sectionId: self.paraContent["sectionId"].stringValue,
+                                userId: UserModel.current.userID.value)
+                .observeResult { (result) in
+                    self.isRequest.value = false
+                    switch result {
+                    case let .success(data):
+                        self.okMessage.value = "保存成功"
+                        observer.send(value: data)
+                        observer.sendCompleted()
+                    case let .failure(error):
+                        self.httpError.value = error
+                        observer.send(error: error)
+                    }
+            }
+        } else {
+            self.updateArticleNote(noteId: self.noteJSON!["id"].stringValue, content: self.noteText.value).observeResult { (result) in
+                self.isRequest.value = false
                 switch result {
-                case let .success(value):
-                    print(value)
-                    self.okMessage.value = "笔记保存成功"
-                    observer.send(value: value)
+                case let .success(data):
+                    self.okMessage.value = "保存成功"
+                    observer.send(value: data)
                     observer.sendCompleted()
-                    self.observer.send(value: self.noteText.value)
                 case let .failure(error):
-                    self.requestError.value = error
+                    self.httpError.value = error
                     observer.send(error: error)
                 }
+                
+            }
         }
+
         return SignalProducer.init(signal)
     }
     
-    private func createUpdateNoteSignalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestUpdateArticleNote(articleId: self.articleID,
-                                 pid: self.paraContent["id"].stringValue,
-                                 content: self.noteText.value)
-            .observeResult { (result) in
-                switch result {
-                case let .success(value):
-                    print(value)
-                    self.okMessage.value = "笔记保存成功"
-                    observer.send(value: value)
-                    observer.sendCompleted()
-                    self.observer.send(value: self.noteText.value)
-                case let .failure(error):
-                    self.requestError.value = error
-                    observer.send(error: error)
-                }
-        }
-        return SignalProducer.init(signal)
-    }
-
 }

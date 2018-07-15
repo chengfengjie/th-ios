@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
+class ArticleDetailViewModel: BaseViewModel, CommonApi, ArticleClient, UserClient {
     
     var articleData: MutableProperty<JSON>!
     var adData: MutableProperty<JSON>!
@@ -19,117 +19,106 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
     var fetchArticleDataAction: Action<(), JSON, RequestError>!
     
-    var fetchAdDataAction: Action<(), JSON, RequestError>!
+    var collectArticleAction: Action<(), JSON, HttpError>!
     
     var commentTotalAction: Action<(), ArticleCommentListViewModel, NoError>!
     
-    var commentAction: Action<(), CommentArticleViewModel, RequestError>!
+    var commentAction: Action<(), CommentArticleViewModel, HttpError>!
     
-    var likeArticleAction: Action<(), JSON, RequestError>!
+    var likeArticleAction: Action<(), JSON, HttpError>!
     
-    var followAuthorAction: Action<(), JSON, RequestError>!
+    var followAuthorAction: Action<(), JSON, HttpError>!
     
-    var cancelFollowAuthorAction: Action<(), JSON, RequestError>!
+    var cancelFollowAuthorAction: Action<(), JSON, HttpError>!
     
-    var authorInfoAction: Action<(), AuthorViewModel, NoError>!
-    
-    var feedbackAction: Action<(), FeedbackViewModel, NoError>!
-    
-    var deleteArticleNoteAction: Action<String, JSON, RequestError>!
-    
-    var addEmptyNoteAction: Action<String, JSON, RequestError>!
+    var shareAction: Action<JSON, JSON, NoError>!
     
     var islike: MutableProperty<Bool>!
+    var isCollect: MutableProperty<Bool>!
+    var commentTotal: MutableProperty<Int>!
     
     let articleID: String
     init(articleID: String) {
-        self.articleID = "85"
+        self.articleID = articleID
         super.init()
     
         self.articleData = MutableProperty<JSON>(JSON.empty)
         self.adData = MutableProperty<JSON>(JSON.empty)
         
         self.islike = MutableProperty<Bool>.init(false)
+        self.isCollect = MutableProperty.init(false)
+        self.commentTotal = MutableProperty.init(0)
         
         self.fetchArticleDataAction = Action<(), JSON, RequestError>
             .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
             return self.createFetchArticleDataProducer()
         })
         
-        self.fetchAdDataAction = Action<(), JSON, RequestError>
-            .init(execute: { (input) -> SignalProducer<JSON, RequestError> in
-            return self.createFetchAdDataProducer()
-        })
-        
         self.commentTotalAction = Action<(), ArticleCommentListViewModel, NoError>
             .init(execute: { (tulp) -> SignalProducer<ArticleCommentListViewModel, NoError> in
-            return SignalProducer.init(value: self.commentViewModel)
+                let model = self.commentViewModel
+                model.commentTotal.value = self.commentTotal.value
+                return SignalProducer.init(value: model)
         })
-        
-        self.commentAction = Action<(), CommentArticleViewModel, RequestError>
-            .init(execute: { (tulp) -> SignalProducer<CommentArticleViewModel, RequestError> in
+
+        self.commentAction = Action<(), CommentArticleViewModel, HttpError>
+            .init(execute: { (tulp) -> SignalProducer<CommentArticleViewModel, HttpError> in
                 if self.currentUser.isLogin.value {
-                    return SignalProducer.init(value: self.commentArticleViewModel)
+                    let model = self.commentArticleViewModel
+                    model.commentAction.values.observeValues({ (data) in
+                        self.commentTotal.value = self.commentTotal.value + 1
+                    })
+                    return SignalProducer.init(value: model)
                 } else {
-                    return SignalProducer.init(error: RequestError.forbidden)
+                    self.httpError.value = HttpError.forbidden
+                    return SignalProducer.init(error: HttpError.forbidden)
                 }
-            
+
         })
         
-        self.likeArticleAction = Action<(), JSON, RequestError>
-            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
-                self.islike.value = !self.islike.value
+        self.collectArticleAction = Action<(), JSON, HttpError>
+            .init(execute: { (_) -> SignalProducer<JSON, HttpError> in
+                if !UserModel.current.isLogin.value {
+                    self.httpError.value = HttpError.forbidden
+                    return SignalProducer.init(error: HttpError.forbidden)
+                } else if self.isCollect.value {
+                    return self.createCancelCollectArticleProducer()
+                } else {
+                    return self.createCollectArticleProducer()
+                }
+        })
+        
+        self.likeArticleAction = Action<(), JSON, HttpError>
+            .init(execute: { (_) -> SignalProducer<JSON, HttpError> in
                 if self.currentUser.isLogin.value {
                     return self.createlikeArticleSignalProducer(isLike: self.islike.value)
                 } else {
-                    return SignalProducer.init(error: RequestError.forbidden)
+                    return SignalProducer.init(error: HttpError.forbidden)
                 }
         })
-        
-        self.followAuthorAction = Action<(), JSON, RequestError>
-            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+
+        self.followAuthorAction = Action<(), JSON, HttpError>
+            .init(execute: { (_) -> SignalProducer<JSON, HttpError> in
                 if self.currentUser.isLogin.value {
-                    return self.createFollowAuthorSignalProducer()
+                    return self.createAttentionAuthorSignalProducer()
                 } else {
-                    self.requestError.value = RequestError.forbidden
+                    self.httpError.value = HttpError.forbidden
                     return SignalProducer.empty
                 }
         })
-        
-        self.cancelFollowAuthorAction = Action<(), JSON, RequestError>
-            .init(execute: { (_) -> SignalProducer<JSON, RequestError> in
+
+        self.cancelFollowAuthorAction = Action<(), JSON, HttpError>
+            .init(execute: { (_) -> SignalProducer<JSON, HttpError> in
                 if self.currentUser.isLogin.value {
                     return self.createCancelAuthorSignalProducer()
                 } else {
-                    self.requestError.value = RequestError.forbidden
+                    self.httpError.value = HttpError.forbidden
                     return SignalProducer.empty
                 }
         })
         
-        self.authorInfoAction = Action<(), AuthorViewModel, NoError>
-            .init(execute: { (_) -> SignalProducer<AuthorViewModel, NoError> in
-                let model = AuthorViewModel(authorID: self.articleData.value["sAuthorid"].stringValue)
-                return SignalProducer.init(value: model)
-        })
-        
-        self.feedbackAction = Action<(), FeedbackViewModel, NoError>
-            .init(execute: { (_) -> SignalProducer<FeedbackViewModel, NoError> in
-                return SignalProducer.init(value: FeedbackViewModel())
-        })
-        
-        self.deleteArticleNoteAction = Action<String, JSON, RequestError>
-            .init(execute: { (pid) -> SignalProducer<JSON, RequestError> in
-                return self.createDeleteArticleNote(pid: pid)
-        })
-        
-        self.addEmptyNoteAction = Action<String, JSON, RequestError>
-            .init(execute: { (pid) -> SignalProducer<JSON, RequestError> in
-                if self.currentUser.isLogin.value {
-                    return self.createAddEmptyNoteSignalProducer(pid: pid)
-                } else {
-                    self.requestError.value = RequestError.forbidden
-                    return SignalProducer.empty
-                }
+        self.shareAction = Action.init(execute: { (data) -> SignalProducer<JSON, NoError> in
+            return SignalProducer.init(value: data)
         })
     }
     
@@ -143,126 +132,135 @@ class ArticleDetailViewModel: BaseViewModel, ArticleApi, CommonApi {
     
     override func viewModelDidLoad() {
         super.viewModelDidLoad()
-        
-        self.fetchArticleDataAction.values.observeValues { [weak self] (_) in
-            self?.fetchAdDataAction.apply(()).start()
-        }
     }
     
     private func createFetchArticleDataProducer() -> SignalProducer<JSON, RequestError> {
         self.isRequest.value = true
         let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestArticleInfo(articleID: self.articleID, userID: self.currentUser.userID.value).observeResult { (result) in
+        self.getArticleDetail(articleId: self.articleID).observeResult { (result) in
             self.isRequest.value = false
             switch result {
-            case let .success(value):
-                print(value)
-                let data = value["data"]
+            case let .success(data):
+                print(data)
                 self.articleData.value = data
-                self.islike.value = data["islike"].stringValue == "1" ? true : false
+                self.commentTotal.value = data["commentTotal"].intValue
+                self.islike.value = data["isLike"].boolValue
+                self.isCollect.value = data["isCollect"].boolValue
                 observer.send(value: data)
                 observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-                self.requestError.value = error
+            case let .failure(err):
+                print(err)
             }
         }
         return SignalProducer.init(signal)
     }
     
-    func createFetchAdDataProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        self.requestArticleAd(cateID: self.articleData.value["sCateid"].stringValue)
+    private func createCollectArticleProducer() -> SignalProducer<JSON, HttpError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        self.articleCollect(articleId: self.articleID, userId: UserModel.current.userID.value)
             .observeResult { (result) in
+                self.isRequest.value = false
                 switch result {
                 case let .success(data):
-                    let list = data["data"]["advlist"]
-                    self.adData.value = list
-                    observer.send(value: list)
+                    print(data)
+                    self.isCollect.value = true
+                    observer.send(value: data)
                     observer.sendCompleted()
                 case let .failure(error):
-                    observer.send(error: error)
+                    print(error)
                 }
         }
         return SignalProducer.init(signal)
     }
     
-    func createlikeArticleSignalProducer(isLike: Bool) -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+    private func createCancelCollectArticleProducer() -> SignalProducer<JSON, HttpError> {
         self.isRequest.value = true
-        requestSetArticleLikeState(isLike: isLike, articleId: self.articleID).observeResult { (result) in
-            self.isRequest.value = false
-            switch result {
-            case let .success(value):
-                print(value)
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-            }
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        self.articleCollectCancel(articleId: self.articleID, userId: UserModel.current.userID.value)
+            .observeResult { (result) in
+                self.isRequest.value = false
+                switch result {
+                case let .success(data):
+                    print(data)
+                    self.isCollect.value = false
+                    observer.send(value: data)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    print(error)
+                }
         }
         return SignalProducer.init(signal)
     }
     
-    func createFollowAuthorSignalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestFlowAuthor(authorId: self.articleData.value["sAuthorid"].stringValue).observeResult { (result) in
-            switch result {
-            case let .success(value):
-                print(value)
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-            }
-        }
-        return SignalProducer.init(signal)
-    }
-    
-    func createCancelAuthorSignalProducer() -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestCancelFllowAuthor(authorId: self.articleData.value["sAuthorid"].stringValue).observeResult { (result) in
-            switch result {
-            case let .success(value):
-                print(value)
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-            }
-        }
-        return SignalProducer.init(signal)
-    }
-    
-    func createDeleteArticleNote(pid: String) -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
+    func createlikeArticleSignalProducer(isLike: Bool) -> SignalProducer<JSON, HttpError> {
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
         self.isRequest.value = true
-        requestDeleteArticleNote(articleId: self.articleID, pid: pid).observeResult { (result) in
-            self.isRequest.value = false
-            switch result {
-            case let .success(value):
-                print(value)
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                self.requestError.value = error
-                observer.send(error: error)
+        if !isLike {
+            self.likeArticle(articleId: self.articleID, userId: UserModel.current.userID.value).observeResult { (result) in
+                self.isRequest.value = false
+                switch result {
+                case let .success(data):
+                    print(data)
+                    self.islike.value = true
+                    observer.send(value: data)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                    observer.send(error: error)
+                }
+            }
+        } else {
+            self.likeCancelArticle(articleId: self.articleID, userId: UserModel.current.userID.value).observeResult { (result) in
+                self.isRequest.value = false
+                switch result {
+                case let .success(data):
+                    print(data)
+                    self.islike.value = false
+                    observer.send(value: data)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                }
             }
         }
         return SignalProducer.init(signal)
     }
-    
-    func createAddEmptyNoteSignalProducer(pid: String) -> SignalProducer<JSON, RequestError> {
-        let (signal, observer) = Signal<JSON, RequestError>.pipe()
-        requestAddArticleNote(articleID: self.articleID, pid: pid, content: "").observeResult { (result) in
-            switch result {
-            case let .success(value):
-                print(value)
-                observer.send(value: value)
-                observer.sendCompleted()
-            case let .failure(error):
-                observer.send(error: error)
-            }
+
+    func createAttentionAuthorSignalProducer() -> SignalProducer<JSON, HttpError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        self.attentionAuthor(userId: UserModel.current.userID.value,
+                             authorId: self.articleData.value["authorId"].stringValue)
+            .observeResult { (result) in
+                self.isRequest.value = false
+                switch result {
+                case let .success(data):
+                    observer.send(value: data)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                    observer.send(error: error)
+                }
+        }
+        return SignalProducer.init(signal)
+    }
+
+    func createCancelAuthorSignalProducer() -> SignalProducer<JSON, HttpError> {
+        self.isRequest.value = true
+        let (signal, observer) = Signal<JSON, HttpError>.pipe()
+        self.cancelAttentionAuthor(userId: UserModel.current.userID.value,
+                                   authorId: self.articleData.value["authorId"].stringValue)
+            .observeResult { (result) in
+                self.isRequest.value = false
+                switch result {
+                case let .success(data):
+                    observer.send(value: data)
+                    observer.sendCompleted()
+                case let .failure(error):
+                    self.httpError.value = error
+                    observer.send(error: error)
+                }
         }
         return SignalProducer.init(signal)
     }
